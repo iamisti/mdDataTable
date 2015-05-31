@@ -8,25 +8,53 @@ http://www.google.com/design/spec/components/data-tables.html
 ### (not finalized yet, if you have improvement ideas, let me know)
 
 In its simplest form, a data table contains a top row of column names, and rows for data.
+![A selected table row](http://material-design.storage.googleapis.com/publish/material_v_4/material_ext_publish/0B3mOPoJlxiFhV25CdGNXYzA4cXM/components_datatables_structure_basictable.png)
 
 ### Table attributes
 
+| Params                                         | Type          | Details       |
+| ---------------------------------------------- | ------------- | ------------- |
+| selectable-rows                                | Boolean       | optional, checkboxes accompany each row if need to select or manipulate data |
+![alt tag](http://material-design.storage.googleapis.com/publish/material_v_4/material_ext_publish/0B3mOPoJlxiFhcWNyQl9xYmRkQnc/components_datatables_interaction_selectedrow.png)
+
+| Params                                         | Type          | Details       |
+| ---------------------------------------------- | ------------- | ------------- |
+| sortable-columns                               | Boolean       | optional, if enabled, sort data and display a sorted state in the column header. If the user clicks on a column that is already sorted, reverse the sort order and rotate the sort icon. Use sortable-rows-default attribute directive on a column which intended to be the default sortable column |
+![Table with an ascending sorted column](http://material-design.storage.googleapis.com/publish/material_v_4/material_ext_publish/0B3mOPoJlxiFhMW1haUJDRWJKLUk/components_datatables_interaction_sortedcolumn.png)
+
+
 | Params                                         | ChildParams                     | Type          | Details       |
 | ---------------------------------------------- | ------------------------------- | ------------- | ------------- |
-| selectable-rows                                |                                 | Boolean       | optional, checkboxes accompany each row if need to select or manipulate data |
-| sortable-columns                               |                                 | Boolean       | optional, if enabled, sort data and display a sorted state in the column header. If the user clicks on a column that is already sorted, reverse the sort order and rotate the sort icon. Use sortable-rows-default attribute directive on a column which intended to be the default sortable column |
 | column-overflow-handler                        |                                 | String        | optional      |
-|                                                | _(default)_ truncateColumnNames | String        |               |
-|                                                | useHorizontalScrollingOnTable   | String        |               |
-| table-card                                     |                                 | Object        | optional      |
+|                                                | _(default)_ truncateColumnNames | -             |               |
+|                                                | useHorizontalScrollingOnTable   | -             |               |
+![Long column names truncated with an ellipse](http://material-design.storage.googleapis.com/publish/material_v_4/material_ext_publish/0B3mOPoJlxiFhMkVuNC1Zd3QyZ1k/components_datatables_interaction_longtitle1.png)
+![Hovering over a truncated column name](http://material-design.storage.googleapis.com/publish/material_v_4/material_ext_publish/0B3mOPoJlxiFhclI1SGllZkZQTkE/components_datatables_interaction_longtitle2.png)
+
+
+| Params                                         | ChildParams                     | Type          | Details       |
+| ---------------------------------------------- | ------------------------------- | ------------- | ------------- |
+| table-card                                     |                                 | Object        | optional, Tables can be embedded within a card, with table navigation and data manipulation tools available at the top and bottom. |
 |                                                | title                           | String        |               |
 |                                                | actionIcons                     | Boolean       |               |
 |                                                | displayPagination               | Boolean       |               |
 |                                                | displayPaginationLabels         | Boolean       |               |
-|                                                |                                 |               |               |
+![Table card with header and footer](http://material-design.storage.googleapis.com/publish/material_v_4/material_ext_publish/0B3mOPoJlxiFhUTEwa21JUEtza0k/components_datatables_cards_tablecard.png)
+
+
+
+| Params                                         | ChildParams                     | Type          | Details       |
+| ---------------------------------------------- | ------------------------------- | ------------- | ------------- |
 | alternate-headers                              |                                 | String        | optional      |
 |                                                | persistentActions               | -             |               |
 |                                                | contextual                      | -             |               |
+![persistent actions](http://material-design.storage.googleapis.com/publish/material_v_4/material_ext_publish/0B3mOPoJlxiFhemNvbnZOcXNpODQ/components_datatables_cards_altheaders.png)
+
+![contextual](http://material-design.storage.googleapis.com/publish/material_v_4/material_ext_publish/0B3mOPoJlxiFhemNvbnZOcXNpODQ/components_datatables_cards_altheaders.png)
+
+
+| Params                                         | ChildParams                     | Type          | Details       |
+| ---------------------------------------------- | ------------------------------- | ------------- | ------------- |
 | table-rows-data                                |                                 | Array         | array representations of data |
 
 
@@ -43,6 +71,7 @@ In its simplest form, a data table contains a top row of column names, and rows 
 |                                                | editIcon           | -             | Inline edit icon |
 |                                                |                    |               |                  |
 | sortable-rows-default                          |                    | -             | When sortable-columns is applied to the table, it marks the column as the default sorting column |
+
 
 
 ### Example:
