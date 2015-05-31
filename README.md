@@ -10,7 +10,7 @@ http://www.google.com/design/spec/components/data-tables.html
 In its simplest form, a data table contains a top row of column names, and rows for data.
 ![A selected table row](http://material-design.storage.googleapis.com/publish/material_v_4/material_ext_publish/0B3mOPoJlxiFhV25CdGNXYzA4cXM/components_datatables_structure_basictable.png)
 
-### Table attributes
+## Table attributes
 
 | Params                                         | Type          | Details       |
 | ---------------------------------------------- | ------------- | ------------- |
@@ -22,15 +22,13 @@ In its simplest form, a data table contains a top row of column names, and rows 
 | sortable-columns                               | Boolean       | optional, if enabled, sort data and display a sorted state in the column header. If the user clicks on a column that is already sorted, reverse the sort order and rotate the sort icon. Use sortable-rows-default attribute directive on a column which intended to be the default sortable column |
 ![Table with an ascending sorted column](http://material-design.storage.googleapis.com/publish/material_v_4/material_ext_publish/0B3mOPoJlxiFhMW1haUJDRWJKLUk/components_datatables_interaction_sortedcolumn.png)
 
-
 | Params                                         | ChildParams                     | Type          | Details       |
 | ---------------------------------------------- | ------------------------------- | ------------- | ------------- |
-| column-overflow-handler                        |                                 | String        | optional      |
-|                                                | _(default)_ truncateColumnNames | -             |               |
-|                                                | useHorizontalScrollingOnTable   | -             |               |
+| title-overflow-handler                         |                                 | String        | optional, Sometimes, column names don’t fit in a container in between columns. There are two options to handle this |
+|                                                | _(default)_ truncateColumnNames | -             | Shorten the column name and display it in full on hover |
+|                                                | useHorizontalScrollingOnTable   | -             | Display the full column name and enable horizontal scrolling in the table container |
 ![Long column names truncated with an ellipse](http://material-design.storage.googleapis.com/publish/material_v_4/material_ext_publish/0B3mOPoJlxiFhMkVuNC1Zd3QyZ1k/components_datatables_interaction_longtitle1.png)
 ![Hovering over a truncated column name](http://material-design.storage.googleapis.com/publish/material_v_4/material_ext_publish/0B3mOPoJlxiFhclI1SGllZkZQTkE/components_datatables_interaction_longtitle2.png)
-
 
 | Params                                         | ChildParams                     | Type          | Details       |
 | ---------------------------------------------- | ------------------------------- | ------------- | ------------- |
@@ -41,8 +39,6 @@ In its simplest form, a data table contains a top row of column names, and rows 
 |                                                | displayPaginationLabels         | Boolean       |               |
 ![Table card with header and footer](http://material-design.storage.googleapis.com/publish/material_v_4/material_ext_publish/0B3mOPoJlxiFhUTEwa21JUEtza0k/components_datatables_cards_tablecard.png)
 
-
-
 | Params                                         | ChildParams                     | Type          | Details       |
 | ---------------------------------------------- | ------------------------------- | ------------- | ------------- |
 | alternate-headers                              |                                 | String        | optional      |
@@ -50,13 +46,12 @@ In its simplest form, a data table contains a top row of column names, and rows 
 |                                                | contextual                      | -             |               |
 ![persistent and contextual headers](http://material-design.storage.googleapis.com/publish/material_v_4/material_ext_publish/0B3mOPoJlxiFhemNvbnZOcXNpODQ/components_datatables_cards_altheaders.png)
 
-
 | Params                                         | Type          | Details                       |
 | ---------------------------------------------- | ------------- | -------------                 |
 | table-rows-data                                | Array         | array representations of data |
 
 
-### Column attributes
+## Column attributes
 
 | Params                                         | Type          | Details         |
 | ---------------------------------------------- | ------------- | --------------- |
@@ -81,14 +76,12 @@ In its simplest form, a data table contains a top row of column names, and rows 
 ![A complex, flexible edit dialog](http://material-design.storage.googleapis.com/publish/material_v_4/material_ext_publish/0B3mOPoJlxiFhZkY4b1VkME5QcXM/components_datatables_interaction_editing3.png)
 ![Icon-based edit affordance](http://material-design.storage.googleapis.com/publish/material_v_4/material_ext_publish/0B3mOPoJlxiFhazJZa2VmSU5ldTQ/components_datatables_interaction_editing4.png)
 
-
 | Params                                         | ChildParams        | Type          | Details         |
 | ---------------------------------------------- | ------------------ | ------------- | --------------- |
 | sortable-rows-default                          |                    | -             | When sortable-columns is applied to the table, it marks the column as the default sorting column |
 
 
-
-### Example:
+## Example usage:
     <md-data-table
         selectable-rows="true"
         table-card="{title: Nutrition, actionIcons: true}"
