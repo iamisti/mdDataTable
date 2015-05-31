@@ -19,7 +19,7 @@ In its simplest form, a data table contains a top row of column names, and rows 
 
 | Params                                         | Type          | Details       |
 | ---------------------------------------------- | ------------- | ------------- |
-| sortable-columns                               | Boolean       | optional, if enabled, sort data and display a sorted state in the column header. If the user clicks on a column that is already sorted, reverse the sort order and rotate the sort icon. Use sortable-rows-default attribute directive on a column which intended to be the default sortable column |
+| sortable-columns                               | Boolean       | optional, if enabled, sort data and display a sorted state in the column header. If the user clicks on a column that is already sorted, reverse the sort order and rotate the sort icon. Use `sortable-rows-default` attribute directive on a column which intended to be the default sortable column |
 ![Table with an ascending sorted column](http://material-design.storage.googleapis.com/publish/material_v_4/material_ext_publish/0B3mOPoJlxiFhMW1haUJDRWJKLUk/components_datatables_interaction_sortedcolumn.png)
 
 | Params                                         | ChildParams                     | Type          | Details       |
@@ -32,18 +32,16 @@ In its simplest form, a data table contains a top row of column names, and rows 
 
 | Params                                         | ChildParams                     | Type          | Details       |
 | ---------------------------------------------- | ------------------------------- | ------------- | ------------- |
-| table-card                                     |                                 | Object        | optional, Tables can be embedded within a card, with table navigation and data manipulation tools available at the top and bottom. |
-|                                                | title                           | String        |               |
-|                                                | actionIcons                     | Boolean       |               |
-|                                                | displayPagination               | Boolean       |               |
-|                                                | displayPaginationLabels         | Boolean       |               |
+| table-card                                     |                                 | Object        | optional, tables can be embedded within a card, with table navigation and data manipulation tools available at the top and bottom. |
+|                                                | title                           | String        | The title of the table card |
+|                                                | actionIcons                     | Boolean       | Card action icons (header and footer) |
 ![Table card with header and footer](http://material-design.storage.googleapis.com/publish/material_v_4/material_ext_publish/0B3mOPoJlxiFhUTEwa21JUEtza0k/components_datatables_cards_tablecard.png)
 
 | Params                                         | ChildParams                     | Type          | Details       |
 | ---------------------------------------------- | ------------------------------- | ------------- | ------------- |
-| alternate-headers                              |                                 | String        | optional      |
-|                                                | persistentActions               | -             |               |
-|                                                | contextual                      | -             |               |
+| alternate-headers                              |                                 | String        | optional, some table cards may require headers with actions instead of titles. Two possible approaches to this are to display persistent actions, or a contextual header that activates when items are selected |
+|                                                | persistentActions               | -             | Shows persistent action buttons in header |
+|                                                | contextual                      | -             | Shows contextual content depending on what has been selected |
 ![persistent and contextual headers](http://material-design.storage.googleapis.com/publish/material_v_4/material_ext_publish/0B3mOPoJlxiFhemNvbnZOcXNpODQ/components_datatables_cards_altheaders.png)
 
 | Params                                         | Type          | Details                       |
