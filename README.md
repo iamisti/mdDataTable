@@ -48,28 +48,42 @@ In its simplest form, a data table contains a top row of column names, and rows 
 | alternate-headers                              |                                 | String        | optional      |
 |                                                | persistentActions               | -             |               |
 |                                                | contextual                      | -             |               |
-![persistent actions](http://material-design.storage.googleapis.com/publish/material_v_4/material_ext_publish/0B3mOPoJlxiFhemNvbnZOcXNpODQ/components_datatables_cards_altheaders.png)
-
-![contextual](http://material-design.storage.googleapis.com/publish/material_v_4/material_ext_publish/0B3mOPoJlxiFhemNvbnZOcXNpODQ/components_datatables_cards_altheaders.png)
+![persistent and contextual headers](http://material-design.storage.googleapis.com/publish/material_v_4/material_ext_publish/0B3mOPoJlxiFhemNvbnZOcXNpODQ/components_datatables_cards_altheaders.png)
 
 
-| Params                                         | ChildParams                     | Type          | Details       |
-| ---------------------------------------------- | ------------------------------- | ------------- | ------------- |
-| table-rows-data                                |                                 | Array         | array representations of data |
+| Params                                         | Type          | Details                       |
+| ---------------------------------------------- | ------------- | -------------                 |
+| table-rows-data                                | Array         | array representations of data |
 
 
 ### Column attributes
 
+| Params                                         | Type          | Details         |
+| ---------------------------------------------- | ------------- | --------------- |
+| column-definition                              | String        | if provided, display a tooltip on hover. If sorting is enabled, display a light sort icon upon hover, which indicates that the column is sortable. |
+![Column definition on hover](http://material-design.storage.googleapis.com/publish/material_v_4/material_ext_publish/0B3mOPoJlxiFhenh5SWhFdFlyajg/components_datatables_interaction_tooltip.png)
+
 | Params                                         | ChildParams        | Type          | Details         |
 | ---------------------------------------------- | ------------------ | ------------- | --------------- |
-| column-definition                              |                    | String        | if provided, display a tooltip on hover. If sorting is enabled, display a light sort icon upon hover, which indicates that the column is sortable. |
 | inline-menu                                    |                    | Array         | if provided, users can select from a predefined list of options. In this scenario, a menu component directly embedded in the table |
+![A table with inline menus](http://material-design.storage.googleapis.com/publish/material_v_4/material_ext_publish/0B3mOPoJlxiFhblJlanhBSHYzNWs/components_datatables_interaction_inlinemenus1.png)
+![An expanded inline menu](http://material-design.storage.googleapis.com/publish/material_v_4/material_ext_publish/0B3mOPoJlxiFhV200T3NSWG9TZFU/components_datatables_interaction_inlinemenus2.png)
+
+| Params                                         | ChildParams        | Type          | Details         |
+| ---------------------------------------------- | ------------------ | ------------- | --------------- |
 | editable-field                                 |                    | String        | if provided, provides basic text editing. Include editable fields within a table and denote them using placeholder text(if empty). You can use a simple edit dialog with just a text field, or display a full dialog component on click. |
 |                                                | textInput          | -             | An editable table cell with placeholder text |
 |                                                | smallEditDialog    | -             | A simple, one-field edit dialog on click |
 |                                                | largeEditDialog    | -             | A complex, flexible edit edit dialog on click |
 |                                                | editIcon           | -             | Inline edit icon |
-|                                                |                    |               |                  |
+![An editable table cell with placeholder text](http://material-design.storage.googleapis.com/publish/material_v_4/material_ext_publish/0B3mOPoJlxiFhZTViOVFXZTNucGs/components_datatables_interaction_editing1.png)
+![A simple, one-field edit dialog](http://material-design.storage.googleapis.com/publish/material_v_4/material_ext_publish/0B3mOPoJlxiFhZHhJSVhoT2JuTkE/components_datatables_interaction_editing2.png)
+![A complex, flexible edit dialog](http://material-design.storage.googleapis.com/publish/material_v_4/material_ext_publish/0B3mOPoJlxiFhZkY4b1VkME5QcXM/components_datatables_interaction_editing3.png)
+![Icon-based edit affordance](http://material-design.storage.googleapis.com/publish/material_v_4/material_ext_publish/0B3mOPoJlxiFhazJZa2VmSU5ldTQ/components_datatables_interaction_editing4.png)
+
+
+| Params                                         | ChildParams        | Type          | Details         |
+| ---------------------------------------------- | ------------------ | ------------- | --------------- |
 | sortable-rows-default                          |                    | -             | When sortable-columns is applied to the table, it marks the column as the default sorting column |
 
 
