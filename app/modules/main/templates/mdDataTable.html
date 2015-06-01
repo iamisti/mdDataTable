@@ -17,33 +17,33 @@
             </tr>
         </thead>
         <tbody>
-            <tr ng-repeat="i in [1,2,3,4]">
+            <tr ng-repeat="aRow in vm.tableRowsData">
                 <td class="checkboxCell">
                     <md-checkbox></md-checkbox>
                 </td>
                 <td class="textColumn column">
-                    Frozen joghurt
+                    {{aRow[0]}}
                 </td>
                 <td class="numericColumn column">
-                    159
+                    {{aRow[1]}}
                 </td>
                 <td class="numericColumn column">
-                    6.0
+                    {{aRow[2]}}
                 </td>
                 <td class="numericColumn column">
-                    24
+                    {{aRow[3]}}
                 </td>
                 <td class="numericColumn column">
-                    4.0
+                    {{aRow[4]}}
                 </td>
                 <td class="numericColumn column">
-                    87
+                    {{aRow[5]}}
                 </td>
                 <td class="numericColumn column">
-                    14%
+                    {{aRow[6]}}
                 </td>
                 <td class="numericColumn column">
-                    1%
+                    {{aRow[7]}}
                 </td>
             </tr>
         </tbody>
