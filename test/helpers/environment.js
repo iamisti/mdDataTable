@@ -1,8 +1,6 @@
 module.exports.getUnitReportersForCurrentRun = function() {
     var reporters = ['coverage'];
 
-    reporters.push('teamcity');
-
     return reporters;
 };
 

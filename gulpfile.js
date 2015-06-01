@@ -6,6 +6,7 @@ require('./gulp-tasks/compass');
 require('./gulp-tasks/copy');
 require('./gulp-tasks/index');
 require('./gulp-tasks/templates');
+require('./gulp-tasks/lint');
 require('./gulp-tasks/test');
 
 gulp.task('start development webserver', function() {
@@ -23,6 +24,10 @@ gulp.task('default', function(next) {
 
 gulp.task('build', function(next) {
     runSequence('test', 'copy', 'templates', 'compass', 'create index.html', next);
+});
+
+gulp.task('ci', function(next) {
+    runSequence('lint', 'test', next);
 });
 
 gulp.task('test', function(next) {

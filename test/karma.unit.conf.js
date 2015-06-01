@@ -14,15 +14,7 @@ var unitTestingConfig = _.merge(baseConfig(), {
         'app/bower_components/angular-mocks/angular-mocks.js',
 
         //unit tests
-        'test/unit/**/*.js',
-
-        //fixtures
-        {
-            pattern: 'test/mock/*.json',
-            watched:  true,
-            served:   true,
-            included: false
-        }
+        'test/unit/**/*.js'
     ],
 
     exclude: [

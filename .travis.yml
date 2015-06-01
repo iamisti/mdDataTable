@@ -10,4 +10,4 @@ before_install:
 
 script:
   - bower install
-  - gulp build
+  - gulp ci
