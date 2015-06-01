@@ -22,7 +22,7 @@ gulp.task('default', function(next) {
 });
 
 gulp.task('build', function(next) {
-    runSequence('copy', 'templates', 'compass', 'create index.html', next);
+    runSequence('test', 'copy', 'templates', 'compass', 'create index.html', next);
 });
 
 gulp.task('test', function(next) {
