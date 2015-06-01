@@ -5,7 +5,7 @@ var gulp   = require('gulp'),
     bowerFiles  = require('main-bower-files'),
     runSequence = require('run-sequence');
 
-var jsAssets    = ['app/modules/**/app.js'],
+var jsAssets    = ['app/modules/**/*.js'],
     bowerAssets = bowerFiles({ debug: true });
 
 gulp.task('inject assets into index.html', function() {

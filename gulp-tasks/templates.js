@@ -4,12 +4,12 @@ var gulp  = require('gulp'),
     templateCache = require('gulp-angular-templatecache'),
     runSequence   = require('run-sequence');
 
-var htmlFiles = ['app/modules/**/*.html'];
+var htmlFiles = ['./app/modules/**/*.html'];
 
 gulp.task('cache templates', function() {
     return gulp
         .src(htmlFiles)
-        .pipe(templateCache('templates.js', { standalone:true }))
+        .pipe(templateCache('templates.js', { root:'/', standalone:true }))
         .pipe(gulp.dest('build'));
 });
 

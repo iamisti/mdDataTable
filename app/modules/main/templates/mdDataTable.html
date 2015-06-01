@@ -1,0 +1,52 @@
+<md-content class="mdDataTable md-whiteframe-z1" layout="column">
+    <div class="mdDataTable-header" layout="row" layout-align="start center">Nutrition</div>
+    <table cellpadding="0" cellspacing="0">
+        <thead>
+            <tr>
+                <th class="checkboxCell">
+                    <md-checkbox></md-checkbox>
+                </th>
+                <th class="textColumn column">Dessert (100g serving)</th>
+                <th class="numericColumn column">Calories</th>
+                <th class="numericColumn column">Fat(g)</th>
+                <th class="numericColumn column">Carbs(g)</th>
+                <th class="numericColumn column">Protein(g)</th>
+                <th class="numericColumn column">Sodium(mg)</th>
+                <th class="numericColumn column">Calcium(%)</th>
+                <th class="numericColumn column">Iron(%)</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="i in [1,2,3,4]">
+                <td class="checkboxCell">
+                    <md-checkbox></md-checkbox>
+                </td>
+                <td class="textColumn column">
+                    Frozen joghurt
+                </td>
+                <td class="numericColumn column">
+                    159
+                </td>
+                <td class="numericColumn column">
+                    6.0
+                </td>
+                <td class="numericColumn column">
+                    24
+                </td>
+                <td class="numericColumn column">
+                    4.0
+                </td>
+                <td class="numericColumn column">
+                    87
+                </td>
+                <td class="numericColumn column">
+                    14%
+                </td>
+                <td class="numericColumn column">
+                    1%
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <div class="mdDataTable-footer" layout="row"> </div>
+</md-content>

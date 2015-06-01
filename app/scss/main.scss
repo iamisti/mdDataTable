@@ -1,3 +1,89 @@
 body{
-  color:red;
+  background: #DDDDDD;
+}
+
+.mdDataTable{
+    table{ width:100%; }
+    td, th{ padding: 0; margin: 0; }
+    font-size: 15px;
+
+    $whiteColor: #ffffff;
+
+    /* 12sp Roboto Medium, 54% black */
+    th{
+        font-size: 12px;
+        font-weight: 500;
+        color: darken($whiteColor, 54%);
+    }
+
+    /* 64dp card header height */
+    .mdDataTable-header{
+        height: 64px;
+        padding-left: 24px;
+    }
+
+    /* 56do for last row */
+    .mdDataTable-footer, tr th{
+        height: 56px;
+    }
+
+    /* column padding */
+    .checkboxCell{
+        width: 18px;
+
+        & md-checkbox{
+            margin: 0;
+            padding: 0;
+        }
+
+        /*the next cell should not have just 24px padding */
+        & + td, & + th {
+            padding-left: 24px;
+        }
+    }
+
+    /* 48dp row height */
+    /* 13sp Roboto Regular, 87% black */
+    tr td{
+        padding: 0;
+        height: 48px;
+        font-size: 13px;
+        color: darken($whiteColor, 87%);
+    }
+
+    td:first-child, th:first-child{
+        padding: 0 0 0 24px;
+    }
+
+    td:last-child, th:last-child{
+        padding-right: 24px;
+    }
+
+    .column{
+        padding-left: 56px;
+    }
+
+    .textColumn{
+        text-align: left;
+    }
+
+    .numericColumn{
+        text-align: right;
+    }
+
+    /* border separation color */
+    tr th{
+      border-bottom: solid 1px #DDDDDD;
+    }
+
+    tr td{
+      border-bottom: solid 1px #DDDDDD;
+    }
+
+
+
+    /* INTERACTION */
+    tr:hover td{
+        background: #EEEEEE;
+    }
 }

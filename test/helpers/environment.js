@@ -6,7 +6,7 @@ module.exports.getUnitReportersForCurrentRun = function() {
 
 module.exports.getCoverageReportersForCurrentRun = function() {
     var reporters = [
-        { type: 'lcov', subdir: 'coverage' },
+        { type: 'lcov', subdir: 'coverage' }
     ];
 
     return reporters;
