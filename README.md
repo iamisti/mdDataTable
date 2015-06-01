@@ -1,3 +1,5 @@
+![build status](https://travis-ci.org/iamisti/md-data-table.svg)
+
 # md-data-table
 Angular data table implementation of google material design.
 
