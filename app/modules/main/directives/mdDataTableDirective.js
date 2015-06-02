@@ -25,7 +25,7 @@
             link: function(scope,element,attrs,ctrl, transclude){
                 angular.element(transclude()).insertAfter(element.find('.theadTrRow .checkboxCell'));
             }
-        }
+        };
     }
 
     angular

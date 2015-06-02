@@ -7,7 +7,7 @@
             templateUrl: '/main/templates/mdDataTableColumn.html',
             transclude: true,
             replace: true
-        }
+        };
     }
 
     angular
