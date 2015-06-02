@@ -12,45 +12,73 @@
 
     <!-- Styles -->
     <!-- bower:css -->
-    <link rel="stylesheet" href="app/bower_components/angular-material/angular-material.css">
+    <link rel="stylesheet" href="/app/bower_components/angular-material/angular-material.css">
     <!-- endinject -->
     <!-- inject:css -->
     <!-- built css files will go here... -->
     <!-- endinject -->
     <link rel="stylesheet" href="main.css"/>
 </head>
-<body ng-app="mdDataTable" ng-strict-di>
+<body ng-app="exampleApp">
 
-<div style="width:1000px;padding-top:40px;margin:0 auto;">
-    <md-data-table>
-        <md-data-table-column>Dessert (100g serving)</md-data-table-column>
-        <md-data-table-column>Calories</md-data-table-column>
-        <md-data-table-column>Fat (g)</md-data-table-column>
-        <md-data-table-column>Carbs (g)</md-data-table-column>
-        <md-data-table-column>Protein (g)</md-data-table-column>
-        <md-data-table-column>Sodium (mg)</md-data-table-column>
-        <md-data-table-column>Calcium (%)</md-data-table-column>
-        <md-data-table-column>Iron (%)</md-data-table-column>
-    </md-data-table>
+<div layout="row" ng-controller="ExampleController">
+
+    <div flex="20">
+        <md-card>
+            <md-subheader>Attributes playground</md-subheader>
+
+            <md-checkbox ng-model="tableCardIsEnabled" aria-label="Enable table card">
+                Enable table card
+            </md-checkbox>
+
+            <md-checkbox ng-model="tableIsSelectable" aria-label="Enable selectable rows" checked>
+                Enable selectable rows
+            </md-checkbox>
+        </md-card>
+    </div>
+    <div layout-padding flex>
+        <md-data-table
+                table-card="{visible: tableCardIsEnabled, title: 'Nutrition'}"
+                selectable-rows="tableIsSelectable"
+                table-rows-data="tableData">
+
+            <md-data-table-column align-rule="left">Dessert (100g serving)</md-data-table-column>
+            <md-data-table-column align-rule="right">Calories</md-data-table-column>
+            <md-data-table-column align-rule="right">Fat (g)</md-data-table-column>
+            <md-data-table-column align-rule="right">Carbs (g)</md-data-table-column>
+            <md-data-table-column align-rule="right">Protein (g)</md-data-table-column>
+            <md-data-table-column align-rule="right">Sodium (mg)</md-data-table-column>
+            <md-data-table-column align-rule="right">Calcium (%)</md-data-table-column>
+            <md-data-table-column align-rule="right">Iron (%)</md-data-table-column>
+        </md-data-table>
+    </div>
+
 </div>
+
 <!-- Placed at the end of the document so the pages load faster -->
 <!-- bower:js -->
-<script src="app/bower_components/jquery/dist/jquery.js"></script>
-<script src="app/bower_components/lodash/dist/lodash.compat.js"></script>
-<script src="app/bower_components/angular/angular.js"></script>
-<script src="app/bower_components/angular-mocks/angular-mocks.js"></script>
-<script src="app/bower_components/angular-sanitize/angular-sanitize.js"></script>
-<script src="app/bower_components/angular-animate/angular-animate.js"></script>
-<script src="app/bower_components/angular-aria/angular-aria.js"></script>
-<script src="app/bower_components/angular-material/angular-material.js"></script>
+<script src="/app/bower_components/jquery/dist/jquery.js"></script>
+<script src="/app/bower_components/lodash/dist/lodash.compat.js"></script>
+<script src="/app/bower_components/angular/angular.js"></script>
+<script src="/app/bower_components/angular-mocks/angular-mocks.js"></script>
+<script src="/app/bower_components/angular-sanitize/angular-sanitize.js"></script>
+<script src="/app/bower_components/angular-animate/angular-animate.js"></script>
+<script src="/app/bower_components/angular-aria/angular-aria.js"></script>
+<script src="/app/bower_components/angular-material/angular-material.js"></script>
 <!-- endinject -->
 
 <!-- inject:js -->
-<script src="app/modules/app.js"></script>
-<script src="app/modules/main/directives/mdDataTableColumnDirective.js"></script>
-<script src="app/modules/main/directives/mdDataTableDirective.js"></script>
+<script src="/app/modules/app.js"></script>
+<script src="/app/modules/main/directives/mdDataTableColumnDirective.js"></script>
+<script src="/app/modules/main/directives/mdDataTableDirective.js"></script>
+<script src="/app/modules/main/directives/mdDataTableRowPopulatorDirective.js"></script>
 <!-- endinject -->
 
-<script src="templates.js"></script>
+<!-- demo:js -->
+<script src="/demo/example.js"></script>
+<!-- endinject -->
+
+
+<script src="/templates.js"></script>
 </body>
 </html>

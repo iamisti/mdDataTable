@@ -73,11 +73,11 @@ body {
   padding-left: 56px;
 }
 /* line 66, ../app/scss/main.scss */
-.mdDataTable .textColumn {
+.mdDataTable .leftAlignedColumn {
   text-align: left;
 }
 /* line 70, ../app/scss/main.scss */
-.mdDataTable .numericColumn {
+.mdDataTable .rightAlignedColumn {
   text-align: right;
 }
 /* line 75, ../app/scss/main.scss */
@@ -88,7 +88,7 @@ body {
 .mdDataTable tr td {
   border-bottom: solid 1px #DDDDDD;
 }
-/* line 86, ../app/scss/main.scss */
+/* line 85, ../app/scss/main.scss */
 .mdDataTable tr:hover td {
   background: #EEEEEE;
 }
