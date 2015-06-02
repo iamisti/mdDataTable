@@ -39,6 +39,7 @@ In its simplest form, a data table contains a top row of column names, and rows 
 | table-card                                     |                                 | Object        | optional, tables can be embedded within a card, with table navigation and data manipulation tools available at the top and bottom. |
 |                                                | title                           | String        | The title of the table card |
 |                                                | actionIcons                     | Boolean       | Card action icons (header and footer) |
+|                                                | visible                         | Boolean       | The visibility of the table card |
 ![Table card with header and footer](http://material-design.storage.googleapis.com/publish/material_v_4/material_ext_publish/0B3mOPoJlxiFhUTEwa21JUEtza0k/components_datatables_cards_tablecard.png)
 
 | Params                                         | ChildParams                     | Type          | Details       |
@@ -54,6 +55,12 @@ In its simplest form, a data table contains a top row of column names, and rows 
 
 
 ## Column attributes
+
+| Params                                         | ChildPArams         | Type         | Details         |
+| ---------------------------------------------- | --------------------|------------- | --------------- |
+| align-rule                                     |                     |String        | if provided, align the text to the needed direction for the entire column (note, that it aligns the data that belongs to the column) |
+|                                                | _(default)_ left    |              | left-align content 
+|                                                | right               |              | right-align content 
 
 | Params                                         | Type          | Details         |
 | ---------------------------------------------- | ------------- | --------------- |
