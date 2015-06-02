@@ -63,11 +63,11 @@ body{
         padding-left: 56px;
     }
 
-    .textColumn{
+    .leftAlignedColumn{
         text-align: left;
     }
 
-    .numericColumn{
+    .rightAlignedColumn{
         text-align: right;
     }
 
@@ -79,7 +79,6 @@ body{
     tr td{
       border-bottom: solid 1px #DDDDDD;
     }
-
 
 
     /* INTERACTION */

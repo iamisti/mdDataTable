@@ -7,12 +7,12 @@
             templateUrl: '/main/templates/mdDataTable.html',
             transclude: true,
             scope: {
+                tableCard: '=',
                 tableRowsData: '=',
                 selectableRows: '='
             },
             link: {
                 pre: function($scope, element, attrs, ctrl, transclude){
-;
                     appendColumns();
 
                     function appendColumns(){

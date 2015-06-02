@@ -1,1 +1,8 @@
-<td>{{columnData}}</td>
+<td ng-if="data.selectableRows" class="checkboxCell">
+    <md-checkbox></md-checkbox>
+</td>
+<td ng-repeat="i in data.columnValues track by $index"
+    class="column"
+    ng-class="columnClasses(i)">
+    {{i}}
+</td>

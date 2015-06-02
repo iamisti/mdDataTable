@@ -1,17 +1,22 @@
 (function(){
     'use strict';
 
-    function mdDataTableRowPopulatorDirective(){
+    function mdDataTableRowPopulatorDirective($parse, $compile){
         return {
-            restrict: 'E',
+            restrict: 'A',
             templateUrl: '/main/templates/mdDataTableRowPopulator.html',
-            replace: true,
-            scope: {
-                columnData: '='
+            scope:{
+                data: '=mdDataTableRowPopulator'
             },
             link: function(scope, element, attrs){
-                //console.log('mdDataTableRowPopulatorDirective');
-                console.log('tableRowPopulator: ', scope.columnData);
+                //TODO: classes should be defined by column definitions
+                scope.columnClasses = function(columnValue){
+                    if(isNaN(parseInt(columnValue))){
+                        return 'leftAlignedColumn';
+                    }
+
+                    return 'rightAlignedColumn';
+                };
             }
         };
     }
