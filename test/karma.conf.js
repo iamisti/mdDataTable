@@ -23,7 +23,7 @@ module.exports = function() {
         },
 
         ngHtml2JsPreprocessor: {
-            stripPrefix: 'app/modules/',
+            stripPrefix: 'app/modules',
             moduleName:  'templates'
         },
 

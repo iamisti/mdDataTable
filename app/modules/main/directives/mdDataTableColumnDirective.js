@@ -12,17 +12,22 @@
             },
             link: function(scope){
 
-                ColumnAwareService.add({
-                    alignRule: scope.alignRule
-                });
+                scope.getColumnClass = getColumnClass;
+                saveColumnSettings();
 
-                scope.getColumnClass = function(){
+                function getColumnClass(){
                     if(scope.alignRule === ColumnOptionProvider.ALIGN_RULE.ALIGN_RIGHT){
                         return 'rightAlignedColumn';
                     }else{
                         return 'leftAlignedColumn';
                     }
-                };
+                }
+
+                function saveColumnSettings(){
+                    ColumnAwareService.add({
+                        alignRule: scope.alignRule
+                    });
+                }
             }
         };
     }

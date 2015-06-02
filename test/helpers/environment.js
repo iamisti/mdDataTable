@@ -1,5 +1,5 @@
 module.exports.getUnitReportersForCurrentRun = function() {
-    var reporters = ['coverage'];
+    var reporters = ['coverage', 'progress'];
 
     return reporters;
 };

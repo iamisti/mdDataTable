@@ -17,12 +17,8 @@ var unitTestingConfig = _.merge(baseConfig(), {
         'test/unit/**/*.js'
     ],
 
-    exclude: [
-        'app/js/common/*.*'
-    ],
-
     preprocessors: {
-        'app/modules/**/!(*Test).js': ['coverage']
+        'app/modules/**/*.js': ['coverage']
     },
 
     reporters:  environment.getUnitReportersForCurrentRun(),
