@@ -5,10 +5,11 @@
         return {
             restrict: 'E',
             templateUrl: '/main/templates/mdDataTable.html',
-            bindToController: true,
+            transclude: true,
             scope: {
                 tableRowsData: '='
             },
+            bindToController: true,
             controllerAs: 'vm',
             controller: function(){
                 var vm = this;
@@ -20,6 +21,9 @@
                     ['Gingerbread',         356, 16.0, 49, 3.9, 327, '7%', '16%'],
                     ['Jelly bean',          375, 0.0,  94, 0.0, 50,  '0%', '0%']
                 ];
+            },
+            link: function(scope,element,attrs,ctrl, transclude){
+                angular.element(transclude()).insertAfter(element.find('.theadTrRow .checkboxCell'));
             }
         }
     }
