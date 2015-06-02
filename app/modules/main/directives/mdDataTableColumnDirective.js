@@ -1,7 +1,7 @@
 (function(){
     'use strict';
 
-    function mdDataTableColumnDirective(){
+    function mdDataTableColumnDirective(ColumnAwareService, ColumnOptionProvider){
         return {
             restrict: 'E',
             templateUrl: '/main/templates/mdDataTableColumn.html',
@@ -11,16 +11,27 @@
                 alignRule: '@'
             },
             link: function(scope){
-                scope.getColumnClass = function(){
-                    if(scope.alignRule === 'right'){
+
+                scope.getColumnClass = getColumnClass;
+                saveColumnSettings();
+
+                function getColumnClass(){
+                    if(scope.alignRule === ColumnOptionProvider.ALIGN_RULE.ALIGN_RIGHT){
                         return 'rightAlignedColumn';
                     }else{
                         return 'leftAlignedColumn';
                     }
                 }
+
+                function saveColumnSettings(){
+                    ColumnAwareService.add({
+                        alignRule: scope.alignRule
+                    });
+                }
             }
         };
     }
+    mdDataTableColumnDirective.$inject = ['ColumnAwareService', 'ColumnOptionProvider'];
 
     angular
         .module('mdDataTable')

@@ -1,26 +1,27 @@
 (function(){
     'use strict';
 
-    function mdDataTableRowPopulatorDirective($parse, $compile){
+    function mdDataTableRowPopulatorDirective(ColumnAwareService, ColumnOptionProvider){
         return {
             restrict: 'A',
             templateUrl: '/main/templates/mdDataTableRowPopulator.html',
             scope:{
                 data: '=mdDataTableRowPopulator'
             },
-            link: function(scope, element, attrs){
-                //TODO: classes should be defined by column definitions
-                scope.columnClasses = function(columnValue){
-                    if(isNaN(parseInt(columnValue))){
-                        return 'leftAlignedColumn';
+            link: function(scope/*, element, attrs*/){
+                var columnOptionsList = ColumnAwareService.getAll();
+
+                scope.columnClassesList = _.map(columnOptionsList, function(options){
+                    if(options.alignRule === ColumnOptionProvider.ALIGN_RULE.ALIGN_RIGHT){
+                        return 'rightAlignedColumn';
                     }
 
-                    return 'rightAlignedColumn';
-                };
+                    return 'leftAlignedColumn';
+                });
             }
         };
     }
-    mdDataTableRowPopulatorDirective.$inject = ['$parse', '$compile'];
+    mdDataTableRowPopulatorDirective.$inject = ['ColumnAwareService', 'ColumnOptionProvider'];
 
     angular
         .module('mdDataTable')
