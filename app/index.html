@@ -21,18 +21,45 @@
 </head>
 <body ng-app="mdDataTable" ng-strict-di>
 
-<div style="width:1000px;padding-top:40px;margin:0 auto;">
-    <md-data-table>
-        <md-data-table-column>Dessert (100g serving)</md-data-table-column>
-        <md-data-table-column>Calories</md-data-table-column>
-        <md-data-table-column>Fat (g)</md-data-table-column>
-        <md-data-table-column>Carbs (g)</md-data-table-column>
-        <md-data-table-column>Protein (g)</md-data-table-column>
-        <md-data-table-column>Sodium (mg)</md-data-table-column>
-        <md-data-table-column>Calcium (%)</md-data-table-column>
-        <md-data-table-column>Iron (%)</md-data-table-column>
-    </md-data-table>
+<div layout="row">
+
+    <div flex="20">
+        <md-card>
+            <md-checkbox ng-model="tableCardIsEnabled = true" aria-label="Enable table card">
+                Enable table card
+            </md-checkbox>
+
+            <md-checkbox ng-model="tableIsSelectable = true" aria-label="Enable selectable rows" checked>
+                Enable selectable rows
+            </md-checkbox>
+        </md-card>
+    </div>
+    <div layout-padding flex>
+        <md-data-table
+                table-card="{visible: tableCardIsEnabled, title: 'Nutrition'}"
+                selectable-rows="tableIsSelectable"
+                table-rows-data="[
+                    ['Frozen joghurt',      159, 6.0,  24, 4.0, 87, '14%', '1%'],
+                    ['Ice cream sandwitch', 237, 9.0,  37, 4.3, 129, '8%', '1%'],
+                    ['Eclair',              262, 16.0, 24, 6.0, 337, '6%', '7%'],
+                    ['Cupkake',             305, 3.7,  67, 4.3, 413, '3%', '8%'],
+                    ['Gingerbread',         356, 16.0, 49, 3.9, 327, '7%', '16%'],
+                    ['Jelly bean',          375, 0.0,  94, 0.0, 50,  '0%', '0%']
+                ]">
+
+            <md-data-table-column align-rule="left">Dessert (100g serving)</md-data-table-column>
+            <md-data-table-column align-rule="right">Calories</md-data-table-column>
+            <md-data-table-column align-rule="right">Fat (g)</md-data-table-column>
+            <md-data-table-column align-rule="right">Carbs (g)</md-data-table-column>
+            <md-data-table-column align-rule="right">Protein (g)</md-data-table-column>
+            <md-data-table-column align-rule="right">Sodium (mg)</md-data-table-column>
+            <md-data-table-column align-rule="right">Calcium (%)</md-data-table-column>
+            <md-data-table-column align-rule="right">Iron (%)</md-data-table-column>
+        </md-data-table>
+    </div>
+
 </div>
+
 <!-- Placed at the end of the document so the pages load faster -->
 <!-- bower:js -->
 <!-- bower installed scripts will go here... -->

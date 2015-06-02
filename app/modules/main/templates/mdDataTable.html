@@ -1,41 +1,20 @@
 <md-content class="mdDataTable md-whiteframe-z1" layout="column">
-    <div class="mdDataTable-header" layout="row" layout-align="start center">Nutrition</div>
+    <div ng-if="tableCard.visible" class="mdDataTable-header" layout="row" layout-align="start center">{{tableCard.title}}</div>
     <table cellpadding="0" cellspacing="0">
         <thead>
             <tr class="theadTrRow">
-                <th class="checkboxCell"><md-checkbox></md-checkbox></th>
+                <th class="checkboxCell" ng-if="selectableRows">
+                    <md-checkbox></md-checkbox>
+                </th>
             </tr>
         </thead>
         <tbody>
-            <tr ng-repeat="aRow in vm.tableRowsData">
-                <td class="checkboxCell">
-                    <md-checkbox></md-checkbox>
-                </td>
-                <td class="textColumn column">
-                    {{aRow[0]}}
-                </td>
-                <td class="numericColumn column">
-                    {{aRow[1]}}
-                </td>
-                <td class="numericColumn column">
-                    {{aRow[2]}}
-                </td>
-                <td class="numericColumn column">
-                    {{aRow[3]}}
-                </td>
-                <td class="numericColumn column">
-                    {{aRow[4]}}
-                </td>
-                <td class="numericColumn column">
-                    {{aRow[5]}}
-                </td>
-                <td class="numericColumn column">
-                    {{aRow[6]}}
-                </td>
-                <td class="numericColumn column">
-                    {{aRow[7]}}
-                </td>
-            </tr>
+            <tr ng-repeat="aRow in tableRowsData track by $index"
+                md-data-table-row-populator="{
+                    columnValues: aRow,
+                    selectableRows: selectableRows
+                }"
+            ></tr>
         </tbody>
     </table>
     <div class="mdDataTable-footer" layout="row"> </div>
