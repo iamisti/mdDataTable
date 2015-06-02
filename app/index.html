@@ -21,8 +21,23 @@
 </head>
 <body ng-app="mdDataTable" ng-strict-di>
 
+<div layout="row" layout-align="center center">
+    <md-checkbox ng-model="tableIsSelectable" aria-label="Selectable rows">
+        Selectable rows
+    </md-checkbox>
+</div>
+
 <div style="width:1000px;padding-top:40px;margin:0 auto;">
-    <md-data-table>
+
+    <md-data-table selectable-rows="tableIsSelectable" table-rows-data="[
+                    ['Frozen joghurt',      159, 6.0,  24, 4.0, 87, '14%', '1%'],
+                    ['Ice cream sandwitch', 237, 9.0,  37, 4.3, 129, '8%', '1%'],
+                    ['Eclair',              262, 16.0, 24, 6.0, 337, '6%', '7%'],
+                    ['Cupkake',             305, 3.7,  67, 4.3, 413, '3%', '8%'],
+                    ['Gingerbread',         356, 16.0, 49, 3.9, 327, '7%', '16%'],
+                    ['Jelly bean',          375, 0.0,  94, 0.0, 50,  '0%', '0%']
+                ]">
+
         <md-data-table-column>Dessert (100g serving)</md-data-table-column>
         <md-data-table-column>Calories</md-data-table-column>
         <md-data-table-column>Fat (g)</md-data-table-column>
@@ -32,7 +47,9 @@
         <md-data-table-column>Calcium (%)</md-data-table-column>
         <md-data-table-column>Iron (%)</md-data-table-column>
     </md-data-table>
+
 </div>
+
 <!-- Placed at the end of the document so the pages load faster -->
 <!-- bower:js -->
 <!-- bower installed scripts will go here... -->
