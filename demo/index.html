@@ -19,17 +19,19 @@
     <!-- endinject -->
     <link rel="stylesheet" href="main.css"/>
 </head>
-<body ng-app="mdDataTable" ng-strict-di>
+<body ng-app="exampleApp">
 
-<div layout="row">
+<div layout="row" ng-controller="ExampleController">
 
     <div flex="20">
         <md-card>
-            <md-checkbox ng-model="tableCardIsEnabled = true" aria-label="Enable table card">
+            <md-subheader>Attributes playground</md-subheader>
+
+            <md-checkbox ng-model="tableCardIsEnabled" aria-label="Enable table card">
                 Enable table card
             </md-checkbox>
 
-            <md-checkbox ng-model="tableIsSelectable = true" aria-label="Enable selectable rows" checked>
+            <md-checkbox ng-model="tableIsSelectable" aria-label="Enable selectable rows" checked>
                 Enable selectable rows
             </md-checkbox>
         </md-card>
@@ -38,14 +40,7 @@
         <md-data-table
                 table-card="{visible: tableCardIsEnabled, title: 'Nutrition'}"
                 selectable-rows="tableIsSelectable"
-                table-rows-data="[
-                    ['Frozen joghurt',      159, 6.0,  24, 4.0, 87, '14%', '1%'],
-                    ['Ice cream sandwitch', 237, 9.0,  37, 4.3, 129, '8%', '1%'],
-                    ['Eclair',              262, 16.0, 24, 6.0, 337, '6%', '7%'],
-                    ['Cupkake',             305, 3.7,  67, 4.3, 413, '3%', '8%'],
-                    ['Gingerbread',         356, 16.0, 49, 3.9, 327, '7%', '16%'],
-                    ['Jelly bean',          375, 0.0,  94, 0.0, 50,  '0%', '0%']
-                ]">
+                table-rows-data="tableData">
 
             <md-data-table-column align-rule="left">Dessert (100g serving)</md-data-table-column>
             <md-data-table-column align-rule="right">Calories</md-data-table-column>
@@ -68,6 +63,11 @@
 <!-- inject:js -->
 <!-- app scripts will go here... -->
 <!-- endinject -->
+
+<!-- demo:js -->
+<!-- app scripts will go here... -->
+<!-- endinject -->
+
 
 <script src="/templates.js"></script>
 </body>
