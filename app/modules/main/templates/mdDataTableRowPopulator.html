@@ -3,6 +3,6 @@
 </td>
 <td ng-repeat="i in data.columnValues track by $index"
     class="column"
-    ng-class="columnClasses(i)">
+    ng-class="[columnClassesList[$index]]">
     {{i}}
 </td>

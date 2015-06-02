@@ -6,6 +6,7 @@
     angular.module('exampleApp').controller('ExampleController', function($scope){
         $scope.tableCardIsEnabled = true;
         $scope.tableIsSelectable = true;
+
         $scope.tableData = [
             ['Frozen joghurt',      159, 6.0,  24, 4.0, 87, '14%', '1%'],
             ['Ice cream sandwitch', 237, 9.0,  37, 4.3, 129, '8%', '1%'],

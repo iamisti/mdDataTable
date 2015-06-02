@@ -1,7 +1,7 @@
 (function(){
     'use strict';
 
-    function mdDataTableColumnDirective(){
+    function mdDataTableColumnDirective(ColumnAwareService){
         return {
             restrict: 'E',
             templateUrl: '/main/templates/mdDataTableColumn.html',
@@ -11,6 +11,11 @@
                 alignRule: '@'
             },
             link: function(scope){
+
+                ColumnAwareService.add({
+                    alignRule: scope.alignRule
+                });
+
                 scope.getColumnClass = function(){
                     if(scope.alignRule === 'right'){
                         return 'rightAlignedColumn';
