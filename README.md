@@ -1,5 +1,7 @@
 ![build status](https://travis-ci.org/iamisti/md-data-table.svg)
 
+Demo (without any functionality atm): http://iamisti.github.io/md-data-table/
+
 # md-data-table
 Angular data table implementation of google material design.
 
