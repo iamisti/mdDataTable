@@ -1,7 +1,7 @@
 (function(){
     'use strict';
 
-    function mdDataTableRowPopulatorDirective(ColumnAwareService){
+    function mdDataTableRowPopulatorDirective(ColumnAwareService, ColumnOptionProvider){
         return {
             restrict: 'A',
             templateUrl: '/main/templates/mdDataTableRowPopulator.html',
@@ -12,11 +12,11 @@
                 var columnOptionsList = ColumnAwareService.getAll();
 
                 scope.columnClassesList = _.map(columnOptionsList, function(options){
-                    if(options.alignRule === 'left'){
-                        return 'leftAlignedColumn';
+                    if(options.alignRule === ColumnOptionProvider.ALIGN_RULE.ALIGN_RIGHT){
+                        return 'rightAlignedColumn';
                     }
 
-                    return 'rightAlignedColumn';
+                    return 'leftAlignedColumn';
                 });
             }
         };

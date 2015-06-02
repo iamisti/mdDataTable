@@ -1,7 +1,7 @@
 (function(){
     'use strict';
 
-    function mdDataTableColumnDirective(ColumnAwareService){
+    function mdDataTableColumnDirective(ColumnAwareService, ColumnOptionProvider){
         return {
             restrict: 'E',
             templateUrl: '/main/templates/mdDataTableColumn.html',
@@ -17,12 +17,12 @@
                 });
 
                 scope.getColumnClass = function(){
-                    if(scope.alignRule === 'right'){
+                    if(scope.alignRule === ColumnOptionProvider.ALIGN_RULE.ALIGN_RIGHT){
                         return 'rightAlignedColumn';
                     }else{
                         return 'leftAlignedColumn';
                     }
-                }
+                };
             }
         };
     }
