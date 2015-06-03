@@ -1,5 +1,6 @@
-![build status](https://travis-ci.org/iamisti/md-data-table.svg)
-
+[![Build Status](https://travis-ci.org/iamisti/md-data-table.svg?branch=master)](https://travis-ci.org/iamisti/md-data-table)
+[![Code Climate](https://codeclimate.com/github/iamisti/md-data-table/badges/gpa.svg)](https://codeclimate.com/github/iamisti/md-data-table)
+[![Test Coverage](https://codeclimate.com/github/iamisti/md-data-table/badges/coverage.svg)](https://codeclimate.com/github/iamisti/md-data-table/coverage)
 Demo (without any functionality atm): http://iamisti.github.io/md-data-table/
 
 # md-data-table
