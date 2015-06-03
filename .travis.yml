@@ -9,7 +9,7 @@ before_install:
 
 addons:
   code_climate:
-    repo_token: process.env.CODECLIMATE_REPO_TOKEN
+    repo_token: env.CODECLIMATE_REPO_TOKEN
 
 script:
   - bower install
