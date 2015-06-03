@@ -7,6 +7,13 @@ before_install:
   - npm install -g gulp
   - npm install -g bower
 
+addons:
+  code_climate:
+    repo_token: process.env.CODECLIMATE_REPO_TOKEN
+
 script:
   - bower install
   - gulp ci
+
+after_script:
+  - codeclimate < reports/coverage/lcov.info
