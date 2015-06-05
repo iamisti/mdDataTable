@@ -22,7 +22,7 @@
     "tests"
   ],
   "dependencies": {
-    "jquery": "<2.0.0",
+    "jquery": "~2.0.0",
     "lodash": "~2.4.1",
     "angular": "~1.4.0",
     "angular-mocks": "~1.4.0",
