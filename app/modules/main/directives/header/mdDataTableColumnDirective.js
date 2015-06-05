@@ -10,22 +10,21 @@
             scope: {
                 alignRule: '@'
             },
-            link: function(scope){
-
-                scope.getColumnClass = getColumnClass;
+            link: function ($scope) {
+                $scope.getColumnClass = getColumnClass;
                 saveColumnSettings();
 
-                function getColumnClass(){
-                    if(scope.alignRule === ColumnOptionProvider.ALIGN_RULE.ALIGN_RIGHT){
+                function getColumnClass() {
+                    if ($scope.alignRule === ColumnOptionProvider.ALIGN_RULE.ALIGN_RIGHT) {
                         return 'rightAlignedColumn';
-                    }else{
+                    } else {
                         return 'leftAlignedColumn';
                     }
                 }
 
-                function saveColumnSettings(){
-                    ColumnAwareService.add({
-                        alignRule: scope.alignRule
+                function saveColumnSettings() {
+                    ColumnAwareService.addColumnOption({
+                        alignRule: $scope.alignRule
                     });
                 }
             }

@@ -7,13 +7,14 @@
             templateUrl: '/main/templates/mdDataTableRow.html',
             replace: true,
             transclude: true,
-            link: {
-                pre: function($scope, element, attrs, ctrl, transclude){
-                    appendColumns();
+            controller: function($scope){
+                $scope.cellIndex = 0;
+            },
+            link: function($scope, element, attrs, ctrl, transclude){
+                appendColumns();
 
-                    function appendColumns(){
-                        angular.element(transclude()).appendTo(element.find('tr'));
-                    }
+                function appendColumns(){
+                    angular.element(transclude()).appendTo(element);
                 }
             }
         };

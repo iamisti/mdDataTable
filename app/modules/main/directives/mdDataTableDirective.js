@@ -1,7 +1,7 @@
 (function(){
     'use strict';
 
-    function mdDataTableDirective(){
+    function mdDataTableDirective(ColumnAwareService){
         return {
             restrict: 'E',
             templateUrl: '/main/templates/mdDataTable.html',
@@ -11,30 +11,31 @@
                 tableRowsData: '=',
                 selectableRows: '='
             },
-            /*
-            link:  function($scope, element, attrs, ctrl, transclude){
-                var injectableContent = transclude();
+            controller: function($scope){
+                ColumnAwareService.initialize($scope);
+            },
+            compile: function(tElement, tAttrs, transclude){
+                transclude(function (clone) {
+                    var headings = [];
+                    var body = [];
 
-                element.find('thead').append(
-                    injectableContent
-                );
-            }
-            */
-            compile: function(elem, attrs, transcludeFn) {
-                return function (scope, element, attrs) {
-                    transcludeFn(scope, function(clone) {
-                        var primaryBlock = elem.find('thead');
-                        var secondaryBlock = elem.find('tbody');
+                    clone.each(function (index, child) {
+                        var $child = angular.element(child);
 
-
-                        //var transcludedButtons = clone[1] - this is works;
-                        var transcludedButtons = angular.element(clone.find('md-data-table-header-row')).clone();
-                        //var transcludedButtons = clone.filter('md-data-table-header-row');
-                        //var transcludedButtons2 = angular.element(clone.shift()).clone();
-
-                        primaryBlock.append(transcludedButtons);
-                        //secondaryBlock.append(transcludedButtons2);
+                        if ($child.hasClass('theadTrRow')) {
+                            headings.push($child);
+                        } else {
+                            body.push($child);
+                        }
                     });
+
+                    tElement.find('table thead').append(headings);
+                    tElement.find('table tbody').append(body);
+                });
+
+                return {
+                    pre: function preLink(scope, iElement, iAttrs, controller) {},
+                    post: function postLink(scope, iElement, iAttrs, controller) {}
                 };
             }
         };
