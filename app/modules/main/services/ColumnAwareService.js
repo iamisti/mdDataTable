@@ -23,9 +23,11 @@
             service.scope.subscribers = [];
 
             service.scope.$watch('optionsList', function(newVal){
-                _.each(service.scope.subscribers, function(callback){
-                    callback(newVal);
-                });
+                if(newVal){
+                    _.each(service.scope.subscribers, function(callback){
+                        callback(newVal);
+                    });
+                }
             }, true);
         }
     }

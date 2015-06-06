@@ -14,17 +14,14 @@
                 $scope.columnIndex = $scope.$parent.cellIndex;
 
                 ColumnAwareService.subscribeToOptionListChange(function(value){
-                    $timeout(function(){
-                        $scope.alignRule = value[$scope.columnIndex].alignRule;
-console.log(value[$scope.columnIndex].alignRule);
-                        $scope.columnClass = getColumnClass($scope.alignRule);
-                    }, 1000);
+                    $scope.alignRule = value[$scope.columnIndex].alignRule;
+console.log('change detected ',value[$scope.columnIndex].alignRule);
+                    $scope.columnClass = getColumnClass($scope.alignRule);
                 });
 
                 $scope.$parent.cellIndex++;
 
                 function getColumnClass(a) {
-                    console.log(a);
                     if (a === ColumnOptionProvider.ALIGN_RULE.ALIGN_RIGHT) {
                         return 'rightAlignedColumn';
                     } else {

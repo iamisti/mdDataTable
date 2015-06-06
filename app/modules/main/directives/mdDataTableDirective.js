@@ -14,7 +14,7 @@
             controller: function($scope){
                 ColumnAwareService.initialize($scope);
             },
-            compile: function(tElement, tAttrs, transclude){
+            link: function($scope, element, attrs, ctrl, transclude){
                 transclude(function (clone) {
                     var headings = [];
                     var body = [];
@@ -29,14 +29,9 @@
                         }
                     });
 
-                    tElement.find('table thead').append(headings);
-                    tElement.find('table tbody').append(body);
+                    element.find('table thead').append(headings);
+                    element.find('table tbody').append(body);
                 });
-
-                return {
-                    pre: function preLink(scope, iElement, iAttrs, controller) {},
-                    post: function postLink(scope, iElement, iAttrs, controller) {}
-                };
             }
         };
     }
