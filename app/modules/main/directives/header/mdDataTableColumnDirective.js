@@ -22,6 +22,9 @@
                     }
                 }
 
+                //TODO: if alignRule not provided, try to analyse the values of the rows
+                //then: if numeric: align right
+                //            else: align left
                 function saveColumnSettings() {
                     ColumnAwareService.addColumnOption({
                         alignRule: $scope.alignRule

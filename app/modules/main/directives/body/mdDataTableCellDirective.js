@@ -7,15 +7,12 @@
             templateUrl: '/main/templates/mdDataTableCell.html',
             replace: true,
             transclude: true,
-            controller: function($scope, $timeout){
-
-            },
             link: function($scope){
-                $scope.columnIndex = $scope.$parent.cellIndex;
-
+                $scope.columnIndex = _.clone($scope.$parent.cellIndex);
+console.log('assigned value: ', $scope.columnIndex);
                 ColumnAwareService.subscribeToOptionListChange(function(value){
                     $scope.alignRule = value[$scope.columnIndex].alignRule;
-console.log('change detected ', $scope.columnIndex, value[$scope.columnIndex].alignRule);
+console.log('change detected: ', $scope.columnIndex, value[$scope.columnIndex].alignRule);
                     $scope.columnClass = getColumnClass($scope.alignRule);
                 });
 
