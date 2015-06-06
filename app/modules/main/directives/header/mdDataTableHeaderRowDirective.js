@@ -12,7 +12,6 @@
 
                 function appendColumns(){
                     transclude(function (clone) {
-                        console.log(element);
                         element.append(clone);
                     });
                 }

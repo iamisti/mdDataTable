@@ -55,30 +55,18 @@
                 <md-data-table-column align-rule="right">Iron (%)</md-data-table-column>
             </md-data-table-header-row>
 
-            <md-data-table-row>
-                <md-data-table-cell>Frozen joghurt</md-data-table-cell>
-                <md-data-table-cell>3</md-data-table-cell>
-                <md-data-table-cell>4</md-data-table-cell>
-                <md-data-table-cell>5</md-data-table-cell>
-                <md-data-table-cell>6</md-data-table-cell>
-                <md-data-table-cell>7</md-data-table-cell>
-                <md-data-table-cell>8%</md-data-table-cell>
-                <md-data-table-cell>9%</md-data-table-cell>
-            </md-data-table-row>
-
-            <md-data-table-row>
-                <md-data-table-cell>another</md-data-table-cell>
-                <md-data-table-cell>5</md-data-table-cell>
-                <md-data-table-cell>7</md-data-table-cell>
-                <md-data-table-cell>23</md-data-table-cell>
-                <md-data-table-cell>1</md-data-table-cell>
-                <md-data-table-cell>3</md-data-table-cell>
-                <md-data-table-cell>3%</md-data-table-cell>
-                <md-data-table-cell>1%</md-data-table-cell>
+            <md-data-table-row ng-repeat="nutrition in nutritionList">
+                <md-data-table-cell>{{nutrition.name}}</md-data-table-cell>
+                <md-data-table-cell>{{nutrition.calories}}</md-data-table-cell>
+                <md-data-table-cell>{{nutrition.fat}}</md-data-table-cell>
+                <md-data-table-cell>{{nutrition.carbs}}</md-data-table-cell>
+                <md-data-table-cell>{{nutrition.protein}}</md-data-table-cell>
+                <md-data-table-cell>{{nutrition.sodium}}</md-data-table-cell>
+                <md-data-table-cell>{{nutrition.calcium}}</md-data-table-cell>
+                <md-data-table-cell>{{nutrition.iron}}</md-data-table-cell>
             </md-data-table-row>
         </md-data-table>
     </div>
-
 </div>
 
 <!-- Placed at the end of the document so the pages load faster -->
