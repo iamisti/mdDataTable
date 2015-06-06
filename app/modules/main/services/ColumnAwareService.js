@@ -4,17 +4,31 @@
     function ColumnAwareService(){
         var service = this;
 
-        service.columnOptionsList = [];
+        service.addColumnOption = addColumnOption;
+        service.subscribeToOptionListChange = subscribeToOptionListChange;
+        service.initialize = initialize;
 
-        service.add = add;
-        service.getAll = getAll;
-
-        function add(options){
-            this.columnOptionsList.push(options);
+        function addColumnOption(columnOption){
+            service.scope.optionsList.push(columnOption);
         }
 
-        function getAll(){
-            return this.columnOptionsList;
+        function subscribeToOptionListChange(callback){
+            service.scope.subscribers.push(callback);
+        }
+
+        function initialize(scope){
+            service.scope = scope;
+
+            service.scope.optionsList = [];
+            service.scope.subscribers = [];
+
+            service.scope.$watch('optionsList', function(newVal){
+                if(newVal){
+                    _.each(service.scope.subscribers, function(callback){
+                        callback(newVal);
+                    });
+                }
+            }, true);
         }
     }
 

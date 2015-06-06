@@ -1,24 +1,44 @@
 (function(){
     'use strict';
 
-    function mdDataTableDirective(){
+    function mdDataTableDirective(ColumnAwareService){
         return {
             restrict: 'E',
             templateUrl: '/main/templates/mdDataTable.html',
             transclude: true,
             scope: {
                 tableCard: '=',
-                tableRowsData: '=',
                 selectableRows: '='
             },
-            link: {
-                pre: function($scope, element, attrs, ctrl, transclude){
-                    appendColumns();
+            bindToController: true,
+            controllerAs: 'vm',
+            controller: function(){
+                var vm = this;
 
-                    function appendColumns(){
-                        angular.element(transclude()).appendTo(element.find('.theadTrRow'));
-                    }
+                vm.isRowsSelectable = function(){
+                    return vm.selectableRows;
                 }
+            },
+            link: function($scope, element, attrs, ctrl, transclude){
+                ColumnAwareService.initialize($scope);
+
+                transclude(function (clone) {
+                    var headings = [];
+                    var body = [];
+
+                    clone.each(function (index, child) {
+                        var $child = angular.element(child);
+
+                        if ($child.hasClass('theadTrRow')) {
+                            headings.push($child);
+                        } else {
+                            body.push($child);
+                        }
+                    });
+
+                    element.find('table thead').append(headings);
+                    element.find('table tbody').append(body);
+                });
             }
         };
     }

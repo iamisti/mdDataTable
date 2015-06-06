@@ -99,25 +99,41 @@ In its simplest form, a data table contains a top row of column names, and rows 
         table-card="{title: Nutrition, actionIcons: true}"
         table-rows-data="[{Frozen yogurt, iceCream, 159, 6.0, 24, 4.0}]">
 
-        <!-- defining column descriptions -->
-        <md-data-table-column column-definition="The total amount of food energy in the given serving size.">
-            Dessert (100g serving)
-        </md-data-table-column>
+        <md-data-table-header-row>
+            <!-- defining column descriptions, align content to the left -->
+            <md-data-table-column
+                align-rule="left"
+                column-definition="The total amount of food energy in the given serving size.">
+                Dessert (100g serving)
+            </md-data-table-column>
 
-        <!-- in case of inline menu -->
-        <md-data-table-column inline-menu="[ {iceCream: 'Ice Cream', pastry: 'Pastry', other: 'Other'} ]">Type</md-data-table-column>
+            <!-- in case of inline menu -->
+            <md-data-table-column inline-menu="[ {iceCream: 'Ice Cream', pastry: 'Pastry', other: 'Other'} ]">Type</md-data-table-column>
 
-        <!-- inline text editing -->
-        <md-data-table-column editable-field="textInput">
-            Calories
-        </md-data-table-column>
+            <!-- inline text editing -->
+            <md-data-table-column editable-field="textInput">
+                Calories
+            </md-data-table-column>
 
-        <!-- in case of sortable columns, we can set the defaultly sortable column -->
-        <md-data-table-column sortable-rows-default>
-            Fat (g)
-        </md-data-table-column>
-        <md-data-table-column>Carbs (g)</md-data-table-column>
-        <md-data-table-column>Protein (g)</md-data-table-column>
+            <!-- in case of sortable columns, we can set the defaultly sortable column -->
+            <md-data-table-column sortable-rows-default>
+                Fat (g)
+            </md-data-table-column>
+            <md-data-table-column>Carbs (g)</md-data-table-column>
+            <md-data-table-column>Protein (g)</md-data-table-column>
+        </md-data-table-header-row>
+
+        <md-data-table-row ng-repeat="nutrition in nutritionList">
+            <md-data-table-cell>Frozen Joghurt</md-data-table-cell>
+            <md-data-table-cell>159</md-data-table-cell>
+            <md-data-table-cell>6</md-data-table-cell>
+            <md-data-table-cell>24</md-data-table-cell>
+            <md-data-table-cell>4</md-data-table-cell>
+            <md-data-table-cell>87</md-data-table-cell>
+            <md-data-table-cell>14%</md-data-table-cell>
+            <md-data-table-cell>1%</md-data-table-cell>
+        </md-data-table-row>
+
     </md-data-table>
 
 

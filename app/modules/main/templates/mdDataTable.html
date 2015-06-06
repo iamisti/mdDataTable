@@ -1,21 +1,9 @@
 <md-content class="mdDataTable md-whiteframe-z1" layout="column">
     <div ng-if="tableCard.visible" class="mdDataTable-header" layout="row" layout-align="start center">{{tableCard.title}}</div>
     <table cellpadding="0" cellspacing="0">
-        <thead>
-            <tr class="theadTrRow">
-                <th class="checkboxCell" ng-if="selectableRows">
-                    <md-checkbox></md-checkbox>
-                </th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr ng-repeat="aRow in tableRowsData track by $index"
-                md-data-table-row-populator="{
-                    columnValues: aRow,
-                    selectableRows: selectableRows
-                }"
-            ></tr>
-        </tbody>
+        <thead></thead>
+        <tbody></tbody>
     </table>
+    <div class="thead"></div>
     <div ng-if="tableCard.visible" class="mdDataTable-footer" layout="row"> </div>
 </md-content>

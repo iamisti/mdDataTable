@@ -21,8 +21,11 @@
 </head>
 <body ng-app="exampleApp">
 
-<div layout="row" ng-controller="ExampleController">
+<md-toolbar layout="row" layout-align="left center" layout-padding>
+    <h3 class="md-title">Material Design Data Table</h3>
+</md-toolbar>
 
+<div layout="row" ng-controller="ExampleController">
     <div flex="20">
         <md-card>
             <md-subheader>Attributes playground</md-subheader>
@@ -39,20 +42,31 @@
     <div layout-padding flex>
         <md-data-table
                 table-card="{visible: tableCardIsEnabled, title: 'Nutrition'}"
-                selectable-rows="tableIsSelectable"
-                table-rows-data="tableData">
+                selectable-rows="tableIsSelectable">
 
-            <md-data-table-column align-rule="left">Dessert (100g serving)</md-data-table-column>
-            <md-data-table-column align-rule="right">Calories</md-data-table-column>
-            <md-data-table-column align-rule="right">Fat (g)</md-data-table-column>
-            <md-data-table-column align-rule="right">Carbs (g)</md-data-table-column>
-            <md-data-table-column align-rule="right">Protein (g)</md-data-table-column>
-            <md-data-table-column align-rule="right">Sodium (mg)</md-data-table-column>
-            <md-data-table-column align-rule="right">Calcium (%)</md-data-table-column>
-            <md-data-table-column align-rule="right">Iron (%)</md-data-table-column>
+            <md-data-table-header-row>
+                <md-data-table-column align-rule="left">Dessert (100g serving)</md-data-table-column>
+                <md-data-table-column align-rule="right">Calories</md-data-table-column>
+                <md-data-table-column align-rule="right">Fat (g)</md-data-table-column>
+                <md-data-table-column align-rule="right">Carbs (g)</md-data-table-column>
+                <md-data-table-column align-rule="right">Protein (g)</md-data-table-column>
+                <md-data-table-column align-rule="right">Sodium (mg)</md-data-table-column>
+                <md-data-table-column align-rule="right">Calcium (%)</md-data-table-column>
+                <md-data-table-column align-rule="right">Iron (%)</md-data-table-column>
+            </md-data-table-header-row>
+
+            <md-data-table-row ng-repeat="nutrition in nutritionList">
+                <md-data-table-cell>{{nutrition.name}}</md-data-table-cell>
+                <md-data-table-cell>{{nutrition.calories}}</md-data-table-cell>
+                <md-data-table-cell>{{nutrition.fat}}</md-data-table-cell>
+                <md-data-table-cell>{{nutrition.carbs}}</md-data-table-cell>
+                <md-data-table-cell>{{nutrition.protein}}</md-data-table-cell>
+                <md-data-table-cell>{{nutrition.sodium}}</md-data-table-cell>
+                <md-data-table-cell>{{nutrition.calcium}}</md-data-table-cell>
+                <md-data-table-cell>{{nutrition.iron}}</md-data-table-cell>
+            </md-data-table-row>
         </md-data-table>
     </div>
-
 </div>
 
 <!-- Placed at the end of the document so the pages load faster -->
