@@ -1,0 +1,94 @@
+/* line 1, ../app/scss/main.scss */
+body {
+  background: #DDDDDD;
+}
+
+/* line 5, ../app/scss/main.scss */
+.mdDataTable {
+  font-size: 15px;
+  /* 12sp Roboto Medium, 54% black */
+  /* 64dp card header height */
+  /* 56do for last row */
+  /* column padding */
+  /* 48dp row height */
+  /* 13sp Roboto Regular, 87% black */
+  /* border separation color */
+  /* INTERACTION */
+}
+/* line 6, ../app/scss/main.scss */
+.mdDataTable table {
+  width: 100%;
+}
+/* line 7, ../app/scss/main.scss */
+.mdDataTable td, .mdDataTable th {
+  padding: 0;
+  margin: 0;
+}
+/* line 13, ../app/scss/main.scss */
+.mdDataTable th {
+  font-size: 12px;
+  font-weight: 500;
+  color: #757575;
+}
+/* line 20, ../app/scss/main.scss */
+.mdDataTable .mdDataTable-header {
+  height: 64px;
+  padding-left: 24px;
+}
+/* line 26, ../app/scss/main.scss */
+.mdDataTable .mdDataTable-footer, .mdDataTable tr th {
+  height: 56px;
+}
+/* line 31, ../app/scss/main.scss */
+.mdDataTable .checkboxCell {
+  width: 18px;
+  /*the next cell should not have just 24px padding */
+}
+/* line 34, ../app/scss/main.scss */
+.mdDataTable .checkboxCell md-checkbox {
+  margin: 0;
+  padding: 0;
+}
+/* line 40, ../app/scss/main.scss */
+.mdDataTable .checkboxCell + td, .mdDataTable .checkboxCell + th {
+  padding-left: 24px;
+}
+/* line 47, ../app/scss/main.scss */
+.mdDataTable tr td {
+  padding: 0;
+  height: 48px;
+  font-size: 13px;
+  color: #212121;
+}
+/* line 54, ../app/scss/main.scss */
+.mdDataTable td:first-child, .mdDataTable th:first-child {
+  padding: 0 0 0 24px;
+}
+/* line 58, ../app/scss/main.scss */
+.mdDataTable td:last-child, .mdDataTable th:last-child {
+  padding-right: 24px;
+}
+/* line 62, ../app/scss/main.scss */
+.mdDataTable .column {
+  padding-left: 56px;
+}
+/* line 66, ../app/scss/main.scss */
+.mdDataTable .leftAlignedColumn {
+  text-align: left;
+}
+/* line 70, ../app/scss/main.scss */
+.mdDataTable .rightAlignedColumn {
+  text-align: right;
+}
+/* line 75, ../app/scss/main.scss */
+.mdDataTable tr th {
+  border-bottom: solid 1px #DDDDDD;
+}
+/* line 79, ../app/scss/main.scss */
+.mdDataTable tr td {
+  border-bottom: solid 1px #DDDDDD;
+}
+/* line 85, ../app/scss/main.scss */
+.mdDataTable tr:hover td {
+  background: #EEEEEE;
+}
