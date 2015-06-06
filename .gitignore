@@ -1,0 +1,5 @@
+.sass-cache
+app/bower_components
+build
+node_modules
+reports
