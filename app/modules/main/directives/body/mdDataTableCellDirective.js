@@ -15,7 +15,7 @@
 
                 ColumnAwareService.subscribeToOptionListChange(function(value){
                     $scope.alignRule = value[$scope.columnIndex].alignRule;
-console.log('change detected ',value[$scope.columnIndex].alignRule);
+console.log('change detected ', $scope.columnIndex, value[$scope.columnIndex].alignRule);
                     $scope.columnClass = getColumnClass($scope.alignRule);
                 });
 
