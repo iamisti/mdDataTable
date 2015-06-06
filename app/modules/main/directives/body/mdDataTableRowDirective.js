@@ -7,10 +7,13 @@
             templateUrl: '/main/templates/mdDataTableRow.html',
             replace: true,
             transclude: true,
-            controller: function($scope){
-                $scope.cellIndex = 0;
-            },
+            require: '^mdDataTable',
             link: function($scope, element, attrs, ctrl, transclude){
+                $scope.cellIndex = 0;
+                $scope.selectableRows = ctrl.isRowsSelectable();
+
+                console.log($scope.selectableRows);
+
                 appendColumns();
 
                 function appendColumns(){

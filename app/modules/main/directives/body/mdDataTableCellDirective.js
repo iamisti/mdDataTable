@@ -1,18 +1,18 @@
 (function(){
     'use strict';
 
-    function mdDataTableCellDirective(ColumnAwareService, ColumnOptionProvider, $timeout){
+    function mdDataTableCellDirective(ColumnAwareService, ColumnOptionProvider){
         return {
             restrict: 'E',
             templateUrl: '/main/templates/mdDataTableCell.html',
             replace: true,
             transclude: true,
+            scope: {},
             link: function($scope){
                 $scope.columnIndex = _.clone($scope.$parent.cellIndex);
-console.log('assigned value: ', $scope.columnIndex);
+
                 ColumnAwareService.subscribeToOptionListChange(function(value){
                     $scope.alignRule = value[$scope.columnIndex].alignRule;
-console.log('change detected: ', $scope.columnIndex, value[$scope.columnIndex].alignRule);
                     $scope.columnClass = getColumnClass($scope.alignRule);
                 });
 

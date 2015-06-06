@@ -8,13 +8,20 @@
             transclude: true,
             scope: {
                 tableCard: '=',
-                tableRowsData: '=',
                 selectableRows: '='
             },
-            controller: function($scope){
-                ColumnAwareService.initialize($scope);
+            bindToController: true,
+            controllerAs: 'vm',
+            controller: function(){
+                var vm = this;
+
+                vm.isRowsSelectable = function(){
+                    return vm.selectableRows;
+                }
             },
             link: function($scope, element, attrs, ctrl, transclude){
+                ColumnAwareService.initialize($scope);
+
                 transclude(function (clone) {
                     var headings = [];
                     var body = [];
