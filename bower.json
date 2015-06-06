@@ -8,7 +8,7 @@
   "main": [
     "dist/md-data-table.js",
     "dist/md-data-table-templates.js",
-    "dist/md-data-table.css"
+    "dist/md-data-table-style.css"
   ],
   "description": "data table based on google material design",
   "keywords": [
