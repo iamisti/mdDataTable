@@ -8,6 +8,7 @@ require('./gulp-tasks/index');
 require('./gulp-tasks/templates');
 require('./gulp-tasks/lint');
 require('./gulp-tasks/test');
+require('./gulp-tasks/dist');
 
 gulp.task('start development webserver', function() {
     connect.server({
@@ -32,4 +33,8 @@ gulp.task('ci', function(next) {
 
 gulp.task('test', function(next) {
     runSequence('unit', /*'integration', */next);
+});
+
+gulp.task('release', function(next) {
+    runSequence('dist', /*'integration', */next);
 });

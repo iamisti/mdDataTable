@@ -5,6 +5,11 @@
   "authors": [
     "Istvan Fodor <programtervezo@gmail.com>"
   ],
+  "main": [
+    "dist/md-data-table.js",
+    "dist/md-data-table-templates.js",
+    "dist/md-data-table.css"
+  ],
   "description": "data table based on google material design",
   "keywords": [
     "data-table",
@@ -25,10 +30,11 @@
     "jquery": "~2.0.0",
     "lodash": "~2.4.1",
     "angular": "~1.4.0",
-    "angular-mocks": "~1.4.0",
     "angular-sanitize": "~1.4.0",
     "angular-animate": "~1.4.0",
     "angular-material": "~0.9.6"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "angular-mocks": "~1.4.0"
+  }
 }
