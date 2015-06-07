@@ -27,7 +27,7 @@
                 //            else: align left
                 function saveColumnSettings() {
                     //TODO: rework
-                    $scope.$parent.$parent.$parent.columnOptionsList.push({
+                    $scope.$parent.$parent.$parent.$parent.columnOptionsList.push({
                         alignRule: $scope.alignRule
                     });
                 }

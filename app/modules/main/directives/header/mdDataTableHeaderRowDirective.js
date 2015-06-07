@@ -8,12 +8,9 @@
             replace: true,
             transclude: true,
             require: '^mdDataTable',
+            scope: true,
             link: function($scope, element, attrs, ctrl, transclude){
-                appendColumns()
-
-                $scope.$parent.$watch('selectableRows', function(newVal){
-                    $scope.selectableRows = ctrl.isRowsSelectable();
-                });
+                appendColumns();
 
                 function appendColumns(){
                     transclude(function (clone) {

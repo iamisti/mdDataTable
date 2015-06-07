@@ -8,15 +8,9 @@
             replace: true,
             transclude: true,
             require: '^mdDataTable',
+            scope: true,
             link: function($scope, element, attrs, ctrl, transclude){
                 $scope.cellIndex = 0;
-
-                //TODO: why ctrl.isRowSelectable() does not refreshed after change?
-                //$scope.selectableRows = ctrl.isRowsSelectable();
-
-                $scope.$parent.$parent.$watch('selectableRows', function(newVal){
-                    $scope.selectableRows = ctrl.isRowsSelectable();
-                });
 
                 appendColumns();
 

@@ -20,23 +20,27 @@
             link: function($scope, element, attrs, ctrl, transclude){
                 $scope.columnOptionsList = [];
 
-                transclude(function (clone) {
-                    var headings = [];
-                    var body = [];
+                injectContentIntoTemplate();
 
-                    _.each(clone, function (child) {
-                        var $child = angular.element(child);
+                function injectContentIntoTemplate(){
+                    transclude(function (clone) {
+                        var headings = [];
+                        var body = [];
 
-                        if ($child.hasClass('theadTrRow')) {
-                            headings.push($child);
-                        } else {
-                            body.push($child);
-                        }
+                        _.each(clone, function (child) {
+                            var $child = angular.element(child);
+
+                            if ($child.hasClass('theadTrRow')) {
+                                headings.push($child);
+                            } else {
+                                body.push($child);
+                            }
+                        });
+
+                        element.find('table thead').append(headings);
+                        element.find('table tbody').append(body);
                     });
-
-                    element.find('table thead').append(headings);
-                    element.find('table tbody').append(body);
-                });
+                }
             }
         };
     }

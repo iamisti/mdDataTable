@@ -10,12 +10,12 @@
             scope: {},
             link: function($scope){
                 $scope.getColumnClass = getColumnClass;
-                $scope.columnIndex = $scope.$parent.cellIndex;
+                $scope.columnIndex = $scope.$parent.$parent.cellIndex;
 
                 //TODO: rework
-                $scope.alignRule = $scope.$parent.$parent.$parent.$parent.columnOptionsList[$scope.columnIndex].alignRule;
+                $scope.alignRule = $scope.$parent.$parent.$parent.$parent.$parent.columnOptionsList[$scope.columnIndex].alignRule;
 
-                $scope.$parent.cellIndex++;
+                $scope.$parent.$parent.cellIndex++;
 
                 function getColumnClass() {
                     if ($scope.alignRule === ColumnOptionProvider.ALIGN_RULE.ALIGN_RIGHT) {
