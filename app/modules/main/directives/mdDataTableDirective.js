@@ -26,7 +26,7 @@
                     var headings = [];
                     var body = [];
 
-                    clone.each(function (index, child) {
+                    _.each(clone, function (child) {
                         var $child = angular.element(child);
 
                         if ($child.hasClass('theadTrRow')) {

@@ -23,11 +23,7 @@
                     transclude(function (clone) {
                         element.append(clone);
                     });
-
-                    console.log('injected: ', transclude())
                 }
-
-                console.log('row-directive end');
             }
         };
     }

@@ -9,8 +9,6 @@
             transclude: true,
             scope: {},
             link: function($scope){
-                console.log('cell-directive start');
-
                 $scope.columnIndex = _.clone($scope.$parent.cellIndex);
 
                 ColumnAwareService.subscribeToOptionListChange(function(value){
@@ -27,7 +25,6 @@
                         return 'leftAlignedColumn';
                     }
                 }
-                console.log('cell-directive end');
             }
         };
     }
