@@ -7,7 +7,7 @@
             templateUrl: '/main/templates/mdDataTableRow.html',
             replace: true,
             transclude: true,
-            require: '^mdDataTable',
+            //require: '^mdDataTable',
             link: function($scope, element, attrs, ctrl, transclude){
                 console.log('row-directive start');
 
