@@ -10,77 +10,84 @@
     <title>md-data-table demo</title>
     <meta name="description" content="">
 
-    <!-- Styles -->
-    <!-- bower:css -->
-    <link rel="stylesheet" href="app/bower_components/angular-material/angular-material.css">
-    <!-- endinject -->
-    <!-- inject:css -->
-    <!-- built css files will go here... -->
-    <!-- endinject -->
-    <link rel="stylesheet" href="main.css"/>
+    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/angular_material/0.8.3/angular-material.min.css" />
+
+    <!-- mdDataTable css -->
+    <link rel="stylesheet" href="https://rawgit.com/iamisti/md-data-table/master/dist/md-data-table-style.css"/>
+
+    <style>
+        body{
+            background: #DDDDDD;
+        }
+    </style>
 </head>
 <body ng-app="exampleApp">
 
-<div layout="row" ng-controller="ExampleController">
+    <md-toolbar layout="row" layout-align="left center" layout-padding>
+        <h3 class="md-title">Material Design Data Table</h3>
+    </md-toolbar>
 
-    <div flex="20">
-        <md-card>
-            <md-subheader>Attributes playground</md-subheader>
+    <div layout="row" ng-controller="ExampleController">
+        <div flex="20">
+            <md-card>
+                <md-subheader>Attributes playground</md-subheader>
 
-            <md-checkbox ng-model="tableCardIsEnabled" aria-label="Enable table card">
-                Enable table card
-            </md-checkbox>
+                <md-checkbox ng-model="tableCardIsEnabled" aria-label="Enable table card">
+                    Enable table card
+                </md-checkbox>
 
-            <md-checkbox ng-model="tableIsSelectable" aria-label="Enable selectable rows" checked>
-                Enable selectable rows
-            </md-checkbox>
-        </md-card>
+                <md-checkbox ng-model="tableIsSelectable" aria-label="Enable selectable rows" checked>
+                    Enable selectable rows
+                </md-checkbox>
+            </md-card>
+        </div>
+        <div layout-padding flex>
+            <md-data-table
+                    table-card="{visible: tableCardIsEnabled, title: 'Nutrition'}"
+                    selectable-rows="tableIsSelectable">
+
+                <md-data-table-header-row>
+                    <md-data-table-column align-rule="left">Dessert (100g serving)</md-data-table-column>
+                    <md-data-table-column align-rule="right">Calories</md-data-table-column>
+                    <md-data-table-column align-rule="right">Fat (g)</md-data-table-column>
+                    <md-data-table-column align-rule="right">Carbs (g)</md-data-table-column>
+                    <md-data-table-column align-rule="right">Protein (g)</md-data-table-column>
+                    <md-data-table-column align-rule="right">Sodium (mg)</md-data-table-column>
+                    <md-data-table-column align-rule="right">Calcium (%)</md-data-table-column>
+                    <md-data-table-column align-rule="right">Iron (%)</md-data-table-column>
+                </md-data-table-header-row>
+
+                <md-data-table-row ng-repeat="nutrition in nutritionList">
+                    <md-data-table-cell>{{nutrition.name}}</md-data-table-cell>
+                    <md-data-table-cell>{{nutrition.calories}}</md-data-table-cell>
+                    <md-data-table-cell>{{nutrition.fat}}</md-data-table-cell>
+                    <md-data-table-cell>{{nutrition.carbs}}</md-data-table-cell>
+                    <md-data-table-cell>{{nutrition.protein}}</md-data-table-cell>
+                    <md-data-table-cell>{{nutrition.sodium}}</md-data-table-cell>
+                    <md-data-table-cell>{{nutrition.calcium}}</md-data-table-cell>
+                    <md-data-table-cell>{{nutrition.iron}}</md-data-table-cell>
+                </md-data-table-row>
+            </md-data-table>
+        </div>
     </div>
-    <div layout-padding flex>
-        <md-data-table
-                table-card="{visible: tableCardIsEnabled, title: 'Nutrition'}"
-                selectable-rows="tableIsSelectable"
-                table-rows-data="tableData">
 
-            <md-data-table-column align-rule="left">Dessert (100g serving)</md-data-table-column>
-            <md-data-table-column align-rule="right">Calories</md-data-table-column>
-            <md-data-table-column align-rule="right">Fat (g)</md-data-table-column>
-            <md-data-table-column align-rule="right">Carbs (g)</md-data-table-column>
-            <md-data-table-column align-rule="right">Protein (g)</md-data-table-column>
-            <md-data-table-column align-rule="right">Sodium (mg)</md-data-table-column>
-            <md-data-table-column align-rule="right">Calcium (%)</md-data-table-column>
-            <md-data-table-column align-rule="right">Iron (%)</md-data-table-column>
-        </md-data-table>
-    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 
-</div>
+    <!-- Angular Material Dependencies -->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular-animate.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular-aria.min.js"></script>
 
-<!-- Placed at the end of the document so the pages load faster -->
-<!-- bower:js -->
-<script src="app/bower_components/jquery/dist/jquery.js"></script>
-<script src="app/bower_components/lodash/dist/lodash.compat.js"></script>
-<script src="app/bower_components/angular/angular.js"></script>
-<script src="app/bower_components/angular-mocks/angular-mocks.js"></script>
-<script src="app/bower_components/angular-sanitize/angular-sanitize.js"></script>
-<script src="app/bower_components/angular-animate/angular-animate.js"></script>
-<script src="app/bower_components/angular-aria/angular-aria.js"></script>
-<script src="app/bower_components/angular-material/angular-material.js"></script>
-<!-- endinject -->
+    <!-- Angular Material -->
+    <script src="https://ajax.googleapis.com/ajax/libs/angular_material/0.9.4/angular-material.min.js"></script>
 
-<!-- inject:js -->
-<script src="app/modules/app.js"></script>
-<script src="app/modules/main/directives/mdDataTableColumnDirective.js"></script>
-<script src="app/modules/main/directives/mdDataTableDirective.js"></script>
-<script src="app/modules/main/directives/mdDataTableRowPopulatorDirective.js"></script>
-<script src="app/modules/main/providers/ColumnOptionsProvider.js"></script>
-<script src="app/modules/main/services/ColumnAwareService.js"></script>
-<!-- endinject -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
 
-<!-- demo:js -->
-<script src="demo/example.js"></script>
-<!-- endinject -->
+    <!-- mdDataTable -->
+    <script src="https://rawgit.com/iamisti/md-data-table/master/dist/md-data-table-templates.js"></script>
+    <script src="https://rawgit.com/iamisti/md-data-table/master/dist/md-data-table.js"></script>
 
-
-<script src="templates.js"></script>
+    <!-- example app -->
+    <script src="example.js"></script>
 </body>
 </html>
