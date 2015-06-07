@@ -6,7 +6,6 @@ describe('mdDataTableColumnDirective', function(){
     var $compile,
         $rootScope,
         $scope,
-        ColumnAwareService,
         element;
 
     var DIRECTIVE_WITHOUT_PARAMS = 'DIRECTIVE_WITHOUT_PARAMS';
@@ -23,15 +22,12 @@ describe('mdDataTableColumnDirective', function(){
         $compile = $injector.get('$compile');
         $rootScope = $injector.get('$rootScope');
 
-        ColumnAwareService = $injector.get('ColumnAwareService');
-
         $scope = $rootScope.$new();
     }));
 
     describe('WHEN created', function(){
         beforeEach(function(){
             //given
-            spyOn(ColumnAwareService, 'add');
 
             //when
             compileDirective();
@@ -40,11 +36,6 @@ describe('mdDataTableColumnDirective', function(){
         it('THEN has the required methods', function(){
             //then
             expect(element.isolateScope().getColumnClass).toBeDefined();
-        });
-
-        it('AND ColumnAwareService.add should be called', function(){
-            //then
-            expect(ColumnAwareService.add).toHaveBeenCalled();
         });
     });
 

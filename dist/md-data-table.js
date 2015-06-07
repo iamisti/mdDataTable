@@ -6,7 +6,7 @@
 (function(){
     'use strict';
 
-    function mdDataTableDirective(ColumnAwareService){
+    function mdDataTableDirective(){
         return {
             restrict: 'E',
             templateUrl: '/main/templates/mdDataTable.html',
@@ -15,17 +15,15 @@
                 tableCard: '=',
                 selectableRows: '='
             },
-            bindToController: true,
-            controllerAs: 'vm',
-            controller: function(){
+            controller: function($scope){
                 var vm = this;
 
                 vm.isRowsSelectable = function(){
-                    return vm.selectableRows;
+                    return $scope.selectableRows;
                 }
             },
             link: function($scope, element, attrs, ctrl, transclude){
-                ColumnAwareService.initialize($scope);
+                $scope.columnOptionsList = [];
 
                 transclude(function (clone) {
                     var headings = [];
@@ -68,114 +66,7 @@
 (function(){
     'use strict';
 
-    function ColumnAwareService(){
-        var service = this;
-
-        service.addColumnOption = addColumnOption;
-        service.subscribeToOptionListChange = subscribeToOptionListChange;
-        service.initialize = initialize;
-
-        function addColumnOption(columnOption){
-            service.scope.optionsList.push(columnOption);
-        }
-
-        function subscribeToOptionListChange(callback){
-            service.scope.subscribers.push(callback);
-        }
-
-        function initialize(scope){
-            service.scope = scope;
-
-            service.scope.optionsList = [];
-            service.scope.subscribers = [];
-
-            service.scope.$watch('optionsList', function(newVal){
-                if(newVal){
-                    _.each(service.scope.subscribers, function(callback){
-                        callback(newVal);
-                    });
-                }
-            }, true);
-        }
-    }
-
-    angular
-        .module('mdDataTable')
-        .service('ColumnAwareService', ColumnAwareService);
-}());
-(function(){
-    'use strict';
-
-    function mdDataTableCellDirective(ColumnAwareService, ColumnOptionProvider){
-        return {
-            restrict: 'E',
-            templateUrl: '/main/templates/mdDataTableCell.html',
-            replace: true,
-            transclude: true,
-            scope: {},
-            link: function($scope){
-                $scope.columnIndex = _.clone($scope.$parent.cellIndex);
-
-                ColumnAwareService.subscribeToOptionListChange(function(value){
-                    $scope.alignRule = value[$scope.columnIndex].alignRule;
-                    $scope.columnClass = getColumnClass($scope.alignRule);
-                });
-
-                $scope.$parent.cellIndex++;
-
-                function getColumnClass(a) {
-                    if (a === ColumnOptionProvider.ALIGN_RULE.ALIGN_RIGHT) {
-                        return 'rightAlignedColumn';
-                    } else {
-                        return 'leftAlignedColumn';
-                    }
-                }
-            }
-        };
-    }
-
-    angular
-        .module('mdDataTable')
-        .directive('mdDataTableCell', mdDataTableCellDirective);
-}());
-(function(){
-    'use strict';
-
-    function mdDataTableRowDirective(){
-        return {
-            restrict: 'E',
-            templateUrl: '/main/templates/mdDataTableRow.html',
-            replace: true,
-            transclude: true,
-            require: '^mdDataTable',
-            link: function($scope, element, attrs, ctrl, transclude){
-                console.log('row-directive start');
-
-                $scope.cellIndex = 0;
-                $scope.selectableRows = ctrl.isRowsSelectable();
-
-                appendColumns();
-
-                function appendColumns(){
-                    //TODO: question: the commented out code is not working properly when data-table-row has an ng-repeat. Why?
-                    //angular.element(transclude()).appendTo(element);
-
-                    transclude(function (clone) {
-                        element.append(clone);
-                    });
-                }
-            }
-        };
-    }
-
-    angular
-        .module('mdDataTable')
-        .directive('mdDataTableRow', mdDataTableRowDirective);
-}());
-(function(){
-    'use strict';
-
-    function mdDataTableColumnDirective(ColumnAwareService, ColumnOptionProvider){
+    function mdDataTableColumnDirective(ColumnOptionProvider){
         return {
             restrict: 'E',
             templateUrl: '/main/templates/mdDataTableColumn.html',
@@ -200,7 +91,8 @@
                 //then: if numeric: align right
                 //            else: align left
                 function saveColumnSettings() {
-                    ColumnAwareService.addColumnOption({
+                    //TODO: rework
+                    $scope.$parent.$parent.$parent.columnOptionsList.push({
                         alignRule: $scope.alignRule
                     });
                 }
@@ -218,11 +110,16 @@
     function mdDataTableHeaderRowDirective(){
         return {
             restrict: 'E',
-            transclude: true,
-            replace: true,
             templateUrl: '/main/templates/mdDataTableHeaderRow.html',
+            replace: true,
+            transclude: true,
+            require: '^mdDataTable',
             link: function($scope, element, attrs, ctrl, transclude){
-                appendColumns();
+                appendColumns()
+
+                $scope.$parent.$watch('selectableRows', function(newVal){
+                    $scope.selectableRows = ctrl.isRowsSelectable();
+                });
 
                 function appendColumns(){
                     transclude(function (clone) {
@@ -236,4 +133,76 @@
     angular
         .module('mdDataTable')
         .directive('mdDataTableHeaderRow', mdDataTableHeaderRowDirective);
+}());
+(function(){
+    'use strict';
+
+    function mdDataTableCellDirective(ColumnOptionProvider){
+        return {
+            restrict: 'E',
+            templateUrl: '/main/templates/mdDataTableCell.html',
+            replace: true,
+            transclude: true,
+            scope: {},
+            link: function($scope){
+                $scope.getColumnClass = getColumnClass;
+                $scope.columnIndex = $scope.$parent.cellIndex;
+
+                //TODO: rework
+                $scope.alignRule = $scope.$parent.$parent.$parent.$parent.columnOptionsList[$scope.columnIndex].alignRule;
+
+                $scope.$parent.cellIndex++;
+
+                function getColumnClass() {
+                    if ($scope.alignRule === ColumnOptionProvider.ALIGN_RULE.ALIGN_RIGHT) {
+                        return 'rightAlignedColumn';
+                    } else {
+                        return 'leftAlignedColumn';
+                    }
+                }
+            }
+        };
+    }
+
+    angular
+        .module('mdDataTable')
+        .directive('mdDataTableCell', mdDataTableCellDirective);
+}());
+(function(){
+    'use strict';
+
+    function mdDataTableRowDirective(){
+        return {
+            restrict: 'E',
+            templateUrl: '/main/templates/mdDataTableRow.html',
+            replace: true,
+            transclude: true,
+            require: '^mdDataTable',
+            link: function($scope, element, attrs, ctrl, transclude){
+                $scope.cellIndex = 0;
+
+                //TODO: why ctrl.isRowSelectable() does not refreshed after change?
+                //$scope.selectableRows = ctrl.isRowsSelectable();
+
+                $scope.$parent.$parent.$watch('selectableRows', function(newVal){
+                    $scope.selectableRows = ctrl.isRowsSelectable();
+                });
+
+                appendColumns();
+
+                function appendColumns(){
+                    //TODO: question: the commented out code is not working properly when data-table-row has an ng-repeat. Why?
+                    //angular.element(transclude()).appendTo(element);
+
+                    transclude(function (clone) {
+                        element.append(clone);
+                    });
+                }
+            }
+        };
+    }
+
+    angular
+        .module('mdDataTable')
+        .directive('mdDataTableRow', mdDataTableRowDirective);
 }());

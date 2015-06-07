@@ -4,11 +4,16 @@
     function mdDataTableHeaderRowDirective(){
         return {
             restrict: 'E',
-            transclude: true,
-            replace: true,
             templateUrl: '/main/templates/mdDataTableHeaderRow.html',
+            replace: true,
+            transclude: true,
+            require: '^mdDataTable',
             link: function($scope, element, attrs, ctrl, transclude){
-                appendColumns();
+                appendColumns()
+
+                $scope.$parent.$watch('selectableRows', function(newVal){
+                    $scope.selectableRows = ctrl.isRowsSelectable();
+                });
 
                 function appendColumns(){
                     transclude(function (clone) {

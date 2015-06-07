@@ -1,7 +1,7 @@
 (function(){
     'use strict';
 
-    function mdDataTableColumnDirective(ColumnAwareService, ColumnOptionProvider){
+    function mdDataTableColumnDirective(ColumnOptionProvider){
         return {
             restrict: 'E',
             templateUrl: '/main/templates/mdDataTableColumn.html',
@@ -26,7 +26,8 @@
                 //then: if numeric: align right
                 //            else: align left
                 function saveColumnSettings() {
-                    ColumnAwareService.addColumnOption({
+                    //TODO: rework
+                    $scope.$parent.$parent.$parent.columnOptionsList.push({
                         alignRule: $scope.alignRule
                     });
                 }

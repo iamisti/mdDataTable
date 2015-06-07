@@ -9,10 +9,14 @@
             transclude: true,
             require: '^mdDataTable',
             link: function($scope, element, attrs, ctrl, transclude){
-                console.log('row-directive start');
-
                 $scope.cellIndex = 0;
-                $scope.selectableRows = ctrl.isRowsSelectable();
+
+                //TODO: why ctrl.isRowSelectable() does not refreshed after change?
+                //$scope.selectableRows = ctrl.isRowsSelectable();
+
+                $scope.$parent.$parent.$watch('selectableRows', function(newVal){
+                    $scope.selectableRows = ctrl.isRowsSelectable();
+                });
 
                 appendColumns();
 

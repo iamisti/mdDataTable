@@ -1,7 +1,7 @@
 (function(){
     'use strict';
 
-    function mdDataTableDirective(ColumnAwareService){
+    function mdDataTableDirective(){
         return {
             restrict: 'E',
             templateUrl: '/main/templates/mdDataTable.html',
@@ -10,17 +10,15 @@
                 tableCard: '=',
                 selectableRows: '='
             },
-            bindToController: true,
-            controllerAs: 'vm',
-            controller: function(){
+            controller: function($scope){
                 var vm = this;
 
                 vm.isRowsSelectable = function(){
-                    return vm.selectableRows;
+                    return $scope.selectableRows;
                 }
             },
             link: function($scope, element, attrs, ctrl, transclude){
-                ColumnAwareService.initialize($scope);
+                $scope.columnOptionsList = [];
 
                 transclude(function (clone) {
                     var headings = [];

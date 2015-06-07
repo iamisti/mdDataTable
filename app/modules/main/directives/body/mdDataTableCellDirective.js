@@ -1,7 +1,7 @@
 (function(){
     'use strict';
 
-    function mdDataTableCellDirective(ColumnAwareService, ColumnOptionProvider){
+    function mdDataTableCellDirective(ColumnOptionProvider){
         return {
             restrict: 'E',
             templateUrl: '/main/templates/mdDataTableCell.html',
@@ -9,17 +9,16 @@
             transclude: true,
             scope: {},
             link: function($scope){
-                $scope.columnIndex = _.clone($scope.$parent.cellIndex);
+                $scope.getColumnClass = getColumnClass;
+                $scope.columnIndex = $scope.$parent.cellIndex;
 
-                ColumnAwareService.subscribeToOptionListChange(function(value){
-                    $scope.alignRule = value[$scope.columnIndex].alignRule;
-                    $scope.columnClass = getColumnClass($scope.alignRule);
-                });
+                //TODO: rework
+                $scope.alignRule = $scope.$parent.$parent.$parent.$parent.columnOptionsList[$scope.columnIndex].alignRule;
 
                 $scope.$parent.cellIndex++;
 
-                function getColumnClass(a) {
-                    if (a === ColumnOptionProvider.ALIGN_RULE.ALIGN_RIGHT) {
+                function getColumnClass() {
+                    if ($scope.alignRule === ColumnOptionProvider.ALIGN_RULE.ALIGN_RIGHT) {
                         return 'rightAlignedColumn';
                     } else {
                         return 'leftAlignedColumn';
