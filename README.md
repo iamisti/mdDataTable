@@ -1,5 +1,5 @@
 # This component is UNDER DEVELOPMENT. 
-# Mark the repository if you want to notify the first release (soon)
+Mark the repository if you want to notify the first release (soon)
 
 [![Build Status](https://travis-ci.org/iamisti/md-data-table.svg?branch=master)](https://travis-ci.org/iamisti/md-data-table)
 [![Code Climate](https://codeclimate.com/github/iamisti/md-data-table/badges/gpa.svg)](https://codeclimate.com/github/iamisti/md-data-table)
