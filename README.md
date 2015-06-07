@@ -54,10 +54,6 @@ In its simplest form, a data table contains a top row of column names, and rows 
 |                                                | contextual                      | -             | Shows contextual content depending on what has been selected |
 ![persistent and contextual headers](http://material-design.storage.googleapis.com/publish/material_v_4/material_ext_publish/0B3mOPoJlxiFhemNvbnZOcXNpODQ/components_datatables_cards_altheaders.png)
 
-| Params                                         | Type          | Details                       |
-| ---------------------------------------------- | ------------- | -------------                 |
-| table-rows-data                                | Array         | array representations of data |
-
 
 ## Column attributes
 
@@ -98,8 +94,7 @@ In its simplest form, a data table contains a top row of column names, and rows 
 ## Example usage:
     <md-data-table
         selectable-rows="true"
-        table-card="{title: Nutrition, actionIcons: true}"
-        table-rows-data="[{Frozen yogurt, iceCream, 159, 6.0, 24, 4.0}]">
+        table-card="{title: Nutrition, actionIcons: true}">
 
         <md-data-table-header-row>
             <!-- defining column descriptions, align content to the left -->
@@ -132,8 +127,6 @@ In its simplest form, a data table contains a top row of column names, and rows 
             <md-data-table-cell>24</md-data-table-cell>
             <md-data-table-cell>4</md-data-table-cell>
             <md-data-table-cell>87</md-data-table-cell>
-            <md-data-table-cell>14%</md-data-table-cell>
-            <md-data-table-cell>1%</md-data-table-cell>
         </md-data-table-row>
 
     </md-data-table>
