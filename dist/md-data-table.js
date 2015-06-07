@@ -31,7 +31,7 @@
                     var headings = [];
                     var body = [];
 
-                    clone.each(function (index, child) {
+                    _.each(clone, function (child) {
                         var $child = angular.element(child);
 
                         if ($child.hasClass('theadTrRow')) {
@@ -179,8 +179,6 @@
             transclude: true,
             scope: {},
             link: function($scope){
-                console.log('cell-directive start');
-
                 $scope.columnIndex = _.clone($scope.$parent.cellIndex);
 
                 ColumnAwareService.subscribeToOptionListChange(function(value){
@@ -197,7 +195,6 @@
                         return 'leftAlignedColumn';
                     }
                 }
-                console.log('cell-directive end');
             }
         };
     }
@@ -231,11 +228,7 @@
                     transclude(function (clone) {
                         element.append(clone);
                     });
-
-                    console.log('injected: ', transclude())
                 }
-
-                console.log('row-directive end');
             }
         };
     }
