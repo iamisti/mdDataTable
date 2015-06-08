@@ -9,8 +9,33 @@
             transclude: true,
             require: '^mdDataTable',
             scope: true,
-            link: function($scope, element, attrs, ctrl, transclude){
+            controller: function($scope){
                 $scope.cellIndex = 0;
+                $scope.rowSelected = false;
+
+                var vm = this;
+                vm.increaseIndex = increaseIndex;
+                vm.getIndex = getIndex;
+                vm.rowClicked = rowClicked;
+
+
+                function increaseIndex(){
+                    $scope.cellIndex++;
+                }
+
+                function getIndex(){
+                    return $scope.cellIndex;
+                }
+
+                function rowClicked(){
+                    $scope.rowSelected = !$scope.rowSelected;
+                }
+
+            },
+            link: function($scope, element, attrs, ctrl, transclude){
+                $scope.isSelectableRows = ctrl.isSelectableRows;
+                //$scope.isAllRowsSelected = ctrl.isAllRowsSelected;
+                //$scope.rowSelected = !ctrl.isAllRowsSelected();
 
                 appendColumns();
 

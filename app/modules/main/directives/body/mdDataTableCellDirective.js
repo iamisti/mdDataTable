@@ -7,22 +7,32 @@
             templateUrl: '/main/templates/mdDataTableCell.html',
             replace: true,
             transclude: true,
-            scope: {},
-            link: function($scope){
+            scope: true,
+            require: ['^mdDataTable','^mdDataTableRow'],
+            link: function($scope, element, attrs, ctrl){
+                var mdDataTableCtrl = ctrl[0];
+                var mdDataTableRowCtrl = ctrl[1];
+                var columnIndex = mdDataTableRowCtrl.getIndex();
+
                 $scope.getColumnClass = getColumnClass;
-                $scope.columnIndex = $scope.$parent.$parent.cellIndex;
+                $scope.clickHandler = clickHandler;
 
-                //TODO: rework
-                $scope.alignRule = $scope.$parent.$parent.$parent.$parent.$parent.columnOptionsList[$scope.columnIndex].alignRule;
-
-                $scope.$parent.$parent.cellIndex++;
+                mdDataTableRowCtrl.increaseIndex();
 
                 function getColumnClass() {
-                    if ($scope.alignRule === ColumnOptionProvider.ALIGN_RULE.ALIGN_RIGHT) {
+                    if (getColumnOptions().alignRule === ColumnOptionProvider.ALIGN_RULE.ALIGN_RIGHT) {
                         return 'rightAlignedColumn';
                     } else {
                         return 'leftAlignedColumn';
                     }
+                }
+
+                function getColumnOptions(){
+                    return mdDataTableCtrl.getColumnOptions(columnIndex);
+                }
+
+                function clickHandler(){
+                    mdDataTableRowCtrl.rowClicked();
                 }
             }
         };

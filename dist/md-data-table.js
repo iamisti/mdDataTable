@@ -15,33 +15,49 @@
                 tableCard: '=',
                 selectableRows: '='
             },
+            controllerAs: 'mdDataTableCtrl',
             controller: function($scope){
+                var columnOptionsList = [];
                 var vm = this;
 
-                vm.isRowsSelectable = function(){
+                vm.isSelectableRows = isSelectableRows;
+                vm.getColumnOptions = getColumnOptions;
+                vm.addColumnOptions = addColumnOptions;
+
+                function isSelectableRows(){
                     return $scope.selectableRows;
+                }
+
+                function addColumnOptions(options){
+                    return columnOptionsList.push(options);
+                }
+
+                function getColumnOptions(index){
+                    return columnOptionsList[index];
                 }
             },
             link: function($scope, element, attrs, ctrl, transclude){
-                $scope.columnOptionsList = [];
+                injectContentIntoTemplate();
 
-                transclude(function (clone) {
-                    var headings = [];
-                    var body = [];
+                function injectContentIntoTemplate(){
+                    transclude(function (clone) {
+                        var headings = [];
+                        var body = [];
 
-                    _.each(clone, function (child) {
-                        var $child = angular.element(child);
+                        _.each(clone, function (child) {
+                            var $child = angular.element(child);
 
-                        if ($child.hasClass('theadTrRow')) {
-                            headings.push($child);
-                        } else {
-                            body.push($child);
-                        }
+                            if ($child.hasClass('theadTrRow')) {
+                                headings.push($child);
+                            } else {
+                                body.push($child);
+                            }
+                        });
+
+                        element.find('table thead').append(headings);
+                        element.find('table tbody').append(body);
                     });
-
-                    element.find('table thead').append(headings);
-                    element.find('table tbody').append(body);
-                });
+                }
             }
         };
     }
@@ -75,9 +91,10 @@
             scope: {
                 alignRule: '@'
             },
-            link: function ($scope) {
+            require: '^mdDataTable',
+            link: function ($scope, element, attrs, mdDataTableCtrl) {
                 $scope.getColumnClass = getColumnClass;
-                saveColumnSettings();
+                addColumnSettings();
 
                 function getColumnClass() {
                     if ($scope.alignRule === ColumnOptionProvider.ALIGN_RULE.ALIGN_RIGHT) {
@@ -90,9 +107,8 @@
                 //TODO: if alignRule not provided, try to analyse the values of the rows
                 //then: if numeric: align right
                 //            else: align left
-                function saveColumnSettings() {
-                    //TODO: rework
-                    $scope.$parent.$parent.$parent.columnOptionsList.push({
+                function addColumnSettings() {
+                    mdDataTableCtrl.addColumnOptions({
                         alignRule: $scope.alignRule
                     });
                 }
@@ -114,12 +130,11 @@
             replace: true,
             transclude: true,
             require: '^mdDataTable',
-            link: function($scope, element, attrs, ctrl, transclude){
-                appendColumns()
+            scope: true,
+            link: function($scope, element, attrs, mdDataTableCtrl, transclude){
+                $scope.isSelectableRows = mdDataTableCtrl.isSelectableRows;
 
-                $scope.$parent.$watch('selectableRows', function(newVal){
-                    $scope.selectableRows = ctrl.isRowsSelectable();
-                });
+                appendColumns();
 
                 function appendColumns(){
                     transclude(function (clone) {
@@ -143,22 +158,32 @@
             templateUrl: '/main/templates/mdDataTableCell.html',
             replace: true,
             transclude: true,
-            scope: {},
-            link: function($scope){
+            scope: true,
+            require: ['^mdDataTable','^mdDataTableRow'],
+            link: function($scope, element, attrs, ctrl){
+                var mdDataTableCtrl = ctrl[0];
+                var mdDataTableRowCtrl = ctrl[1];
+                var columnIndex = mdDataTableRowCtrl.getIndex();
+
                 $scope.getColumnClass = getColumnClass;
-                $scope.columnIndex = $scope.$parent.cellIndex;
+                $scope.clickHandler = clickHandler;
 
-                //TODO: rework
-                $scope.alignRule = $scope.$parent.$parent.$parent.$parent.columnOptionsList[$scope.columnIndex].alignRule;
-
-                $scope.$parent.cellIndex++;
+                mdDataTableRowCtrl.increaseIndex();
 
                 function getColumnClass() {
-                    if ($scope.alignRule === ColumnOptionProvider.ALIGN_RULE.ALIGN_RIGHT) {
+                    if (getColumnOptions().alignRule === ColumnOptionProvider.ALIGN_RULE.ALIGN_RIGHT) {
                         return 'rightAlignedColumn';
                     } else {
                         return 'leftAlignedColumn';
                     }
+                }
+
+                function getColumnOptions(){
+                    return mdDataTableCtrl.getColumnOptions(columnIndex);
+                }
+
+                function clickHandler(){
+                    mdDataTableRowCtrl.rowClicked();
                 }
             }
         };
@@ -178,15 +203,34 @@
             replace: true,
             transclude: true,
             require: '^mdDataTable',
-            link: function($scope, element, attrs, ctrl, transclude){
+            scope: true,
+            controller: function($scope){
                 $scope.cellIndex = 0;
+                $scope.rowSelected = false;
 
-                //TODO: why ctrl.isRowSelectable() does not refreshed after change?
-                //$scope.selectableRows = ctrl.isRowsSelectable();
+                var vm = this;
+                vm.increaseIndex = increaseIndex;
+                vm.getIndex = getIndex;
+                vm.rowClicked = rowClicked;
 
-                $scope.$parent.$parent.$watch('selectableRows', function(newVal){
-                    $scope.selectableRows = ctrl.isRowsSelectable();
-                });
+
+                function increaseIndex(){
+                    $scope.cellIndex++;
+                }
+
+                function getIndex(){
+                    return $scope.cellIndex;
+                }
+
+                function rowClicked(){
+                    $scope.rowSelected = !$scope.rowSelected;
+                }
+
+            },
+            link: function($scope, element, attrs, ctrl, transclude){
+                $scope.isSelectableRows = ctrl.isSelectableRows;
+                //$scope.isAllRowsSelected = ctrl.isAllRowsSelected;
+                //$scope.rowSelected = !ctrl.isAllRowsSelected();
 
                 appendColumns();
 

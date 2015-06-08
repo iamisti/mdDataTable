@@ -10,9 +10,10 @@
             scope: {
                 alignRule: '@'
             },
-            link: function ($scope) {
+            require: '^mdDataTable',
+            link: function ($scope, element, attrs, mdDataTableCtrl) {
                 $scope.getColumnClass = getColumnClass;
-                saveColumnSettings();
+                addColumnSettings();
 
                 function getColumnClass() {
                     if ($scope.alignRule === ColumnOptionProvider.ALIGN_RULE.ALIGN_RIGHT) {
@@ -25,9 +26,8 @@
                 //TODO: if alignRule not provided, try to analyse the values of the rows
                 //then: if numeric: align right
                 //            else: align left
-                function saveColumnSettings() {
-                    //TODO: rework
-                    $scope.$parent.$parent.$parent.$parent.columnOptionsList.push({
+                function addColumnSettings() {
+                    mdDataTableCtrl.addColumnOptions({
                         alignRule: $scope.alignRule
                     });
                 }

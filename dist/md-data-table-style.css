@@ -87,3 +87,7 @@
 .mdDataTable tr:hover td {
   background: #EEEEEE;
 }
+/* line 85, ../app/scss/main.scss */
+.mdDataTable .selectedRow td {
+  background: #F5F5F5;
+}

@@ -10,16 +10,28 @@
                 tableCard: '=',
                 selectableRows: '='
             },
+            controllerAs: 'mdDataTableCtrl',
             controller: function($scope){
+                var columnOptionsList = [];
                 var vm = this;
 
-                vm.isRowsSelectable = function(){
+                vm.isSelectableRows = isSelectableRows;
+                vm.getColumnOptions = getColumnOptions;
+                vm.addColumnOptions = addColumnOptions;
+
+                function isSelectableRows(){
                     return $scope.selectableRows;
+                }
+
+                function addColumnOptions(options){
+                    return columnOptionsList.push(options);
+                }
+
+                function getColumnOptions(index){
+                    return columnOptionsList[index];
                 }
             },
             link: function($scope, element, attrs, ctrl, transclude){
-                $scope.columnOptionsList = [];
-
                 injectContentIntoTemplate();
 
                 function injectContentIntoTemplate(){

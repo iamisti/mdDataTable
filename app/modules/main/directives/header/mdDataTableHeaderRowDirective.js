@@ -9,7 +9,9 @@
             transclude: true,
             require: '^mdDataTable',
             scope: true,
-            link: function($scope, element, attrs, ctrl, transclude){
+            link: function($scope, element, attrs, mdDataTableCtrl, transclude){
+                $scope.isSelectableRows = mdDataTableCtrl.isSelectableRows;
+
                 appendColumns();
 
                 function appendColumns(){

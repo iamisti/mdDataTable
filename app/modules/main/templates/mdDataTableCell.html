@@ -1,1 +1,3 @@
-<td class="column" ng-class="getColumnClass()" ng-transclude></td>
+<td class="column {{getColumnClass()}}" ng-click="clickHandler()">
+    <ng-transclude></ng-transclude>
+</td>
