@@ -1,7 +1,7 @@
 (function(){
     'use strict';
 
-    function mdDataTableDirective(){
+    function mdDataTableDirective(ColumnOptionProvider){
         return {
             restrict: 'E',
             templateUrl: '/main/templates/mdDataTable.html',
@@ -18,6 +18,7 @@
                 vm.isSelectableRows = isSelectableRows;
                 vm.getColumnOptions = getColumnOptions;
                 vm.addColumnOptions = addColumnOptions;
+                vm.getColumnAlignClass = getColumnAlignClass;
 
                 function isSelectableRows(){
                     return $scope.selectableRows;
@@ -29,6 +30,14 @@
 
                 function getColumnOptions(index){
                     return columnOptionsList[index];
+                }
+
+                function getColumnAlignClass(alignRule) {
+                    if (alignRule === ColumnOptionProvider.ALIGN_RULE.ALIGN_RIGHT) {
+                        return 'rightAlignedColumn';
+                    } else {
+                        return 'leftAlignedColumn';
+                    }
                 }
             },
             link: function($scope, element, attrs, ctrl, transclude){

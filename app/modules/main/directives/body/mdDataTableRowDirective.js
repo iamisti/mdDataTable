@@ -16,8 +16,6 @@
                 var vm = this;
                 vm.increaseIndex = increaseIndex;
                 vm.getIndex = getIndex;
-                vm.rowClicked = rowClicked;
-
 
                 function increaseIndex(){
                     $scope.cellIndex++;
@@ -27,13 +25,11 @@
                     return $scope.cellIndex;
                 }
 
-                function rowClicked(){
-                    $scope.rowSelected = !$scope.rowSelected;
-                }
-
             },
             link: function($scope, element, attrs, ctrl, transclude){
                 $scope.isSelectableRows = ctrl.isSelectableRows;
+                $scope.clickHandler = clickHandler;
+
                 //$scope.isAllRowsSelected = ctrl.isAllRowsSelected;
                 //$scope.rowSelected = !ctrl.isAllRowsSelected();
 
@@ -46,6 +42,10 @@
                     transclude(function (clone) {
                         element.append(clone);
                     });
+                }
+
+                function clickHandler(){
+                    $scope.rowSelected = !$scope.rowSelected;
                 }
             }
         };

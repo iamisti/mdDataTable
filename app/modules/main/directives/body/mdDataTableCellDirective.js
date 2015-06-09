@@ -1,7 +1,7 @@
 (function(){
     'use strict';
 
-    function mdDataTableCellDirective(ColumnOptionProvider){
+    function mdDataTableCellDirective(){
         return {
             restrict: 'E',
             templateUrl: '/main/templates/mdDataTableCell.html',
@@ -14,25 +14,12 @@
                 var mdDataTableRowCtrl = ctrl[1];
                 var columnIndex = mdDataTableRowCtrl.getIndex();
 
-                $scope.getColumnClass = getColumnClass;
-                $scope.clickHandler = clickHandler;
+                $scope.getColumnAlignClass = mdDataTableCtrl.getColumnAlignClass(getColumnOptions().alignRule);
 
                 mdDataTableRowCtrl.increaseIndex();
 
-                function getColumnClass() {
-                    if (getColumnOptions().alignRule === ColumnOptionProvider.ALIGN_RULE.ALIGN_RIGHT) {
-                        return 'rightAlignedColumn';
-                    } else {
-                        return 'leftAlignedColumn';
-                    }
-                }
-
                 function getColumnOptions(){
                     return mdDataTableCtrl.getColumnOptions(columnIndex);
-                }
-
-                function clickHandler(){
-                    mdDataTableRowCtrl.rowClicked();
                 }
             }
         };
