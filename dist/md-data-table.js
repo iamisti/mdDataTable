@@ -6,7 +6,7 @@
 (function(){
     'use strict';
 
-    function mdDataTableDirective(){
+    function mdDataTableDirective(ColumnOptionProvider){
         return {
             restrict: 'E',
             templateUrl: '/main/templates/mdDataTable.html',
@@ -23,6 +23,7 @@
                 vm.isSelectableRows = isSelectableRows;
                 vm.getColumnOptions = getColumnOptions;
                 vm.addColumnOptions = addColumnOptions;
+                vm.getColumnAlignClass = getColumnAlignClass;
 
                 function isSelectableRows(){
                     return $scope.selectableRows;
@@ -34,6 +35,14 @@
 
                 function getColumnOptions(index){
                     return columnOptionsList[index];
+                }
+
+                function getColumnAlignClass(alignRule) {
+                    if (alignRule === ColumnOptionProvider.ALIGN_RULE.ALIGN_RIGHT) {
+                        return 'rightAlignedColumn';
+                    } else {
+                        return 'leftAlignedColumn';
+                    }
                 }
             },
             link: function($scope, element, attrs, ctrl, transclude){
@@ -82,7 +91,7 @@
 (function(){
     'use strict';
 
-    function mdDataTableColumnDirective(ColumnOptionProvider){
+    function mdDataTableColumnDirective(){
         return {
             restrict: 'E',
             templateUrl: '/main/templates/mdDataTableColumn.html',
@@ -93,16 +102,8 @@
             },
             require: '^mdDataTable',
             link: function ($scope, element, attrs, mdDataTableCtrl) {
-                $scope.getColumnClass = getColumnClass;
+                $scope.getColumnAlignClass = mdDataTableCtrl.getColumnAlignClass($scope.alignRule);
                 addColumnSettings();
-
-                function getColumnClass() {
-                    if ($scope.alignRule === ColumnOptionProvider.ALIGN_RULE.ALIGN_RIGHT) {
-                        return 'rightAlignedColumn';
-                    } else {
-                        return 'leftAlignedColumn';
-                    }
-                }
 
                 //TODO: if alignRule not provided, try to analyse the values of the rows
                 //then: if numeric: align right
@@ -152,7 +153,7 @@
 (function(){
     'use strict';
 
-    function mdDataTableCellDirective(ColumnOptionProvider){
+    function mdDataTableCellDirective(){
         return {
             restrict: 'E',
             templateUrl: '/main/templates/mdDataTableCell.html',
@@ -165,25 +166,12 @@
                 var mdDataTableRowCtrl = ctrl[1];
                 var columnIndex = mdDataTableRowCtrl.getIndex();
 
-                $scope.getColumnClass = getColumnClass;
-                $scope.clickHandler = clickHandler;
+                $scope.getColumnAlignClass = mdDataTableCtrl.getColumnAlignClass(getColumnOptions().alignRule);
 
                 mdDataTableRowCtrl.increaseIndex();
 
-                function getColumnClass() {
-                    if (getColumnOptions().alignRule === ColumnOptionProvider.ALIGN_RULE.ALIGN_RIGHT) {
-                        return 'rightAlignedColumn';
-                    } else {
-                        return 'leftAlignedColumn';
-                    }
-                }
-
                 function getColumnOptions(){
                     return mdDataTableCtrl.getColumnOptions(columnIndex);
-                }
-
-                function clickHandler(){
-                    mdDataTableRowCtrl.rowClicked();
                 }
             }
         };
@@ -211,8 +199,6 @@
                 var vm = this;
                 vm.increaseIndex = increaseIndex;
                 vm.getIndex = getIndex;
-                vm.rowClicked = rowClicked;
-
 
                 function increaseIndex(){
                     $scope.cellIndex++;
@@ -222,13 +208,11 @@
                     return $scope.cellIndex;
                 }
 
-                function rowClicked(){
-                    $scope.rowSelected = !$scope.rowSelected;
-                }
-
             },
             link: function($scope, element, attrs, ctrl, transclude){
                 $scope.isSelectableRows = ctrl.isSelectableRows;
+                $scope.clickHandler = clickHandler;
+
                 //$scope.isAllRowsSelected = ctrl.isAllRowsSelected;
                 //$scope.rowSelected = !ctrl.isAllRowsSelected();
 
@@ -241,6 +225,10 @@
                     transclude(function (clone) {
                         element.append(clone);
                     });
+                }
+
+                function clickHandler(){
+                    $scope.rowSelected = !$scope.rowSelected;
                 }
             }
         };
