@@ -1,9 +1,24 @@
 <md-content class="mdDataTable md-whiteframe-z1" layout="column">
-    <div ng-if="tableCard.visible" class="mdDataTable-header" layout="row" layout-align="start center">{{tableCard.title}}</div>
+    <!-- table card -->
+    <div ng-if="tableCard.visible"
+         ng-hide="alternateHeaders && isAnyRowSelected()"
+         class="mdDataTable-header" layout="row" layout-align="start center">
+        <span>{{tableCard.title}}</span>
+    </div>
+    <!-- table card end -->
+
+    <!-- alternate headers -->
+    <div ng-if="alternateHeaders && isAnyRowSelected()" class="mdDataTable-header-alternate" layout="row" layout-align="start center">
+        <span class="alternate-text">{{getNumberOfSelectedRows().selected}} item selected</span>
+    </div>
+    <!-- alternate headers end -->
+
     <table cellpadding="0" cellspacing="0">
         <thead></thead>
         <tbody></tbody>
     </table>
-    <div class="thead"></div>
+
+    <!-- table card -->
     <div ng-if="tableCard.visible" class="mdDataTable-footer" layout="row"> </div>
+    <!-- table card end -->
 </md-content>

@@ -4,6 +4,7 @@
     font-size: 15px;
 
     $whiteColor: #ffffff;
+    $primaryColorPalette: #0D47A1;
 
     /* 12sp Roboto Medium, 54% black */
     th{
@@ -16,6 +17,16 @@
     .mdDataTable-header{
         height: 64px;
         padding-left: 24px;
+    }
+
+    .mdDataTable-header-alternate{
+        @extend .mdDataTable-header;
+
+        background-color: lighten($primaryColorPalette, 60%);
+
+        .alternate-text{
+            color: $primaryColorPalette;
+        }
     }
 
     /* 56do for last row */
@@ -85,4 +96,6 @@
     .selectedRow td{
         background: #F5F5F5;
     }
+
+
 }

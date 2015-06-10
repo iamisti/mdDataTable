@@ -8,7 +8,8 @@
             transclude: true,
             scope: {
                 tableCard: '=',
-                selectableRows: '='
+                selectableRows: '=',
+                alternateHeaders: '='
             },
             controllerAs: 'mdDataTableCtrl',
             controller: function($scope){
@@ -18,6 +19,8 @@
 
                 //internal
                 vm.setAllRowsSelected = setAllRowsSelected;
+                $scope.isAnyRowSelected = isAnyRowSelected;
+                $scope.getNumberOfSelectedRows = getNumberOfSelectedRows;
 
                 //for rows
                 vm.isSelectableRows = isSelectableRows;
@@ -63,6 +66,18 @@
                 function setAllRowsSelected(allSelected){
                     _.each(rowOptionsList, function(rowOptions){
                         rowOptions.selected = allSelected;
+                    });
+                }
+
+                function isAnyRowSelected(){
+                    return _.some(rowOptionsList, function(rowOptions){
+                        return rowOptions.selected === true;
+                    });
+                }
+
+                function getNumberOfSelectedRows(){
+                    return _.countBy(rowOptionsList, function(rowOptions){
+                        return rowOptions.selected === true ? 'selected' : 'unselected';
                     });
                 }
             },
