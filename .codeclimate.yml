@@ -5,4 +5,5 @@ languages:
 exclude_paths:
  - "demo/*"
  - "gulp-tasks/*"
+ - "dist/*"
  - "gulpfile.js"
