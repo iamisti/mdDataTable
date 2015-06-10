@@ -1,7 +1,7 @@
 (function(){
     'use strict';
 
-    function mdDataTableDirective(ColumnOptionProvider){
+    function mdDataTableDirective(ColumnOptionProvider, uuid4){
         return {
             restrict: 'E',
             templateUrl: '/main/templates/mdDataTable.html',
@@ -13,9 +13,17 @@
             controllerAs: 'mdDataTableCtrl',
             controller: function($scope){
                 var columnOptionsList = [];
+                var rowOptionsList = [];
                 var vm = this;
 
+                //internal
+                vm.setAllRowsSelected = setAllRowsSelected;
+
+                //for rows
                 vm.isSelectableRows = isSelectableRows;
+                vm.initRowOptions = initRowOptions;
+
+                //for columns
                 vm.getColumnOptions = getColumnOptions;
                 vm.addColumnOptions = addColumnOptions;
                 vm.getColumnAlignClass = getColumnAlignClass;
@@ -38,6 +46,24 @@
                     } else {
                         return 'leftAlignedColumn';
                     }
+                }
+
+                function initRowOptions(){
+                    var rowId = uuid4.generate();
+                    var rowOptions = {
+                        id: rowId,
+                        selected: false
+                    };
+
+                    rowOptionsList.push(rowOptions);
+
+                    return rowOptions;
+                }
+
+                function setAllRowsSelected(allSelected){
+                    _.each(rowOptionsList, function(rowOptions){
+                        rowOptions.selected = allSelected;
+                    });
                 }
             },
             link: function($scope, element, attrs, ctrl, transclude){

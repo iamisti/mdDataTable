@@ -1,5 +1,5 @@
 (function(){
     'use strict';
 
-    angular.module('mdDataTable', ['templates', 'ngMaterial']);
+    angular.module('mdDataTable', ['templates', 'ngMaterial', 'uuid4']);
 }());

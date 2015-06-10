@@ -1,5 +1,5 @@
-<tr ng-class="{'selectedRow': rowSelected}" ng-click="clickHandler()">
-    <td class="checkboxCell" ng-if="isSelectableRows()">
-        <md-checkbox aria-label="select" ng-model="rowSelected"></md-checkbox>
+<tr ng-class="{'selectedRow': rowOptions.selected}">
+    <td class="checkboxCell" ng-show="isSelectableRows()">
+        <md-checkbox aria-label="select" ng-model="rowOptions.selected"></md-checkbox>
     </td>
 </tr>
