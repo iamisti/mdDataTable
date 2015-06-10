@@ -1,26 +1,37 @@
 (function(){
     'use strict';
 
-    angular.module('mdDataTable', ['templates', 'ngMaterial']);
+    angular.module('mdDataTable', ['templates', 'ngMaterial', 'uuid4']);
 }());
 (function(){
     'use strict';
 
-    function mdDataTableDirective(ColumnOptionProvider){
+    function mdDataTableDirective(ColumnOptionProvider, uuid4){
         return {
             restrict: 'E',
             templateUrl: '/main/templates/mdDataTable.html',
             transclude: true,
             scope: {
                 tableCard: '=',
-                selectableRows: '='
+                selectableRows: '=',
+                alternateHeaders: '='
             },
             controllerAs: 'mdDataTableCtrl',
             controller: function($scope){
                 var columnOptionsList = [];
+                var rowOptionsList = [];
                 var vm = this;
 
+                //internal
+                vm.setAllRowsSelected = setAllRowsSelected;
+                $scope.isAnyRowSelected = isAnyRowSelected;
+                $scope.getNumberOfSelectedRows = getNumberOfSelectedRows;
+
+                //for rows
                 vm.isSelectableRows = isSelectableRows;
+                vm.initRowOptions = initRowOptions;
+
+                //for columns
                 vm.getColumnOptions = getColumnOptions;
                 vm.addColumnOptions = addColumnOptions;
                 vm.getColumnAlignClass = getColumnAlignClass;
@@ -43,6 +54,36 @@
                     } else {
                         return 'leftAlignedColumn';
                     }
+                }
+
+                function initRowOptions(){
+                    var rowId = uuid4.generate();
+                    var rowOptions = {
+                        id: rowId,
+                        selected: false
+                    };
+
+                    rowOptionsList.push(rowOptions);
+
+                    return rowOptions;
+                }
+
+                function setAllRowsSelected(allSelected){
+                    _.each(rowOptionsList, function(rowOptions){
+                        rowOptions.selected = allSelected;
+                    });
+                }
+
+                function isAnyRowSelected(){
+                    return _.some(rowOptionsList, function(rowOptions){
+                        return rowOptions.selected === true;
+                    });
+                }
+
+                function getNumberOfSelectedRows(){
+                    return _.countBy(rowOptionsList, function(rowOptions){
+                        return rowOptions.selected === true ? 'selected' : 'unselected';
+                    });
                 }
             },
             link: function($scope, element, attrs, ctrl, transclude){
@@ -91,6 +132,89 @@
 (function(){
     'use strict';
 
+    function mdDataTableCellDirective(){
+        return {
+            restrict: 'E',
+            templateUrl: '/main/templates/mdDataTableCell.html',
+            replace: true,
+            transclude: true,
+            scope: true,
+            require: ['^mdDataTable','^mdDataTableRow'],
+            link: function($scope, element, attrs, ctrl){
+                var mdDataTableCtrl = ctrl[0];
+                var mdDataTableRowCtrl = ctrl[1];
+                var columnIndex = mdDataTableRowCtrl.getIndex();
+
+                $scope.getColumnAlignClass = mdDataTableCtrl.getColumnAlignClass(getColumnOptions().alignRule);
+
+                mdDataTableRowCtrl.increaseIndex();
+
+                function getColumnOptions(){
+                    return mdDataTableCtrl.getColumnOptions(columnIndex);
+                }
+            }
+        };
+    }
+
+    angular
+        .module('mdDataTable')
+        .directive('mdDataTableCell', mdDataTableCellDirective);
+}());
+(function(){
+    'use strict';
+
+    function mdDataTableRowDirective(){
+        return {
+            restrict: 'E',
+            templateUrl: '/main/templates/mdDataTableRow.html',
+            replace: true,
+            transclude: true,
+            require: '^mdDataTable',
+            scope: true,
+            controller: function($scope){
+                var vm = this;
+
+                initIndexHelperForTableCells();
+
+                function initIndexHelperForTableCells(){
+                    $scope.cellIndex = 0;
+
+                    vm.increaseIndex = increaseIndex;
+                    vm.getIndex = getIndex;
+
+                    function increaseIndex(){
+                        $scope.cellIndex++;
+                    }
+
+                    function getIndex(){
+                        return $scope.cellIndex;
+                    }
+                }
+            },
+            link: function($scope, element, attrs, ctrl, transclude){
+                appendColumns();
+                $scope.rowOptions = ctrl.initRowOptions();
+                $scope.isSelectableRows = ctrl.isSelectableRows;
+
+                function appendColumns(){
+                    //TODO: question: the commented out code is not working properly when data-table-row has an ng-repeat. Why?
+                    //angular.element(transclude()).appendTo(element);
+
+                    transclude(function (clone) {
+                        element.append(clone);
+                    });
+                }
+            }
+        };
+    }
+
+    angular
+        .module('mdDataTable')
+        .directive('mdDataTableRow', mdDataTableRowDirective);
+}());
+(function(){
+    'use strict';
+
     function mdDataTableColumnDirective(){
         return {
             restrict: 'E',
@@ -134,12 +258,20 @@
             scope: true,
             link: function($scope, element, attrs, mdDataTableCtrl, transclude){
                 $scope.isSelectableRows = mdDataTableCtrl.isSelectableRows;
+                $scope.selectAllRows = false;
 
                 appendColumns();
+                setupWatchers();
 
                 function appendColumns(){
                     transclude(function (clone) {
                         element.append(clone);
+                    });
+                }
+
+                function setupWatchers() {
+                    $scope.$watch('selectAllRows', function(newVal){
+                        mdDataTableCtrl.setAllRowsSelected(newVal);
                     });
                 }
             }
@@ -149,92 +281,4 @@
     angular
         .module('mdDataTable')
         .directive('mdDataTableHeaderRow', mdDataTableHeaderRowDirective);
-}());
-(function(){
-    'use strict';
-
-    function mdDataTableCellDirective(){
-        return {
-            restrict: 'E',
-            templateUrl: '/main/templates/mdDataTableCell.html',
-            replace: true,
-            transclude: true,
-            scope: true,
-            require: ['^mdDataTable','^mdDataTableRow'],
-            link: function($scope, element, attrs, ctrl){
-                var mdDataTableCtrl = ctrl[0];
-                var mdDataTableRowCtrl = ctrl[1];
-                var columnIndex = mdDataTableRowCtrl.getIndex();
-
-                $scope.getColumnAlignClass = mdDataTableCtrl.getColumnAlignClass(getColumnOptions().alignRule);
-
-                mdDataTableRowCtrl.increaseIndex();
-
-                function getColumnOptions(){
-                    return mdDataTableCtrl.getColumnOptions(columnIndex);
-                }
-            }
-        };
-    }
-
-    angular
-        .module('mdDataTable')
-        .directive('mdDataTableCell', mdDataTableCellDirective);
-}());
-(function(){
-    'use strict';
-
-    function mdDataTableRowDirective(){
-        return {
-            restrict: 'E',
-            templateUrl: '/main/templates/mdDataTableRow.html',
-            replace: true,
-            transclude: true,
-            require: '^mdDataTable',
-            scope: true,
-            controller: function($scope){
-                $scope.cellIndex = 0;
-                $scope.rowSelected = false;
-
-                var vm = this;
-                vm.increaseIndex = increaseIndex;
-                vm.getIndex = getIndex;
-
-                function increaseIndex(){
-                    $scope.cellIndex++;
-                }
-
-                function getIndex(){
-                    return $scope.cellIndex;
-                }
-
-            },
-            link: function($scope, element, attrs, ctrl, transclude){
-                $scope.isSelectableRows = ctrl.isSelectableRows;
-                $scope.clickHandler = clickHandler;
-
-                //$scope.isAllRowsSelected = ctrl.isAllRowsSelected;
-                //$scope.rowSelected = !ctrl.isAllRowsSelected();
-
-                appendColumns();
-
-                function appendColumns(){
-                    //TODO: question: the commented out code is not working properly when data-table-row has an ng-repeat. Why?
-                    //angular.element(transclude()).appendTo(element);
-
-                    transclude(function (clone) {
-                        element.append(clone);
-                    });
-                }
-
-                function clickHandler(){
-                    $scope.rowSelected = !$scope.rowSelected;
-                }
-            }
-        };
-    }
-
-    angular
-        .module('mdDataTable')
-        .directive('mdDataTableRow', mdDataTableRowDirective);
 }());
