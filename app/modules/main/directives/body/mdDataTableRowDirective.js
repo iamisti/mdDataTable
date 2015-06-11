@@ -42,9 +42,10 @@
             },
             link: function($scope, element, attrs, ctrl, transclude){
                 appendColumns();
-                $scope.rowOptions = ctrl.initRowOptions();
-                $scope.isSelectableRows = ctrl.isSelectableRows;
+
                 var rowIndex = ctrl.getIndex();
+                $scope.getRowOptions = getRowOptions;
+                $scope.isSelectableRows = ctrl.isSelectableRows;
 
                 ctrl.addToTableDataStorage($scope.rowDataStorage);
 
@@ -61,6 +62,10 @@
                     transclude(function (clone) {
                         element.append(clone);
                     });
+                }
+
+                function getRowOptions(){
+                    return ctrl.getRowOptions(rowIndex);
                 }
             }
         };

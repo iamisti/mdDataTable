@@ -34,7 +34,7 @@
 
                 //for rows
                 vm.isSelectableRows = isSelectableRows;
-                vm.initRowOptions = initRowOptions;
+                vm.getRowOptions = getRowOptions;
 
                 //for columns
                 vm.getColumnOptions = getColumnOptions;
@@ -70,59 +70,51 @@
                     }
                 }
 
-                function initRowOptions(){
-                    var rowId = uuid4.generate();
-
-                    var rowOptions = {
-                        id : rowId,
-                        selected : false
-                    };
-
-                    rowOptionsList.push(rowOptions);
-
-                    return rowOptions;
+                function getRowOptions(index){
+                    return $scope.tableDataStorage[index].optionList;
                 }
 
                 function setAllRowsSelected(allSelected){
-                    _.each(rowOptionsList, function(rowOptions){
-                        rowOptions.selected = allSelected;
+                    _.each($scope.tableDataStorage, function(rowData){
+                        rowData.optionList.selected = allSelected;
                     });
                 }
 
                 function isAnyRowSelected(){
-                    return _.some(rowOptionsList, function(rowOptions){
-                        return rowOptions.selected === true;
+                    return _.some($scope.tableDataStorage, function(rowData){
+                        return rowData.optionList.selected === true;
                     });
                 }
 
                 function getNumberOfSelectedRows(){
-                    return _.countBy(rowOptionsList, function(rowOptions){
-                        return rowOptions.selected === true ? 'selected' : 'unselected';
+                    return _.countBy($scope.tableDataStorage, function(rowData){
+                        return rowData.optionList.selected === true ? 'selected' : 'unselected';
                     });
                 }
 
                 function sortByColumn(columnIndex){
 
-                    var res =_.sortBy($scope.tableDataStorage, function(rowArray){
-                        return rowArray[columnIndex];
+                    var res =_.sortBy($scope.tableDataStorage, function(rowData){
+                        return rowData.data[columnIndex];
                     });
 
                     $scope.tableDataStorage = res;
-/*
-                    _.each(res, function(element, index){
-                        _.each(element, function(element2, index2){
-                            $scope.tableDataStorage[index][index2] = element2;
-                        });
-                    });
-*/
                 }
 
                 function addToTableDataStorage(data){
-                    $scope.tableDataStorage.push(data);
+                    var rowId = uuid4.generate();
+
+                    $scope.tableDataStorage.push({
+                        rowId: rowId,
+                        optionList: {
+                            selected: false
+                        },
+                        data: data
+                    });
                 }
 
                 function getTableDataStorageValue(index){
-                    return $scope.tableDataStorage[index];
+                    return $scope.tableDataStorage[index].data;
                 }
 
                 initIndexHelperForTableRows();
