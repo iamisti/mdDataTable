@@ -11,6 +11,9 @@
             scope: true,
             controller: function($scope){
                 var vm = this;
+                vm.addToRowDataStorage = addToRowDataStorage;
+                vm.getRowDataStorageValue = getRowDataStorageValue;
+                $scope.rowDataStorage = [];
 
                 initIndexHelperForTableCells();
 
@@ -28,11 +31,26 @@
                         return $scope.cellIndex;
                     }
                 }
+
+                function addToRowDataStorage(value){
+                    $scope.rowDataStorage.push(value);
+                }
+
+                function getRowDataStorageValue(columnIndex){
+                    return $scope.rowDataStorage[columnIndex];
+                }
             },
             link: function($scope, element, attrs, ctrl, transclude){
                 appendColumns();
                 $scope.rowOptions = ctrl.initRowOptions();
                 $scope.isSelectableRows = ctrl.isSelectableRows;
+                var columnIndex = ctrl.getIndex();
+
+                ctrl.addToTableDataStorage($scope.rowDataStorage);
+
+                $scope.rowDataStorage = ctrl.getTableDataStorageValue(columnIndex);
+
+                ctrl.increaseIndex();
 
                 function appendColumns(){
                     //TODO: question: the commented out code is not working properly when data-table-row has an ng-repeat. Why?

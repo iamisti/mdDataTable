@@ -9,18 +9,28 @@
             scope: {
                 tableCard: '=',
                 selectableRows: '=',
-                alternateHeaders: '='
+                alternateHeaders: '=',
+                sortableColumns: '='
             },
             controllerAs: 'mdDataTableCtrl',
             controller: function($scope){
                 var columnOptionsList = [];
                 var rowOptionsList = [];
+                $scope.tableDataStorage = [];
+
+                var sortedColumn = {
+                    id: null,
+                    orderBy: 'asc'
+                };
                 var vm = this;
 
                 //internal
                 vm.setAllRowsSelected = setAllRowsSelected;
                 $scope.isAnyRowSelected = isAnyRowSelected;
                 $scope.getNumberOfSelectedRows = getNumberOfSelectedRows;
+                vm.addToTableDataStorage = addToTableDataStorage;
+                vm.getTableDataStorageValue = getTableDataStorageValue;
+                vm.sortByColumn = sortByColumn;
 
                 //for rows
                 vm.isSelectableRows = isSelectableRows;
@@ -36,7 +46,16 @@
                 }
 
                 function addColumnOptions(options){
-                    return columnOptionsList.push(options);
+                    var columnId = uuid4.generate();
+
+                    var columnOptions = {
+                        id: columnId,
+                        alignRule: options.alignRule
+                    };
+
+                    columnOptionsList.push(columnOptions);
+
+                    return columnOptions;
                 }
 
                 function getColumnOptions(index){
@@ -53,9 +72,10 @@
 
                 function initRowOptions(){
                     var rowId = uuid4.generate();
+
                     var rowOptions = {
-                        id: rowId,
-                        selected: false
+                        id : rowId,
+                        selected : false
                     };
 
                     rowOptionsList.push(rowOptions);
@@ -79,6 +99,41 @@
                     return _.countBy(rowOptionsList, function(rowOptions){
                         return rowOptions.selected === true ? 'selected' : 'unselected';
                     });
+                }
+
+                function sortByColumn(columnId){
+                    console.log(columnId, $scope.tableDataStorage);
+
+                    var a = $scope.tableDataStorage[0][0];
+                    var b = $scope.tableDataStorage[1][0];
+
+                    $scope.tableDataStorage[0][0] = b;
+                    $scope.tableDataStorage[1][0] = a;
+                }
+
+                function addToTableDataStorage(data){
+                    $scope.tableDataStorage.push(data);
+                }
+
+                function getTableDataStorageValue(index){
+                    return $scope.tableDataStorage[index];
+                }
+
+                initIndexHelperForTableRows();
+
+                function initIndexHelperForTableRows(){
+                    $scope.cellIndex = 0;
+
+                    vm.increaseIndex = increaseIndex;
+                    vm.getIndex = getIndex;
+
+                    function increaseIndex(){
+                        $scope.cellIndex++;
+                    }
+
+                    function getIndex(){
+                        return $scope.cellIndex;
+                    }
                 }
             },
             link: function($scope, element, attrs, ctrl, transclude){

@@ -1,7 +1,7 @@
 (function(){
     'use strict';
 
-    function mdDataTableColumnDirective(){
+    function mdDataTableColumnDirective(ColumnOptionProvider){
         return {
             restrict: 'E',
             templateUrl: '/main/templates/mdDataTableColumn.html',
@@ -10,18 +10,25 @@
             scope: {
                 alignRule: '@'
             },
-            require: '^mdDataTable',
-            link: function ($scope, element, attrs, mdDataTableCtrl) {
-                $scope.getColumnAlignClass = mdDataTableCtrl.getColumnAlignClass($scope.alignRule);
-                addColumnSettings();
+            require: ['^mdDataTable', '^mdDataTableHeaderRow'],
+            link: function ($scope, element, attrs, ctrl) {
+                var mdDataTableCtrl = ctrl[0];
+                var mdDataTableHeaderRowCtrl = ctrl[1];
 
-                //TODO: if alignRule not provided, try to analyse the values of the rows
-                //then: if numeric: align right
-                //            else: align left
-                function addColumnSettings() {
-                    mdDataTableCtrl.addColumnOptions({
-                        alignRule: $scope.alignRule
-                    });
+                var columnIndex = mdDataTableHeaderRowCtrl.getIndex();
+
+                $scope.getColumnAlignClass = mdDataTableCtrl.getColumnAlignClass($scope.alignRule);
+                $scope.ColumnOptionProvider = ColumnOptionProvider;
+                $scope.columnOptions = mdDataTableCtrl.addColumnOptions({
+                    alignRule: $scope.alignRule
+                });
+
+                $scope.clickHandler = clickHandler;
+
+                mdDataTableHeaderRowCtrl.increaseIndex();
+
+                function clickHandler(){
+                    mdDataTableCtrl.sortByColumn(columnIndex);
                 }
             }
         };

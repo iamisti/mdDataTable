@@ -42,13 +42,18 @@
             <md-checkbox ng-model="tableIsSelectable" aria-label="Enable selectable rows" checked>
                 Enable selectable rows
             </md-checkbox>
+
+            <md-checkbox ng-model="tableIsSortable" aria-label="Enable sortable columns" checked>
+                Enable sortable columns
+            </md-checkbox>
         </md-card>
     </div>
     <div layout-padding flex>
         <md-data-table
                 table-card="{visible: tableCardIsEnabled, title: 'Nutrition'}"
                 selectable-rows="tableIsSelectable"
-                alternate-headers="'contextual'">
+                alternate-headers="'contextual'"
+                sortable-columns="tableIsSortable">
 
             <md-data-table-header-row>
                 <md-data-table-column align-rule="left">Dessert (100g serving)</md-data-table-column>

@@ -14,6 +14,7 @@
     angular.module('exampleApp').controller('ExampleController', function($scope){
         $scope.tableCardIsEnabled = true;
         $scope.tableIsSelectable = true;
+        $scope.tableIsSortable = true;
 
         $scope.nutritionList = [
             {

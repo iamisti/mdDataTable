@@ -11,6 +11,20 @@
         font-size: 12px;
         font-weight: 500;
         color: darken($whiteColor, 54%);
+        cursor: pointer;
+
+        ng-md-icon{
+            visibility: hidden;
+            fill: darken($whiteColor, 30%);
+        }
+
+        &:hover ng-md-icon{
+            visibility: visible;
+        }
+
+        svg{
+            -webkit-transform:rotate(90deg);
+        }
     }
 
     /* 64dp card header height */
