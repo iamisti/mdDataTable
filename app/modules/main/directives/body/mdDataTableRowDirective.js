@@ -37,18 +37,20 @@
                 }
 
                 function getRowDataStorageValue(columnIndex){
-                    return $scope.rowDataStorage[columnIndex];
+                    return $scope.getRowDataStorage()[columnIndex];
                 }
             },
             link: function($scope, element, attrs, ctrl, transclude){
                 appendColumns();
                 $scope.rowOptions = ctrl.initRowOptions();
                 $scope.isSelectableRows = ctrl.isSelectableRows;
-                var columnIndex = ctrl.getIndex();
+                var rowIndex = ctrl.getIndex();
 
                 ctrl.addToTableDataStorage($scope.rowDataStorage);
 
-                $scope.rowDataStorage = ctrl.getTableDataStorageValue(columnIndex);
+                $scope.getRowDataStorage = function(){
+                    return ctrl.getTableDataStorageValue(rowIndex);
+                };
 
                 ctrl.increaseIndex();
 

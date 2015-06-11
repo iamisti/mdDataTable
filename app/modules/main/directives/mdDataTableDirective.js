@@ -101,14 +101,20 @@
                     });
                 }
 
-                function sortByColumn(columnId){
-                    console.log(columnId, $scope.tableDataStorage);
+                function sortByColumn(columnIndex){
 
-                    var a = $scope.tableDataStorage[0][0];
-                    var b = $scope.tableDataStorage[1][0];
+                    var res =_.sortBy($scope.tableDataStorage, function(rowArray){
+                        return rowArray[columnIndex];
+                    });
 
-                    $scope.tableDataStorage[0][0] = b;
-                    $scope.tableDataStorage[1][0] = a;
+                    $scope.tableDataStorage = res;
+/*
+                    _.each(res, function(element, index){
+                        _.each(element, function(element2, index2){
+                            $scope.tableDataStorage[index][index2] = element2;
+                        });
+                    });
+*/
                 }
 
                 function addToTableDataStorage(data){
