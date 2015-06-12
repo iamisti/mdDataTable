@@ -19,7 +19,7 @@
             getInstance: function(){
                 return new IndexTrackerService();
             }
-        }
+        };
     }
 
     angular

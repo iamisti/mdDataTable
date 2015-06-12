@@ -1,7 +1,7 @@
 (function(){
     'use strict';
 
-    function mdDataTableHeaderRowDirective(){
+    function mdDataTableHeaderRowDirective(IndexTrackerFactory){
         return {
             restrict: 'E',
             templateUrl: '/main/templates/mdDataTableHeaderRow.html',
@@ -9,24 +9,16 @@
             transclude: true,
             require: '^mdDataTable',
             scope: true,
-            controller: function($scope){
+            controller: function(){
                 var vm = this;
 
-                initIndexHelperForTableColumns();
+                initIndexTrackerServiceAndBindMethods();
 
-                function initIndexHelperForTableColumns(){
-                    $scope.cellIndex = 0;
+                function initIndexTrackerServiceAndBindMethods(){
+                    var indexHelperService = IndexTrackerFactory.getInstance();
 
-                    vm.increaseIndex = increaseIndex;
-                    vm.getIndex = getIndex;
-
-                    function increaseIndex(){
-                        $scope.cellIndex++;
-                    }
-
-                    function getIndex(){
-                        return $scope.cellIndex;
-                    }
+                    vm.increaseIndex = _.bind(indexHelperService.increaseIndex, indexHelperService);
+                    vm.getIndex = _.bind(indexHelperService.getIndex, indexHelperService);
                 }
             },
             link: function($scope, element, attrs, mdDataTableCtrl, transclude){

@@ -29,7 +29,7 @@
             getInstance: function(){
                 return new ColumnOptionsService();
             }
-        }
+        };
     }
 
     angular

@@ -61,7 +61,7 @@
             getInstance: function(){
                 return new TableDataStorageService();
             }
-        }
+        };
     }
 
     angular

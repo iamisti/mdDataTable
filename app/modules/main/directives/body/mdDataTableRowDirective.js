@@ -1,7 +1,7 @@
 (function(){
     'use strict';
 
-    function mdDataTableRowDirective(){
+    function mdDataTableRowDirective(IndexTrackerFactory){
         return {
             restrict: 'E',
             templateUrl: '/main/templates/mdDataTableRow.html',
@@ -11,25 +11,18 @@
             scope: true,
             controller: function($scope){
                 var vm = this;
+
+                initIndexTrackerServiceAndBindMethods();
+
                 vm.addToRowDataStorage = addToRowDataStorage;
                 vm.getRowDataStorageValue = getRowDataStorageValue;
                 $scope.rowDataStorage = [];
 
-                initIndexHelperForTableCells();
+                function initIndexTrackerServiceAndBindMethods(){
+                    var indexHelperService = IndexTrackerFactory.getInstance();
 
-                function initIndexHelperForTableCells(){
-                    $scope.cellIndex = 0;
-
-                    vm.increaseIndex = increaseIndex;
-                    vm.getIndex = getIndex;
-
-                    function increaseIndex(){
-                        $scope.cellIndex++;
-                    }
-
-                    function getIndex(){
-                        return $scope.cellIndex;
-                    }
+                    vm.increaseIndex = _.bind(indexHelperService.increaseIndex, indexHelperService);
+                    vm.getIndex = _.bind(indexHelperService.getIndex, indexHelperService);
                 }
 
                 function addToRowDataStorage(value){
