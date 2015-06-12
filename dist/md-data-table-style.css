@@ -24,78 +24,97 @@
   font-size: 12px;
   font-weight: 500;
   color: #757575;
+  cursor: pointer;
+  white-space: nowrap;
 }
 /* line 17, ../app/scss/main.scss */
+.mdDataTable th .hoverSortIcons ng-md-icon {
+  visibility: hidden;
+  fill: #b3b3b3;
+}
+/* line 22, ../app/scss/main.scss */
+.mdDataTable th:hover .hoverSortIcons ng-md-icon {
+  visibility: visible;
+}
+/* line 26, ../app/scss/main.scss */
+.mdDataTable th .sortedColumn ng-md-icon {
+  fill: #212121;
+}
+/* line 30, ../app/scss/main.scss */
+.mdDataTable th svg {
+  -webkit-transform: rotate(90deg);
+}
+/* line 36, ../app/scss/main.scss */
 .mdDataTable .mdDataTable-header, .mdDataTable .mdDataTable-header-alternate {
   height: 64px;
   padding-left: 24px;
 }
-/* line 22, ../app/scss/main.scss */
+/* line 41, ../app/scss/main.scss */
 .mdDataTable .mdDataTable-header-alternate {
   background-color: #e3edfd;
 }
-/* line 27, ../app/scss/main.scss */
+/* line 46, ../app/scss/main.scss */
 .mdDataTable .mdDataTable-header-alternate .alternate-text {
   color: #0D47A1;
 }
-/* line 33, ../app/scss/main.scss */
+/* line 52, ../app/scss/main.scss */
 .mdDataTable .mdDataTable-footer, .mdDataTable tr th {
   height: 56px;
 }
-/* line 38, ../app/scss/main.scss */
+/* line 57, ../app/scss/main.scss */
 .mdDataTable .checkboxCell {
   width: 18px;
   /*the next cell should not have just 24px padding */
 }
-/* line 41, ../app/scss/main.scss */
+/* line 60, ../app/scss/main.scss */
 .mdDataTable .checkboxCell md-checkbox {
   margin: 0;
   padding: 0;
 }
-/* line 47, ../app/scss/main.scss */
+/* line 66, ../app/scss/main.scss */
 .mdDataTable .checkboxCell + td, .mdDataTable .checkboxCell + th {
   padding-left: 24px;
 }
-/* line 54, ../app/scss/main.scss */
+/* line 73, ../app/scss/main.scss */
 .mdDataTable tr td {
   padding: 0;
   height: 48px;
   font-size: 13px;
   color: #212121;
 }
-/* line 61, ../app/scss/main.scss */
+/* line 80, ../app/scss/main.scss */
 .mdDataTable td:first-child, .mdDataTable th:first-child {
   padding: 0 0 0 24px;
 }
-/* line 65, ../app/scss/main.scss */
+/* line 84, ../app/scss/main.scss */
 .mdDataTable td:last-child, .mdDataTable th:last-child {
   padding-right: 24px;
 }
-/* line 69, ../app/scss/main.scss */
+/* line 88, ../app/scss/main.scss */
 .mdDataTable .column {
   padding-left: 56px;
 }
-/* line 73, ../app/scss/main.scss */
+/* line 92, ../app/scss/main.scss */
 .mdDataTable .leftAlignedColumn {
   text-align: left;
 }
-/* line 77, ../app/scss/main.scss */
+/* line 96, ../app/scss/main.scss */
 .mdDataTable .rightAlignedColumn {
   text-align: right;
 }
-/* line 82, ../app/scss/main.scss */
+/* line 101, ../app/scss/main.scss */
 .mdDataTable tr th {
   border-bottom: solid 1px #DDDDDD;
 }
-/* line 86, ../app/scss/main.scss */
+/* line 105, ../app/scss/main.scss */
 .mdDataTable tr td {
   border-bottom: solid 1px #DDDDDD;
 }
-/* line 92, ../app/scss/main.scss */
+/* line 111, ../app/scss/main.scss */
 .mdDataTable tr:hover td {
   background: #EEEEEE;
 }
-/* line 96, ../app/scss/main.scss */
+/* line 115, ../app/scss/main.scss */
 .mdDataTable .selectedRow td {
   background: #F5F5F5;
 }
