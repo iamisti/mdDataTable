@@ -27,13 +27,13 @@
     "tests"
   ],
   "dependencies": {
-    "jquery": "~2.0.0",
-    "lodash": "~2.4.1",
+    "jquery": "~2.1.4",
+    "lodash": "~3.9.3",
     "angular": "~1.4.0",
     "angular-sanitize": "~1.4.0",
     "angular-animate": "~1.4.0",
     "angular-material": "~0.9.6",
-    "angular-uuid4": "v0.2.0",
+    "angular-uuid4": "v0.3.0",
     "angular-material-icons": "~v0.4.0"
   },
   "devDependencies": {
