@@ -1,20 +1,19 @@
-# md-data-table [![Build Status](https://travis-ci.org/iamisti/md-data-table.svg?branch=master)](https://travis-ci.org/iamisti/md-data-table) [![Code Climate](https://codeclimate.com/github/iamisti/md-data-table/badges/gpa.svg)](https://codeclimate.com/github/iamisti/md-data-table) [![Test Coverage](https://codeclimate.com/github/iamisti/md-data-table/badges/coverage.svg?branch=master)](https://codeclimate.com/github/iamisti/md-data-table/coverage) [![Dependency Status](https://gemnasium.com/iamisti/md-data-table.svg)](https://gemnasium.com/iamisti/md-data-table)
+## md-data-table [![Build Status](https://travis-ci.org/iamisti/md-data-table.svg?branch=master)](https://travis-ci.org/iamisti/md-data-table) [![Code Climate](https://codeclimate.com/github/iamisti/md-data-table/badges/gpa.svg)](https://codeclimate.com/github/iamisti/md-data-table) [![Test Coverage](https://codeclimate.com/github/iamisti/md-data-table/badges/coverage.svg?branch=master)](https://codeclimate.com/github/iamisti/md-data-table/coverage) [![Dependency Status](https://gemnasium.com/iamisti/md-data-table.svg)](https://gemnasium.com/iamisti/md-data-table)
 
 Angular data table implementation of google material design.
-
 `This component is UNDER DEVELOPMENT. First release: 26th of July`
 
 
-# Demo (without any functionality atm)
+## Demo (without any functionality atm)
 http://iamisti.github.io/md-data-table/
 
-# Install with bower
+## Install with bower
 `bower install md-data-table`
 
-# google data table specification
+## google data table specification
 http://www.google.com/design/spec/components/data-tables.html
 
-# Basic idea 
+## Basic idea 
 ### (not finalized yet, if you have improvement ideas, let me know)
 
 In its simplest form, a data table contains a top row of column names, and rows for data.
