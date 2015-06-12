@@ -7,7 +7,9 @@
             templateUrl: '/main/templates/mdDataTableCell.html',
             replace: true,
             transclude: true,
-            scope: true,
+            scope: {
+                htmlContent: '@'
+            },
             require: ['^mdDataTable','^mdDataTableRow'],
             link: function($scope, element, attrs, ctrl, transclude){
                 var mdDataTableCtrl = ctrl[0];
@@ -17,9 +19,15 @@
                 $scope.getColumnAlignClass = ColumnAlignmentHelper.getColumnAlignClass(getColumnOptions().alignRule);
 
                 transclude(function (clone) {
-                    //TODO: better idea?
-                    var cellValue = $parse(clone.html().replace('{{', '').replace('}}', ''))($scope);
-                    mdDataTableRowCtrl.addToRowDataStorage(cellValue);
+
+                    //TODO: rework, figure out something for including html content
+                    if($scope.htmlContent){
+                        mdDataTableRowCtrl.addToRowDataStorage(columnIndex);
+                    }else{
+                        //TODO: better idea?
+                        var cellValue = $parse(clone.html().replace('{{', '').replace('}}', ''))($scope.$parent);
+                        mdDataTableRowCtrl.addToRowDataStorage(cellValue);
+                    }
                 });
 
                 $scope.getCellValue = getCellValue;

@@ -105,7 +105,9 @@
                 <md-data-table-cell>{{nutrition.protein}}</md-data-table-cell>
                 <md-data-table-cell>{{nutrition.sodium}}</md-data-table-cell>
                 <md-data-table-cell>{{nutrition.calcium}}</md-data-table-cell>
-                <md-data-table-cell>{{nutrition.iron}}</md-data-table-cell>
+                <md-data-table-cell html-content="true">
+                    <md-button>{{nutrition.iron}}</md-button>
+                </md-data-table-cell>
             </md-data-table-row>
         </md-data-table>
     </div>
