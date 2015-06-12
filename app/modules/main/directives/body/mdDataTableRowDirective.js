@@ -47,10 +47,10 @@
                 $scope.getRowOptions = getRowOptions;
                 $scope.isSelectableRows = ctrl.isSelectableRows;
 
-                ctrl.addToTableDataStorage($scope.rowDataStorage);
+                ctrl.addRowData($scope.rowDataStorage);
 
                 $scope.getRowDataStorage = function(){
-                    return ctrl.getTableDataStorageValue(rowIndex);
+                    return ctrl.getRowData(rowIndex);
                 };
 
                 ctrl.increaseIndex();

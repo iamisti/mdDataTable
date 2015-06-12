@@ -78,5 +78,38 @@
                 iron: '0%'
             }
         ];
+
+        $scope.nutritionList2 = [
+            {
+                name: 'Frozen2 joghurt',
+                calories: 959,
+                fat: 9.0,
+                carbs: 94,
+                protein: 9.0,
+                sodium: 97,
+                calcium: '94%',
+                iron: '9%'
+            },
+            {
+                name: 'Ice2 cream sandwitch',
+                calories: 337,
+                fat: 3.0,
+                carbs: 37,
+                protein: 3.3,
+                sodium: 329,
+                calcium: '34%',
+                iron: '3%'
+            },
+            {
+                name: 'Eclair5',
+                calories: 562,
+                fat: 56.0,
+                carbs: 54,
+                protein: 5.0,
+                sodium: 537,
+                calcium: '5%',
+                iron: '5%'
+            }
+        ];
     });
 }());

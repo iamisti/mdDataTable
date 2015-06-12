@@ -77,6 +77,37 @@
                 <md-data-table-cell>{{nutrition.iron}}</md-data-table-cell>
             </md-data-table-row>
         </md-data-table>
+
+        <br />
+
+        <md-data-table
+                table-card="{visible: tableCardIsEnabled, title: 'Nutrition copy'}"
+                selectable-rows="tableIsSelectable"
+                alternate-headers="'contextual'"
+                sortable-columns="tableIsSortable">
+
+            <md-data-table-header-row>
+                <md-data-table-column align-rule="left">Dessert (100g serving)</md-data-table-column>
+                <md-data-table-column align-rule="right">Calories</md-data-table-column>
+                <md-data-table-column align-rule="right">Fat (g)</md-data-table-column>
+                <md-data-table-column align-rule="right">Carbs (g)</md-data-table-column>
+                <md-data-table-column align-rule="right">Protein (g)</md-data-table-column>
+                <md-data-table-column align-rule="right">Sodium (mg)</md-data-table-column>
+                <md-data-table-column align-rule="right">Calcium (%)</md-data-table-column>
+                <md-data-table-column align-rule="right">Iron (%)</md-data-table-column>
+            </md-data-table-header-row>
+
+            <md-data-table-row ng-repeat="nutrition in nutritionList2">
+                <md-data-table-cell>{{nutrition.name}}</md-data-table-cell>
+                <md-data-table-cell>{{nutrition.calories}}</md-data-table-cell>
+                <md-data-table-cell>{{nutrition.fat}}</md-data-table-cell>
+                <md-data-table-cell>{{nutrition.carbs}}</md-data-table-cell>
+                <md-data-table-cell>{{nutrition.protein}}</md-data-table-cell>
+                <md-data-table-cell>{{nutrition.sodium}}</md-data-table-cell>
+                <md-data-table-cell>{{nutrition.calcium}}</md-data-table-cell>
+                <md-data-table-cell>{{nutrition.iron}}</md-data-table-cell>
+            </md-data-table-row>
+        </md-data-table>
     </div>
 </div>
 

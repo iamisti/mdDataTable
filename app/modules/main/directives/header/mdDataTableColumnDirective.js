@@ -1,7 +1,7 @@
 (function(){
     'use strict';
 
-    function mdDataTableColumnDirective(ColumnOptionProvider){
+    function mdDataTableColumnDirective(ColumnOptionProvider, ColumnAlignmentHelper){
         return {
             restrict: 'E',
             templateUrl: '/main/templates/mdDataTableColumn.html',
@@ -17,7 +17,7 @@
 
                 var columnIndex = mdDataTableHeaderRowCtrl.getIndex();
 
-                $scope.getColumnAlignClass = mdDataTableCtrl.getColumnAlignClass($scope.alignRule);
+                $scope.getColumnAlignClass = ColumnAlignmentHelper.getColumnAlignClass($scope.alignRule);
                 $scope.ColumnOptionProvider = ColumnOptionProvider;
                 $scope.columnOptions = mdDataTableCtrl.addColumnOptions({
                     alignRule: $scope.alignRule

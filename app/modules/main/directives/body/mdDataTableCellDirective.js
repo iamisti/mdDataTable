@@ -1,7 +1,7 @@
 (function(){
     'use strict';
 
-    function mdDataTableCellDirective($parse){
+    function mdDataTableCellDirective(ColumnAlignmentHelper, $parse){
         return {
             restrict: 'E',
             templateUrl: '/main/templates/mdDataTableCell.html',
@@ -14,7 +14,7 @@
                 var mdDataTableRowCtrl = ctrl[1];
                 var columnIndex = mdDataTableRowCtrl.getIndex();
 
-                $scope.getColumnAlignClass = mdDataTableCtrl.getColumnAlignClass(getColumnOptions().alignRule);
+                $scope.getColumnAlignClass = ColumnAlignmentHelper.getColumnAlignClass(getColumnOptions().alignRule);
 
                 transclude(function (clone) {
                     //TODO: better idea?
