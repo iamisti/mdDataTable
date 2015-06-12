@@ -36,9 +36,14 @@
                 vm.addColumnOptions = addColumnOptions;
                 vm.getColumnAlignClass = getColumnAlignClass;
                 vm.getSortedColumnIndex = getSortedColumnIndex;
+                vm.isSortableColumns = isSortableColumns;
 
                 function isSelectableRows(){
                     return $scope.selectableRows;
+                }
+
+                function isSortableColumns(){
+                    return $scope.sortableColumns;
                 }
 
                 function addColumnOptions(options){

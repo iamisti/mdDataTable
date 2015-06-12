@@ -31,7 +31,7 @@
                 }
 
                 function getCellValue(){
-                    return mdDataTableRowCtrl.getRowDataStorageValue(columnIndex)
+                    return mdDataTableRowCtrl.getRowDataStorageValue(columnIndex);
                 }
             }
         };

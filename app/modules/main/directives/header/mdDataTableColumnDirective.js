@@ -24,13 +24,15 @@
                 });
                 $scope.direction = 1;
                 $scope.isSorted = isSorted;
-
                 $scope.clickHandler = clickHandler;
+                $scope.isSortableColumns = mdDataTableCtrl.isSortableColumns;
 
                 mdDataTableHeaderRowCtrl.increaseIndex();
 
                 function clickHandler(){
-                    $scope.direction = mdDataTableCtrl.sortByColumn(columnIndex);
+                    if($scope.isSortableColumns()) {
+                        $scope.direction = mdDataTableCtrl.sortByColumn(columnIndex);
+                    }
                 }
 
                 function isSorted(){
