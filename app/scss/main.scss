@@ -12,14 +12,19 @@
         font-weight: 500;
         color: darken($whiteColor, 54%);
         cursor: pointer;
+        white-space: nowrap;
 
-        ng-md-icon{
+        .hoverSortIcons ng-md-icon{
             visibility: hidden;
             fill: darken($whiteColor, 30%);
         }
 
-        &:hover ng-md-icon{
+        &:hover .hoverSortIcons ng-md-icon{
             visibility: visible;
+        }
+
+        .sortedColumn ng-md-icon{
+            fill: darken($whiteColor, 87%);
         }
 
         svg{

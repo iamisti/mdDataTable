@@ -15,13 +15,8 @@
             controllerAs: 'mdDataTableCtrl',
             controller: function($scope){
                 var columnOptionsList = [];
-                var rowOptionsList = [];
                 $scope.tableDataStorage = [];
 
-                var sortedColumn = {
-                    id: null,
-                    orderBy: 'asc'
-                };
                 var vm = this;
 
                 //internal
@@ -40,6 +35,7 @@
                 vm.getColumnOptions = getColumnOptions;
                 vm.addColumnOptions = addColumnOptions;
                 vm.getColumnAlignClass = getColumnAlignClass;
+                vm.getSortedColumnIndex = getSortedColumnIndex;
 
                 function isSelectableRows(){
                     return $scope.selectableRows;
@@ -92,13 +88,28 @@
                     });
                 }
 
+                var sortByColumnLastIndex = null;
+                var orderByAscending = true;
                 function sortByColumn(columnIndex){
+                    if(sortByColumnLastIndex === columnIndex){
+                        $scope.tableDataStorage.reverse();
 
-                    var res =_.sortBy($scope.tableDataStorage, function(rowData){
-                        return rowData.data[columnIndex];
-                    });
+                        orderByAscending = !orderByAscending;
+                    }else{
+                        var res =_.sortBy($scope.tableDataStorage, function(rowData){
+                            return rowData.data[columnIndex];
+                        });
 
-                    $scope.tableDataStorage = res;
+                        $scope.tableDataStorage = res;
+
+                        sortByColumnLastIndex = columnIndex;
+                    }
+
+                    return orderByAscending ? -1 : 1;
+                }
+
+                function getSortedColumnIndex(){
+                    return sortByColumnLastIndex;
                 }
 
                 function addToTableDataStorage(data){

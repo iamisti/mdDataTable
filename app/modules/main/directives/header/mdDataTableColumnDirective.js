@@ -22,13 +22,19 @@
                 $scope.columnOptions = mdDataTableCtrl.addColumnOptions({
                     alignRule: $scope.alignRule
                 });
+                $scope.direction = 1;
+                $scope.isSorted = isSorted;
 
                 $scope.clickHandler = clickHandler;
 
                 mdDataTableHeaderRowCtrl.increaseIndex();
 
                 function clickHandler(){
-                    mdDataTableCtrl.sortByColumn(columnIndex);
+                    $scope.direction = mdDataTableCtrl.sortByColumn(columnIndex);
+                }
+
+                function isSorted(){
+                    return mdDataTableCtrl.getSortedColumnIndex() === columnIndex;
                 }
             }
         };
