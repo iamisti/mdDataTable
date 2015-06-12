@@ -94,6 +94,7 @@ In its simplest form, a data table contains a top row of column names, and rows 
 | Params                                         | ChildParams        | Type          | Details         |
 | ---------------------------------------------- | ------------------ | ------------- | --------------- |
 | sortable-rows-default                          |                    | -             | When sortable-columns is applied to the table, it marks the column as the default sorting column |
+| html-content                                   |                    | Boolean       | When the cell content is not a simple value (html content) |
 
 
 ## Example usage:
