@@ -5,6 +5,9 @@ Mark the repository if you want to notify the first release (soon)
 [![Code Climate](https://codeclimate.com/github/iamisti/md-data-table/badges/gpa.svg)](https://codeclimate.com/github/iamisti/md-data-table)
 [![Test Coverage](https://codeclimate.com/github/iamisti/md-data-table/badges/coverage.svg?branch=master)](https://codeclimate.com/github/iamisti/md-data-table/coverage)
 
+# Install with bower
+`bower install md-data-table`
+
 # Demo (without any functionality atm)
 http://iamisti.github.io/md-data-table/
 
