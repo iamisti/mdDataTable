@@ -6,7 +6,7 @@
 (function(){
     'use strict';
 
-    function mdDataTableDirective(ColumnOptionProvider, uuid4){
+    function mdDataTableDirective(ColumnOptionsFactory, TableDataStorageFactory, IndexTrackerFactory){
         return {
             restrict: 'E',
             templateUrl: '/main/templates/mdDataTable.html',
@@ -19,29 +19,40 @@
             },
             controllerAs: 'mdDataTableCtrl',
             controller: function($scope){
-                var columnOptionsList = [];
-                $scope.tableDataStorage = [];
-
                 var vm = this;
 
-                //internal
-                vm.setAllRowsSelected = setAllRowsSelected;
-                $scope.isAnyRowSelected = isAnyRowSelected;
-                $scope.getNumberOfSelectedRows = getNumberOfSelectedRows;
-                vm.addToTableDataStorage = addToTableDataStorage;
-                vm.getTableDataStorageValue = getTableDataStorageValue;
-                vm.sortByColumn = sortByColumn;
+                initColumnOptionsFactoryAndBindMethods();
+                initTableStorageServiceAndBindMethods();
+                initIndexTrackerServiceAndBindMethods();
 
-                //for rows
                 vm.isSelectableRows = isSelectableRows;
-                vm.getRowOptions = getRowOptions;
-
-                //for columns
-                vm.getColumnOptions = getColumnOptions;
-                vm.addColumnOptions = addColumnOptions;
-                vm.getColumnAlignClass = getColumnAlignClass;
-                vm.getSortedColumnIndex = getSortedColumnIndex;
                 vm.isSortableColumns = isSortableColumns;
+
+                vm.sortByColumn = sortByColumn;
+                vm.getSortedColumnIndex = getSortedColumnIndex;
+
+                function initTableStorageServiceAndBindMethods(){
+                    $scope.tableDataStorageService = TableDataStorageFactory.getInstance();
+
+                    vm.addRowData = _.bind($scope.tableDataStorageService.addRowData, $scope.tableDataStorageService);
+                    vm.getRowData = _.bind($scope.tableDataStorageService.getRowData, $scope.tableDataStorageService);
+                    vm.getRowOptions = _.bind($scope.tableDataStorageService.getRowOptions, $scope.tableDataStorageService);
+                    vm.setAllRowsSelected = _.bind($scope.tableDataStorageService.setAllRowsSelected, $scope.tableDataStorageService);
+                }
+
+                function initIndexTrackerServiceAndBindMethods(){
+                    var indexHelperService = IndexTrackerFactory.getInstance();
+
+                    vm.increaseIndex = _.bind(indexHelperService.increaseIndex, indexHelperService);
+                    vm.getIndex = _.bind(indexHelperService.getIndex, indexHelperService);
+                }
+
+                function initColumnOptionsFactoryAndBindMethods(){
+                    var columnOptionsService = ColumnOptionsFactory.getInstance();
+
+                    vm.addColumnOptions = _.bind(columnOptionsService.addColumnOptions, columnOptionsService);
+                    vm.getColumnOptions = _.bind(columnOptionsService.getColumnOptions, columnOptionsService);
+                }
 
                 function isSelectableRows(){
                     return $scope.selectableRows;
@@ -51,66 +62,15 @@
                     return $scope.sortableColumns;
                 }
 
-                function addColumnOptions(options){
-                    var columnId = uuid4.generate();
-
-                    var columnOptions = {
-                        id: columnId,
-                        alignRule: options.alignRule
-                    };
-
-                    columnOptionsList.push(columnOptions);
-
-                    return columnOptions;
-                }
-
-                function getColumnOptions(index){
-                    return columnOptionsList[index];
-                }
-
-                function getColumnAlignClass(alignRule) {
-                    if (alignRule === ColumnOptionProvider.ALIGN_RULE.ALIGN_RIGHT) {
-                        return 'rightAlignedColumn';
-                    } else {
-                        return 'leftAlignedColumn';
-                    }
-                }
-
-                function getRowOptions(index){
-                    return $scope.tableDataStorage[index].optionList;
-                }
-
-                function setAllRowsSelected(allSelected){
-                    _.each($scope.tableDataStorage, function(rowData){
-                        rowData.optionList.selected = allSelected;
-                    });
-                }
-
-                function isAnyRowSelected(){
-                    return _.some($scope.tableDataStorage, function(rowData){
-                        return rowData.optionList.selected === true;
-                    });
-                }
-
-                function getNumberOfSelectedRows(){
-                    return _.countBy($scope.tableDataStorage, function(rowData){
-                        return rowData.optionList.selected === true ? 'selected' : 'unselected';
-                    });
-                }
-
                 var sortByColumnLastIndex = null;
                 var orderByAscending = true;
                 function sortByColumn(columnIndex){
                     if(sortByColumnLastIndex === columnIndex){
-                        $scope.tableDataStorage.reverse();
+                        $scope.tableDataStorageService.reverseRows();
 
                         orderByAscending = !orderByAscending;
                     }else{
-                        var res =_.sortBy($scope.tableDataStorage, function(rowData){
-                            return rowData.data[columnIndex];
-                        });
-
-                        $scope.tableDataStorage = res;
+                        $scope.tableDataStorageService.sortByColumnIndex(columnIndex);
 
                         sortByColumnLastIndex = columnIndex;
                     }
@@ -121,42 +81,12 @@
                 function getSortedColumnIndex(){
                     return sortByColumnLastIndex;
                 }
-
-                function addToTableDataStorage(data){
-                    var rowId = uuid4.generate();
-
-                    $scope.tableDataStorage.push({
-                        rowId: rowId,
-                        optionList: {
-                            selected: false
-                        },
-                        data: data
-                    });
-                }
-
-                function getTableDataStorageValue(index){
-                    return $scope.tableDataStorage[index].data;
-                }
-
-                initIndexHelperForTableRows();
-
-                function initIndexHelperForTableRows(){
-                    $scope.cellIndex = 0;
-
-                    vm.increaseIndex = increaseIndex;
-                    vm.getIndex = getIndex;
-
-                    function increaseIndex(){
-                        $scope.cellIndex++;
-                    }
-
-                    function getIndex(){
-                        return $scope.cellIndex;
-                    }
-                }
             },
             link: function($scope, element, attrs, ctrl, transclude){
                 injectContentIntoTemplate();
+
+                $scope.isAnyRowSelected = _.bind($scope.tableDataStorageService.isAnyRowSelected, $scope.tableDataStorageService);
+                $scope.getNumberOfSelectedRows = _.bind($scope.tableDataStorageService.getNumberOfSelectedRows, $scope.tableDataStorageService);
 
                 function injectContentIntoTemplate(){
                     transclude(function (clone) {
@@ -188,6 +118,162 @@
 (function(){
     'use strict';
 
+    function ColumnOptionsFactory(uuid4){
+
+        function ColumnOptionsService(){
+            this.columnOptionsList = [];
+        }
+
+        ColumnOptionsService.prototype.addColumnOptions = function(options){
+            //TODO: maybe we can remove it, not used anymore
+            var columnId = uuid4.generate();
+
+            var columnOptions = {
+                id: columnId,
+                alignRule: options.alignRule
+            };
+
+            this.columnOptionsList.push(columnOptions);
+
+            return columnOptions;
+        };
+
+        ColumnOptionsService.prototype.getColumnOptions = function(index){
+            return this.columnOptionsList[index];
+        };
+
+        return {
+            getInstance: function(){
+                return new ColumnOptionsService();
+            }
+        };
+    }
+
+    angular
+        .module('mdDataTable')
+        .factory('ColumnOptionsFactory', ColumnOptionsFactory);
+}());
+(function(){
+    'use strict';
+
+    function IndexTrackerFactory(){
+
+        function IndexTrackerService(){
+            this.indexValue = 0;
+        }
+
+        IndexTrackerService.prototype.increaseIndex = function(){
+            this.indexValue++;
+        };
+
+        IndexTrackerService.prototype.getIndex = function(){
+            return this.indexValue;
+        };
+
+        return {
+            getInstance: function(){
+                return new IndexTrackerService();
+            }
+        };
+    }
+
+    angular
+        .module('mdDataTable')
+        .service('IndexTrackerFactory', IndexTrackerFactory);
+}());
+(function(){
+    'use strict';
+
+    function TableDataStorageFactory(uuid4){
+
+        function TableDataStorageService(){
+            this.storage = [];
+        }
+
+        TableDataStorageService.prototype.addRowData = function(rowArray){
+            var rowId = uuid4.generate();
+
+            this.storage.push({
+                rowId: rowId,
+                optionList: {
+                    selected: false
+                },
+                data: rowArray
+            });
+        };
+
+        TableDataStorageService.prototype.getRowData = function(index){
+            return this.storage[index].data;
+        };
+
+        TableDataStorageService.prototype.getRowOptions = function(index){
+            return this.storage[index].optionList;
+        };
+
+        TableDataStorageService.prototype.setAllRowsSelected = function(isSelected){
+            _.each(this.storage, function(rowData){
+                rowData.optionList.selected = isSelected;
+            });
+        };
+
+        TableDataStorageService.prototype.reverseRows = function(){
+            this.storage.reverse();
+        };
+
+        TableDataStorageService.prototype.sortByColumnIndex = function(index){
+            var res =_.sortBy(this.storage, function(rowData){
+                return rowData.data[index];
+            });
+
+            this.storage = res;
+        };
+
+        TableDataStorageService.prototype.isAnyRowSelected = function(){
+            return _.some(this.storage, function(rowData){
+                return rowData.optionList.selected === true;
+            });
+        };
+
+        TableDataStorageService.prototype.getNumberOfSelectedRows = function(){
+            return _.countBy(this.storage, function(rowData){
+                return rowData.optionList.selected === true ? 'selected' : 'unselected';
+            });
+        };
+
+        return {
+            getInstance: function(){
+                return new TableDataStorageService();
+            }
+        };
+    }
+
+    angular
+        .module('mdDataTable')
+        .factory('TableDataStorageFactory', TableDataStorageFactory);
+}());
+(function(){
+    'use strict';
+
+    function ColumnAlignmentHelper(ColumnOptionProvider){
+        var service = this;
+        service.getColumnAlignClass = getColumnAlignClass;
+
+        function getColumnAlignClass(alignRule) {
+            if (alignRule === ColumnOptionProvider.ALIGN_RULE.ALIGN_RIGHT) {
+                return 'rightAlignedColumn';
+            } else {
+                return 'leftAlignedColumn';
+            }
+        }
+    }
+
+    angular
+        .module('mdDataTable')
+        .service('ColumnAlignmentHelper', ColumnAlignmentHelper);
+}());
+(function(){
+    'use strict';
+
     var ColumnOptionProvider = {
         ALIGN_RULE : {
             ALIGN_LEFT: 'left',
@@ -201,7 +287,128 @@
 (function(){
     'use strict';
 
-    function mdDataTableColumnDirective(ColumnOptionProvider){
+    function mdDataTableCellDirective(ColumnAlignmentHelper, $parse){
+        return {
+            restrict: 'E',
+            templateUrl: '/main/templates/mdDataTableCell.html',
+            replace: true,
+            transclude: true,
+            scope: {
+                htmlContent: '@'
+            },
+            require: ['^mdDataTable','^mdDataTableRow'],
+            link: function($scope, element, attrs, ctrl, transclude){
+                var mdDataTableCtrl = ctrl[0];
+                var mdDataTableRowCtrl = ctrl[1];
+                var columnIndex = mdDataTableRowCtrl.getIndex();
+
+                $scope.getColumnAlignClass = ColumnAlignmentHelper.getColumnAlignClass(getColumnOptions().alignRule);
+
+                transclude(function (clone) {
+
+                    //TODO: rework, figure out something for including html content
+                    if($scope.htmlContent){
+                        mdDataTableRowCtrl.addToRowDataStorage(columnIndex);
+                    }else{
+                        //TODO: better idea?
+                        var cellValue = $parse(clone.html().replace('{{', '').replace('}}', ''))($scope.$parent);
+                        mdDataTableRowCtrl.addToRowDataStorage(cellValue);
+                    }
+                });
+
+                $scope.getCellValue = getCellValue;
+
+                mdDataTableRowCtrl.increaseIndex();
+
+                function getColumnOptions(){
+                    return mdDataTableCtrl.getColumnOptions(columnIndex);
+                }
+
+                function getCellValue(){
+                    return mdDataTableRowCtrl.getRowDataStorageValue(columnIndex);
+                }
+            }
+        };
+    }
+
+    angular
+        .module('mdDataTable')
+        .directive('mdDataTableCell', mdDataTableCellDirective);
+}());
+(function(){
+    'use strict';
+
+    function mdDataTableRowDirective(IndexTrackerFactory){
+        return {
+            restrict: 'E',
+            templateUrl: '/main/templates/mdDataTableRow.html',
+            replace: true,
+            transclude: true,
+            require: '^mdDataTable',
+            scope: true,
+            controller: function($scope){
+                var vm = this;
+
+                initIndexTrackerServiceAndBindMethods();
+
+                vm.addToRowDataStorage = addToRowDataStorage;
+                vm.getRowDataStorageValue = getRowDataStorageValue;
+                $scope.rowDataStorage = [];
+
+                function initIndexTrackerServiceAndBindMethods(){
+                    var indexHelperService = IndexTrackerFactory.getInstance();
+
+                    vm.increaseIndex = _.bind(indexHelperService.increaseIndex, indexHelperService);
+                    vm.getIndex = _.bind(indexHelperService.getIndex, indexHelperService);
+                }
+
+                function addToRowDataStorage(value){
+                    $scope.rowDataStorage.push(value);
+                }
+
+                function getRowDataStorageValue(columnIndex){
+                    return $scope.getRowDataStorage()[columnIndex];
+                }
+            },
+            link: function($scope, element, attrs, ctrl, transclude){
+                appendColumns();
+
+                var rowIndex = ctrl.getIndex();
+                $scope.getRowOptions = getRowOptions;
+                $scope.isSelectableRows = ctrl.isSelectableRows;
+
+                ctrl.addRowData($scope.rowDataStorage);
+
+                $scope.getRowDataStorage = function(){
+                    return ctrl.getRowData(rowIndex);
+                };
+
+                ctrl.increaseIndex();
+
+                function appendColumns(){
+                    //TODO: question: the commented out code is not working properly when data-table-row has an ng-repeat. Why?
+                    //angular.element(transclude()).appendTo(element);
+
+                    transclude(function (clone) {
+                        element.append(clone);
+                    });
+                }
+
+                function getRowOptions(){
+                    return ctrl.getRowOptions(rowIndex);
+                }
+            }
+        };
+    }
+
+    angular
+        .module('mdDataTable')
+        .directive('mdDataTableRow', mdDataTableRowDirective);
+}());
+(function(){
+    'use strict';
+
+    function mdDataTableColumnDirective(ColumnOptionProvider, ColumnAlignmentHelper){
         return {
             restrict: 'E',
             templateUrl: '/main/templates/mdDataTableColumn.html',
@@ -217,7 +424,7 @@
 
                 var columnIndex = mdDataTableHeaderRowCtrl.getIndex();
 
-                $scope.getColumnAlignClass = mdDataTableCtrl.getColumnAlignClass($scope.alignRule);
+                $scope.getColumnAlignClass = ColumnAlignmentHelper.getColumnAlignClass($scope.alignRule);
                 $scope.ColumnOptionProvider = ColumnOptionProvider;
                 $scope.columnOptions = mdDataTableCtrl.addColumnOptions({
                     alignRule: $scope.alignRule
@@ -249,7 +456,7 @@
 (function(){
     'use strict';
 
-    function mdDataTableHeaderRowDirective(){
+    function mdDataTableHeaderRowDirective(IndexTrackerFactory){
         return {
             restrict: 'E',
             templateUrl: '/main/templates/mdDataTableHeaderRow.html',
@@ -257,24 +464,16 @@
             transclude: true,
             require: '^mdDataTable',
             scope: true,
-            controller: function($scope){
+            controller: function(){
                 var vm = this;
 
-                initIndexHelperForTableColumns();
+                initIndexTrackerServiceAndBindMethods();
 
-                function initIndexHelperForTableColumns(){
-                    $scope.cellIndex = 0;
+                function initIndexTrackerServiceAndBindMethods(){
+                    var indexHelperService = IndexTrackerFactory.getInstance();
 
-                    vm.increaseIndex = increaseIndex;
-                    vm.getIndex = getIndex;
-
-                    function increaseIndex(){
-                        $scope.cellIndex++;
-                    }
-
-                    function getIndex(){
-                        return $scope.cellIndex;
-                    }
+                    vm.increaseIndex = _.bind(indexHelperService.increaseIndex, indexHelperService);
+                    vm.getIndex = _.bind(indexHelperService.getIndex, indexHelperService);
                 }
             },
             link: function($scope, element, attrs, mdDataTableCtrl, transclude){
@@ -302,124 +501,4 @@
     angular
         .module('mdDataTable')
         .directive('mdDataTableHeaderRow', mdDataTableHeaderRowDirective);
-}());
-(function(){
-    'use strict';
-
-    function mdDataTableCellDirective($parse){
-        return {
-            restrict: 'E',
-            templateUrl: '/main/templates/mdDataTableCell.html',
-            replace: true,
-            transclude: true,
-            scope: true,
-            require: ['^mdDataTable','^mdDataTableRow'],
-            link: function($scope, element, attrs, ctrl, transclude){
-                var mdDataTableCtrl = ctrl[0];
-                var mdDataTableRowCtrl = ctrl[1];
-                var columnIndex = mdDataTableRowCtrl.getIndex();
-
-                $scope.getColumnAlignClass = mdDataTableCtrl.getColumnAlignClass(getColumnOptions().alignRule);
-
-                transclude(function (clone) {
-                    //TODO: better idea?
-                    var cellValue = $parse(clone.html().replace('{{', '').replace('}}', ''))($scope);
-                    mdDataTableRowCtrl.addToRowDataStorage(cellValue);
-                });
-
-                $scope.getCellValue = getCellValue;
-
-                mdDataTableRowCtrl.increaseIndex();
-
-                function getColumnOptions(){
-                    return mdDataTableCtrl.getColumnOptions(columnIndex);
-                }
-
-                function getCellValue(){
-                    return mdDataTableRowCtrl.getRowDataStorageValue(columnIndex);
-                }
-            }
-        };
-    }
-
-    angular
-        .module('mdDataTable')
-        .directive('mdDataTableCell', mdDataTableCellDirective);
-}());
-(function(){
-    'use strict';
-
-    function mdDataTableRowDirective(){
-        return {
-            restrict: 'E',
-            templateUrl: '/main/templates/mdDataTableRow.html',
-            replace: true,
-            transclude: true,
-            require: '^mdDataTable',
-            scope: true,
-            controller: function($scope){
-                var vm = this;
-                vm.addToRowDataStorage = addToRowDataStorage;
-                vm.getRowDataStorageValue = getRowDataStorageValue;
-                $scope.rowDataStorage = [];
-
-                initIndexHelperForTableCells();
-
-                function initIndexHelperForTableCells(){
-                    $scope.cellIndex = 0;
-
-                    vm.increaseIndex = increaseIndex;
-                    vm.getIndex = getIndex;
-
-                    function increaseIndex(){
-                        $scope.cellIndex++;
-                    }
-
-                    function getIndex(){
-                        return $scope.cellIndex;
-                    }
-                }
-
-                function addToRowDataStorage(value){
-                    $scope.rowDataStorage.push(value);
-                }
-
-                function getRowDataStorageValue(columnIndex){
-                    return $scope.getRowDataStorage()[columnIndex];
-                }
-            },
-            link: function($scope, element, attrs, ctrl, transclude){
-                appendColumns();
-
-                var rowIndex = ctrl.getIndex();
-                $scope.getRowOptions = getRowOptions;
-                $scope.isSelectableRows = ctrl.isSelectableRows;
-
-                ctrl.addToTableDataStorage($scope.rowDataStorage);
-
-                $scope.getRowDataStorage = function(){
-                    return ctrl.getTableDataStorageValue(rowIndex);
-                };
-
-                ctrl.increaseIndex();
-
-                function appendColumns(){
-                    //TODO: question: the commented out code is not working properly when data-table-row has an ng-repeat. Why?
-                    //angular.element(transclude()).appendTo(element);
-
-                    transclude(function (clone) {
-                        element.append(clone);
-                    });
-                }
-
-                function getRowOptions(){
-                    return ctrl.getRowOptions(rowIndex);
-                }
-            }
-        };
-    }
-
-    angular
-        .module('mdDataTable')
-        .directive('mdDataTableRow', mdDataTableRowDirective);
 }());
