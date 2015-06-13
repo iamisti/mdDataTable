@@ -22,6 +22,8 @@
   color: #757575;
   cursor: pointer;
   white-space: nowrap;
+  /* when hoverSortIcons on a non-sorted column*/
+  /* when hoverSortIcons on a sorted column*/
 }
 .mdDataTable th .hoverSortIcons ng-md-icon {
   visibility: hidden;
@@ -29,6 +31,9 @@
 }
 .mdDataTable th:hover .hoverSortIcons ng-md-icon {
   visibility: visible;
+}
+.mdDataTable th .sortedColumn .hoverSortIcons ng-md-icon {
+  display: none;
 }
 .mdDataTable th .sortedColumn ng-md-icon {
   fill: #212121;
@@ -39,6 +44,13 @@
 .mdDataTable .mdDataTable-header, .mdDataTable .mdDataTable-header-alternate {
   height: 64px;
   padding-left: 24px;
+  padding-right: 14px;
+}
+.mdDataTable .mdDataTable-header md-button, .mdDataTable .mdDataTable-header-alternate md-button {
+  margin-left: 24px;
+}
+.mdDataTable .mdDataTable-header ng-md-icon, .mdDataTable .mdDataTable-header-alternate ng-md-icon {
+  fill: #757575;
 }
 .mdDataTable .mdDataTable-header-alternate {
   background-color: #e3edfd;
