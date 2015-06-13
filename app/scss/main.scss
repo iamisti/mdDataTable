@@ -14,6 +14,7 @@
         cursor: pointer;
         white-space: nowrap;
 
+        /* when hoverSortIcons on a non-sorted column*/
         .hoverSortIcons ng-md-icon{
             visibility: hidden;
             fill: darken($whiteColor, 30%);
@@ -21,6 +22,11 @@
 
         &:hover .hoverSortIcons ng-md-icon{
             visibility: visible;
+        }
+
+        /* when hoverSortIcons on a sorted column*/
+        .sortedColumn .hoverSortIcons ng-md-icon{
+            display:none;
         }
 
         .sortedColumn ng-md-icon{
@@ -36,6 +42,15 @@
     .mdDataTable-header{
         height: 64px;
         padding-left: 24px;
+        padding-right: 14px;
+
+        md-button{
+            margin-left: 24px;
+        }
+
+        ng-md-icon{
+            fill: darken($whiteColor, 54%);
+        }
     }
 
     .mdDataTable-header-alternate{

@@ -13,7 +13,8 @@
             this.storage.push({
                 rowId: rowId,
                 optionList: {
-                    selected: false
+                    selected: false,
+                    deleted: false
                 },
                 data: rowArray
             });
@@ -53,7 +54,15 @@
 
         TableDataStorageService.prototype.getNumberOfSelectedRows = function(){
             return _.countBy(this.storage, function(rowData){
-                return rowData.optionList.selected === true ? 'selected' : 'unselected';
+                return rowData.optionList.selected === true && rowData.optionList.deleted === false ? 'selected' : 'unselected';
+            });
+        };
+
+        TableDataStorageService.prototype.deleteSelectedRows = function(){
+            _.each(this.storage, function(rowData){
+                if(rowData.optionList.selected){
+                    rowData.optionList.deleted = true;
+                }
             });
         };
 

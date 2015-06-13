@@ -82,6 +82,7 @@
 
                 $scope.isAnyRowSelected = _.bind($scope.tableDataStorageService.isAnyRowSelected, $scope.tableDataStorageService);
                 $scope.getNumberOfSelectedRows = _.bind($scope.tableDataStorageService.getNumberOfSelectedRows, $scope.tableDataStorageService);
+                $scope.deleteSelectedRows = _.bind($scope.tableDataStorageService.deleteSelectedRows, $scope.tableDataStorageService);
 
                 function injectContentIntoTemplate(){
                     transclude(function (clone) {
