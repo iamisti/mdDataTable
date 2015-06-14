@@ -15,7 +15,8 @@
                 tableCard: '=',
                 selectableRows: '=',
                 alternateHeaders: '=',
-                sortableColumns: '='
+                sortableColumns: '=',
+                deleteRowCallback: '&'
             },
             controllerAs: 'mdDataTableCtrl',
             controller: function($scope){
@@ -87,7 +88,7 @@
 
                 $scope.isAnyRowSelected = _.bind($scope.tableDataStorageService.isAnyRowSelected, $scope.tableDataStorageService);
                 $scope.getNumberOfSelectedRows = _.bind($scope.tableDataStorageService.getNumberOfSelectedRows, $scope.tableDataStorageService);
-                $scope.deleteSelectedRows = _.bind($scope.tableDataStorageService.deleteSelectedRows, $scope.tableDataStorageService);
+                $scope.deleteSelectedRows = deleteSelectedRows;
 
                 function injectContentIntoTemplate(){
                     transclude(function (clone) {
@@ -107,6 +108,12 @@
                         element.find('table thead').append(headings);
                         element.find('table tbody').append(body);
                     });
+                }
+
+                function deleteSelectedRows(){
+                    var deletedRows = $scope.tableDataStorageService.deleteSelectedRows.apply($scope.tableDataStorageService, arguments);
+
+                    $scope.deleteRowCallback({rows: deletedRows});
                 }
             }
         };
@@ -185,14 +192,14 @@
 (function(){
     'use strict';
 
-    function TableDataStorageFactory(uuid4){
+    function TableDataStorageFactory(){
 
         function TableDataStorageService(){
             this.storage = [];
         }
 
-        TableDataStorageService.prototype.addRowData = function(rowArray){
-            var rowId = uuid4.generate();
+        TableDataStorageService.prototype.addRowData = function(explicitRowId, rowArray){
+            var rowId = explicitRowId;
 
             this.storage.push({
                 rowId: rowId,
@@ -243,11 +250,24 @@
         };
 
         TableDataStorageService.prototype.deleteSelectedRows = function(){
+            var deletedRows = [];
+
             _.each(this.storage, function(rowData){
-                if(rowData.optionList.selected){
+                if(rowData.optionList.selected && rowData.optionList.deleted === false){
+
+                    if(rowData.rowId){
+                        deletedRows.push(rowData.rowId);
+
+                    //Fallback when no id was specified
+                    } else{
+                        deletedRows.push(rowData.data);
+                    }
+
                     rowData.optionList.deleted = true;
                 }
             });
+
+            return deletedRows;
         };
 
         return {
@@ -355,7 +375,9 @@
             replace: true,
             transclude: true,
             require: '^mdDataTable',
-            scope: true,
+            scope: {
+                tableRowId: '='
+            },
             controller: function($scope){
                 var vm = this;
 
@@ -387,7 +409,7 @@
                 $scope.getRowOptions = getRowOptions;
                 $scope.isSelectableRows = ctrl.isSelectableRows;
 
-                ctrl.addRowData($scope.rowDataStorage);
+                ctrl.addRowData($scope.tableRowId, $scope.rowDataStorage);
 
                 $scope.getRowDataStorage = function(){
                     return ctrl.getRowData(rowIndex);
