@@ -8,8 +8,7 @@
 Angular data table implementation of google material design.
 `This component is UNDER DEVELOPMENT. First release: 26th of July`
 
-
-## Demo (without any functionality atm)
+## Demo
 http://iamisti.github.io/md-data-table/
 
 ## Install with bower
@@ -29,6 +28,7 @@ In its simplest form, a data table contains a top row of column names, and rows 
 | Params                                         | Type          | Details       |
 | ---------------------------------------------- | ------------- | ------------- |
 | selectable-rows                                | Boolean       | optional, checkboxes accompany each row if need to select or manipulate data |
+| delete-row-callback                            | Function      | optional, callback function when deleting rows. The callback will be called with the array of the deleted row ids. Don't forget to specify `table-row-id` for `md-data-table-row`. If you do, it will return the deleted rows data. |
 ![alt tag](http://material-design.storage.googleapis.com/publish/material_v_4/material_ext_publish/0B3mOPoJlxiFhcWNyQl9xYmRkQnc/components_datatables_interaction_selectedrow.png)
 
 | Params                                         | Type          | Details       |
@@ -60,7 +60,7 @@ In its simplest form, a data table contains a top row of column names, and rows 
 ![persistent and contextual headers](http://material-design.storage.googleapis.com/publish/material_v_4/material_ext_publish/0B3mOPoJlxiFhemNvbnZOcXNpODQ/components_datatables_cards_altheaders.png)
 
 
-## Column attributes
+## Column attributes (`md-data-table-column` attributes)
 
 | Params                                         | ChildPArams         | Type         | Details         |
 | ---------------------------------------------- | --------------------|------------- | --------------- |
@@ -68,10 +68,20 @@ In its simplest form, a data table contains a top row of column names, and rows 
 |                                                | _(default)_ left    |              | left-align content 
 |                                                | right               |              | right-align content 
 
+
 | Params                                         | Type          | Details         |
 | ---------------------------------------------- | ------------- | --------------- |
 | column-definition                              | String        | if provided, display a tooltip on hover. If sorting is enabled, display a light sort icon upon hover, which indicates that the column is sortable. |
 ![Column definition on hover](http://material-design.storage.googleapis.com/publish/material_v_4/material_ext_publish/0B3mOPoJlxiFhenh5SWhFdFlyajg/components_datatables_interaction_tooltip.png)
+
+# Data-Row attributes (`md-data-table-row` attributes)
+
+| Params                                         | Type          | Details         |
+| ---------------------------------------------- | ------------- | --------------- |
+| table-row-id                                   | String|Integer| defines the id of the row. Useful if you specified the callback function (`delete-row-callback`) for deleting a row. |
+
+
+# Data-Cell attributes (`md-data-table-cell` attributes)
 
 | Params                                         | ChildParams        | Type          | Details         |
 | ---------------------------------------------- | ------------------ | ------------- | --------------- |
@@ -95,7 +105,6 @@ In its simplest form, a data table contains a top row of column names, and rows 
 | ---------------------------------------------- | ------------------ | ------------- | --------------- |
 | sortable-rows-default                          |                    | -             | When sortable-columns is applied to the table, it marks the column as the default sorting column |
 | html-content                                   |                    | Boolean       | When the cell content is not a simple value (html content) |
-
 
 ## Example usage:
     <md-data-table
