@@ -6,6 +6,34 @@
 (function(){
     'use strict';
 
+    function mdDataTableAlternateHeadersDirective(){
+        return {
+            restrict: 'E',
+            templateUrl: '/main/templates/mdDataTableAlternateHeaders.html',
+            transclude: true,
+            replace: true,
+            scope: true,
+            require: ['^mdDataTable'],
+            link: function($scope){
+                $scope.getNumberOfSelectedRows = _.bind($scope.tableDataStorageService.getNumberOfSelectedRows, $scope.tableDataStorageService);
+                $scope.deleteSelectedRows = deleteSelectedRows;
+
+                function deleteSelectedRows(){
+                    var deletedRows = $scope.tableDataStorageService.deleteSelectedRows.apply($scope.tableDataStorageService, arguments);
+
+                    $scope.deleteRowCallback({rows: deletedRows});
+                }
+            }
+        };
+    }
+
+    angular
+        .module('mdDataTable')
+        .directive('mdDataTableAlternateHeaders', mdDataTableAlternateHeadersDirective);
+}());
+(function(){
+    'use strict';
+
     function mdDataTableDirective(ColumnOptionsFactory, TableDataStorageFactory, IndexTrackerFactory){
         return {
             restrict: 'E',
@@ -87,8 +115,6 @@
                 injectContentIntoTemplate();
 
                 $scope.isAnyRowSelected = _.bind($scope.tableDataStorageService.isAnyRowSelected, $scope.tableDataStorageService);
-                $scope.getNumberOfSelectedRows = _.bind($scope.tableDataStorageService.getNumberOfSelectedRows, $scope.tableDataStorageService);
-                $scope.deleteSelectedRows = deleteSelectedRows;
 
                 function injectContentIntoTemplate(){
                     transclude(function (clone) {
@@ -108,12 +134,6 @@
                         element.find('table thead').append(headings);
                         element.find('table tbody').append(body);
                     });
-                }
-
-                function deleteSelectedRows(){
-                    var deletedRows = $scope.tableDataStorageService.deleteSelectedRows.apply($scope.tableDataStorageService, arguments);
-
-                    $scope.deleteRowCallback({rows: deletedRows});
                 }
             }
         };
@@ -239,7 +259,7 @@
 
         TableDataStorageService.prototype.isAnyRowSelected = function(){
             return _.some(this.storage, function(rowData){
-                return rowData.optionList.selected === true;
+                return rowData.optionList.selected === true && rowData.optionList.deleted === false;
             });
         };
 
@@ -533,4 +553,40 @@
     angular
         .module('mdDataTable')
         .directive('mdDataTableHeaderRow', mdDataTableHeaderRowDirective);
+}());
+(function(){
+    'use strict';
+
+    function mdDataTableCardFooterDirective(){
+        return {
+            restrict: 'E',
+            templateUrl: '/main/templates/mdDataTableCardFooter.html',
+            transclude: true,
+            replace: true,
+            scope: true,
+            require: ['^mdDataTable']
+        };
+    }
+
+    angular
+        .module('mdDataTable')
+        .directive('mdDataTableCardFooter', mdDataTableCardFooterDirective);
+}());
+(function(){
+    'use strict';
+
+    function mdDataTableCardHeaderDirective(){
+        return {
+            restrict: 'E',
+            templateUrl: '/main/templates/mdDataTableCardHeader.html',
+            transclude: true,
+            replace: true,
+            scope: true,
+            require: ['^mdDataTable']
+        };
+    }
+
+    angular
+        .module('mdDataTable')
+        .directive('mdDataTableCardHeader', mdDataTableCardHeaderDirective);
 }());
