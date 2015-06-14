@@ -8,10 +8,16 @@
         }
 
         TableDataStorageService.prototype.addRowData = function(explicitRowId, rowArray){
-            var rowId = explicitRowId;
+            if(rowArray === undefined){
+                throw new Error('`rowArray` parameter is required');
+            }
+
+            if(!(rowArray instanceof Array)){
+                throw new Error('`rowArray` parameter should be array');
+            }
 
             this.storage.push({
-                rowId: rowId,
+                rowId: explicitRowId,
                 optionList: {
                     selected: false,
                     deleted: false
@@ -21,16 +27,28 @@
         };
 
         TableDataStorageService.prototype.getRowData = function(index){
+            if(!this.storage[index]){
+                throw Error('row is not exists at index: '+index);
+            }
+
             return this.storage[index].data;
         };
 
         TableDataStorageService.prototype.getRowOptions = function(index){
+            if(!this.storage[index]){
+                throw Error('row is not exists at index: '+index);
+            }
+
             return this.storage[index].optionList;
         };
 
         TableDataStorageService.prototype.setAllRowsSelected = function(isSelected){
+            if(isSelected === undefined){
+                throw new Error('`isSelected` parameter is required');
+            }
+
             _.each(this.storage, function(rowData){
-                rowData.optionList.selected = isSelected;
+                rowData.optionList.selected = isSelected ? true : false;
             });
         };
 
@@ -53,9 +71,11 @@
         };
 
         TableDataStorageService.prototype.getNumberOfSelectedRows = function(){
-            return _.countBy(this.storage, function(rowData){
+            var res = _.countBy(this.storage, function(rowData){
                 return rowData.optionList.selected === true && rowData.optionList.deleted === false ? 'selected' : 'unselected';
             });
+
+            return res.selected ? res.selected : 0;
         };
 
         TableDataStorageService.prototype.deleteSelectedRows = function(){
