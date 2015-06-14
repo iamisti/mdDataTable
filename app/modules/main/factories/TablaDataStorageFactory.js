@@ -48,7 +48,7 @@
 
         TableDataStorageService.prototype.isAnyRowSelected = function(){
             return _.some(this.storage, function(rowData){
-                return rowData.optionList.selected === true;
+                return rowData.optionList.selected === true && rowData.optionList.deleted === false;
             });
         };
 

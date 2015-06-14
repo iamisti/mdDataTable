@@ -1,30 +1,12 @@
 <md-content class="mdDataTable md-whiteframe-z1" layout="column">
     <!-- table card -->
-    <div ng-if="tableCard.visible"
-         ng-hide="alternateHeaders && isAnyRowSelected()"
-         class="mdDataTable-header" layout="row" layout-align="start center">
-        <span flex>{{tableCard.title}}</span>
-
-        <md-button class="md-icon-button md-primary" aria-label="Filter" style="width:24px;height:24px;">
-            <ng-md-icon icon="filter_list" size="24"></ng-md-icon>
-        </md-button>
-        <md-button class="md-icon-button md-primary" aria-label="More options" style="width:24px;height:24px;">
-            <ng-md-icon icon="more_vert" size="24"></ng-md-icon>
-        </md-button>
-    </div>
-    <!-- table card end -->
+    <md-data-table-card-header
+            ng-if="tableCard.visible"
+            ng-hide="alternateHeaders && isAnyRowSelected()">
+    </md-data-table-card-header>
 
     <!-- alternate headers -->
-    <div ng-if="alternateHeaders && isAnyRowSelected()" class="mdDataTable-header-alternate" layout="row" layout-align="start center">
-        <span class="alternate-text" flex>{{getNumberOfSelectedRows().selected}} item selected</span>
-        <md-button class="md-icon-button md-primary" ng-click="deleteSelectedRows()" aria-label="Delete selected rows" style="width:24px;height:24px;">
-            <ng-md-icon icon="delete" size="24"></ng-md-icon>
-        </md-button>
-
-        <md-button class="md-icon-button md-primary" aria-label="More options" style="width:24px;height:24px;">
-            <ng-md-icon icon="more_vert" size="24"></ng-md-icon>
-        </md-button>
-    </div>
+    <md-data-table-alternate-headers ng-if="alternateHeaders && isAnyRowSelected()"></md-data-table-alternate-headers>
     <!-- alternate headers end -->
 
     <table cellpadding="0" cellspacing="0">
@@ -33,6 +15,6 @@
     </table>
 
     <!-- table card -->
-    <div ng-if="tableCard.visible" class="mdDataTable-footer" layout="row"> </div>
+    <md-data-table-card-footer ng-if="tableCard.visible"></md-data-table-card-footer>
     <!-- table card end -->
 </md-content>
