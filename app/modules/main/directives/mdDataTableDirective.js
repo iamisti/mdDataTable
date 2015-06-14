@@ -13,7 +13,6 @@
                 sortableColumns: '=',
                 deleteRowCallback: '&'
             },
-            controllerAs: 'mdDataTableCtrl',
             controller: function($scope){
                 var vm = this;
 
