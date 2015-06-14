@@ -10,7 +10,8 @@
                 tableCard: '=',
                 selectableRows: '=',
                 alternateHeaders: '=',
-                sortableColumns: '='
+                sortableColumns: '=',
+                deleteRowCallback: '&'
             },
             controllerAs: 'mdDataTableCtrl',
             controller: function($scope){
@@ -82,7 +83,7 @@
 
                 $scope.isAnyRowSelected = _.bind($scope.tableDataStorageService.isAnyRowSelected, $scope.tableDataStorageService);
                 $scope.getNumberOfSelectedRows = _.bind($scope.tableDataStorageService.getNumberOfSelectedRows, $scope.tableDataStorageService);
-                $scope.deleteSelectedRows = _.bind($scope.tableDataStorageService.deleteSelectedRows, $scope.tableDataStorageService);
+                $scope.deleteSelectedRows = deleteSelectedRows;
 
                 function injectContentIntoTemplate(){
                     transclude(function (clone) {
@@ -102,6 +103,12 @@
                         element.find('table thead').append(headings);
                         element.find('table tbody').append(body);
                     });
+                }
+
+                function deleteSelectedRows(){
+                    var deletedRows = $scope.tableDataStorageService.deleteSelectedRows.apply($scope.tableDataStorageService, arguments);
+
+                    $scope.deleteRowCallback({rows: deletedRows});
                 }
             }
         };

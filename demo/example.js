@@ -11,13 +11,22 @@
                 .accentPalette('pink');
         }]);
 
-    angular.module('exampleApp').controller('ExampleController', function($scope){
+    angular.module('exampleApp').controller('ExampleController', function($scope, $mdToast){
         $scope.tableCardIsEnabled = true;
         $scope.tableIsSelectable = true;
         $scope.tableIsSortable = true;
 
+        $scope.deleteRowCallback = function(rows){
+            $mdToast.show(
+                $mdToast.simple()
+                    .content('Deleted row id(s): '+rows)
+                    .hideDelay(3000)
+            );
+        };
+
         $scope.nutritionList = [
             {
+                id: 601,
                 name: 'Frozen joghurt',
                 calories: 159,
                 fat: 6.0,
@@ -28,6 +37,7 @@
                 iron: '1%'
             },
             {
+                id: 602,
                 name: 'Ice cream sandwitch',
                 calories: 237,
                 fat: 9.0,
@@ -38,6 +48,7 @@
                 iron: '1%'
             },
             {
+                id: 603,
                 name: 'Eclair',
                 calories: 262,
                 fat: 16.0,
@@ -48,6 +59,7 @@
                 iron: '7%'
             },
             {
+                id: 604,
                 name: 'Cupkake',
                 calories: 305,
                 fat: 3.7,
@@ -58,6 +70,7 @@
                 iron: '8%'
             },
             {
+                id: 605,
                 name: 'Gingerbread',
                 calories: 356,
                 fat: 16.0,
@@ -68,6 +81,7 @@
                 iron: '16%'
             },
             {
+                id: 606,
                 name: 'Jelly bean',
                 calories: 375,
                 fat: 0.0,

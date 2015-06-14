@@ -8,7 +8,9 @@
             replace: true,
             transclude: true,
             require: '^mdDataTable',
-            scope: true,
+            scope: {
+                tableRowId: '='
+            },
             controller: function($scope){
                 var vm = this;
 
@@ -40,7 +42,7 @@
                 $scope.getRowOptions = getRowOptions;
                 $scope.isSelectableRows = ctrl.isSelectableRows;
 
-                ctrl.addRowData($scope.rowDataStorage);
+                ctrl.addRowData($scope.tableRowId, $scope.rowDataStorage);
 
                 $scope.getRowDataStorage = function(){
                     return ctrl.getRowData(rowIndex);

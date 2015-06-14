@@ -1,14 +1,14 @@
 (function(){
     'use strict';
 
-    function TableDataStorageFactory(uuid4){
+    function TableDataStorageFactory(){
 
         function TableDataStorageService(){
             this.storage = [];
         }
 
-        TableDataStorageService.prototype.addRowData = function(rowArray){
-            var rowId = uuid4.generate();
+        TableDataStorageService.prototype.addRowData = function(explicitRowId, rowArray){
+            var rowId = explicitRowId;
 
             this.storage.push({
                 rowId: rowId,
@@ -59,11 +59,24 @@
         };
 
         TableDataStorageService.prototype.deleteSelectedRows = function(){
+            var deletedRows = [];
+
             _.each(this.storage, function(rowData){
-                if(rowData.optionList.selected){
+                if(rowData.optionList.selected && rowData.optionList.deleted === false){
+
+                    if(rowData.rowId){
+                        deletedRows.push(rowData.rowId);
+
+                    //Fallback when no id was specified
+                    } else{
+                        deletedRows.push(rowData.data);
+                    }
+
                     rowData.optionList.deleted = true;
                 }
             });
+
+            return deletedRows;
         };
 
         return {

@@ -53,7 +53,8 @@
                 table-card="{visible: tableCardIsEnabled, title: 'Nutrition'}"
                 selectable-rows="tableIsSelectable"
                 alternate-headers="'contextual'"
-                sortable-columns="tableIsSortable">
+                sortable-columns="tableIsSortable"
+                delete-row-callback="deleteRowCallback(rows)">
 
             <md-data-table-header-row>
                 <md-data-table-column align-rule="left">Dessert (100g serving)</md-data-table-column>
@@ -66,7 +67,9 @@
                 <md-data-table-column align-rule="right">Iron (%)</md-data-table-column>
             </md-data-table-header-row>
 
-            <md-data-table-row ng-repeat="nutrition in nutritionList">
+            <md-data-table-row
+                    table-row-id="nutrition.id"
+                    ng-repeat="nutrition in nutritionList">
                 <md-data-table-cell>{{nutrition.name}}</md-data-table-cell>
                 <md-data-table-cell>{{nutrition.calories}}</md-data-table-cell>
                 <md-data-table-cell>{{nutrition.fat}}</md-data-table-cell>
@@ -84,7 +87,8 @@
                 table-card="{visible: tableCardIsEnabled, title: 'Nutrition copy'}"
                 selectable-rows="tableIsSelectable"
                 alternate-headers="'contextual'"
-                sortable-columns="tableIsSortable">
+                sortable-columns="tableIsSortable"
+                delete-row-callback="deleteRowCallback(rows)">
 
             <md-data-table-header-row>
                 <md-data-table-column align-rule="left">Dessert (100g serving)</md-data-table-column>
