@@ -6,6 +6,26 @@
 (function(){
     'use strict';
 
+    function ColumnAlignmentHelper(ColumnOptionProvider){
+        var service = this;
+        service.getColumnAlignClass = getColumnAlignClass;
+
+        function getColumnAlignClass(alignRule) {
+            if (alignRule === ColumnOptionProvider.ALIGN_RULE.ALIGN_RIGHT) {
+                return 'rightAlignedColumn';
+            } else {
+                return 'leftAlignedColumn';
+            }
+        }
+    }
+
+    angular
+        .module('mdDataTable')
+        .service('ColumnAlignmentHelper', ColumnAlignmentHelper);
+}());
+(function(){
+    'use strict';
+
     function mdDataTableAlternateHeadersDirective(){
         return {
             restrict: 'E',
@@ -46,7 +66,6 @@
                 sortableColumns: '=',
                 deleteRowCallback: '&'
             },
-            controllerAs: 'mdDataTableCtrl',
             controller: function($scope){
                 var vm = this;
 
@@ -219,10 +238,16 @@
         }
 
         TableDataStorageService.prototype.addRowData = function(explicitRowId, rowArray){
-            var rowId = explicitRowId;
+            if(rowArray === undefined){
+                throw new Error('`rowArray` parameter is required');
+            }
+
+            if(!(rowArray instanceof Array)){
+                throw new Error('`rowArray` parameter should be array');
+            }
 
             this.storage.push({
-                rowId: rowId,
+                rowId: explicitRowId,
                 optionList: {
                     selected: false,
                     deleted: false
@@ -232,16 +257,28 @@
         };
 
         TableDataStorageService.prototype.getRowData = function(index){
+            if(!this.storage[index]){
+                throw Error('row is not exists at index: '+index);
+            }
+
             return this.storage[index].data;
         };
 
         TableDataStorageService.prototype.getRowOptions = function(index){
+            if(!this.storage[index]){
+                throw Error('row is not exists at index: '+index);
+            }
+
             return this.storage[index].optionList;
         };
 
         TableDataStorageService.prototype.setAllRowsSelected = function(isSelected){
+            if(isSelected === undefined){
+                throw new Error('`isSelected` parameter is required');
+            }
+
             _.each(this.storage, function(rowData){
-                rowData.optionList.selected = isSelected;
+                rowData.optionList.selected = isSelected ? true : false;
             });
         };
 
@@ -264,9 +301,11 @@
         };
 
         TableDataStorageService.prototype.getNumberOfSelectedRows = function(){
-            return _.countBy(this.storage, function(rowData){
+            var res = _.countBy(this.storage, function(rowData){
                 return rowData.optionList.selected === true && rowData.optionList.deleted === false ? 'selected' : 'unselected';
             });
+
+            return res.selected ? res.selected : 0;
         };
 
         TableDataStorageService.prototype.deleteSelectedRows = function(){
@@ -304,26 +343,6 @@
 (function(){
     'use strict';
 
-    function ColumnAlignmentHelper(ColumnOptionProvider){
-        var service = this;
-        service.getColumnAlignClass = getColumnAlignClass;
-
-        function getColumnAlignClass(alignRule) {
-            if (alignRule === ColumnOptionProvider.ALIGN_RULE.ALIGN_RIGHT) {
-                return 'rightAlignedColumn';
-            } else {
-                return 'leftAlignedColumn';
-            }
-        }
-    }
-
-    angular
-        .module('mdDataTable')
-        .service('ColumnAlignmentHelper', ColumnAlignmentHelper);
-}());
-(function(){
-    'use strict';
-
     var ColumnOptionProvider = {
         ALIGN_RULE : {
             ALIGN_LEFT: 'left',
@@ -334,6 +353,103 @@
     angular.module('mdDataTable')
         .value('ColumnOptionProvider', ColumnOptionProvider);
 })();
+(function(){
+    'use strict';
+
+    function mdDataTableColumnDirective(ColumnOptionProvider, ColumnAlignmentHelper){
+        return {
+            restrict: 'E',
+            templateUrl: '/main/templates/mdDataTableColumn.html',
+            transclude: true,
+            replace: true,
+            scope: {
+                alignRule: '@'
+            },
+            require: ['^mdDataTable', '^mdDataTableHeaderRow'],
+            link: function ($scope, element, attrs, ctrl) {
+                var mdDataTableCtrl = ctrl[0];
+                var mdDataTableHeaderRowCtrl = ctrl[1];
+
+                var columnIndex = mdDataTableHeaderRowCtrl.getIndex();
+
+                $scope.getColumnAlignClass = ColumnAlignmentHelper.getColumnAlignClass($scope.alignRule);
+                $scope.ColumnOptionProvider = ColumnOptionProvider;
+                $scope.columnOptions = mdDataTableCtrl.addColumnOptions({
+                    alignRule: $scope.alignRule
+                });
+                $scope.direction = 1;
+                $scope.isSorted = isSorted;
+                $scope.clickHandler = clickHandler;
+                $scope.isSortableColumns = mdDataTableCtrl.isSortableColumns;
+
+                mdDataTableHeaderRowCtrl.increaseIndex();
+
+                function clickHandler(){
+                    if($scope.isSortableColumns()) {
+                        $scope.direction = mdDataTableCtrl.sortByColumn(columnIndex);
+                    }
+                }
+
+                function isSorted(){
+                    return mdDataTableCtrl.getSortedColumnIndex() === columnIndex;
+                }
+            }
+        };
+    }
+
+    angular
+        .module('mdDataTable')
+        .directive('mdDataTableColumn', mdDataTableColumnDirective);
+}());
+(function(){
+    'use strict';
+
+    function mdDataTableHeaderRowDirective(IndexTrackerFactory){
+        return {
+            restrict: 'E',
+            templateUrl: '/main/templates/mdDataTableHeaderRow.html',
+            replace: true,
+            transclude: true,
+            require: '^mdDataTable',
+            scope: true,
+            controller: function(){
+                var vm = this;
+
+                initIndexTrackerServiceAndBindMethods();
+
+                function initIndexTrackerServiceAndBindMethods(){
+                    var indexHelperService = IndexTrackerFactory.getInstance();
+
+                    vm.increaseIndex = _.bind(indexHelperService.increaseIndex, indexHelperService);
+                    vm.getIndex = _.bind(indexHelperService.getIndex, indexHelperService);
+                }
+            },
+            link: function($scope, element, attrs, mdDataTableCtrl, transclude){
+                $scope.isSelectableRows = mdDataTableCtrl.isSelectableRows;
+                $scope.selectAllRows = false;
+
+                appendColumns();
+                setupWatchers();
+
+                function appendColumns(){
+                    transclude(function (clone) {
+                        element.append(clone);
+                    });
+                }
+
+                function setupWatchers() {
+                    $scope.$watch('selectAllRows', function(newVal){
+                        mdDataTableCtrl.setAllRowsSelected(newVal);
+                    });
+                }
+            }
+        };
+    }
+
+    angular
+        .module('mdDataTable')
+        .directive('mdDataTableHeaderRow', mdDataTableHeaderRowDirective);
+}());
 (function(){
     'use strict';
 
@@ -456,103 +572,6 @@
     angular
         .module('mdDataTable')
         .directive('mdDataTableRow', mdDataTableRowDirective);
-}());
-(function(){
-    'use strict';
-
-    function mdDataTableColumnDirective(ColumnOptionProvider, ColumnAlignmentHelper){
-        return {
-            restrict: 'E',
-            templateUrl: '/main/templates/mdDataTableColumn.html',
-            transclude: true,
-            replace: true,
-            scope: {
-                alignRule: '@'
-            },
-            require: ['^mdDataTable', '^mdDataTableHeaderRow'],
-            link: function ($scope, element, attrs, ctrl) {
-                var mdDataTableCtrl = ctrl[0];
-                var mdDataTableHeaderRowCtrl = ctrl[1];
-
-                var columnIndex = mdDataTableHeaderRowCtrl.getIndex();
-
-                $scope.getColumnAlignClass = ColumnAlignmentHelper.getColumnAlignClass($scope.alignRule);
-                $scope.ColumnOptionProvider = ColumnOptionProvider;
-                $scope.columnOptions = mdDataTableCtrl.addColumnOptions({
-                    alignRule: $scope.alignRule
-                });
-                $scope.direction = 1;
-                $scope.isSorted = isSorted;
-                $scope.clickHandler = clickHandler;
-                $scope.isSortableColumns = mdDataTableCtrl.isSortableColumns;
-
-                mdDataTableHeaderRowCtrl.increaseIndex();
-
-                function clickHandler(){
-                    if($scope.isSortableColumns()) {
-                        $scope.direction = mdDataTableCtrl.sortByColumn(columnIndex);
-                    }
-                }
-
-                function isSorted(){
-                    return mdDataTableCtrl.getSortedColumnIndex() === columnIndex;
-                }
-            }
-        };
-    }
-
-    angular
-        .module('mdDataTable')
-        .directive('mdDataTableColumn', mdDataTableColumnDirective);
-}());
-(function(){
-    'use strict';
-
-    function mdDataTableHeaderRowDirective(IndexTrackerFactory){
-        return {
-            restrict: 'E',
-            templateUrl: '/main/templates/mdDataTableHeaderRow.html',
-            replace: true,
-            transclude: true,
-            require: '^mdDataTable',
-            scope: true,
-            controller: function(){
-                var vm = this;
-
-                initIndexTrackerServiceAndBindMethods();
-
-                function initIndexTrackerServiceAndBindMethods(){
-                    var indexHelperService = IndexTrackerFactory.getInstance();
-
-                    vm.increaseIndex = _.bind(indexHelperService.increaseIndex, indexHelperService);
-                    vm.getIndex = _.bind(indexHelperService.getIndex, indexHelperService);
-                }
-            },
-            link: function($scope, element, attrs, mdDataTableCtrl, transclude){
-                $scope.isSelectableRows = mdDataTableCtrl.isSelectableRows;
-                $scope.selectAllRows = false;
-
-                appendColumns();
-                setupWatchers();
-
-                function appendColumns(){
-                    transclude(function (clone) {
-                        element.append(clone);
-                    });
-                }
-
-                function setupWatchers() {
-                    $scope.$watch('selectAllRows', function(newVal){
-                        mdDataTableCtrl.setAllRowsSelected(newVal);
-                    });
-                }
-            }
-        };
-    }
-
-    angular
-        .module('mdDataTable')
-        .directive('mdDataTableHeaderRow', mdDataTableHeaderRowDirective);
 }());
 (function(){
     'use strict';
