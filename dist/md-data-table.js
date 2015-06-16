@@ -74,7 +74,7 @@
                 initIndexTrackerServiceAndBindMethods();
 
                 vm.isSelectableRows = isSelectableRows;
-                vm.isSortableColumns = isSortableColumns;
+                vm.isSortingEnabled = isSortingEnabled;
 
                 vm.sortByColumn = sortByColumn;
                 vm.getSortedColumnIndex = getSortedColumnIndex;
@@ -106,7 +106,7 @@
                     return $scope.selectableRows;
                 }
 
-                function isSortableColumns(){
+                function isSortingEnabled(){
                     return $scope.sortableColumns;
                 }
 
@@ -380,12 +380,12 @@
                 $scope.direction = 1;
                 $scope.isSorted = isSorted;
                 $scope.clickHandler = clickHandler;
-                $scope.isSortableColumns = mdDataTableCtrl.isSortableColumns;
+                $scope.isSortingEnabled = mdDataTableCtrl.isSortingEnabled;
 
                 mdDataTableHeaderRowCtrl.increaseIndex();
 
                 function clickHandler(){
-                    if($scope.isSortableColumns()) {
+                    if($scope.isSortingEnabled()) {
                         $scope.direction = mdDataTableCtrl.sortByColumn(columnIndex);
                     }
                 }

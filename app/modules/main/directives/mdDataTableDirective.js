@@ -21,7 +21,7 @@
                 initIndexTrackerServiceAndBindMethods();
 
                 vm.isSelectableRows = isSelectableRows;
-                vm.isSortableColumns = isSortableColumns;
+                vm.isSortingEnabled = isSortingEnabled;
 
                 vm.sortByColumn = sortByColumn;
                 vm.getSortedColumnIndex = getSortedColumnIndex;
@@ -53,7 +53,7 @@
                     return $scope.selectableRows;
                 }
 
-                function isSortableColumns(){
+                function isSortingEnabled(){
                     return $scope.sortableColumns;
                 }
 

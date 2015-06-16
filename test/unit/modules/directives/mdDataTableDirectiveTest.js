@@ -32,7 +32,7 @@ describe('mdDataTableDirective', function(){
         it('THEN it should have the shared required methods', function(){
             //then
             expect(elementController.isSelectableRows).toBeDefined();
-            expect(elementController.isSortableColumns).toBeDefined();
+            expect(elementController.isSortingEnabled).toBeDefined();
             expect(elementController.sortByColumn).toBeDefined();
             expect(elementController.getSortedColumnIndex).toBeDefined();
 
@@ -71,13 +71,13 @@ describe('mdDataTableDirective', function(){
         });
     });
 
-    describe('WHEN calling `isSortableColumns`', function(){
+    describe('WHEN calling `isSortingEnabled`', function(){
         it('THEN depending the attribute it should be true', function(){
             //given/when
             compileDirective(DIRECTIVE_SORTABLE_COLUMNS_TRUE);
 
             //then
-            expect(elementController.isSortableColumns()).toBe(true);
+            expect(elementController.isSortingEnabled()).toBe(true);
         });
 
         it('AND depending the attribute it should be false', function(){
@@ -85,7 +85,7 @@ describe('mdDataTableDirective', function(){
             compileDirective(DIRECTIVE_SORTABLE_COLUMNS_FALSE);
 
             //then
-            expect(elementController.isSortableColumns()).toBe(false);
+            expect(elementController.isSortingEnabled()).toBe(false);
         });
     });
 

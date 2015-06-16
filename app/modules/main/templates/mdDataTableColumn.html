@@ -1,9 +1,8 @@
-<th class="column {{getColumnAlignClass}}" ng-click="clickHandler()">
+<th class="column {{columnAlignClass}}" ng-click="clickHandler()">
     <div layout="row">
-        <span ng-if="isSortableColumns() && alignRule == ColumnOptionProvider.ALIGN_RULE.ALIGN_RIGHT">
+        <span ng-if="isSortingEnabled() && isColumnRightAligned()">
             <span class="hoverSortIcons" ng-if="!isSorted()">
-                <ng-md-icon ng-if="direction == 1" icon="arrow_forward" size="16"></ng-md-icon>
-                <ng-md-icon ng-if="direction == -1" icon="arrow_back" size="16"></ng-md-icon>
+                <ng-md-icon icon="arrow_forward" size="16"></ng-md-icon>
             </span>
 
             <span class="sortedColumn" ng-if="isSorted()">
@@ -16,10 +15,9 @@
             <ng-transclude></ng-transclude>
         </span>
 
-        <span ng-if="isSortableColumns() && alignRule == ColumnOptionProvider.ALIGN_RULE.ALIGN_LEFT">
+        <span ng-if="isSortingEnabled() && isColumnLeftAligned()">
             <span class="hoverSortIcons" ng-if="!isSorted()">
-                <ng-md-icon ng-if="direction == 1" icon="arrow_forward" size="16"></ng-md-icon>
-                <ng-md-icon ng-if="direction == -1" icon="arrow_back" size="16"></ng-md-icon>
+                <ng-md-icon icon="arrow_forward" size="16"></ng-md-icon>
             </span>
 
             <span class="sortedColumn" ng-if="isSorted()">

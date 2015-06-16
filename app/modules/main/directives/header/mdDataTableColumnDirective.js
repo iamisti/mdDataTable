@@ -14,29 +14,58 @@
             link: function ($scope, element, attrs, ctrl) {
                 var mdDataTableCtrl = ctrl[0];
                 var mdDataTableHeaderRowCtrl = ctrl[1];
+                var columnIndex;
 
-                var columnIndex = mdDataTableHeaderRowCtrl.getIndex();
+                getCurrentRowIndex();
+                setColumnOptionsForMainController();
+                setColumnAlignClass();
 
-                $scope.getColumnAlignClass = ColumnAlignmentHelper.getColumnAlignClass($scope.alignRule);
-                $scope.ColumnOptionProvider = ColumnOptionProvider;
-                $scope.columnOptions = mdDataTableCtrl.addColumnOptions({
-                    alignRule: $scope.alignRule
-                });
-                $scope.direction = 1;
                 $scope.isSorted = isSorted;
                 $scope.clickHandler = clickHandler;
-                $scope.isSortableColumns = mdDataTableCtrl.isSortableColumns;
+                $scope.isColumnLeftAligned = isColumnLeftAligned;
+                $scope.isColumnRightAligned = isColumnRightAligned;
+                $scope.isSortingEnabled = isSortingEnabled;
 
-                mdDataTableHeaderRowCtrl.increaseIndex();
+                increaseRowIndex();
 
                 function clickHandler(){
-                    if($scope.isSortableColumns()) {
+                    if($scope.isSortingEnabled()) {
                         $scope.direction = mdDataTableCtrl.sortByColumn(columnIndex);
                     }
                 }
 
                 function isSorted(){
                     return mdDataTableCtrl.getSortedColumnIndex() === columnIndex;
+                }
+
+                function setColumnOptionsForMainController(){
+                    mdDataTableCtrl.addColumnOptions({
+                        alignRule: $scope.alignRule
+                    });
+                }
+
+                function setColumnAlignClass(){
+                    $scope.columnAlignClass = ColumnAlignmentHelper.getColumnAlignClass($scope.alignRule);
+                }
+
+                function isColumnLeftAligned(){
+                    return ColumnOptionProvider.ALIGN_RULE.ALIGN_LEFT === $scope.alignRule;
+                }
+
+                function isColumnRightAligned(){
+                    return ColumnOptionProvider.ALIGN_RULE.ALIGN_RIGHT === $scope.alignRule;
+                }
+
+                function isSortingEnabled(){
+                    return mdDataTableCtrl.isSortingEnabled();
+                }
+
+                function increaseRowIndex(){
+                    mdDataTableHeaderRowCtrl.increaseIndex();
+                }
+
+                function getCurrentRowIndex(){
+                    columnIndex = mdDataTableHeaderRowCtrl.getIndex();
                 }
             }
         };
