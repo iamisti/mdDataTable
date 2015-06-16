@@ -16,6 +16,7 @@
                 var mdDataTableRowCtrl = ctrl[1];
                 var columnIndex = mdDataTableRowCtrl.getIndex();
 
+                //TODO: refactor as the columnDirective
                 $scope.getColumnAlignClass = ColumnAlignmentHelper.getColumnAlignClass(getColumnOptions().alignRule);
 
                 transclude(function (clone) {
