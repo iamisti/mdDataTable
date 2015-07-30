@@ -6,7 +6,7 @@
 [![Codacy Badge](https://www.codacy.com/project/badge/055f7343f2ef4b168706056a69a2875c)](https://www.codacy.com/app/programtervezo/md-data-table)
 
 Angular data table implementation of google material design.
-`This component is UNDER DEVELOPMENT. First release: 26th of July`
+`This component is UNDER DEVELOPMENT. First release: 7th of August`
 
 ## Demo
 http://iamisti.github.io/md-data-table/
