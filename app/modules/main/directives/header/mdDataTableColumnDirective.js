@@ -8,7 +8,8 @@
             transclude: true,
             replace: true,
             scope: {
-                alignRule: '@'
+                alignRule: '@',
+                sortBy: '@'
             },
             require: ['^mdDataTable', '^mdDataTableHeaderRow'],
             link: function ($scope, element, attrs, ctrl) {
@@ -30,7 +31,7 @@
 
                 function clickHandler(){
                     if($scope.isSortingEnabled()) {
-                        $scope.direction = mdDataTableCtrl.sortByColumn(columnIndex);
+                        $scope.direction = mdDataTableCtrl.sortByColumn(columnIndex, $scope.sortBy);
                     }
                 }
 
@@ -40,7 +41,8 @@
 
                 function setColumnOptionsForMainController(){
                     mdDataTableCtrl.addColumnOptions({
-                        alignRule: $scope.alignRule
+                        alignRule: $scope.alignRule,
+                        sortBy: $scope.sortBy
                     });
                 }
 

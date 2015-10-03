@@ -56,8 +56,8 @@
             this.storage.reverse();
         };
 
-        TableDataStorageService.prototype.sortByColumnIndex = function(index){
-            var res =_.sortBy(this.storage, function(rowData){
+        TableDataStorageService.prototype.sortByColumnIndex = function(index, iteratee){
+            var res =_.sortBy(this.storage, iteratee | function(rowData){
                 return rowData.data[index];
             });
 
