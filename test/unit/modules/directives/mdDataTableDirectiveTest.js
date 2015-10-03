@@ -98,7 +98,7 @@ describe('mdDataTableDirective', function(){
             elementController.sortByColumn(0);
 
             //then
-            expect(elementIsolatedScope.tableDataStorageService.sortByColumnIndex).toHaveBeenCalledWith(0);
+            expect(elementIsolatedScope.tableDataStorageService.sortByColumnIndex).toHaveBeenCalledWith(0, undefined);
         });
     });
 

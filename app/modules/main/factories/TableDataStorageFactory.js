@@ -57,9 +57,18 @@
         };
 
         TableDataStorageService.prototype.sortByColumnIndex = function(index, iteratee){
-            var res =_.sortBy(this.storage, iteratee | function(rowData){
-                return rowData.data[index];
-            });
+
+			var sortFunction;
+			if (typeof iteratee == 'function') {
+				sortFunction = iteratee
+			}
+			else {
+				sortFunction = function (rowData) {
+					return rowData.data[index];
+				}
+			}
+			
+			var res = _.sortBy(this.storage, sortFunction);
 
             this.storage = res;
         };
