@@ -13,7 +13,8 @@
 
             var columnOptions = {
                 id: columnId,
-                alignRule: options.alignRule
+                alignRule: options.alignRule,
+                sortBy: options.sortBy
             };
 
             this.columnOptionsList.push(columnOptions);

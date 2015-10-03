@@ -59,13 +59,13 @@
 
                 var sortByColumnLastIndex = null;
                 var orderByAscending = true;
-                function sortByColumn(columnIndex){
+                function sortByColumn(columnIndex, iteratee){
                     if(sortByColumnLastIndex === columnIndex){
                         $scope.tableDataStorageService.reverseRows();
 
                         orderByAscending = !orderByAscending;
                     }else{
-                        $scope.tableDataStorageService.sortByColumnIndex(columnIndex);
+                        $scope.tableDataStorageService.sortByColumnIndex(columnIndex, iteratee);
 
                         sortByColumnLastIndex = columnIndex;
                     }
