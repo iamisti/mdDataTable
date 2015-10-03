@@ -74,6 +74,11 @@ In its simplest form, a data table contains a top row of column names, and rows 
 | column-definition                              | String        | if provided, display a tooltip on hover. If sorting is enabled, display a light sort icon upon hover, which indicates that the column is sortable. |
 ![Column definition on hover](http://material-design.storage.googleapis.com/publish/material_v_4/material_ext_publish/0B3mOPoJlxiFhenh5SWhFdFlyajg/components_datatables_interaction_tooltip.png)
 
+| Params                                         | Type          | Details         |
+| ---------------------------------------------- | ------------- | --------------- |
+| sort-by                                        | Function      | if provided, used as the iteratee during sort operations to transform the cell value to a value that can be ranked in order. |
+
+
 # Data-Row attributes (`md-data-table-row` attributes)
 
 | Params                                         | Type          | Details         |
