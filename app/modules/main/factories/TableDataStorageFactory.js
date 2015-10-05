@@ -60,7 +60,9 @@
 
 			var sortFunction;
 			if (typeof iteratee == 'function') {
-				sortFunction = iteratee
+				sortFunction = function(rowData) {
+                    return iteratee(rowData.data[index], rowData, index)
+                }
 			}
 			else {
 				sortFunction = function (rowData) {

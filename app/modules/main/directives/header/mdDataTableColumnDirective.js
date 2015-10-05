@@ -9,7 +9,7 @@
             replace: true,
             scope: {
                 alignRule: '@',
-                sortBy: '@'
+                sortBy: '='
             },
             require: ['^mdDataTable', '^mdDataTableHeaderRow'],
             link: function ($scope, element, attrs, ctrl) {
