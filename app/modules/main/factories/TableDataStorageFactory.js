@@ -58,19 +58,18 @@
 
         TableDataStorageService.prototype.sortByColumnIndex = function(index, iteratee){
 
-			var sortFunction;
-			if (typeof iteratee == 'function') {
-				sortFunction = function(rowData) {
+            var sortFunction;
+            if (typeof iteratee == 'function') {
+                sortFunction = function(rowData) {
                     return iteratee(rowData.data[index], rowData, index)
                 }
-			}
-			else {
-				sortFunction = function (rowData) {
-					return rowData.data[index];
-				}
-			}
-			
-			var res = _.sortBy(this.storage, sortFunction);
+            } else {
+                sortFunction = function (rowData) {
+                    return rowData.data[index];
+                }
+            }
+
+            var res = _.sortBy(this.storage, sortFunction);
 
             this.storage = res;
         };
