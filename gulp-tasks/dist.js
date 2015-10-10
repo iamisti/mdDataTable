@@ -3,6 +3,7 @@ var gulp   = require('gulp'),
     eventStream = require('event-stream'),
     compass = require('gulp-compass'),
     rename = require('gulp-rename'),
+    ngAnnotate  = require('gulp-ng-annotate'),
     templateCache = require('gulp-angular-templatecache');
 
 var jsAssets = ['app/modules/**/*.js'];
@@ -11,6 +12,7 @@ var htmlFiles = ['app/modules/**/*.html'];
 gulp.task('dist', function() {
     var jsStream = gulp.src(jsAssets)
         .pipe(concat('md-data-table.js'))
+        .pipe(ngAnnotate({ remove: false, add: true, single_quotes: true }))
         .pipe(gulp.dest('dist'));
 
     var cssStream = gulp
