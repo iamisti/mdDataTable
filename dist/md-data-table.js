@@ -101,6 +101,8 @@
                         $scope.tableDataStorageService.sortByColumnIndex(columnIndex, iteratee);
 
                         sortByColumnLastIndex = columnIndex;
+                        
+                        orderByAscending = true;
                     }
 
                     return orderByAscending ? -1 : 1;
@@ -336,6 +338,19 @@
 (function(){
     'use strict';
 
+    var ColumnOptionProvider = {
+        ALIGN_RULE : {
+            ALIGN_LEFT: 'left',
+            ALIGN_RIGHT: 'right'
+        }
+    };
+
+    angular.module('mdDataTable')
+        .value('ColumnOptionProvider', ColumnOptionProvider);
+})();
+(function(){
+    'use strict';
+
     function ColumnAlignmentHelper(ColumnOptionProvider){
         var service = this;
         service.getColumnAlignClass = getColumnAlignClass;
@@ -354,19 +369,6 @@
         .module('mdDataTable')
         .service('ColumnAlignmentHelper', ColumnAlignmentHelper);
 }());
-(function(){
-    'use strict';
-
-    var ColumnOptionProvider = {
-        ALIGN_RULE : {
-            ALIGN_LEFT: 'left',
-            ALIGN_RIGHT: 'right'
-        }
-    };
-
-    angular.module('mdDataTable')
-        .value('ColumnOptionProvider', ColumnOptionProvider);
-})();
 (function(){
     'use strict';
 
