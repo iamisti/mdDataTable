@@ -68,6 +68,8 @@
                         $scope.tableDataStorageService.sortByColumnIndex(columnIndex, iteratee);
 
                         sortByColumnLastIndex = columnIndex;
+                        
+                        orderByAscending = true;
                     }
 
                     return orderByAscending ? -1 : 1;
