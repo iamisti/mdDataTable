@@ -53,8 +53,6 @@
  
                 /* sort icon rotated 90 degrees for ascending sort (default) */
                 svg{
-                    -webkit-transition: 0.3s linear all;
-                    transition: 0.3s linear all;
                     -webkit-transform:rotate(90deg);
                     transform:rotate(90deg);
                 }
@@ -69,7 +67,14 @@
 
         }
     }
+    
+    /* optional animationn of sort icons: add class 'animate-sort-icon' to md-data-table-header-row */
+    thead tr.animate-sort-icon .sortedColumn ng-md-icon svg{
+        -webkit-transition: 0.3s linear all;
+        transition: 0.3s linear all;
+    }
 
+    
     /* 64dp card header height */
     .mdDataTable-header{
         height: 64px;
