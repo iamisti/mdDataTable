@@ -13,28 +13,60 @@
         color: darken($whiteColor, 54%);
         cursor: pointer;
         white-space: nowrap;
+        /* prevent ink ripple bleeding */
+        position: relative;
+
+        /* no pointer cursor when disabled, could be not-allowed but i think that indication is to strong */
+        &[disabled]{
+            cursor: auto;
+        }
+
+        /* remove the default blue outline in Chrome for consistent button-like behaviour */
+        &:focus{
+            outline: none;
+        }
 
         /* when hoverSortIcons on a non-sorted column*/
         .hoverSortIcons ng-md-icon{
             visibility: hidden;
             fill: darken($whiteColor, 30%);
+
+            svg{
+                -webkit-transform:rotate(90deg);
+                transform:rotate(90deg);
+            }
         }
 
         &:hover .hoverSortIcons ng-md-icon{
             visibility: visible;
         }
 
-        /* when hoverSortIcons on a sorted column*/
-        .sortedColumn .hoverSortIcons ng-md-icon{
-            display:none;
-        }
+        .sortedColumn{
 
-        .sortedColumn ng-md-icon{
-            fill: darken($whiteColor, 87%);
-        }
+            /* when hoverSortIcons on a sorted column*/
+            .hoverSortIcons ng-md-icon{
+                display:none;
+            }
+                   
+            ng-md-icon{
+                fill: darken($whiteColor, 87%);
+ 
+                /* sort icon rotated 90 degrees for ascending sort (default) */
+                svg{
+                    -webkit-transition: 0.3s linear all;
+                    transition: 0.3s linear all;
+                    -webkit-transform:rotate(90deg);
+                    transform:rotate(90deg);
+                }
 
-        svg{
-            -webkit-transform:rotate(90deg);
+            }
+
+            /* sort icon rotated -90 degrees for descending sort */
+            &.descending ng-md-icon>svg{
+                -webkit-transform:rotate(-90deg);
+                transform:rotate(-90deg);
+            }                    
+
         }
     }
 
