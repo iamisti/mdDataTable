@@ -3,3 +3,4 @@ app/bower_components
 build
 node_modules
 reports
+typings

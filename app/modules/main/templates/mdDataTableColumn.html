@@ -1,5 +1,6 @@
 <th class="column {{columnAlignClass}}" ng-disabled="!isSortingEnabled()" md-ink-ripple ng-click="clickHandler()">
     <div layout="row">
+        <md-tooltip ng-if="columnDefinition">{{ columnDefinition }}</md-tooltip>
         <span ng-if="isSortingEnabled() && isColumnRightAligned()">
             <span class="hoverSortIcons" ng-if="!isSorted()">
                 <ng-md-icon icon="arrow_forward" size="16"></ng-md-icon>

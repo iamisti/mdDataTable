@@ -168,5 +168,10 @@
         background: #F5F5F5;
     }
 
+    /* default icon color */
+    ng-md-icon{
+        fill: darken($whiteColor, 54%);
+    }
+
 
 }
