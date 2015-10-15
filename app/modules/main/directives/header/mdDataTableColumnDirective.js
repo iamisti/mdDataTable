@@ -9,7 +9,8 @@
             replace: true,
             scope: {
                 alignRule: '@',
-                sortBy: '='
+                sortBy: '=',
+                columnDefinition: '@'
             },
             require: ['^mdDataTable', '^mdDataTableHeaderRow'],
             link: function ($scope, element, attrs, ctrl) {
@@ -42,7 +43,8 @@
                 function setColumnOptionsForMainController(){
                     mdDataTableCtrl.addColumnOptions({
                         alignRule: $scope.alignRule,
-                        sortBy: $scope.sortBy
+                        sortBy: $scope.sortBy,
+                        columnDefinition: $scope.columnDefinition
                     });
                 }
 
