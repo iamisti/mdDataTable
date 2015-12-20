@@ -29,6 +29,8 @@
         /* when hoverSortIcons on a non-sorted column*/
         .hoverSortIcons ng-md-icon{
             visibility: hidden;
+            width: 16px;
+            height: 16px;
             fill: darken($whiteColor, 30%);
 
             svg{

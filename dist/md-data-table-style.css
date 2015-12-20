@@ -38,6 +38,8 @@
 }
 .mdDataTable th .hoverSortIcons ng-md-icon {
   visibility: hidden;
+  width: 16px;
+  height: 16px;
   fill: #b3b3b3;
 }
 .mdDataTable th .hoverSortIcons ng-md-icon svg {
