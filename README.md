@@ -14,6 +14,8 @@ http://iamisti.github.io/md-data-table/
 ## Install with bower
 `bower install md-data-table`
 
+(in bower.json file you can even specify the version number like: `"md-data-table": "v0.1"`
+
 ## google data table specification
 http://www.google.com/design/spec/components/data-tables.html
 
