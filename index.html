@@ -23,62 +23,97 @@
 </head>
 <body ng-app="exampleApp">
 
-    <md-toolbar layout="row" layout-align="left center" layout-padding>
-        <h3 class="md-title">Material Design Data Table</h3>
-    </md-toolbar>
+<md-toolbar layout="row" layout-align="left center" layout-padding>
+    <h1 class="md-title">Material Design Data Table</h1>
+</md-toolbar>
 
-    <div layout="row" ng-controller="ExampleController">
-        <div flex="20">
-            <md-card>
-                <md-subheader>Attributes playground</md-subheader>
+<div layout="row" ng-controller="ExampleController">
+    <div flex="20">
+        <md-card>
+            <md-subheader>Attributes playground</md-subheader>
 
-                <md-checkbox ng-model="tableCardIsEnabled" aria-label="Enable table card">
-                    Enable table card
-                </md-checkbox>
+            <md-checkbox ng-model="tableCardIsEnabled" aria-label="Enable table card">
+                Enable table card
+            </md-checkbox>
 
-                <md-checkbox ng-model="tableIsSelectable" aria-label="Enable selectable rows" checked>
-                    Enable selectable rows
-                </md-checkbox>
+            <md-checkbox ng-model="tableIsSelectable" aria-label="Enable selectable rows" checked>
+                Enable selectable rows
+            </md-checkbox>
 
-                <md-checkbox ng-model="tableIsSortable" aria-label="Enable sortable columns" checked>
-                    Enable sortable columns
-                </md-checkbox>
-            </md-card>
-        </div>
-        <div layout-padding flex>
-            <md-data-table
-                    table-card="{visible: tableCardIsEnabled, title: 'Nutrition'}"
-                    selectable-rows="tableIsSelectable"
-                    alternate-headers="'contextual'"
-                    sortable-columns="tableIsSortable"
-                    delete-row-callback="deleteRowCallback(rows)">
-
-                <md-data-table-header-row>
-                    <md-data-table-column align-rule="left">Dessert (100g serving)</md-data-table-column>
-                    <md-data-table-column align-rule="right">Calories</md-data-table-column>
-                    <md-data-table-column align-rule="right">Fat (g)</md-data-table-column>
-                    <md-data-table-column align-rule="right">Carbs (g)</md-data-table-column>
-                    <md-data-table-column align-rule="right">Protein (g)</md-data-table-column>
-                    <md-data-table-column align-rule="right">Sodium (mg)</md-data-table-column>
-                    <md-data-table-column align-rule="right">Calcium (%)</md-data-table-column>
-                    <md-data-table-column align-rule="right">Iron (%)</md-data-table-column>
-                </md-data-table-header-row>
-
-                <md-data-table-row
-                        table-row-id="nutrition.id"
-                        ng-repeat="nutrition in nutritionList">
-                    <md-data-table-cell>{{nutrition.name}}</md-data-table-cell>
-                    <md-data-table-cell>{{nutrition.calories}}</md-data-table-cell>
-                    <md-data-table-cell>{{nutrition.fat}}</md-data-table-cell>
-                    <md-data-table-cell>{{nutrition.carbs}}</md-data-table-cell>
-                    <md-data-table-cell>{{nutrition.protein}}</md-data-table-cell>
-                    <md-data-table-cell>{{nutrition.sodium}}</md-data-table-cell>
-                    <md-data-table-cell>{{nutrition.calcium}}</md-data-table-cell>
-                    <md-data-table-cell>{{nutrition.iron}}</md-data-table-cell>
-                </md-data-table-row>
-            </md-data-table>
-        </div>
+            <md-checkbox ng-model="tableIsSortable" aria-label="Enable sortable columns" checked>
+                Enable sortable columns
+            </md-checkbox>
+        </md-card>
     </div>
+    <div flex style="padding-top:8px;">
+        <md-data-table
+                table-card="{visible: tableCardIsEnabled, title: 'Nutrition'}"
+                selectable-rows="tableIsSelectable"
+                alternate-headers="'contextual'"
+                sortable-columns="tableIsSortable"
+                delete-row-callback="deleteRowCallback(rows)">
+
+            <md-data-table-header-row class="animate-sort-icon">
+                <md-data-table-column align-rule="left">Dessert (100g serving)</md-data-table-column>
+                <md-data-table-column align-rule="right" column-definition="The total amount of food energy in the given serving size.">Calories</md-data-table-column>
+                <md-data-table-column align-rule="right" column-definition="The total amount of fat in the given serving size.">Fat (g)</md-data-table-column>
+                <md-data-table-column align-rule="right">Carbs (g)</md-data-table-column>
+                <md-data-table-column align-rule="right">Protein (g)</md-data-table-column>
+                <md-data-table-column align-rule="right">Sodium (mg)</md-data-table-column>
+                <md-data-table-column align-rule="right">Calcium (%)</md-data-table-column>
+                <md-data-table-column align-rule="right">Iron (%)</md-data-table-column>
+            </md-data-table-header-row>
+
+            <md-data-table-row
+                    table-row-id="nutrition.id"
+                    ng-repeat="nutrition in nutritionList">
+                <md-data-table-cell>{{nutrition.name}}</md-data-table-cell>
+                <md-data-table-cell>{{nutrition.calories}}</md-data-table-cell>
+                <md-data-table-cell>{{nutrition.fat}}</md-data-table-cell>
+                <md-data-table-cell>{{nutrition.carbs}}</md-data-table-cell>
+                <md-data-table-cell>{{nutrition.protein}}</md-data-table-cell>
+                <md-data-table-cell>{{nutrition.sodium}}</md-data-table-cell>
+                <md-data-table-cell>{{nutrition.calcium}}</md-data-table-cell>
+                <md-data-table-cell>{{nutrition.iron}}</md-data-table-cell>
+            </md-data-table-row>
+        </md-data-table>
+
+        <br />
+
+        <md-data-table
+                table-card="{visible: tableCardIsEnabled, title: 'Nutrition - with html content'}"
+                selectable-rows="tableIsSelectable"
+                alternate-headers="'contextual'"
+                sortable-columns="tableIsSortable"
+                delete-row-callback="deleteRowCallback(rows)">
+
+            <md-data-table-header-row>
+                <md-data-table-column align-rule="left">Dessert (100g serving)</md-data-table-column>
+                <md-data-table-column align-rule="right">Calories</md-data-table-column>
+                <md-data-table-column align-rule="right">Fat (g)</md-data-table-column>
+                <md-data-table-column align-rule="right">Carbs (g)</md-data-table-column>
+                <md-data-table-column align-rule="right">Protein (g)</md-data-table-column>
+                <md-data-table-column align-rule="right">Sodium (mg)</md-data-table-column>
+                <md-data-table-column align-rule="right">Calcium (%)</md-data-table-column>
+                <md-data-table-column align-rule="right">Iron (%)</md-data-table-column>
+            </md-data-table-header-row>
+
+            <md-data-table-row ng-repeat="nutrition in nutritionList2">
+                <md-data-table-cell>{{nutrition.name}}</md-data-table-cell>
+                <md-data-table-cell>{{nutrition.calories}}</md-data-table-cell>
+                <md-data-table-cell>{{nutrition.fat}}</md-data-table-cell>
+                <md-data-table-cell>{{nutrition.carbs}}</md-data-table-cell>
+                <md-data-table-cell>{{nutrition.protein}}</md-data-table-cell>
+                <md-data-table-cell>{{nutrition.sodium}}</md-data-table-cell>
+                <md-data-table-cell>{{nutrition.calcium}}</md-data-table-cell>
+                <md-data-table-cell html-content="true">
+                    <md-button class="md-raised" ng-hide="hideButton" ng-click="hideButton=true;">{{nutrition.iron}}</md-button>
+                    <label ng-show="hideButton">{{nutrition.iron}} - clicked</label>
+                </md-data-table-cell>
+            </md-data-table-row>
+        </md-data-table>
+    </div>
+</div>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 
