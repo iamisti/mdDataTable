@@ -9,9 +9,86 @@
     <md-data-table-alternate-headers ng-if="alternateHeaders && isAnyRowSelected()"></md-data-table-alternate-headers>
     <!-- alternate headers end -->
 
-    <table cellpadding="0" cellspacing="0">
+    <table id="reader" cellpadding="0" cellspacing="0" style="margin-bottom:100px;" ng-show="false">
         <thead></thead>
         <tbody></tbody>
+    </table>
+
+    <table cellpadding="0" cellspacing="0" ng-click="showold=!showold">
+        <thead>
+            <tr class="theadTrRow">
+                <!-- TODO: fix text-align:left, in theory it should not be there to make it work -->
+                <th class="checkboxCell" ng-show="selectableRows" style="text-align:left;">
+                    <md-checkbox aria-label="select all" ng-model="selectAllRows"></md-checkbox>
+                </th>
+
+                <!-- TODO: column align class -->
+                <th class="column"
+                    ng-class="{'leftAlignedColumn': headerRowData.alignRule == 'left','rightAlignedColumn': headerRowData.alignRule == 'right'}"
+                    ng-repeat="headerRowData in tableDataStorageService.header track by $index"
+                    ng-disabled="!sortableColumns"
+                    md-ink-ripple
+                    ng-click="alert('todo')"
+                >
+
+                    <div layout="row">
+                        <md-tooltip ng-show="columnDefinition">{{ columnDefinition }}</md-tooltip>
+                        <span ng-show="sortableColumns && headerRowData.alignRule == 'right'">
+                            <span class="hoverSortIcons" ng-if="!isSorted()">
+                                <ng-md-icon icon="arrow_forward" size="16"></ng-md-icon>
+                            </span>
+
+                            <span class="sortedColumn" ng-if="isSorted()" ng-class="direction == -1 ? 'ascending' : 'descending'">
+                                <ng-md-icon icon="arrow_forward" size="16"></ng-md-icon>
+                            </span>
+                        </span>
+
+                        <span>
+                            {{headerRowData.columnName}}
+                        </span>
+
+                        <span ng-show="sortableColumns && headerRowData.alignRule == 'left'">
+                            <span class="hoverSortIcons" ng-if="!isSorted()">
+                                <ng-md-icon icon="arrow_forward" size="16"></ng-md-icon>
+                            </span>
+
+                            <span class="sortedColumn" ng-if="isSorted()" ng-class="direction == -1 ? 'ascending' : 'descending'">
+                                <ng-md-icon icon="arrow_forward" size="16"></ng-md-icon>
+                            </span>
+                        </span>
+                    </div>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="rowData in tableDataStorageService.storage track by $index"
+            ng-class="{'selectedRow': rowData.optionList.selected}" ng-show="rowData.optionList.deleted === false">
+
+            <!--
+            <td class="checkboxCell" ng-show="isSelectableRows()">
+            -->
+
+            <td class="checkboxCell" ng-show="selectableRows">
+                <md-checkbox aria-label="select" ng-model="rowData.optionList.selected"></md-checkbox>
+            </td>
+
+            <!--
+            <td ng-if="selectableRows"></td>
+            <td ng-repeat="cellData in rowData.data">{{cellData}}</td>
+            -->
+
+            <!--
+            <td class="column {{getColumnAlignClass}}">
+            -->
+            <!-- TODO: column align class -->
+            <!-- TODO: html content -->
+            <td class="column"
+                ng-repeat="cellData in rowData.data track by $index"
+                ng-class="{'leftAlignedColumn': tableDataStorageService.header[$index].alignRule == 'left','rightAlignedColumn': tableDataStorageService.header[$index].alignRule == 'right'}">
+                <span>{{cellData}}</span>
+            </td>
+        </tr>
+        </tbody>
     </table>
 
     <!-- table card -->

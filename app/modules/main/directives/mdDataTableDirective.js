@@ -26,6 +26,8 @@
                 vm.sortByColumn = sortByColumn;
                 vm.getSortedColumnIndex = getSortedColumnIndex;
 
+                            vm.addHeaderCell = addHeaderCell;
+
                 function initTableStorageServiceAndBindMethods(){
                     $scope.tableDataStorageService = TableDataStorageFactory.getInstance();
 
@@ -78,6 +80,12 @@
                 function getSortedColumnIndex(){
                     return sortByColumnLastIndex;
                 }
+
+
+                        function addHeaderCell(ops){
+                            console.log(ops);
+                            $scope.tableDataStorageService.addHeaderCellData(ops);
+                        }
             },
             link: function($scope, element, attrs, ctrl, transclude){
                 injectContentIntoTemplate();
@@ -99,8 +107,8 @@
                             }
                         });
 
-                        element.find('table thead').append(headings);
-                        element.find('table tbody').append(body);
+                        element.find('table#reader thead').append(headings);
+                        element.find('table#reader tbody').append(body);
                     });
                 }
             }

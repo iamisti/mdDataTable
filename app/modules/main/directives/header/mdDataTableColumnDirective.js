@@ -13,10 +13,19 @@
                 columnDefinition: '@'
             },
             require: ['^mdDataTable', '^mdDataTableHeaderRow'],
-            link: function ($scope, element, attrs, ctrl) {
+            link: function ($scope, element, attrs, ctrl, transclude) {
                 var mdDataTableCtrl = ctrl[0];
                 var mdDataTableHeaderRowCtrl = ctrl[1];
                 var columnIndex;
+
+                        transclude(function (clone) {
+                            mdDataTableCtrl.addHeaderCell({
+                                alignRule: $scope.alignRule,
+                                sortBy: $scope.sortBy,
+                                columnDefinition: $scope.columnDefinition,
+                                columnName: clone.html()
+                            });
+                        });
 
                 getCurrentRowIndex();
                 setColumnOptionsForMainController();

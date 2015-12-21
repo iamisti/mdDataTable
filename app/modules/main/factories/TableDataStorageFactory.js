@@ -5,7 +5,12 @@
 
         function TableDataStorageService(){
             this.storage = [];
+            this.header = [];
         }
+
+        TableDataStorageService.prototype.addHeaderCellData = function(ops){
+            this.header.push(ops);
+        };
 
         TableDataStorageService.prototype.addRowData = function(explicitRowId, rowArray){
             if(rowArray === undefined){
