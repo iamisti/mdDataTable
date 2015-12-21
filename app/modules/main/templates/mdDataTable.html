@@ -30,7 +30,8 @@
                     ng-click="alert('todo')"
                 >
                     <div layout="row" ng-if="sortableColumns">
-                        <md-tooltip ng-show="columnDefinition">{{ columnDefinition }}</md-tooltip>
+                        <md-tooltip ng-show="headerRowData.columnDefinition">{{headerRowData.columnDefinition}}</md-tooltip>
+
                         <span ng-show="headerRowData.alignRule == 'right'">
                             <span class="hoverSortIcons" ng-if="!isSorted()">
                                 <ng-md-icon icon="arrow_forward" size="16"></ng-md-icon>
@@ -56,6 +57,8 @@
                         </span>
                     </div>
                     <div ng-if="!sortableColumns">
+                        <md-tooltip ng-show="headerRowData.columnDefinition">{{headerRowData.columnDefinition}}</md-tooltip>
+
                         <span>
                             {{headerRowData.columnName}}
                         </span>
