@@ -20,10 +20,7 @@
                 initTableStorageServiceAndBindMethods();
                 initIndexTrackerServiceAndBindMethods();
 
-                vm.isSelectableRows = isSelectableRows;
-                vm.isSortingEnabled = isSortingEnabled;
-
-                            vm.addHeaderCell = addHeaderCell;
+                vm.addHeaderCell = addHeaderCell;
 
                 function initTableStorageServiceAndBindMethods(){
                     $scope.tableDataStorageService = TableDataStorageFactory.getInstance();
@@ -44,16 +41,8 @@
                 function initColumnOptionsFactoryAndBindMethods(){
                     var columnOptionsService = ColumnOptionsFactory.getInstance();
 
-                    vm.addColumnOptions = _.bind(columnOptionsService.addColumnOptions, columnOptionsService);
+                    //vm.addColumnOptions = _.bind(columnOptionsService.addColumnOptions, columnOptionsService);
                     vm.getColumnOptions = _.bind(columnOptionsService.getColumnOptions, columnOptionsService);
-                }
-
-                function isSelectableRows(){
-                    return $scope.selectableRows;
-                }
-
-                function isSortingEnabled(){
-                    return $scope.sortableColumns;
                 }
 
 

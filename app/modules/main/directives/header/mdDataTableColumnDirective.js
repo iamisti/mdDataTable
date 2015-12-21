@@ -1,7 +1,7 @@
 (function(){
     'use strict';
 
-    function mdDataTableColumnDirective(ColumnOptionProvider, ColumnAlignmentHelper){
+    function mdDataTableColumnDirective(){
         return {
             restrict: 'E',
             templateUrl: '/main/templates/mdDataTableColumn.html',
@@ -15,34 +15,17 @@
             require: ['^mdDataTable', '^mdDataTableHeaderRow'],
             link: function ($scope, element, attrs, ctrl, transclude) {
                 var mdDataTableCtrl = ctrl[0];
-                var mdDataTableHeaderRowCtrl = ctrl[1];
-                var columnIndex;
 
-                        transclude(function (clone) {
-                            mdDataTableCtrl.addHeaderCell({
-                                alignRule: $scope.alignRule,
-                                sortBy: $scope.sortBy,
-                                columnDefinition: $scope.columnDefinition,
-                                columnName: clone.html()
-                            });
-                        });
+                transclude(function (clone) {
+                    mdDataTableCtrl.addHeaderCell({
+                        alignRule: $scope.alignRule,
+                        sortBy: $scope.sortBy,
+                        columnDefinition: $scope.columnDefinition,
+                        columnName: clone.html()
+                    });
+                });
 
-                getCurrentRowIndex();
-                setColumnOptionsForMainController();
-                setColumnAlignClass();
-
-                $scope.clickHandler = clickHandler;
-                $scope.isColumnLeftAligned = isColumnLeftAligned;
-                $scope.isColumnRightAligned = isColumnRightAligned;
-                $scope.isSortingEnabled = isSortingEnabled;
-
-                increaseRowIndex();
-
-                function clickHandler(){
-                    if($scope.isSortingEnabled()) {
-                        $scope.direction = mdDataTableCtrl.sortByColumn(columnIndex, $scope.sortBy);
-                    }
-                }
+                //setColumnOptionsForMainController();
 
                 function setColumnOptionsForMainController(){
                     mdDataTableCtrl.addColumnOptions({
@@ -50,30 +33,6 @@
                         sortBy: $scope.sortBy,
                         columnDefinition: $scope.columnDefinition
                     });
-                }
-
-                function setColumnAlignClass(){
-                    $scope.columnAlignClass = ColumnAlignmentHelper.getColumnAlignClass($scope.alignRule);
-                }
-
-                function isColumnLeftAligned(){
-                    return ColumnOptionProvider.ALIGN_RULE.ALIGN_LEFT === $scope.alignRule;
-                }
-
-                function isColumnRightAligned(){
-                    return ColumnOptionProvider.ALIGN_RULE.ALIGN_RIGHT === $scope.alignRule;
-                }
-
-                function isSortingEnabled(){
-                    return mdDataTableCtrl.isSortingEnabled();
-                }
-
-                function increaseRowIndex(){
-                    mdDataTableHeaderRowCtrl.increaseIndex();
-                }
-
-                function getCurrentRowIndex(){
-                    columnIndex = mdDataTableHeaderRowCtrl.getIndex();
                 }
             }
         };
