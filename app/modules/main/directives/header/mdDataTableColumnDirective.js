@@ -31,7 +31,6 @@
                 setColumnOptionsForMainController();
                 setColumnAlignClass();
 
-                $scope.isSorted = isSorted;
                 $scope.clickHandler = clickHandler;
                 $scope.isColumnLeftAligned = isColumnLeftAligned;
                 $scope.isColumnRightAligned = isColumnRightAligned;
@@ -43,10 +42,6 @@
                     if($scope.isSortingEnabled()) {
                         $scope.direction = mdDataTableCtrl.sortByColumn(columnIndex, $scope.sortBy);
                     }
-                }
-
-                function isSorted(){
-                    return mdDataTableCtrl.getSortedColumnIndex() === columnIndex;
                 }
 
                 function setColumnOptionsForMainController(){

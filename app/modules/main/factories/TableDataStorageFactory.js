@@ -6,6 +6,9 @@
         function TableDataStorageService(){
             this.storage = [];
             this.header = [];
+
+            this.sortByColumnLastIndex = null;
+            this.orderByAscending = true;
         }
 
         TableDataStorageService.prototype.addHeaderCellData = function(ops){
@@ -59,6 +62,21 @@
 
         TableDataStorageService.prototype.reverseRows = function(){
             this.storage.reverse();
+        };
+
+        TableDataStorageService.prototype.sortByColumn = function(columnIndex, iteratee){
+            if(this.sortByColumnLastIndex === columnIndex){
+                this.reverseRows();
+
+                this.orderByAscending = !this.orderByAscending;
+            }else{
+                this.sortByColumnIndex(columnIndex, iteratee);
+
+                this.sortByColumnLastIndex = columnIndex;
+                this.orderByAscending = true;
+            }
+
+            return this.orderByAscending ? -1 : 1;
         };
 
         TableDataStorageService.prototype.sortByColumnIndex = function(index, iteratee){

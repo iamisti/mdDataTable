@@ -6,10 +6,7 @@
             restrict: 'E',
             templateUrl: '/main/templates/mdDataTableGeneratedHeaderCellContent.html',
             replace: true,
-            scope: {
-                sortableColumns: '=',
-                headerRowData: '='
-            },
+            scope: false,
             link: function($scope, element, attrs){
 
             }

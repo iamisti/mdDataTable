@@ -25,13 +25,11 @@
                 <th class="column"
                     ng-repeat="headerRowData in tableDataStorageService.header track by $index"
                     md-data-table-add-align-class="headerRowData.alignRule"
+                    md-data-table-sort-handler
                     ng-disabled="!sortableColumns"
-                    md-ink-ripple
-                    ng-click="alert('todo')">
+                    md-ink-ripple>
 
-                    <md-data-table-generated-header-cell-content-directive
-                          header-row-data="headerRowData"
-                          sortable-columns="sortableColumns"></md-data-table-generated-header-cell-content-directive>
+                    <md-data-table-generated-header-cell-content-directive></md-data-table-generated-header-cell-content-directive>
                 </th>
             </tr>
         </thead>

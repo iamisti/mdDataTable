@@ -23,9 +23,6 @@
                 vm.isSelectableRows = isSelectableRows;
                 vm.isSortingEnabled = isSortingEnabled;
 
-                vm.sortByColumn = sortByColumn;
-                vm.getSortedColumnIndex = getSortedColumnIndex;
-
                             vm.addHeaderCell = addHeaderCell;
 
                 function initTableStorageServiceAndBindMethods(){
@@ -59,31 +56,8 @@
                     return $scope.sortableColumns;
                 }
 
-                var sortByColumnLastIndex = null;
-                var orderByAscending = true;
-                function sortByColumn(columnIndex, iteratee){
-                    if(sortByColumnLastIndex === columnIndex){
-                        $scope.tableDataStorageService.reverseRows();
-
-                        orderByAscending = !orderByAscending;
-                    }else{
-                        $scope.tableDataStorageService.sortByColumnIndex(columnIndex, iteratee);
-
-                        sortByColumnLastIndex = columnIndex;
-                        
-                        orderByAscending = true;
-                    }
-
-                    return orderByAscending ? -1 : 1;
-                }
-
-                function getSortedColumnIndex(){
-                    return sortByColumnLastIndex;
-                }
-
 
                         function addHeaderCell(ops){
-                            console.log(ops);
                             $scope.tableDataStorageService.addHeaderCellData(ops);
                         }
             },
