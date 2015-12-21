@@ -1,0 +1,36 @@
+<div>
+    <div layout="row" ng-if="sortableColumns">
+        <md-tooltip ng-show="headerRowData.columnDefinition">{{headerRowData.columnDefinition}}</md-tooltip>
+
+        <span ng-show="headerRowData.alignRule == 'right'">
+            <span class="hoverSortIcons" ng-if="!isSorted()">
+                <ng-md-icon icon="arrow_forward" size="16"></ng-md-icon>
+            </span>
+
+            <span class="sortedColumn" ng-if="isSorted()" ng-class="direction == -1 ? 'ascending' : 'descending'">
+                <ng-md-icon icon="arrow_forward" size="16"></ng-md-icon>
+            </span>
+        </span>
+
+        <span>
+            {{headerRowData.columnName}}
+        </span>
+
+        <span ng-show="headerRowData.alignRule == 'left'">
+            <span class="hoverSortIcons" ng-if="!isSorted()">
+                <ng-md-icon icon="arrow_forward" size="16"></ng-md-icon>
+            </span>
+
+            <span class="sortedColumn" ng-if="isSorted()" ng-class="direction == -1 ? 'ascending' : 'descending'">
+                <ng-md-icon icon="arrow_forward" size="16"></ng-md-icon>
+            </span>
+        </span>
+    </div>
+    <div ng-if="!sortableColumns">
+        <md-tooltip ng-show="headerRowData.columnDefinition">{{headerRowData.columnDefinition}}</md-tooltip>
+
+        <span>
+            {{headerRowData.columnName}}
+        </span>
+    </div>
+</div>
