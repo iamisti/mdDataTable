@@ -23,13 +23,12 @@
                 </th>
 
                 <th class="column"
-                    ng-class="{'leftAlignedColumn': headerRowData.alignRule == 'left','rightAlignedColumn': headerRowData.alignRule == 'right'}"
                     ng-repeat="headerRowData in tableDataStorageService.header track by $index"
+                    md-data-table-add-align-class="headerRowData.alignRule"
                     ng-disabled="!sortableColumns"
                     md-ink-ripple
                     ng-click="alert('todo')"
                 >
-
                     <div layout="row" ng-if="sortableColumns">
                         <md-tooltip ng-show="columnDefinition">{{ columnDefinition }}</md-tooltip>
                         <span ng-show="headerRowData.alignRule == 'right'">
@@ -75,7 +74,8 @@
             <!-- TODO: html content -->
             <td class="column"
                 ng-repeat="cellData in rowData.data track by $index"
-                ng-class="{'leftAlignedColumn': tableDataStorageService.header[$index].alignRule == 'left','rightAlignedColumn': tableDataStorageService.header[$index].alignRule == 'right'}">
+                md-data-table-add-align-class="tableDataStorageService.header[$index].alignRule"
+                >
                 <span>{{cellData}}</span>
             </td>
         </tr>
