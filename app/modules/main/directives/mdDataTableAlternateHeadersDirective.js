@@ -10,11 +10,10 @@
             scope: true,
             require: ['^mdDataTable'],
             link: function($scope){
-                $scope.getNumberOfSelectedRows = _.bind($scope.tableDataStorageService.getNumberOfSelectedRows, $scope.tableDataStorageService);
                 $scope.deleteSelectedRows = deleteSelectedRows;
 
                 function deleteSelectedRows(){
-                    var deletedRows = $scope.tableDataStorageService.deleteSelectedRows.apply($scope.tableDataStorageService, arguments);
+                    var deletedRows = $scope.tableDataStorageService.deleteSelectedRows();
 
                     $scope.deleteRowCallback({rows: deletedRows});
                 }

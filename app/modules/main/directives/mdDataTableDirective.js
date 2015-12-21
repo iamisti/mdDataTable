@@ -1,7 +1,7 @@
 (function(){
     'use strict';
 
-    function mdDataTableDirective(ColumnOptionsFactory, TableDataStorageFactory, IndexTrackerFactory){
+    function mdDataTableDirective(TableDataStorageFactory, IndexTrackerFactory){
         return {
             restrict: 'E',
             templateUrl: '/main/templates/mdDataTable.html',
@@ -16,7 +16,6 @@
             controller: function($scope){
                 var vm = this;
 
-                initColumnOptionsFactoryAndBindMethods();
                 initTableStorageServiceAndBindMethods();
                 initIndexTrackerServiceAndBindMethods();
 
@@ -27,8 +26,7 @@
 
                     vm.addRowData = _.bind($scope.tableDataStorageService.addRowData, $scope.tableDataStorageService);
                     vm.getRowData = _.bind($scope.tableDataStorageService.getRowData, $scope.tableDataStorageService);
-                    vm.getRowOptions = _.bind($scope.tableDataStorageService.getRowOptions, $scope.tableDataStorageService);
-                    vm.setAllRowsSelected = _.bind($scope.tableDataStorageService.setAllRowsSelected, $scope.tableDataStorageService);
+                    //vm.getRowOptions = _.bind($scope.tableDataStorageService.getRowOptions, $scope.tableDataStorageService);
                 }
 
                 function initIndexTrackerServiceAndBindMethods(){
@@ -38,17 +36,9 @@
                     vm.getIndex = _.bind(indexHelperService.getIndex, indexHelperService);
                 }
 
-                function initColumnOptionsFactoryAndBindMethods(){
-                    var columnOptionsService = ColumnOptionsFactory.getInstance();
-
-                    //vm.addColumnOptions = _.bind(columnOptionsService.addColumnOptions, columnOptionsService);
-                    vm.getColumnOptions = _.bind(columnOptionsService.getColumnOptions, columnOptionsService);
+                function addHeaderCell(ops){
+                    $scope.tableDataStorageService.addHeaderCellData(ops);
                 }
-
-
-                        function addHeaderCell(ops){
-                            $scope.tableDataStorageService.addHeaderCellData(ops);
-                        }
             },
             link: function($scope, element, attrs, ctrl, transclude){
                 injectContentIntoTemplate();

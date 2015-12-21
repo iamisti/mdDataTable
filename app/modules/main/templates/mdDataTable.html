@@ -18,7 +18,10 @@
         <thead>
             <tr class="theadTrRow">
                 <!-- TODO: fix text-align:left, in theory it should not be there to make it work -->
-                <th class="checkboxCell" ng-show="selectableRows" style="text-align:left;">
+                <th class="checkboxCell"
+                    style="text-align:left;"
+                    ng-show="selectableRows"
+                    md-data-table-select-all-rows-handler>
                     <md-checkbox aria-label="select all" ng-model="selectAllRows"></md-checkbox>
                 </th>
 

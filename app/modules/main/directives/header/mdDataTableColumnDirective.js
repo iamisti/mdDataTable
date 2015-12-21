@@ -4,7 +4,6 @@
     function mdDataTableColumnDirective(){
         return {
             restrict: 'E',
-            templateUrl: '/main/templates/mdDataTableColumn.html',
             transclude: true,
             replace: true,
             scope: {
@@ -24,16 +23,6 @@
                         columnName: clone.html()
                     });
                 });
-
-                //setColumnOptionsForMainController();
-
-                function setColumnOptionsForMainController(){
-                    mdDataTableCtrl.addColumnOptions({
-                        alignRule: $scope.alignRule,
-                        sortBy: $scope.sortBy,
-                        columnDefinition: $scope.columnDefinition
-                    });
-                }
             }
         };
     }

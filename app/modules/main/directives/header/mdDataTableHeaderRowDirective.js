@@ -4,7 +4,6 @@
     function mdDataTableHeaderRowDirective(IndexTrackerFactory){
         return {
             restrict: 'E',
-            templateUrl: '/main/templates/mdDataTableHeaderRow.html',
             replace: true,
             transclude: true,
             require: '^mdDataTable',
@@ -26,17 +25,10 @@
                 $scope.selectAllRows = false;
 
                 appendColumns();
-                setupWatchers();
 
                 function appendColumns(){
                     transclude(function (clone) {
                         element.append(clone);
-                    });
-                }
-
-                function setupWatchers() {
-                    $scope.$watch('selectAllRows', function(newVal){
-                        mdDataTableCtrl.setAllRowsSelected(newVal);
                     });
                 }
             }
