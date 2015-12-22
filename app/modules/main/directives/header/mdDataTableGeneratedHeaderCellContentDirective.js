@@ -7,7 +7,7 @@
             templateUrl: '/main/templates/mdDataTableGeneratedHeaderCellContent.html',
             replace: true,
             scope: false,
-            link: function($scope, element, attrs){
+            link: function(){
 
             }
         };

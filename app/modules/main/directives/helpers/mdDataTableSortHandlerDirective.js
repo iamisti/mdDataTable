@@ -17,7 +17,7 @@
                 }
 
                 function isSorted(){
-                    return $scope.tableDataStorageService.sortByColumnLastIndex == columnIndex;
+                    return $scope.tableDataStorageService.sortByColumnLastIndex === columnIndex;
                 }
             }
         };
