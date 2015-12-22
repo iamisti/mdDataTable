@@ -1,10 +1,9 @@
 (function(){
     'use strict';
 
-    function mdDataTableCellDirective(ColumnAlignmentHelper, $parse){
+    function mdDataTableCellDirective($parse){
         return {
             restrict: 'E',
-            templateUrl: '/main/templates/mdDataTableCell.html',
             replace: true,
             transclude: true,
             scope: {
@@ -12,36 +11,18 @@
             },
             require: ['^mdDataTable','^mdDataTableRow'],
             link: function($scope, element, attrs, ctrl, transclude){
-                var mdDataTableCtrl = ctrl[0];
                 var mdDataTableRowCtrl = ctrl[1];
-                var columnIndex = mdDataTableRowCtrl.getIndex();
-
-                //TODO: refactor as the columnDirective
-                $scope.getColumnAlignClass = ColumnAlignmentHelper.getColumnAlignClass(getColumnOptions().alignRule);
 
                 transclude(function (clone) {
-
                     //TODO: rework, figure out something for including html content
                     if($scope.htmlContent){
-                        mdDataTableRowCtrl.addToRowDataStorage(columnIndex);
+                        mdDataTableRowCtrl.addToRowDataStorage(clone, 'htmlContent');
                     }else{
                         //TODO: better idea?
                         var cellValue = $parse(clone.html().replace('{{', '').replace('}}', ''))($scope.$parent);
                         mdDataTableRowCtrl.addToRowDataStorage(cellValue);
                     }
                 });
-
-                $scope.getCellValue = getCellValue;
-
-                mdDataTableRowCtrl.increaseIndex();
-
-                function getColumnOptions(){
-                    return mdDataTableCtrl.getColumnOptions(columnIndex);
-                }
-
-                function getCellValue(){
-                    return mdDataTableRowCtrl.getRowDataStorageValue(columnIndex);
-                }
             }
         };
     }

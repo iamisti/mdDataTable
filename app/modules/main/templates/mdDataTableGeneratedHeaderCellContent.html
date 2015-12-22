@@ -1,7 +1,8 @@
-<th class="column {{columnAlignClass}}" ng-disabled="!isSortingEnabled()" md-ink-ripple ng-click="clickHandler()">
-    <div layout="row">
-        <md-tooltip ng-if="columnDefinition">{{ columnDefinition }}</md-tooltip>
-        <span ng-if="isSortingEnabled() && isColumnRightAligned()">
+<div>
+    <div layout="row" ng-if="sortableColumns">
+        <md-tooltip ng-show="headerRowData.columnDefinition">{{headerRowData.columnDefinition}}</md-tooltip>
+
+        <span ng-show="headerRowData.alignRule == 'right'">
             <span class="hoverSortIcons" ng-if="!isSorted()">
                 <ng-md-icon icon="arrow_forward" size="16"></ng-md-icon>
             </span>
@@ -12,10 +13,10 @@
         </span>
 
         <span>
-            <ng-transclude></ng-transclude>
+            {{headerRowData.columnName}}
         </span>
 
-        <span ng-if="isSortingEnabled() && isColumnLeftAligned()">
+        <span ng-show="headerRowData.alignRule == 'left'">
             <span class="hoverSortIcons" ng-if="!isSorted()">
                 <ng-md-icon icon="arrow_forward" size="16"></ng-md-icon>
             </span>
@@ -25,4 +26,11 @@
             </span>
         </span>
     </div>
-</th>
+    <div ng-if="!sortableColumns">
+        <md-tooltip ng-show="headerRowData.columnDefinition">{{headerRowData.columnDefinition}}</md-tooltip>
+
+        <span>
+            {{headerRowData.columnName}}
+        </span>
+    </div>
+</div>

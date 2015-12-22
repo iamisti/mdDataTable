@@ -1,7 +1,7 @@
 (function(){
     'use strict';
 
-    function mdDataTableDirective(ColumnOptionsFactory, TableDataStorageFactory, IndexTrackerFactory){
+    function mdDataTableDirective(TableDataStorageFactory, IndexTrackerFactory){
         return {
             restrict: 'E',
             templateUrl: '/main/templates/mdDataTable.html',
@@ -11,28 +11,21 @@
                 selectableRows: '=',
                 alternateHeaders: '=',
                 sortableColumns: '=',
-                deleteRowCallback: '&'
+                deleteRowCallback: '&',
+                animateSortIcon: '='
             },
             controller: function($scope){
                 var vm = this;
 
-                initColumnOptionsFactoryAndBindMethods();
                 initTableStorageServiceAndBindMethods();
                 initIndexTrackerServiceAndBindMethods();
 
-                vm.isSelectableRows = isSelectableRows;
-                vm.isSortingEnabled = isSortingEnabled;
-
-                vm.sortByColumn = sortByColumn;
-                vm.getSortedColumnIndex = getSortedColumnIndex;
+                vm.addHeaderCell = addHeaderCell;
 
                 function initTableStorageServiceAndBindMethods(){
                     $scope.tableDataStorageService = TableDataStorageFactory.getInstance();
 
                     vm.addRowData = _.bind($scope.tableDataStorageService.addRowData, $scope.tableDataStorageService);
-                    vm.getRowData = _.bind($scope.tableDataStorageService.getRowData, $scope.tableDataStorageService);
-                    vm.getRowOptions = _.bind($scope.tableDataStorageService.getRowOptions, $scope.tableDataStorageService);
-                    vm.setAllRowsSelected = _.bind($scope.tableDataStorageService.setAllRowsSelected, $scope.tableDataStorageService);
                 }
 
                 function initIndexTrackerServiceAndBindMethods(){
@@ -42,41 +35,8 @@
                     vm.getIndex = _.bind(indexHelperService.getIndex, indexHelperService);
                 }
 
-                function initColumnOptionsFactoryAndBindMethods(){
-                    var columnOptionsService = ColumnOptionsFactory.getInstance();
-
-                    vm.addColumnOptions = _.bind(columnOptionsService.addColumnOptions, columnOptionsService);
-                    vm.getColumnOptions = _.bind(columnOptionsService.getColumnOptions, columnOptionsService);
-                }
-
-                function isSelectableRows(){
-                    return $scope.selectableRows;
-                }
-
-                function isSortingEnabled(){
-                    return $scope.sortableColumns;
-                }
-
-                var sortByColumnLastIndex = null;
-                var orderByAscending = true;
-                function sortByColumn(columnIndex, iteratee){
-                    if(sortByColumnLastIndex === columnIndex){
-                        $scope.tableDataStorageService.reverseRows();
-
-                        orderByAscending = !orderByAscending;
-                    }else{
-                        $scope.tableDataStorageService.sortByColumnIndex(columnIndex, iteratee);
-
-                        sortByColumnLastIndex = columnIndex;
-                        
-                        orderByAscending = true;
-                    }
-
-                    return orderByAscending ? -1 : 1;
-                }
-
-                function getSortedColumnIndex(){
-                    return sortByColumnLastIndex;
+                function addHeaderCell(ops){
+                    $scope.tableDataStorageService.addHeaderCellData(ops);
                 }
             },
             link: function($scope, element, attrs, ctrl, transclude){
@@ -99,8 +59,8 @@
                             }
                         });
 
-                        element.find('table thead').append(headings);
-                        element.find('table tbody').append(body);
+                        element.find('table#reader thead').append(headings);
+                        element.find('table#reader tbody').append(body);
                     });
                 }
             }

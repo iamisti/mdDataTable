@@ -1,4 +1,4 @@
-describe('mdDataTableColumnDirective', function(){
+xdescribe('mdDataTableColumnDirective', function(){
     var $compile,
         $rootScope,
         $scope,
@@ -23,7 +23,7 @@ describe('mdDataTableColumnDirective', function(){
             compileDirective();
         });
 
-        it('THEN it should have the required methods', function(){
+        xit('THEN it should have the required methods', function(){
 
             //then
             expect(elementScope.getColumnAlignClass).toBeDefined();

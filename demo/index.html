@@ -27,7 +27,7 @@
 <body ng-app="exampleApp">
 
 <md-toolbar layout="row" layout-align="left center" layout-padding>
-    <h3 class="md-title">Material Design Data Table</h3>
+    <h1 class="md-title">Material Design Data Table</h1>
 </md-toolbar>
 
 <div layout="row" ng-controller="ExampleController">
@@ -54,9 +54,10 @@
                 selectable-rows="tableIsSelectable"
                 alternate-headers="'contextual'"
                 sortable-columns="tableIsSortable"
-                delete-row-callback="deleteRowCallback(rows)">
+                delete-row-callback="deleteRowCallback(rows)"
+                animate-sort-icon="true">
 
-            <md-data-table-header-row class="animate-sort-icon">
+            <md-data-table-header-row>
                 <md-data-table-column align-rule="left">Dessert (100g serving)</md-data-table-column>
                 <md-data-table-column align-rule="right" column-definition="The total amount of food energy in the given serving size.">Calories</md-data-table-column>
                 <md-data-table-column align-rule="right" column-definition="The total amount of fat in the given serving size.">Fat (g)</md-data-table-column>
@@ -115,6 +116,7 @@
                 </md-data-table-cell>
             </md-data-table-row>
         </md-data-table>
+
     </div>
 </div>
 

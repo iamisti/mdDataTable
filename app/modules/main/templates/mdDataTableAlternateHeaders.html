@@ -1,5 +1,5 @@
 <div class="mdDataTable-header-alternate" layout="row" layout-align="start center">
-    <span class="alternate-text" flex>{{getNumberOfSelectedRows()}} item selected</span>
+    <span class="alternate-text" flex>{{tableDataStorageService.getNumberOfSelectedRows()}} item selected</span>
     <md-button class="md-icon-button md-primary" ng-click="deleteSelectedRows()" aria-label="Delete selected rows">
         <ng-md-icon icon="delete" size="24"></ng-md-icon>
     </md-button>

@@ -1,4 +1,4 @@
-describe('mdDataTableColumnDirective', function(){
+xdescribe('mdDataTableColumnDirective', function(){
     var $compile,
         $rootScope,
         $scope,
