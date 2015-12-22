@@ -11,7 +11,8 @@
                 selectableRows: '=',
                 alternateHeaders: '=',
                 sortableColumns: '=',
-                deleteRowCallback: '&'
+                deleteRowCallback: '&',
+                animateSortIcon: '='
             },
             controller: function($scope){
                 var vm = this;
