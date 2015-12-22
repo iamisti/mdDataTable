@@ -11,7 +11,7 @@
                 sortBy: '=',
                 columnDefinition: '@'
             },
-            require: ['^mdDataTable', '^mdDataTableHeaderRow'],
+            require: ['^mdDataTable'],
             link: function ($scope, element, attrs, ctrl, transclude) {
                 var mdDataTableCtrl = ctrl[0];
 

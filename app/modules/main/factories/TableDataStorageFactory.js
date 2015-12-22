@@ -1,7 +1,7 @@
 (function(){
     'use strict';
 
-    function TableDataStorageFactory(){
+    function TableDataStorageFactory($log){
 
         function TableDataStorageService(){
             this.storage = [];
@@ -17,11 +17,13 @@
 
         TableDataStorageService.prototype.addRowData = function(explicitRowId, rowArray){
             if(rowArray === undefined){
-                throw new Error('`rowArray` parameter is required');
+                $log.error('`rowArray` parameter is required');
+                return;
             }
 
             if(!(rowArray instanceof Array)){
-                throw new Error('`rowArray` parameter should be array');
+                $log.error('`rowArray` parameter should be array');
+                return;
             }
 
             this.storage.push({
@@ -32,11 +34,14 @@
                 },
                 data: rowArray
             });
+
+            console.log(this.storage);
         };
 
         TableDataStorageService.prototype.getRowData = function(index){
             if(!this.storage[index]){
-                throw Error('row is not exists at index: '+index);
+                $log.error('row is not exists at index: '+index);
+                return;
             }
 
             return this.storage[index].data;
@@ -44,7 +49,8 @@
 
         TableDataStorageService.prototype.getRowOptions = function(index){
             if(!this.storage[index]){
-                throw Error('row is not exists at index: '+index);
+                $log.error('row is not exists at index: '+index);
+                return;
             }
 
             return this.storage[index].optionList;
@@ -52,7 +58,8 @@
 
         TableDataStorageService.prototype.setAllRowsSelected = function(isSelected){
             if(isSelected === undefined){
-                throw new Error('`isSelected` parameter is required');
+                $log.error('`isSelected` parameter is required');
+                return;
             }
 
             _.each(this.storage, function(rowData){
