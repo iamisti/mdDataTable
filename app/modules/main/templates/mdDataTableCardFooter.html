@@ -1,19 +1,26 @@
 <div class="mdDataTable-footer" layout="row">
-    <div class="mdDataTable-pagination" layout="row" layout-align="end center" flex>
+    <div class="mdDataTable-pagination"
+         ng-show="paginatedRows"
+         layout="row"
+         layout-align="end center"
+         flex>
+
         <span layout-margin>Rows per page:</span>
-        <md-input-container layout-margin>
-            <md-select ng-model="rowsPerPage">
-                <md-option ng-value="pageSize" ng-repeat="pageSize in rowsPerPageValues">{{pageSize}}</md-option>
+        <md-input-container>
+            <md-select ng-model="mdtPaginationHelper.rowsPerPage" aria-label="rows per page">
+                <md-option ng-value="pageSize" ng-repeat="pageSize in mdtPaginationHelper.rowsPerPageValues">{{pageSize}}</md-option>
             </md-select>
         </md-input-container>
 
-        <span layout-margin>1-10 of 100</span>
+        <span layout-margin>
+            {{mdtPaginationHelper.getStartRowIndex()+1}}-{{mdtPaginationHelper.getEndRowIndex()}} of {{mdtPaginationHelper.getTotalRowsCount()}}
+        </span>
 
-        <md-button class="md-icon-button md-primary" aria-label="More options">
+        <md-button class="md-icon-button md-primary" aria-label="Previous page" ng-click="mdtPaginationHelper.previousPage()">
             <ng-md-icon icon="keyboard_arrow_left" size="24"></ng-md-icon>
         </md-button>
 
-        <md-button class="md-icon-button md-primary" aria-label="More options">
+        <md-button class="md-icon-button md-primary" aria-label="Next page" ng-click="mdtPaginationHelper.nextPage()">
             <ng-md-icon icon="keyboard_arrow_right" size="24"></ng-md-icon>
         </md-button>
     </div>

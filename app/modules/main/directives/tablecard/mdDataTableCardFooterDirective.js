@@ -8,7 +8,10 @@
             transclude: true,
             replace: true,
             scope: true,
-            require: ['^mdDataTable']
+            require: ['^mdDataTable'],
+            link: function($scope){
+                
+            }
         };
     }
 
