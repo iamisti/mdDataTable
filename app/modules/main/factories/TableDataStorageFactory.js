@@ -34,8 +34,6 @@
                 },
                 data: rowArray
             });
-
-            console.log(this.storage);
         };
 
         TableDataStorageService.prototype.getRowData = function(index){
