@@ -59,8 +59,7 @@
                             }
                         });
 
-                        element.find('table#reader thead').append(headings);
-                        element.find('table#reader tbody').append(body);
+                        element.find('#reader').append(headings).append(body);
                     });
                 }
             }
