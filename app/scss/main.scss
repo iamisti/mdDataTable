@@ -1,5 +1,11 @@
 .mdDataTable{
-    table{ width:100%; }
+    table{
+        width:100%;
+
+        &:focus{
+            outline: none;
+        }
+    }
     td, th{ padding: 0; margin: 0; }
     font-size: 15px;
 
