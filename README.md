@@ -40,8 +40,8 @@ In its simplest form, a data table contains a top row of column names, and rows 
 
 | Available        | Params                             | ChildParams                     | Type          | Details       |
 | ---------------- | ---------------------------------- | ------------------------------- | ------------- | ------------- |
-|:white_check_mark:| title-overflow-handler             |                                 | String        | optional, Sometimes, column names don’t fit in a container in between columns. There are two options to handle this |
-|:white_check_mark:|                                    | _(default)_ truncateColumnNames | -             | Shorten the column name and display it in full on hover |
+|:x:               | title-overflow-handler             |                                 | String        | optional, Sometimes, column names don’t fit in a container in between columns. There are two options to handle this |
+|:x:               |                                    | _(default)_ truncateColumnNames | -             | Shorten the column name and display it in full on hover |
 |:x:               |                                    | useHorizontalScrollingOnTable   | -             | Display the full column name and enable horizontal scrolling in the table container |
 ![Long column names truncated with an ellipse](http://material-design.storage.googleapis.com/publish/material_v_4/material_ext_publish/0B3mOPoJlxiFhMkVuNC1Zd3QyZ1k/components_datatables_interaction_longtitle1.png)
 ![Hovering over a truncated column name](http://material-design.storage.googleapis.com/publish/material_v_4/material_ext_publish/0B3mOPoJlxiFhclI1SGllZkZQTkE/components_datatables_interaction_longtitle2.png)
