@@ -24,15 +24,19 @@
                     vm.getIndex = _.bind(indexHelperService.getIndex, indexHelperService);
                 }
 
-                function addToRowDataStorage(value){
-                    $scope.rowDataStorage.push(value);
+                function addToRowDataStorage(value, contentType){
+                    if(contentType === 'htmlContent'){
+                        $scope.rowDataStorage.push({value: value, type: 'html'});
+                    }else{
+                        $scope.rowDataStorage.push(value);
+                    }
                 }
             },
             link: function($scope, element, attrs, ctrl, transclude){
                 appendColumns();
 
                 ctrl.addRowData($scope.tableRowId, $scope.rowDataStorage);
-                ctrl.increaseIndex();
+                //ctrl.increaseIndex();
 
                 function appendColumns(){
                     transclude(function (clone) {

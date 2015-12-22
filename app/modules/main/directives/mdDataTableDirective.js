@@ -25,8 +25,6 @@
                     $scope.tableDataStorageService = TableDataStorageFactory.getInstance();
 
                     vm.addRowData = _.bind($scope.tableDataStorageService.addRowData, $scope.tableDataStorageService);
-                    vm.getRowData = _.bind($scope.tableDataStorageService.getRowData, $scope.tableDataStorageService);
-                    //vm.getRowOptions = _.bind($scope.tableDataStorageService.getRowOptions, $scope.tableDataStorageService);
                 }
 
                 function initIndexTrackerServiceAndBindMethods(){

@@ -12,20 +12,17 @@
             require: ['^mdDataTable','^mdDataTableRow'],
             link: function($scope, element, attrs, ctrl, transclude){
                 var mdDataTableRowCtrl = ctrl[1];
-                var columnIndex = mdDataTableRowCtrl.getIndex();
 
                 transclude(function (clone) {
                     //TODO: rework, figure out something for including html content
                     if($scope.htmlContent){
-                        mdDataTableRowCtrl.addToRowDataStorage(columnIndex);
+                        mdDataTableRowCtrl.addToRowDataStorage(clone, 'htmlContent');
                     }else{
                         //TODO: better idea?
                         var cellValue = $parse(clone.html().replace('{{', '').replace('}}', ''))($scope.$parent);
                         mdDataTableRowCtrl.addToRowDataStorage(cellValue);
                     }
                 });
-
-                mdDataTableRowCtrl.increaseIndex();
             }
         };
     }
