@@ -36,6 +36,7 @@ In its simplest form, a data table contains a top row of column names, and rows 
 | Available        | Params                                         | Type          | Details       |
 | ---------------- | ---------------------------------------------- | ------------- | ------------- |
 |:white_check_mark:| sortable-columns                               | Boolean       | optional, if enabled, sort data and display a sorted state in the column header. If the user clicks on a column that is already sorted, reverse the sort order and rotate the sort icon. Use `sortable-rows-default` attribute directive on a column which intended to be the default sortable column |
+|:white_check_mark:| animate-sort-icon                              | Boolean       | optional, if enabled, sort icon will be animated on change
 ![Table with an ascending sorted column](http://material-design.storage.googleapis.com/publish/material_v_4/material_ext_publish/0B3mOPoJlxiFhMW1haUJDRWJKLUk/components_datatables_interaction_sortedcolumn.png)
 
 | Available        | Params                             | ChildParams                     | Type          | Details       |
@@ -110,7 +111,7 @@ In its simplest form, a data table contains a top row of column names, and rows 
 
 | Available        | Params                                         | ChildParams        | Type          | Details         |
 | ---------------- | ---------------------------------------------- | ------------------ | ------------- | --------------- |
-|:white_check_mark:| sortable-rows-default                          |                    | -             | When sortable-columns is applied to the table, it marks the column as the default sorting column |
+|:x:               | sortable-rows-default                          |                    | -             | When sortable-columns is applied to the table, it marks the column as the default sorting column |
 |:white_check_mark:| html-content                                   |                    | Boolean       | When the cell content is not a simple value (html content) |
 
 ## Example usage:
