@@ -17,7 +17,7 @@
     "karma-ng-scenario": "^0.1.0",
     "karma-phantomjs-launcher": "^0.2.0",
     "main-bower-files": "^2.0.0",
-    "lodash": "^3.5.0"
+    "lodash": "^3.10.1"
   },
   "devDependencies": {
     "fstream": "^1.0.4",
