@@ -1,4 +1,4 @@
-# New version! v0.2 - Added pagination support.
+# New version! v0.2.1 - Added pagination support.
 
 [![Build Status](https://travis-ci.org/iamisti/md-data-table.svg?branch=master)](https://travis-ci.org/iamisti/md-data-table) 
 [![Code Climate](https://codeclimate.com/github/iamisti/md-data-table/badges/gpa.svg)](https://codeclimate.com/github/iamisti/md-data-table) 
@@ -14,7 +14,7 @@ http://iamisti.github.io/md-data-table/
 ## Install with bower
 `bower install md-data-table`
 
-(in bower.json file you can even specify the version number like: `"md-data-table": "v0.2"`
+(in bower.json file you can even specify the version number like: `"md-data-table": "v0.2.1"`
 
 ## google data table specification
 http://www.google.com/design/spec/components/data-tables.html
