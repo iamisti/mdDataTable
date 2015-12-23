@@ -58,6 +58,8 @@ In its simplest form, a data table contains a top row of column names, and rows 
 | Available        | Params                                     | ChildParams                     | Type          | Details|
 | -----------------| ------------------------------------------ | ------------------------------- | ------------- | ------ |
 |:white_check_mark:| paginated-rows                             |                                 | Boolean       | optional, if true, then basic pagination will applied to the bottom of the table. |
+|:white_check_mark:|                                            | isEnabled                       | Boolean       | Optional, if provided then basic pagination will applied to the bottom of the table |
+|:white_check_mark:|                                            | rowsPerPageValues               | Array         | Optional, if provided then it will apply the rows per page values from the given arguments. Example: [5,10,20] |
 ![Table card with header and footer](http://material-design.storage.googleapis.com/publish/material_v_4/material_ext_publish/0B3mOPoJlxiFhUTEwa21JUEtza0k/components_datatables_cards_tablecard.png)
 
 
