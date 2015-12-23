@@ -7,6 +7,7 @@
         $scope.tableCardIsEnabled = true;
         $scope.tableIsSelectable = true;
         $scope.tableIsSortable = true;
+        $scope.paginationEnabled = true;
 
         $scope.deleteRowCallback = function(rows){
             $mdToast.show(
