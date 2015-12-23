@@ -83,6 +83,50 @@
                 sodium: 50,
                 calcium: '0%',
                 iron: '0%'
+            },
+            {
+                id: 607,
+                name: 'Lollipop',
+                calories: 392,
+                fat: 0.2,
+                carbs: 98,
+                protein: 0,
+                sodium: 38,
+                calcium: '0%',
+                iron: '2%'
+            },
+            {
+                id: 608,
+                name: 'Honeycomb',
+                calories: 408,
+                fat: 3.2,
+                carbs: 87,
+                protein: 6.5,
+                sodium: 562,
+                calcium: '0%',
+                iron: '45%'
+            },
+            {
+                id: 609,
+                name: 'Donut',
+                calories: 452,
+                fat: 25.0,
+                carbs: 51,
+                protein: 4.9,
+                sodium: 326,
+                calcium: '2%',
+                iron: '22%'
+            },
+            {
+                id: 610,
+                name: 'KitKat',
+                calories: 518,
+                fat: 26.0,
+                carbs: 65,
+                protein: 7,
+                sodium: 54,
+                calcium: '12%',
+                iron: '6%'
             }
         ];
 
