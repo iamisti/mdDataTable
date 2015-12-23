@@ -36,15 +36,15 @@
                 Table card
             </md-checkbox>
 
-            <md-checkbox ng-model="tableIsSelectable" aria-label="Enable selectable rows" checked>
+            <md-checkbox ng-model="tableIsSelectable" aria-label="Enable selectable rows">
                 Selectable rows
             </md-checkbox>
 
-            <md-checkbox ng-model="tableIsSortable" aria-label="Enable sortable columns" checked>
+            <md-checkbox ng-model="tableIsSortable" aria-label="Enable sortable columns">
                 Sortable columns
             </md-checkbox>
 
-            <md-checkbox ng-model="paginationEnabled" aria-label="Paginated rows" checked>
+            <md-checkbox ng-model="paginationEnabled" aria-label="Paginated rows">
                 Paginated rows
             </md-checkbox>
         </md-card>
@@ -57,7 +57,7 @@
                 sortable-columns="tableIsSortable"
                 delete-row-callback="deleteRowCallback(rows)"
                 animate-sort-icon="true"
-                paginated-rows="paginationEnabled">
+                paginated-rows="{isEnabled: paginationEnabled, rowsPerPageValues: [2,5,10]}">
 
             <md-data-table-header-row class="animate-sort-icon">
                 <md-data-table-column align-rule="left">Dessert (100g serving)</md-data-table-column>
