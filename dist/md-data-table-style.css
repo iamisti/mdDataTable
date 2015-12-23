@@ -99,6 +99,10 @@
   font-size: 12px;
   color: #757575;
 }
+.mdDataTable .mdDataTable-footer .mdDataTable-pagination md-input-container, .mdDataTable tr th .mdDataTable-pagination md-input-container {
+  margin-top: 0px;
+  margin-bottom: 0px;
+}
 .mdDataTable .checkboxCell {
   width: 18px;
   /*the next cell should not have just 24px padding */
