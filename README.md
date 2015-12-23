@@ -55,6 +55,12 @@ In its simplest form, a data table contains a top row of column names, and rows 
 |:white_check_mark:|                                            | visible                         | Boolean       | The visibility of the table card |
 ![Table card with header and footer](http://material-design.storage.googleapis.com/publish/material_v_4/material_ext_publish/0B3mOPoJlxiFhUTEwa21JUEtza0k/components_datatables_cards_tablecard.png)
 
+| Available        | Params                                     | ChildParams                     | Type          | Details|
+| -----------------| ------------------------------------------ | ------------------------------- | ------------- | ------ |
+|:white_check_mark:| paginated-rows                             |                                 | Boolean       | optional, if true, then basic pagination will applied to the bottom of the table. |
+![Table card with header and footer](http://material-design.storage.googleapis.com/publish/material_v_4/material_ext_publish/0B3mOPoJlxiFhUTEwa21JUEtza0k/components_datatables_cards_tablecard.png)
+
+
 | Available        | Params                             | ChildParams                     | Type          | Details       |
 | ---------------- |----------------------------------- | ------------------------------- | ------------- | ------------- |
 |:white_check_mark:| alternate-headers                  |                                 | String        | optional, some table cards may require headers with actions instead of titles. Two possible approaches to this are to display persistent actions, or a contextual header that activates when items are selected |
