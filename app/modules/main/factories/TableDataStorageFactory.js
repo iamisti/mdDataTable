@@ -30,7 +30,8 @@
                 rowId: explicitRowId,
                 optionList: {
                     selected: false,
-                    deleted: false
+                    deleted: false,
+                    visible: true
                 },
                 data: rowArray
             });
@@ -54,14 +55,20 @@
             return this.storage[index].optionList;
         };
 
-        TableDataStorageService.prototype.setAllRowsSelected = function(isSelected){
+        TableDataStorageService.prototype.setAllRowsSelected = function(isSelected, isPaginationEnabled){
             if(isSelected === undefined){
                 $log.error('`isSelected` parameter is required');
                 return;
             }
 
             _.each(this.storage, function(rowData){
-                rowData.optionList.selected = isSelected ? true : false;
+                if(isPaginationEnabled) {
+                    if (rowData.optionList.visible) {
+                        rowData.optionList.selected = isSelected ? true : false;
+                    }
+                }else{
+                    rowData.optionList.selected = isSelected ? true : false;
+                }
             });
         };
 

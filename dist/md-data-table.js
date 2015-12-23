@@ -33,7 +33,7 @@
 (function(){
     'use strict';
 
-    function mdDataTableDirective(TableDataStorageFactory, IndexTrackerFactory){
+    function mdDataTableDirective(TableDataStorageFactory, mdtPaginationHelperFactory, IndexTrackerFactory){
         return {
             restrict: 'E',
             templateUrl: '/main/templates/mdDataTable.html',
@@ -44,7 +44,8 @@
                 alternateHeaders: '=',
                 sortableColumns: '=',
                 deleteRowCallback: '&',
-                animateSortIcon: '='
+                animateSortIcon: '=',
+                paginatedRows: '='
             },
             controller: ['$scope', function($scope){
                 var vm = this;
@@ -56,6 +57,7 @@
 
                 function initTableStorageServiceAndBindMethods(){
                     $scope.tableDataStorageService = TableDataStorageFactory.getInstance();
+                    $scope.mdtPaginationHelper = mdtPaginationHelperFactory.getInstance($scope.tableDataStorageService);
 
                     vm.addRowData = _.bind($scope.tableDataStorageService.addRowData, $scope.tableDataStorageService);
                 }
@@ -91,14 +93,13 @@
                             }
                         });
 
-                        element.find('table#reader thead').append(headings);
-                        element.find('table#reader tbody').append(body);
+                        element.find('#reader').append(headings).append(body);
                     });
                 }
             }
         };
     }
-    mdDataTableDirective.$inject = ['TableDataStorageFactory', 'IndexTrackerFactory'];
+    mdDataTableDirective.$inject = ['TableDataStorageFactory', 'mdtPaginationHelperFactory', 'IndexTrackerFactory'];
 
     angular
         .module('mdDataTable')
@@ -164,7 +165,8 @@
                 rowId: explicitRowId,
                 optionList: {
                     selected: false,
-                    deleted: false
+                    deleted: false,
+                    visible: true
                 },
                 data: rowArray
             });
@@ -188,14 +190,20 @@
             return this.storage[index].optionList;
         };
 
-        TableDataStorageService.prototype.setAllRowsSelected = function(isSelected){
+        TableDataStorageService.prototype.setAllRowsSelected = function(isSelected, isPaginationEnabled){
             if(isSelected === undefined){
                 $log.error('`isSelected` parameter is required');
                 return;
             }
 
             _.each(this.storage, function(rowData){
-                rowData.optionList.selected = isSelected ? true : false;
+                if(isPaginationEnabled) {
+                    if (rowData.optionList.visible) {
+                        rowData.optionList.selected = isSelected ? true : false;
+                    }
+                }else{
+                    rowData.optionList.selected = isSelected ? true : false;
+                }
             });
         };
 
@@ -282,6 +290,70 @@
     angular
         .module('mdDataTable')
         .factory('TableDataStorageFactory', TableDataStorageFactory);
+}());
+(function(){
+    'use strict';
+
+    function mdtPaginationHelperFactory(){
+
+        function mdtPaginationHelper(tableDataStorageService){
+            this.tableDataStorageService = tableDataStorageService;
+
+            this.rowsPerPageValues = [2,5,10,20,30,50,100];
+            this.rowsPerPage = this.rowsPerPageValues[0];
+            this.page = 1;
+        }
+
+        mdtPaginationHelper.prototype.getRows = function(){
+            var that = this;
+
+            _.each(this.tableDataStorageService.storage, function (rowData, index) {
+                if(index >= that.getStartRowIndex() && index <= that.getEndRowIndex()) {
+                    rowData.optionList.visible = true;
+                } else {
+                    rowData.optionList.visible = false;
+                }
+            });
+
+            return this.tableDataStorageService.storage;
+        };
+
+        mdtPaginationHelper.prototype.getStartRowIndex = function(){
+            return (this.page-1) * this.rowsPerPage;
+        };
+
+        mdtPaginationHelper.prototype.getEndRowIndex = function(){
+            return this.getStartRowIndex() + this.rowsPerPage-1;
+        };
+
+        mdtPaginationHelper.prototype.getTotalRowsCount = function(){
+            return this.tableDataStorageService.storage.length;
+        };
+
+        mdtPaginationHelper.prototype.previousPage = function(){
+            if(this.page > 1){
+                this.page--;
+            }
+        };
+
+        mdtPaginationHelper.prototype.nextPage = function(){
+            var totalPages = Math.ceil(this.getTotalRowsCount() / this.rowsPerPage);
+
+            if(this.page < totalPages){
+                this.page++;
+            }
+        };
+
+        return {
+            getInstance: function(tableDataStorageService, isEnabled){
+                return new mdtPaginationHelper(tableDataStorageService, isEnabled);
+            }
+        };
+    }
+
+    angular
+        .module('mdDataTable')
+        .service('mdtPaginationHelperFactory', mdtPaginationHelperFactory);
 }());
 (function(){
     'use strict';
@@ -554,7 +626,7 @@
                 $scope.selectAllRows = false;
 
                 $scope.$watch('selectAllRows', function(val){
-                    $scope.tableDataStorageService.setAllRowsSelected(val);
+                    $scope.tableDataStorageService.setAllRowsSelected(val, $scope.paginatedRows);
                 });
             }
         };
@@ -576,15 +648,21 @@
                 $scope.isSorted = isSorted;
                 $scope.direction = 1;
 
-                element.on('click',sortHandler);
+                element.on('click', sortHandler);
 
                 function sortHandler(){
-                    $scope.direction = $scope.tableDataStorageService.sortByColumn(columnIndex, $scope.headerRowData.sortBy);
+                    $scope.$apply(function(){
+                        $scope.direction = $scope.tableDataStorageService.sortByColumn(columnIndex, $scope.headerRowData.sortBy);
+                    });
                 }
 
                 function isSorted(){
                     return $scope.tableDataStorageService.sortByColumnLastIndex === columnIndex;
                 }
+
+                $scope.$on('$destroy', function(){
+                    element.off('click', sortHandler);
+                });
             }
         };
     }
@@ -603,7 +681,10 @@
             transclude: true,
             replace: true,
             scope: true,
-            require: ['^mdDataTable']
+            require: ['^mdDataTable'],
+            link: function($scope){
+                
+            }
         };
     }
 

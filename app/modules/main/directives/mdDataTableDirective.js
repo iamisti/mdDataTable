@@ -1,7 +1,7 @@
 (function(){
     'use strict';
 
-    function mdDataTableDirective(TableDataStorageFactory, IndexTrackerFactory){
+    function mdDataTableDirective(TableDataStorageFactory, mdtPaginationHelperFactory, IndexTrackerFactory){
         return {
             restrict: 'E',
             templateUrl: '/main/templates/mdDataTable.html',
@@ -12,7 +12,8 @@
                 alternateHeaders: '=',
                 sortableColumns: '=',
                 deleteRowCallback: '&',
-                animateSortIcon: '='
+                animateSortIcon: '=',
+                paginatedRows: '='
             },
             controller: function($scope){
                 var vm = this;
@@ -24,6 +25,7 @@
 
                 function initTableStorageServiceAndBindMethods(){
                     $scope.tableDataStorageService = TableDataStorageFactory.getInstance();
+                    $scope.mdtPaginationHelper = mdtPaginationHelperFactory.getInstance($scope.tableDataStorageService);
 
                     vm.addRowData = _.bind($scope.tableDataStorageService.addRowData, $scope.tableDataStorageService);
                 }

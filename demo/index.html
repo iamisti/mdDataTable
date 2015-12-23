@@ -35,16 +35,20 @@
         <md-card>
             <md-subheader>Attributes playground</md-subheader>
 
-            <md-checkbox ng-model="tableCardIsEnabled" aria-label="Enable table card">
-                Enable table card
+            <md-checkbox ng-model="tableCardIsEnabled" aria-label="Enable/Disable table card">
+                Table card
             </md-checkbox>
 
-            <md-checkbox ng-model="tableIsSelectable" aria-label="Enable selectable rows" checked>
-                Enable selectable rows
+            <md-checkbox ng-model="tableIsSelectable" aria-label="Enable/Disable selectable rows">
+                Selectable rows
             </md-checkbox>
 
-            <md-checkbox ng-model="tableIsSortable" aria-label="Enable sortable columns" checked>
-                Enable sortable columns
+            <md-checkbox ng-model="tableIsSortable" aria-label="Enable/Disable sortable columns">
+                Sortable columns
+            </md-checkbox>
+
+            <md-checkbox ng-model="paginationEnabled" aria-label="Enable/Disable pagination">
+                Pagination
             </md-checkbox>
         </md-card>
     </div>
@@ -55,7 +59,8 @@
                 alternate-headers="'contextual'"
                 sortable-columns="tableIsSortable"
                 delete-row-callback="deleteRowCallback(rows)"
-                animate-sort-icon="true">
+                animate-sort-icon="true"
+                paginated-rows="paginationEnabled">
 
             <md-data-table-header-row>
                 <md-data-table-column align-rule="left">Dessert (100g serving)</md-data-table-column>
@@ -81,7 +86,7 @@
                 <md-data-table-cell>{{nutrition.iron}}</md-data-table-cell>
             </md-data-table-row>
         </md-data-table>
-
+<!--
         <br />
 
         <md-data-table
@@ -116,7 +121,7 @@
                 </md-data-table-cell>
             </md-data-table-row>
         </md-data-table>
-
+-->
     </div>
 </div>
 
