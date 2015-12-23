@@ -1,3 +1,5 @@
+# New version! v0.2 - Added pagination support.
+
 ## md-data-table 
 [![Build Status](https://travis-ci.org/iamisti/md-data-table.svg?branch=master)](https://travis-ci.org/iamisti/md-data-table) 
 [![Code Climate](https://codeclimate.com/github/iamisti/md-data-table/badges/gpa.svg)](https://codeclimate.com/github/iamisti/md-data-table) 
@@ -14,7 +16,7 @@ http://iamisti.github.io/md-data-table/
 ## Install with bower
 `bower install md-data-table`
 
-(in bower.json file you can even specify the version number like: `"md-data-table": "v0.1"`
+(in bower.json file you can even specify the version number like: `"md-data-table": "v0.2"`
 
 ## google data table specification
 http://www.google.com/design/spec/components/data-tables.html
@@ -58,6 +60,8 @@ In its simplest form, a data table contains a top row of column names, and rows 
 | Available        | Params                                     | ChildParams                     | Type          | Details|
 | -----------------| ------------------------------------------ | ------------------------------- | ------------- | ------ |
 |:white_check_mark:| paginated-rows                             |                                 | Boolean       | optional, if true, then basic pagination will applied to the bottom of the table. |
+|:white_check_mark:|                                            | isEnabled                       | Boolean       | Optional, if provided then basic pagination will applied to the bottom of the table |
+|:white_check_mark:|                                            | rowsPerPageValues               | Array         | Optional, if provided then it will apply the rows per page values from the given arguments. Example: [5,10,20] |
 ![Table card with header and footer](http://material-design.storage.googleapis.com/publish/material_v_4/material_ext_publish/0B3mOPoJlxiFhUTEwa21JUEtza0k/components_datatables_cards_tablecard.png)
 
 
