@@ -10,7 +10,7 @@
     "dist/md-data-table-templates.js",
     "dist/md-data-table-style.css"
   ],
-  "description": "Angular data table complete implementation of google material design based on Angular Material components.",
+  "description": "Angular material table. Complete implementation of google material design based on angular material components.",
   "keywords": [
     "table",
     "angular",
