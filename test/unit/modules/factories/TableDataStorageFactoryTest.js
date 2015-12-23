@@ -148,7 +148,8 @@ describe('TableDataStorageFactory', function(){
                 //when
                 expect(tableDataStorageService.getRowOptions(0)).toEqual({
                     selected: false,
-                    deleted: false
+                    deleted: false,
+                    visible: true
                 });
             });
         });
@@ -180,17 +181,20 @@ describe('TableDataStorageFactory', function(){
                 //when
                 expect(tableDataStorageService.getRowOptions(0)).toEqual({
                     selected: true,
-                    deleted: false
+                    deleted: false,
+                    visible: true
                 });
 
                 expect(tableDataStorageService.getRowOptions(1)).toEqual({
                     selected: true,
-                    deleted: false
+                    deleted: false,
+                    visible: true
                 });
 
                 expect(tableDataStorageService.getRowOptions(2)).toEqual({
                     selected: true,
-                    deleted: false
+                    deleted: false,
+                    visible: true
                 });
             });
 
@@ -201,19 +205,22 @@ describe('TableDataStorageFactory', function(){
                 //when
                 expect(tableDataStorageService.getRowOptions(0)).toEqual({
                     selected: false,
-                    deleted: false
+                    deleted: false,
+                    visible: true
                 });
 
                 //when
                 expect(tableDataStorageService.getRowOptions(1)).toEqual({
                     selected: false,
-                    deleted: false
+                    deleted: false,
+                    visible: true
                 });
 
                 //when
                 expect(tableDataStorageService.getRowOptions(2)).toEqual({
                     selected: false,
-                    deleted: false
+                    deleted: false,
+                    visible: true
                 });
             });
         });

@@ -6,25 +6,31 @@
         function mdtPaginationHelper(tableDataStorageService){
             this.tableDataStorageService = tableDataStorageService;
 
-            this.rowsPerPageValues = [2,10,20,30,50,100];
-            this.rowsPerPage = 2;
+            this.rowsPerPageValues = [2,5,10,20,30,50,100];
+            this.rowsPerPage = this.rowsPerPageValues[0];
             this.page = 1;
         }
+
+        mdtPaginationHelper.prototype.getRows = function(){
+            var that = this;
+
+            _.each(this.tableDataStorageService.storage, function (rowData, index) {
+                if(index >= that.getStartRowIndex() && index <= that.getEndRowIndex()) {
+                    rowData.optionList.visible = true;
+                } else {
+                    rowData.optionList.visible = false;
+                }
+            });
+
+            return this.tableDataStorageService.storage;
+        };
 
         mdtPaginationHelper.prototype.getStartRowIndex = function(){
             return (this.page-1) * this.rowsPerPage;
         };
 
         mdtPaginationHelper.prototype.getEndRowIndex = function(){
-            return this.getStartRowIndex() + this.rowsPerPage;
-        };
-
-        mdtPaginationHelper.prototype.getRows = function(isEnabled){
-            if(!isEnabled){
-                return this.tableDataStorageService.storage;
-            }
-
-            return this.tableDataStorageService.storage.slice(this.getStartRowIndex(), this.getEndRowIndex());
+            return this.getStartRowIndex() + this.rowsPerPage-1;
         };
 
         mdtPaginationHelper.prototype.getTotalRowsCount = function(){
@@ -38,7 +44,8 @@
         };
 
         mdtPaginationHelper.prototype.nextPage = function(){
-            var totalPages = Math.floor(this.getTotalRowsCount() / this.rowsPerPage);
+            var totalPages = Math.ceil(this.getTotalRowsCount() / this.rowsPerPage);
+
             if(this.page < totalPages){
                 this.page++;
             }
