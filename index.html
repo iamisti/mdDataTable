@@ -33,15 +33,19 @@
             <md-subheader>Attributes playground</md-subheader>
 
             <md-checkbox ng-model="tableCardIsEnabled" aria-label="Enable table card">
-                Enable table card
+                Table card
             </md-checkbox>
 
             <md-checkbox ng-model="tableIsSelectable" aria-label="Enable selectable rows" checked>
-                Enable selectable rows
+                Selectable rows
             </md-checkbox>
 
             <md-checkbox ng-model="tableIsSortable" aria-label="Enable sortable columns" checked>
-                Enable sortable columns
+                Sortable columns
+            </md-checkbox>
+
+            <md-checkbox ng-model="paginationEnabled" aria-label="Paginated rows" checked>
+                Paginated rows
             </md-checkbox>
         </md-card>
     </div>
@@ -51,7 +55,9 @@
                 selectable-rows="tableIsSelectable"
                 alternate-headers="'contextual'"
                 sortable-columns="tableIsSortable"
-                delete-row-callback="deleteRowCallback(rows)">
+                delete-row-callback="deleteRowCallback(rows)"
+                animate-sort-icon="true"
+                paginated-rows="paginationEnabled">
 
             <md-data-table-header-row class="animate-sort-icon">
                 <md-data-table-column align-rule="left">Dessert (100g serving)</md-data-table-column>
