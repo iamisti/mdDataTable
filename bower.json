@@ -10,13 +10,13 @@
     "dist/md-data-table-templates.js",
     "dist/md-data-table-style.css"
   ],
-  "description": "data table based on google material design",
+  "description": "Angular data table complete implementation of google material design based on Angular Material components.",
   "keywords": [
-    "data-table",
+    "table",
     "angular",
     "material",
-    "angular",
-    "material"
+    "angular material",
+    "angular table"
   ],
   "license": "MIT",
   "ignore": [
