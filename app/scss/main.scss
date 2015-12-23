@@ -115,6 +115,11 @@
         .mdDataTable-pagination{
             font-size: 12px;
             color: darken($whiteColor, 54%);
+
+            md-input-container{
+                margin-top: 0px;
+                margin-bottom: 0px;
+            }
         }
     }
 
