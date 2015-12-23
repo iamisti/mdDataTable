@@ -7,8 +7,7 @@
 [![Dependency Status](https://gemnasium.com/iamisti/md-data-table.svg)](https://gemnasium.com/iamisti/md-data-table)
 [![Codacy Badge](https://www.codacy.com/project/badge/055f7343f2ef4b168706056a69a2875c)](https://www.codacy.com/app/programtervezo/md-data-table)
 
-Angular data table implementation of google material design.
-`This component is UNDER DEVELOPMENT.`
+Angular material table. Complete implementation of google material design based on angular material components.
 
 ## Demo
 http://iamisti.github.io/md-data-table/
