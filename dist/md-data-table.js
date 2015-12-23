@@ -57,7 +57,7 @@
 
                 function initTableStorageServiceAndBindMethods(){
                     $scope.tableDataStorageService = TableDataStorageFactory.getInstance();
-                    $scope.mdtPaginationHelper = mdtPaginationHelperFactory.getInstance($scope.tableDataStorageService);
+                    $scope.mdtPaginationHelper = mdtPaginationHelperFactory.getInstance($scope.tableDataStorageService, $scope.paginatedRows);
 
                     vm.addRowData = _.bind($scope.tableDataStorageService.addRowData, $scope.tableDataStorageService);
                 }
@@ -77,6 +77,15 @@
                 injectContentIntoTemplate();
 
                 $scope.isAnyRowSelected = _.bind($scope.tableDataStorageService.isAnyRowSelected, $scope.tableDataStorageService);
+                $scope.isPaginationEnabled = isPaginationEnabled;
+
+                function isPaginationEnabled(){
+                    if($scope.paginatedRows === true || ($scope.paginatedRows.hasOwnProperty('isEnabled') && $scope.paginatedRows.isEnabled === true)){
+                        return true;
+                    }
+
+                    return false;
+                }
 
                 function injectContentIntoTemplate(){
                     transclude(function (clone) {
@@ -296,10 +305,15 @@
 
     function mdtPaginationHelperFactory(){
 
-        function mdtPaginationHelper(tableDataStorageService){
+        function mdtPaginationHelper(tableDataStorageService, paginationSetting){
             this.tableDataStorageService = tableDataStorageService;
 
-            this.rowsPerPageValues = [2,5,10,20,30,50,100];
+            if(paginationSetting.hasOwnProperty('rowsPerPageValues') && paginationSetting.rowsPerPageValues.length > 0){
+                this.rowsPerPageValues = paginationSetting.rowsPerPageValues
+            }else{
+                this.rowsPerPageValues = [10,20,30,50,100];
+            }
+
             this.rowsPerPage = this.rowsPerPageValues[0];
             this.page = 1;
         }
@@ -480,84 +494,6 @@
 (function(){
     'use strict';
 
-    function mdDataTableColumnDirective(){
-        return {
-            restrict: 'E',
-            transclude: true,
-            replace: true,
-            scope: {
-                alignRule: '@',
-                sortBy: '=',
-                columnDefinition: '@'
-            },
-            require: ['^mdDataTable'],
-            link: function ($scope, element, attrs, ctrl, transclude) {
-                var mdDataTableCtrl = ctrl[0];
-
-                transclude(function (clone) {
-                    mdDataTableCtrl.addHeaderCell({
-                        alignRule: $scope.alignRule,
-                        sortBy: $scope.sortBy,
-                        columnDefinition: $scope.columnDefinition,
-                        columnName: clone.html()
-                    });
-                });
-            }
-        };
-    }
-
-    angular
-        .module('mdDataTable')
-        .directive('mdDataTableColumn', mdDataTableColumnDirective);
-}());
-(function(){
-    'use strict';
-
-    function mdDataTableGeneratedHeaderCellContentDirective(){
-        return {
-            restrict: 'E',
-            templateUrl: '/main/templates/mdDataTableGeneratedHeaderCellContent.html',
-            replace: true,
-            scope: false,
-            link: function(){
-
-            }
-        };
-    }
-
-    angular
-        .module('mdDataTable')
-        .directive('mdDataTableGeneratedHeaderCellContentDirective', mdDataTableGeneratedHeaderCellContentDirective);
-}());
-(function(){
-    'use strict';
-
-    function mdDataTableHeaderRowDirective(){
-        return {
-            restrict: 'E',
-            replace: true,
-            transclude: true,
-            require: '^mdDataTable',
-            scope: true,
-            link: function($scope, element, attrs, mdDataTableCtrl, transclude){
-                appendColumns();
-
-                function appendColumns(){
-                    transclude(function (clone) {
-                        element.append(clone);
-                    });
-                }
-            }
-        };
-    }
-
-    angular
-        .module('mdDataTable')
-        .directive('mdDataTableHeaderRow', mdDataTableHeaderRowDirective);
-}());
-(function(){
-    'use strict';
-
     function mdDataTableAddAlignClass(ColumnAlignmentHelper){
         return {
             restrict: 'A',
@@ -709,4 +645,82 @@
     angular
         .module('mdDataTable')
         .directive('mdDataTableCardHeader', mdDataTableCardHeaderDirective);
+}());
+(function(){
+    'use strict';
+
+    function mdDataTableColumnDirective(){
+        return {
+            restrict: 'E',
+            transclude: true,
+            replace: true,
+            scope: {
+                alignRule: '@',
+                sortBy: '=',
+                columnDefinition: '@'
+            },
+            require: ['^mdDataTable'],
+            link: function ($scope, element, attrs, ctrl, transclude) {
+                var mdDataTableCtrl = ctrl[0];
+
+                transclude(function (clone) {
+                    mdDataTableCtrl.addHeaderCell({
+                        alignRule: $scope.alignRule,
+                        sortBy: $scope.sortBy,
+                        columnDefinition: $scope.columnDefinition,
+                        columnName: clone.html()
+                    });
+                });
+            }
+        };
+    }
+
+    angular
+        .module('mdDataTable')
+        .directive('mdDataTableColumn', mdDataTableColumnDirective);
+}());
+(function(){
+    'use strict';
+
+    function mdDataTableGeneratedHeaderCellContentDirective(){
+        return {
+            restrict: 'E',
+            templateUrl: '/main/templates/mdDataTableGeneratedHeaderCellContent.html',
+            replace: true,
+            scope: false,
+            link: function(){
+
+            }
+        };
+    }
+
+    angular
+        .module('mdDataTable')
+        .directive('mdDataTableGeneratedHeaderCellContentDirective', mdDataTableGeneratedHeaderCellContentDirective);
+}());
+(function(){
+    'use strict';
+
+    function mdDataTableHeaderRowDirective(){
+        return {
+            restrict: 'E',
+            replace: true,
+            transclude: true,
+            require: '^mdDataTable',
+            scope: true,
+            link: function($scope, element, attrs, mdDataTableCtrl, transclude){
+                appendColumns();
+
+                function appendColumns(){
+                    transclude(function (clone) {
+                        element.append(clone);
+                    });
+                }
+            }
+        };
+    }
+
+    angular
+        .module('mdDataTable')
+        .directive('mdDataTableHeaderRow', mdDataTableHeaderRowDirective);
 }());
