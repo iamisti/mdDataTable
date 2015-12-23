@@ -6,7 +6,7 @@
         function mdtPaginationHelper(tableDataStorageService){
             this.tableDataStorageService = tableDataStorageService;
 
-            this.rowsPerPageValues = [2,5,10,20,30,50,100];
+            this.rowsPerPageValues = [10,20,30,50,100];
             this.rowsPerPage = this.rowsPerPageValues[0];
             this.page = 1;
         }
