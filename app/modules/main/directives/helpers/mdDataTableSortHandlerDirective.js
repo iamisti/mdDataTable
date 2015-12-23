@@ -13,7 +13,9 @@
                 element.on('click', sortHandler);
 
                 function sortHandler(){
-                    $scope.direction = $scope.tableDataStorageService.sortByColumn(columnIndex, $scope.headerRowData.sortBy);
+                    $scope.$apply(function(){
+                        $scope.direction = $scope.tableDataStorageService.sortByColumn(columnIndex, $scope.headerRowData.sortBy);
+                    });
                 }
 
                 function isSorted(){
