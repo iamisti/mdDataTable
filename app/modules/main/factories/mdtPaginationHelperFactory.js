@@ -3,10 +3,15 @@
 
     function mdtPaginationHelperFactory(){
 
-        function mdtPaginationHelper(tableDataStorageService){
+        function mdtPaginationHelper(tableDataStorageService, paginationSetting){
             this.tableDataStorageService = tableDataStorageService;
 
-            this.rowsPerPageValues = [10,20,30,50,100];
+            if(paginationSetting.hasOwnProperty('rowsPerPageValues') && paginationSetting.rowsPerPageValues.length > 0){
+                this.rowsPerPageValues = paginationSetting.rowsPerPageValues
+            }else{
+                this.rowsPerPageValues = [10,20,30,50,100];
+            }
+
             this.rowsPerPage = this.rowsPerPageValues[0];
             this.page = 1;
         }

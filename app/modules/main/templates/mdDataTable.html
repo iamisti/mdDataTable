@@ -38,7 +38,7 @@
         <tbody>
         <tr ng-repeat="rowData in mdtPaginationHelper.getRows() track by $index"
             ng-class="{'selectedRow': rowData.optionList.selected}"
-            ng-show="(paginatedRows === false || rowData.optionList.visible === true) && rowData.optionList.deleted === false">
+            ng-show="(isPaginationEnabled() === false || rowData.optionList.visible === true) && rowData.optionList.deleted === false">
 
             <td class="checkboxCell" ng-show="selectableRows">
                 <md-checkbox aria-label="select" ng-model="rowData.optionList.selected"></md-checkbox>
