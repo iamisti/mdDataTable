@@ -301,6 +301,7 @@
                 sortableColumns: '=',
                 deleteRowCallback: '&',
                 animateSortIcon: '=',
+                rippleEffect: '=',
                 paginatedRows: '='
             },
             controller: ['$scope', function($scope){
