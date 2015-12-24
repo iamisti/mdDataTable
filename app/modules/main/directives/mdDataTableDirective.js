@@ -49,7 +49,7 @@
                 $scope.isPaginationEnabled = isPaginationEnabled;
 
                 function isPaginationEnabled(){
-                    if($scope.paginatedRows === true || ($scope.paginatedRows.hasOwnProperty('isEnabled') && $scope.paginatedRows.isEnabled === true)){
+                    if($scope.paginatedRows === true || ($scope.paginatedRows && $scope.paginatedRows.hasOwnProperty('isEnabled') && $scope.paginatedRows.isEnabled === true)){
                         return true;
                     }
 

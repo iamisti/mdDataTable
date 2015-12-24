@@ -6,7 +6,10 @@
         function mdtPaginationHelper(tableDataStorageService, paginationSetting){
             this.tableDataStorageService = tableDataStorageService;
 
-            if(paginationSetting.hasOwnProperty('rowsPerPageValues') && paginationSetting.rowsPerPageValues.length > 0){
+            if(paginationSetting &&
+                paginationSetting.hasOwnProperty('rowsPerPageValues') &&
+                paginationSetting.rowsPerPageValues.length > 0){
+
                 this.rowsPerPageValues = paginationSetting.rowsPerPageValues
             }else{
                 this.rowsPerPageValues = [10,20,30,50,100];
