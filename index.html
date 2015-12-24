@@ -48,6 +48,17 @@
                 Paginated rows
             </md-checkbox>
         </md-card>
+
+        <md-card>
+            <md-subheader>The following attributes are not dynamic attributes (you can't change after specified)</md-subheader>
+            <md-checkbox ng-model="isSortIconAnimated" aria-label="Animated sort icon" ng-disabled="true">
+                Animate sort icon
+            </md-checkbox>
+
+            <md-checkbox ng-model="rippleEffectEnabled" aria-label="Ripple effect" ng-disabled="true">
+                Ripple effect
+            </md-checkbox>
+        </md-card>
     </div>
     <div flex style="padding-top:8px;">
         <md-data-table
@@ -56,7 +67,8 @@
                 alternate-headers="'contextual'"
                 sortable-columns="tableIsSortable"
                 delete-row-callback="deleteRowCallback(rows)"
-                animate-sort-icon="true"
+                animate-sort-icon="isSortIconAnimated"
+                ripple-effect="rippleEffectEnabled"
                 paginated-rows="{isEnabled: paginationEnabled, rowsPerPageValues: [5,10,20,100]}">
 
             <md-data-table-header-row class="animate-sort-icon">
