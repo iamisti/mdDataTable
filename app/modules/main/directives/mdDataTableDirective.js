@@ -13,6 +13,7 @@
                 sortableColumns: '=',
                 deleteRowCallback: '&',
                 animateSortIcon: '=',
+                rippleEffect: '=',
                 paginatedRows: '='
             },
             controller: function($scope){
