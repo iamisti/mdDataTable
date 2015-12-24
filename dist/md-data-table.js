@@ -6,117 +6,6 @@
 (function(){
     'use strict';
 
-    function mdDataTableAlternateHeadersDirective(){
-        return {
-            restrict: 'E',
-            templateUrl: '/main/templates/mdDataTableAlternateHeaders.html',
-            transclude: true,
-            replace: true,
-            scope: true,
-            require: ['^mdDataTable'],
-            link: function($scope){
-                $scope.deleteSelectedRows = deleteSelectedRows;
-
-                function deleteSelectedRows(){
-                    var deletedRows = $scope.tableDataStorageService.deleteSelectedRows();
-
-                    $scope.deleteRowCallback({rows: deletedRows});
-                }
-            }
-        };
-    }
-
-    angular
-        .module('mdDataTable')
-        .directive('mdDataTableAlternateHeaders', mdDataTableAlternateHeadersDirective);
-}());
-(function(){
-    'use strict';
-
-    function mdDataTableDirective(TableDataStorageFactory, mdtPaginationHelperFactory, IndexTrackerFactory){
-        return {
-            restrict: 'E',
-            templateUrl: '/main/templates/mdDataTable.html',
-            transclude: true,
-            scope: {
-                tableCard: '=',
-                selectableRows: '=',
-                alternateHeaders: '=',
-                sortableColumns: '=',
-                deleteRowCallback: '&',
-                animateSortIcon: '=',
-                paginatedRows: '='
-            },
-            controller: ['$scope', function($scope){
-                var vm = this;
-
-                initTableStorageServiceAndBindMethods();
-                initIndexTrackerServiceAndBindMethods();
-
-                vm.addHeaderCell = addHeaderCell;
-
-                function initTableStorageServiceAndBindMethods(){
-                    $scope.tableDataStorageService = TableDataStorageFactory.getInstance();
-                    $scope.mdtPaginationHelper = mdtPaginationHelperFactory.getInstance($scope.tableDataStorageService, $scope.paginatedRows);
-
-                    vm.addRowData = _.bind($scope.tableDataStorageService.addRowData, $scope.tableDataStorageService);
-                }
-
-                function initIndexTrackerServiceAndBindMethods(){
-                    var indexHelperService = IndexTrackerFactory.getInstance();
-
-                    vm.increaseIndex = _.bind(indexHelperService.increaseIndex, indexHelperService);
-                    vm.getIndex = _.bind(indexHelperService.getIndex, indexHelperService);
-                }
-
-                function addHeaderCell(ops){
-                    $scope.tableDataStorageService.addHeaderCellData(ops);
-                }
-            }],
-            link: function($scope, element, attrs, ctrl, transclude){
-                injectContentIntoTemplate();
-
-                $scope.isAnyRowSelected = _.bind($scope.tableDataStorageService.isAnyRowSelected, $scope.tableDataStorageService);
-                $scope.isPaginationEnabled = isPaginationEnabled;
-
-                function isPaginationEnabled(){
-                    if($scope.paginatedRows === true || ($scope.paginatedRows.hasOwnProperty('isEnabled') && $scope.paginatedRows.isEnabled === true)){
-                        return true;
-                    }
-
-                    return false;
-                }
-
-                function injectContentIntoTemplate(){
-                    transclude(function (clone) {
-                        var headings = [];
-                        var body = [];
-
-                        _.each(clone, function (child) {
-                            var $child = angular.element(child);
-
-                            if ($child.hasClass('theadTrRow')) {
-                                headings.push($child);
-                            } else {
-                                body.push($child);
-                            }
-                        });
-
-                        element.find('#reader').append(headings).append(body);
-                    });
-                }
-            }
-        };
-    }
-    mdDataTableDirective.$inject = ['TableDataStorageFactory', 'mdtPaginationHelperFactory', 'IndexTrackerFactory'];
-
-    angular
-        .module('mdDataTable')
-        .directive('mdDataTable', mdDataTableDirective);
-}());
-(function(){
-    'use strict';
-
     function IndexTrackerFactory(){
 
         function IndexTrackerService(){
@@ -145,6 +34,7 @@
 (function(){
     'use strict';
 
+    TableDataStorageFactory.$inject = ['$log'];
     function TableDataStorageFactory($log){
 
         function TableDataStorageService(){
@@ -294,7 +184,6 @@
             }
         };
     }
-    TableDataStorageFactory.$inject = ['$log'];
 
     angular
         .module('mdDataTable')
@@ -372,6 +261,118 @@
 (function(){
     'use strict';
 
+    function mdDataTableAlternateHeadersDirective(){
+        return {
+            restrict: 'E',
+            templateUrl: '/main/templates/mdDataTableAlternateHeaders.html',
+            transclude: true,
+            replace: true,
+            scope: true,
+            require: ['^mdDataTable'],
+            link: function($scope){
+                $scope.deleteSelectedRows = deleteSelectedRows;
+
+                function deleteSelectedRows(){
+                    var deletedRows = $scope.tableDataStorageService.deleteSelectedRows();
+
+                    $scope.deleteRowCallback({rows: deletedRows});
+                }
+            }
+        };
+    }
+
+    angular
+        .module('mdDataTable')
+        .directive('mdDataTableAlternateHeaders', mdDataTableAlternateHeadersDirective);
+}());
+(function(){
+    'use strict';
+
+    mdDataTableDirective.$inject = ['TableDataStorageFactory', 'mdtPaginationHelperFactory', 'IndexTrackerFactory'];
+    function mdDataTableDirective(TableDataStorageFactory, mdtPaginationHelperFactory, IndexTrackerFactory){
+        return {
+            restrict: 'E',
+            templateUrl: '/main/templates/mdDataTable.html',
+            transclude: true,
+            scope: {
+                tableCard: '=',
+                selectableRows: '=',
+                alternateHeaders: '=',
+                sortableColumns: '=',
+                deleteRowCallback: '&',
+                animateSortIcon: '=',
+                paginatedRows: '='
+            },
+            controller: ['$scope', function($scope){
+                var vm = this;
+
+                initTableStorageServiceAndBindMethods();
+                initIndexTrackerServiceAndBindMethods();
+
+                vm.addHeaderCell = addHeaderCell;
+
+                function initTableStorageServiceAndBindMethods(){
+                    $scope.tableDataStorageService = TableDataStorageFactory.getInstance();
+                    $scope.mdtPaginationHelper = mdtPaginationHelperFactory.getInstance($scope.tableDataStorageService, $scope.paginatedRows);
+
+                    vm.addRowData = _.bind($scope.tableDataStorageService.addRowData, $scope.tableDataStorageService);
+                }
+
+                function initIndexTrackerServiceAndBindMethods(){
+                    var indexHelperService = IndexTrackerFactory.getInstance();
+
+                    vm.increaseIndex = _.bind(indexHelperService.increaseIndex, indexHelperService);
+                    vm.getIndex = _.bind(indexHelperService.getIndex, indexHelperService);
+                }
+
+                function addHeaderCell(ops){
+                    $scope.tableDataStorageService.addHeaderCellData(ops);
+                }
+            }],
+            link: function($scope, element, attrs, ctrl, transclude){
+                injectContentIntoTemplate();
+
+                $scope.isAnyRowSelected = _.bind($scope.tableDataStorageService.isAnyRowSelected, $scope.tableDataStorageService);
+                $scope.isPaginationEnabled = isPaginationEnabled;
+
+                function isPaginationEnabled(){
+                    if($scope.paginatedRows === true || ($scope.paginatedRows.hasOwnProperty('isEnabled') && $scope.paginatedRows.isEnabled === true)){
+                        return true;
+                    }
+
+                    return false;
+                }
+
+                function injectContentIntoTemplate(){
+                    transclude(function (clone) {
+                        var headings = [];
+                        var body = [];
+
+                        _.each(clone, function (child) {
+                            var $child = angular.element(child);
+
+                            if ($child.hasClass('theadTrRow')) {
+                                headings.push($child);
+                            } else {
+                                body.push($child);
+                            }
+                        });
+
+                        element.find('#reader').append(headings).append(body);
+                    });
+                }
+            }
+        };
+    }
+
+    angular
+        .module('mdDataTable')
+        .directive('mdDataTable', mdDataTableDirective);
+}());
+(function(){
+    'use strict';
+
+    ColumnAlignmentHelper.$inject = ['ColumnOptionProvider'];
     function ColumnAlignmentHelper(ColumnOptionProvider){
         var service = this;
         service.getColumnAlignClass = getColumnAlignClass;
@@ -384,7 +385,6 @@
             }
         }
     }
-    ColumnAlignmentHelper.$inject = ['ColumnOptionProvider'];
 
     angular
         .module('mdDataTable')
@@ -406,6 +406,7 @@
 (function(){
     'use strict';
 
+    mdDataTableCellDirective.$inject = ['$parse'];
     function mdDataTableCellDirective($parse){
         return {
             restrict: 'E',
@@ -431,7 +432,6 @@
             }
         };
     }
-    mdDataTableCellDirective.$inject = ['$parse'];
 
     angular
         .module('mdDataTable')
@@ -440,6 +440,7 @@
 (function(){
     'use strict';
 
+    mdDataTableRowDirective.$inject = ['IndexTrackerFactory'];
     function mdDataTableRowDirective(IndexTrackerFactory){
         return {
             restrict: 'E',
@@ -485,7 +486,6 @@
             }
         };
     }
-    mdDataTableRowDirective.$inject = ['IndexTrackerFactory'];
 
     angular
         .module('mdDataTable')
@@ -572,45 +572,7 @@
 (function(){
     'use strict';
 
-    function mdDataTableCardFooterDirective(){
-        return {
-            restrict: 'E',
-            templateUrl: '/main/templates/mdDataTableCardFooter.html',
-            transclude: true,
-            replace: true,
-            scope: true,
-            require: ['^mdDataTable'],
-            link: function($scope){
-                
-            }
-        };
-    }
-
-    angular
-        .module('mdDataTable')
-        .directive('mdDataTableCardFooter', mdDataTableCardFooterDirective);
-}());
-(function(){
-    'use strict';
-
-    function mdDataTableCardHeaderDirective(){
-        return {
-            restrict: 'E',
-            templateUrl: '/main/templates/mdDataTableCardHeader.html',
-            transclude: true,
-            replace: true,
-            scope: true,
-            require: ['^mdDataTable']
-        };
-    }
-
-    angular
-        .module('mdDataTable')
-        .directive('mdDataTableCardHeader', mdDataTableCardHeaderDirective);
-}());
-(function(){
-    'use strict';
-
+    mdDataTableAddAlignClass.$inject = ['ColumnAlignmentHelper'];
     function mdDataTableAddAlignClass(ColumnAlignmentHelper){
         return {
             restrict: 'A',
@@ -624,7 +586,6 @@
             }
         };
     }
-    mdDataTableAddAlignClass.$inject = ['ColumnAlignmentHelper'];
 
     angular
         .module('mdDataTable')
@@ -723,4 +684,43 @@
     angular
         .module('mdDataTable')
         .directive('mdDataTableSortHandler', mdDataTableSortHandlerDirective);
+}());
+(function(){
+    'use strict';
+
+    function mdDataTableCardFooterDirective(){
+        return {
+            restrict: 'E',
+            templateUrl: '/main/templates/mdDataTableCardFooter.html',
+            transclude: true,
+            replace: true,
+            scope: true,
+            require: ['^mdDataTable'],
+            link: function($scope){
+                
+            }
+        };
+    }
+
+    angular
+        .module('mdDataTable')
+        .directive('mdDataTableCardFooter', mdDataTableCardFooterDirective);
+}());
+(function(){
+    'use strict';
+
+    function mdDataTableCardHeaderDirective(){
+        return {
+            restrict: 'E',
+            templateUrl: '/main/templates/mdDataTableCardHeader.html',
+            transclude: true,
+            replace: true,
+            scope: true,
+            require: ['^mdDataTable']
+        };
+    }
+
+    angular
+        .module('mdDataTable')
+        .directive('mdDataTableCardHeader', mdDataTableCardHeaderDirective);
 }());
