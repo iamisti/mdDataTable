@@ -1,4 +1,4 @@
-# New version! v0.2.2 - Added pagination support.
+# New version! v0.2.3 - Added pagination support, animated sort icon, ripple effect and so on.
 
 [![Build Status](https://travis-ci.org/iamisti/md-data-table.svg?branch=master)](https://travis-ci.org/iamisti/md-data-table) 
 [![Code Climate](https://codeclimate.com/github/iamisti/md-data-table/badges/gpa.svg)](https://codeclimate.com/github/iamisti/md-data-table) 
@@ -36,7 +36,8 @@ In its simplest form, a data table contains a top row of column names, and rows 
 | Available        | Params                                         | Type          | Details       |
 | ---------------- | ---------------------------------------------- | ------------- | ------------- |
 |:white_check_mark:| sortable-columns                               | Boolean       | optional, if enabled, sort data and display a sorted state in the column header. If the user clicks on a column that is already sorted, reverse the sort order and rotate the sort icon. Use `sortable-rows-default` attribute directive on a column which intended to be the default sortable column |
-|:white_check_mark:| animate-sort-icon                              | Boolean       | optional, if enabled, sort icon will be animated on change
+|:white_check_mark:| animate-sort-icon                              | Boolean       | optional, if enabled, sort icon will be animated on change |
+|:white_check_mark:| ripple-effect                                  | Boolean       | optional, if enabled, ripple effect will be applied on the column names when clicked |
 ![Table with an ascending sorted column](http://material-design.storage.googleapis.com/publish/material_v_4/material_ext_publish/0B3mOPoJlxiFhMW1haUJDRWJKLUk/components_datatables_interaction_sortedcolumn.png)
 
 | Available        | Params                             | ChildParams                     | Type          | Details       |
