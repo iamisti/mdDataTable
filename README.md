@@ -1,4 +1,4 @@
-# New version! v0.2.1 - Added pagination support.
+# New version! v0.2.2 - Added pagination support.
 
 [![Build Status](https://travis-ci.org/iamisti/md-data-table.svg?branch=master)](https://travis-ci.org/iamisti/md-data-table) 
 [![Code Climate](https://codeclimate.com/github/iamisti/md-data-table/badges/gpa.svg)](https://codeclimate.com/github/iamisti/md-data-table) 
