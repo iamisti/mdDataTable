@@ -674,9 +674,12 @@
                 element.on('click', sortHandler);
 
                 function sortHandler(){
-                    $scope.$apply(function(){
-                        $scope.direction = $scope.tableDataStorageService.sortByColumn(columnIndex, $scope.headerRowData.sortBy);
-                    });
+                    if($scope.sortableColumns){
+                        $scope.$apply(function(){
+                            $scope.direction = $scope.tableDataStorageService.sortByColumn(columnIndex, $scope.headerRowData.sortBy);
+                        });
+                    }
+
                 }
 
                 function isSorted(){
