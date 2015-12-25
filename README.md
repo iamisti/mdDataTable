@@ -1,4 +1,4 @@
-# New version! v0.2.4 - Added pagination support, animated sort icon, ripple effect and so on.
+> New version! v0.2.4 - Added pagination support, animated sort icon, ripple effect and so on.
 
 [![Build Status](https://travis-ci.org/iamisti/md-data-table.svg?branch=master)](https://travis-ci.org/iamisti/md-data-table) 
 [![Code Climate](https://codeclimate.com/github/iamisti/md-data-table/badges/gpa.svg)](https://codeclimate.com/github/iamisti/md-data-table) 
@@ -8,24 +8,54 @@
 
 Angular material table. Complete implementation of google material design based on angular material components.
 
-## Demo
+> Demo
+
 http://iamisti.github.io/md-data-table/
 
-## Install with bower
-`bower install md-data-table`
+## Install
 
-(in bower.json file you can even specify the version number like: `"md-data-table": "v0.2.1"`
+1. `bower install md-data-table` or [download the source](https://github.com/iamisti/md-data-table/archive/master.zip).
+2. Make sure the `md-data-table` lib is loaded. It's served in three different files: `md-data-table-style.css`, `md-data-table.js`, `md-data-table-templates.js`
+3. Add `mdDataTable` as a dependency of your app.
 
-## google data table specification
+## UI&UX driven by google data table specification
 http://www.google.com/design/spec/components/data-tables.html
 
-## Basic idea 
+## Table of contents
+[Overview](#overview)
+
+[Table attributes](#table-attributes)
+ - selectable-rows
+ - delete-row-callback
+ - sortable-columns
+ - animate-sort-icon
+ - ripple-effect
+ - ! title-overflow-handler
+ - table-card 
+ - paginated-rows
+ - alternate-headers
+
+[Column attributes (`md-data-table-column`)](#column-attributes)
+ - align-rule
+ - column-definition
+ - ! sortable-rows-default
+ - sort-by
+
+[Data-Row attributes (`md-data-table-row`)](#data-row-attributes)
+ - table-row-id
+
+[Data-Cell attributes (`md-data-table-cell`)](#data-cell-attributes)
+ - ! inline-menu
+ - ! editable-field
+ - html-content
+
+## Overview [overview]
 ### (not finalized yet, if you have improvement ideas, let me know)
 
 In its simplest form, a data table contains a top row of column names, and rows for data.
 ![A selected table row](http://material-design.storage.googleapis.com/publish/material_v_4/material_ext_publish/0B3mOPoJlxiFhV25CdGNXYzA4cXM/components_datatables_structure_basictable.png)
 
-## Table attributes
+## Table attributes [table-attributes]
 
 | Available        | Params                                         | Type          | Details       |
 | ---------------- | ---------------------------------------------- | ------------- | ------------- |
@@ -72,7 +102,7 @@ In its simplest form, a data table contains a top row of column names, and rows 
 ![persistent and contextual headers](http://material-design.storage.googleapis.com/publish/material_v_4/material_ext_publish/0B3mOPoJlxiFhemNvbnZOcXNpODQ/components_datatables_cards_altheaders.png)
 
 
-## Column attributes (`md-data-table-column` attributes)
+## Column attributes (`md-data-table-column` attributes) [column-attributes]
 
 | Available        | Params                                         | ChildPArams         | Type         | Details         |
 | ---------------- | ---------------------------------------------- | --------------------|------------- | --------------- |
@@ -88,17 +118,18 @@ In its simplest form, a data table contains a top row of column names, and rows 
 
 | Available        | Params                                         | Type          | Details         |
 | -----------------| ---------------------------------------------- | ------------- | --------------- |
+|:x:               | sortable-rows-default                          | -             | When sortable-columns is applied to the table, it marks the column as the default sorting column |
 |:white_check_mark:| sort-by                                        | Function      | if provided, used as the iteratee during sort operations to transform the cell value to a value that can be ranked in order. |
 
 
-# Data-Row attributes (`md-data-table-row` attributes)
+# Data-Row attributes (`md-data-table-row` attributes) [data-row-attributes]
 
 | Available        | Params                                         | Type          | Details         |
 | ---------------- | ---------------------------------------------- | ------------- | --------------- |
 |:white_check_mark:| table-row-id                                   | String|Integer| defines the id of the row. Useful if you specified the callback function (`delete-row-callback`) for deleting a row. |
 
 
-# Data-Cell attributes (`md-data-table-cell` attributes)
+# Data-Cell attributes (`md-data-table-cell` attributes) [data-cell-attributes]
 
 | Available        | Params                                         | ChildParams        | Type          | Details         |
 | ---------------- | ---------------------------------------------- | ------------------ | ------------- | --------------- |
@@ -120,7 +151,6 @@ In its simplest form, a data table contains a top row of column names, and rows 
 
 | Available        | Params                                         | ChildParams        | Type          | Details         |
 | ---------------- | ---------------------------------------------- | ------------------ | ------------- | --------------- |
-|:x:               | sortable-rows-default                          |                    | -             | When sortable-columns is applied to the table, it marks the column as the default sorting column |
 |:white_check_mark:| html-content                                   |                    | Boolean       | When the cell content is not a simple value (html content) |
 
 ## Example usage:
@@ -162,9 +192,3 @@ In its simplest form, a data table contains a top row of column names, and rows 
         </md-data-table-row>
 
     </md-data-table>
-
-
-# Milestones
-- Structure
-- Interaction
-- Tables within cards
