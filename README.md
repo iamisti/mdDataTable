@@ -21,6 +21,7 @@ http://www.google.com/design/spec/components/data-tables.html
 
 ## Table of contents
 [Overview](#overview)
+
 [Table attributes](#table-attributes)
  - selectable-rows
  - delete-row-callback
@@ -31,13 +32,16 @@ http://www.google.com/design/spec/components/data-tables.html
  - table-card 
  - paginated-rows
  - alternate-headers
+
 [Column attributes (`md-data-table-column`)](#column-attributes)
  - align-rule
  - column-definition
  - ! sortable-rows-default
  - sort-by
+
 [Data-Row attributes (`md-data-table-row`)](#data-row-attributes)
  - table-row-id
+
 [Data-Cell attributes (`md-data-table-cell`)](#data-cell-attributes)
  - ! inline-menu
  - ! editable-field
