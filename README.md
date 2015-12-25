@@ -1,4 +1,4 @@
-> New version! v0.2.4 - Added pagination support, animated sort icon, ripple effect and so on.
+> New version! v0.2.5 - Added pagination support, animated sort icon, ripple effect, fixes and so on.
 
 [![Build Status](https://travis-ci.org/iamisti/md-data-table.svg?branch=master)](https://travis-ci.org/iamisti/md-data-table) 
 [![Code Climate](https://codeclimate.com/github/iamisti/md-data-table/badges/gpa.svg)](https://codeclimate.com/github/iamisti/md-data-table) 
