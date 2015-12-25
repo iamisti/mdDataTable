@@ -100,7 +100,8 @@ In its simplest form, a data table contains a top row of column names, and rows 
 ![persistent and contextual headers](http://material-design.storage.googleapis.com/publish/material_v_4/material_ext_publish/0B3mOPoJlxiFhemNvbnZOcXNpODQ/components_datatables_cards_altheaders.png)
 
 
-## Column attributes (`md-data-table-column` attributes)
+## Column attributes
+>`md-data-table-column` attributes
 
 | Available        | Params                                         | ChildPArams         | Type         | Details         |
 | ---------------- | ---------------------------------------------- | --------------------|------------- | --------------- |
@@ -120,14 +121,16 @@ In its simplest form, a data table contains a top row of column names, and rows 
 |:white_check_mark:| sort-by                                        | Function      | if provided, used as the iteratee during sort operations to transform the cell value to a value that can be ranked in order. |
 
 
-# Data-Row attributes (`md-data-table-row` attributes)
+# Data-Row attributes 
+> `md-data-table-row` attributes
 
 | Available        | Params                                         | Type          | Details         |
 | ---------------- | ---------------------------------------------- | ------------- | --------------- |
 |:white_check_mark:| table-row-id                                   | String|Integer| defines the id of the row. Useful if you specified the callback function (`delete-row-callback`) for deleting a row. |
 
 
-# Data-Cell attributes (`md-data-table-cell` attributes) [data-cell-attributes]
+# Data-Cell attributes 
+>`md-data-table-cell` attributes
 
 | Available        | Params                                         | ChildParams        | Type          | Details         |
 | ---------------- | ---------------------------------------------- | ------------------ | ------------- | --------------- |
