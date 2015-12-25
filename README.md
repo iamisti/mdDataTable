@@ -47,13 +47,13 @@ http://www.google.com/design/spec/components/data-tables.html
  - ! editable-field
  - html-content
 
-## Overview [overview]
+## Overview
 ### (not finalized yet, if you have improvement ideas, let me know)
 
 In its simplest form, a data table contains a top row of column names, and rows for data.
 ![A selected table row](http://material-design.storage.googleapis.com/publish/material_v_4/material_ext_publish/0B3mOPoJlxiFhV25CdGNXYzA4cXM/components_datatables_structure_basictable.png)
 
-## Table attributes [table-attributes]
+## Table attributes
 
 | Available        | Params                                         | Type          | Details       |
 | ---------------- | ---------------------------------------------- | ------------- | ------------- |
@@ -100,7 +100,7 @@ In its simplest form, a data table contains a top row of column names, and rows 
 ![persistent and contextual headers](http://material-design.storage.googleapis.com/publish/material_v_4/material_ext_publish/0B3mOPoJlxiFhemNvbnZOcXNpODQ/components_datatables_cards_altheaders.png)
 
 
-## Column attributes (`md-data-table-column` attributes) [column-attributes]
+## Column attributes (`md-data-table-column` attributes)
 
 | Available        | Params                                         | ChildPArams         | Type         | Details         |
 | ---------------- | ---------------------------------------------- | --------------------|------------- | --------------- |
@@ -120,7 +120,7 @@ In its simplest form, a data table contains a top row of column names, and rows 
 |:white_check_mark:| sort-by                                        | Function      | if provided, used as the iteratee during sort operations to transform the cell value to a value that can be ranked in order. |
 
 
-# Data-Row attributes (`md-data-table-row` attributes) [data-row-attributes]
+# Data-Row attributes (`md-data-table-row` attributes)
 
 | Available        | Params                                         | Type          | Details         |
 | ---------------- | ---------------------------------------------- | ------------- | --------------- |
