@@ -33,6 +33,19 @@
 <div layout="row" ng-controller="ExampleController">
     <div flex="20">
         <md-card>
+            <md-subheader>Filter by search</md-subheader>
+
+            <md-input-container style="margin:15px;">
+                <label>Search</label>
+                <input type="text" ng-model="filterName">
+            </md-input-container>
+
+            <div ng-hide="true">
+                {{(filteredItems = (nutritionList | filter: filterName))}}
+            </div>
+        </md-card>
+
+        <md-card>
             <md-subheader>Attributes playground</md-subheader>
 
             <md-checkbox ng-model="tableCardIsEnabled" aria-label="Enable/Disable table card">
@@ -61,19 +74,6 @@
             <md-checkbox ng-model="rippleEffectEnabled" aria-label="Ripple effect" ng-disabled="true">
                 Ripple effect
             </md-checkbox>
-        </md-card>
-
-        <md-card>
-            <md-subheader>Filter by search</md-subheader>
-
-            <md-input-container style="margin:15px;">
-                <label>Search</label>
-                <input type="text" ng-model="filterName">
-            </md-input-container>
-
-            <div ng-hide="true">
-                {{(filteredItems = (nutritionList | filter: filterName))}}
-            </div>
         </md-card>
     </div>
     <div flex style="padding-top:8px;">
