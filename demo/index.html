@@ -19,7 +19,7 @@
     <!-- endinject -->
     <link rel="stylesheet" href="main.css"/>
     <style>
-        body{
+        html, body{
             background: #DDDDDD;
         }
     </style>
@@ -50,10 +50,25 @@
             <md-checkbox ng-model="paginationEnabled" aria-label="Enable/Disable pagination">
                 Pagination
             </md-checkbox>
+        </md-card>
 
-            <md-input-container>
+        <md-card>
+            <md-subheader>The following attributes are not dynamic attributes (you can't change after specified)</md-subheader>
+            <md-checkbox ng-model="isSortIconAnimated" aria-label="Animated sort icon" ng-disabled="true">
+                Animate sort icon
+            </md-checkbox>
+
+            <md-checkbox ng-model="rippleEffectEnabled" aria-label="Ripple effect" ng-disabled="true">
+                Ripple effect
+            </md-checkbox>
+        </md-card>
+
+        <md-card>
+            <md-subheader>Filter by search</md-subheader>
+
+            <md-input-container style="margin:15px;">
                 <label>Search</label>
-                <input type="text" ng-model="filterName.name">
+                <input type="text" ng-model="filterName">
             </md-input-container>
 
             <div ng-hide="true">
@@ -68,14 +83,13 @@
                 alternate-headers="'contextual'"
                 sortable-columns="tableIsSortable"
                 delete-row-callback="deleteRowCallback(rows)"
-                animate-sort-icon="true"
-                ripple-effect="false"
+                animate-sort-icon="isSortIconAnimated"
+                ripple-effect="rippleEffectEnabled"
                 paginated-rows="{isEnabled: paginationEnabled, rowsPerPageValues: [5,10,20,100]}"
-                md-data-table-row="{
+                mdt-row="{
                     'data': filteredItems,
                     'table-row-id-key': 'id',
-                    'column-keys': ['name', 'calories', 'fat', 'carbs', 'protein', 'sodium', 'calcium', 'iron'],
-                    'html-content-keys': 'iron'
+                    'column-keys': ['name', 'calories', 'fat', 'carbs', 'protein', 'sodium', 'calcium', 'iron']
                 }">
 
             <mdt-header-row>
@@ -88,22 +102,8 @@
                 <mdt-column align-rule="right">Calcium (%)</mdt-column>
                 <mdt-column align-rule="right">Iron (%)</mdt-column>
            </mdt-header-row>
-<!--
-            <mdt-row
-                    table-row-id="nutrition.id"
-                    ng-repeat="nutrition in nutritionList">
-                <mdt-cell>{{nutrition.name}}</mdt-cell>
-                <mdt-cell>{{nutrition.calories}}</mdt-cell>
-                <mdt-cell>{{nutrition.fat}}</mdt-cell>
-                <mdt-cell>{{nutrition.carbs}}</mdt-cell>
-                <mdt-cell>{{nutrition.protein}}</mdt-cell>
-                <mdt-cell>{{nutrition.sodium}}</mdt-cell>
-                <mdt-cell>{{nutrition.calcium}}</mdt-cell>
-                <mdt-cell>{{nutrition.iron}}</mdt-cell>
-            </mdt-row>
--->
         </mdt-table>
-
+<!--
         <br />
 
         <mdt-table
@@ -140,6 +140,7 @@
                 </mdt-cell>
             </mdt-row>
         </mdt-table>
+-->
     </div>
 </div>
 

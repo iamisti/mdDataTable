@@ -15,7 +15,7 @@
                 animateSortIcon: '=',
                 rippleEffect: '=',
                 paginatedRows: '=',
-                mdDataTableRow: '='
+                mdtRow: '='
             },
             controller: function($scope){
                 var vm = this;
@@ -49,17 +49,17 @@
                 $scope.isAnyRowSelected = _.bind($scope.tableDataStorageService.isAnyRowSelected, $scope.tableDataStorageService);
                 $scope.isPaginationEnabled = isPaginationEnabled;
 
-                $scope.$watch('mdDataTableRow', function(mdDataTableRow){
-                    if(typeof mdDataTableRow === 'object'){
+                $scope.$watch('mdtRow', function(mdtRow){
+                    if(typeof mdtRow === 'object'){
                         $scope.tableDataStorageService.storage = [];
 
                         var rowId;
                         var columnValues = [];
-                        _.each(mdDataTableRow['data'], function(row){
-                            rowId = row[mdDataTableRow['table-row-id-key']];
+                        _.each(mdtRow['data'], function(row){
+                            rowId = row[mdtRow['table-row-id-key']];
                             columnValues = [];
 
-                            _.each(mdDataTableRow['column-keys'], function(columnKey){
+                            _.each(mdtRow['column-keys'], function(columnKey){
                                 columnValues.push(row[columnKey]);
                             });
 
