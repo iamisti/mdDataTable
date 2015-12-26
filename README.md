@@ -48,9 +48,8 @@ http://www.google.com/design/spec/components/data-tables.html
  - html-content
 
 ## Overview
-### (not finalized yet, if you have improvement ideas, let me know)
+> In its simplest form, a data table contains a top row of column names, and rows for data.
 
-In its simplest form, a data table contains a top row of column names, and rows for data.
 ![A selected table row](http://material-design.storage.googleapis.com/publish/material_v_4/material_ext_publish/0B3mOPoJlxiFhV25CdGNXYzA4cXM/components_datatables_structure_basictable.png)
 
 ## Table attributes
