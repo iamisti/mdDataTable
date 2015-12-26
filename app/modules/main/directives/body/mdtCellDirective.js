@@ -6,16 +6,13 @@
             restrict: 'E',
             replace: true,
             transclude: true,
-            scope: {
-                htmlContent: '@'
-            },
             require: ['^mdtTable','^mdtRow'],
-            link: function($scope, element, attrs, ctrl, transclude){
+            link: function($scope, element, attr, ctrl, transclude){
                 var mdtRowCtrl = ctrl[1];
 
                 transclude(function (clone) {
                     //TODO: rework, figure out something for including html content
-                    if($scope.htmlContent){
+                    if(attr.htmlContent){
                         mdtRowCtrl.addToRowDataStorage(clone, 'htmlContent');
                     }else{
                         //TODO: better idea?

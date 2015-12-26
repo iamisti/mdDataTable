@@ -50,6 +50,15 @@
             <md-checkbox ng-model="paginationEnabled" aria-label="Enable/Disable pagination">
                 Pagination
             </md-checkbox>
+
+            <md-input-container>
+                <label>Search</label>
+                <input type="text" ng-model="filterName.name">
+            </md-input-container>
+
+            <div ng-hide="true">
+                {{(filteredItems = (nutritionList | filter: filterName))}}
+            </div>
         </md-card>
     </div>
     <div flex style="padding-top:8px;">
@@ -61,7 +70,13 @@
                 delete-row-callback="deleteRowCallback(rows)"
                 animate-sort-icon="true"
                 ripple-effect="false"
-                paginated-rows="{isEnabled: paginationEnabled, rowsPerPageValues: [5,10,20,100]}">
+                paginated-rows="{isEnabled: paginationEnabled, rowsPerPageValues: [5,10,20,100]}"
+                md-data-table-row="{
+                    'data': filteredItems,
+                    'table-row-id-key': 'id',
+                    'column-keys': ['name', 'calories', 'fat', 'carbs', 'protein', 'sodium', 'calcium', 'iron'],
+                    'html-content-keys': 'iron'
+                }">
 
             <mdt-header-row>
                 <mdt-column align-rule="left">Dessert (100g serving)</mdt-column>
@@ -73,7 +88,7 @@
                 <mdt-column align-rule="right">Calcium (%)</mdt-column>
                 <mdt-column align-rule="right">Iron (%)</mdt-column>
            </mdt-header-row>
-
+<!--
             <mdt-row
                     table-row-id="nutrition.id"
                     ng-repeat="nutrition in nutritionList">
@@ -86,10 +101,12 @@
                 <mdt-cell>{{nutrition.calcium}}</mdt-cell>
                 <mdt-cell>{{nutrition.iron}}</mdt-cell>
             </mdt-row>
+-->
         </mdt-table>
-<!--
+
         <br />
 
+        {{hideButton = false}}
         <mdt-table
                 table-card="{visible: tableCardIsEnabled, title: 'Nutrition - with html content'}"
                 selectable-rows="tableIsSelectable"
@@ -97,7 +114,7 @@
                 sortable-columns="tableIsSortable"
                 delete-row-callback="deleteRowCallback(rows)">
 
-            <mdt-row>
+            <mdt-header-row>
                 <mdt-column align-rule="left">Dessert (100g serving)</mdt-column>
                 <mdt-column align-rule="right">Calories</mdt-column>
                 <mdt-column align-rule="right">Fat (g)</mdt-column>
@@ -106,9 +123,9 @@
                 <mdt-column align-rule="right">Sodium (mg)</mdt-column>
                 <mdt-column align-rule="right">Calcium (%)</mdt-column>
                 <mdt-column align-rule="right">Iron (%)</mdt-column>
-            </mdt-row>
+            </mdt-header-row>
 
-            <mdt-row ng-repeat="nutrition in nutritionList2">
+            <mdt-row ng-repeat="nutrition in nutritionList">
                 <mdt-cell>{{nutrition.name}}</mdt-cell>
                 <mdt-cell>{{nutrition.calories}}</mdt-cell>
                 <mdt-cell>{{nutrition.fat}}</mdt-cell>
@@ -117,12 +134,13 @@
                 <mdt-cell>{{nutrition.sodium}}</mdt-cell>
                 <mdt-cell>{{nutrition.calcium}}</mdt-cell>
                 <mdt-cell html-content="true">
-                    <md-button class="md-raised" ng-hide="hideButton" ng-click="hideButton=true;">{{nutrition.iron}}</md-button>
+                    <md-button class="md-raised" ng-hide="hideButton" ng-click="hideButton=true">
+                        {{nutrition.iron}} {{hideButton ? 'yes': 'no'}}
+                    </md-button>
                     <label ng-show="hideButton">{{nutrition.iron}} - clicked</label>
                 </mdt-cell>
             </mdt-row>
         </mdt-table>
--->
     </div>
 </div>
 

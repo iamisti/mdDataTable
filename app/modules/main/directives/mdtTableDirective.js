@@ -14,7 +14,8 @@
                 deleteRowCallback: '&',
                 animateSortIcon: '=',
                 rippleEffect: '=',
-                paginatedRows: '='
+                paginatedRows: '=',
+                mdDataTableRow: '='
             },
             controller: function($scope){
                 var vm = this;
@@ -47,6 +48,25 @@
 
                 $scope.isAnyRowSelected = _.bind($scope.tableDataStorageService.isAnyRowSelected, $scope.tableDataStorageService);
                 $scope.isPaginationEnabled = isPaginationEnabled;
+
+                $scope.$watch('mdDataTableRow', function(mdDataTableRow){
+                    if(typeof mdDataTableRow === 'object'){
+                        $scope.tableDataStorageService.storage = [];
+
+                        var rowId;
+                        var columnValues = [];
+                        _.each(mdDataTableRow['data'], function(row){
+                            rowId = row[mdDataTableRow['table-row-id-key']];
+                            columnValues = [];
+
+                            _.each(mdDataTableRow['column-keys'], function(columnKey){
+                                columnValues.push(row[columnKey]);
+                            });
+
+                            $scope.tableDataStorageService.addRowData(rowId, columnValues);
+                        });
+                    }
+                }, true);
 
                 function isPaginationEnabled(){
                     if($scope.paginatedRows === true || ($scope.paginatedRows && $scope.paginatedRows.hasOwnProperty('isEnabled') && $scope.paginatedRows.isEnabled === true)){
