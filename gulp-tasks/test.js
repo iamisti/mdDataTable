@@ -1,13 +1,14 @@
 var gulp  = require('gulp'),
-    karma = require('gulp-karma');
+    karma = require('gulp-karma'),
+    KarmaServer = require('karma').Server;
 
-gulp.task('unit', function() {
+gulp.task('unit', function(done) {
     var config = {
-        configFile: 'test/karma.unit.conf.js',
+        configFile: __dirname + '/../test/karma.unit.conf.js',
         action:     'run'
     };
 
-    return gulp.src([]).pipe(karma(config));
+    new KarmaServer(config, done).start();
 });
 
 gulp.task('integration', function() {
