@@ -1,11 +1,11 @@
 (function(){
     'use strict';
 
-    function mdDataTableAddHtmlContentToCellDirective(){
+    function mdtAddHtmlContentToCellDirective(){
         return {
             restrict: 'A',
             scope: {
-                htmlContent: '=mdDataTableAddHtmlContentToCell'
+                htmlContent: '=mdtAddHtmlContentToCell'
             },
             link: function($scope, element){
                 element.append($scope.htmlContent);
@@ -19,6 +19,6 @@
     }
 
     angular
-        .module('mdDataTable')
-        .directive('mdDataTableAddHtmlContentToCell', mdDataTableAddHtmlContentToCellDirective);
+        .module('md-data-table')
+        .directive('mdtAddHtmlContentToCell', mdtAddHtmlContentToCellDirective);
 }());

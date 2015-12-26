@@ -23,6 +23,6 @@
     }
 
     angular
-        .module('mdDataTable')
+        .module('md-data-table')
         .service('IndexTrackerFactory', IndexTrackerFactory);
 }());

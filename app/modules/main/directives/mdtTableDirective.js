@@ -1,10 +1,10 @@
 (function(){
     'use strict';
 
-    function mdDataTableDirective(TableDataStorageFactory, mdtPaginationHelperFactory, IndexTrackerFactory){
+    function mdtTableDirective(TableDataStorageFactory, mdtPaginationHelperFactory, IndexTrackerFactory){
         return {
             restrict: 'E',
-            templateUrl: '/main/templates/mdDataTable.html',
+            templateUrl: '/main/templates/mdtTable.html',
             transclude: true,
             scope: {
                 tableCard: '=',
@@ -79,6 +79,6 @@
     }
 
     angular
-        .module('mdDataTable')
-        .directive('mdDataTable', mdDataTableDirective);
+        .module('md-data-table')
+        .directive('mdtTable', mdtTableDirective);
 }());

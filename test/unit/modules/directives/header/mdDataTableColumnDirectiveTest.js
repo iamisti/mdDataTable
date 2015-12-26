@@ -1,4 +1,4 @@
-xdescribe('mdDataTableColumnDirective', function(){
+xdescribe('mdtColumnDirective', function(){
     var $compile,
         $rootScope,
         $scope,
@@ -10,8 +10,8 @@ xdescribe('mdDataTableColumnDirective', function(){
     var DIRECTIVE_RIGHT_ALIGNED = 'DIRECTIVE_RIGHT_ALIGNED';
     var DIRECTIVE_MULTI_COLUMN = 'DIRECTIVE_MULTI_COLUMN';
 
-    beforeEach(module('templates'));
-    beforeEach(module('mdDataTable'));
+    beforeEach(module('mdtTemplates'));
+    beforeEach(module('md-data-table'));
 
     beforeEach(inject(function($injector){
         $compile = $injector.get('$compile');

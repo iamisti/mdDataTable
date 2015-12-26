@@ -15,6 +15,6 @@
     }
 
     angular
-        .module('mdDataTable')
+        .module('md-data-table')
         .service('ColumnAlignmentHelper', ColumnAlignmentHelper);
 }());

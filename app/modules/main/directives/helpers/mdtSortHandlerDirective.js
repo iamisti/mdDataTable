@@ -1,7 +1,7 @@
 (function(){
     'use strict';
 
-    function mdDataTableSortHandlerDirective(){
+    function mdtSortHandlerDirective(){
         return {
             restrict: 'A',
             scope: false,
@@ -33,6 +33,6 @@
     }
 
     angular
-        .module('mdDataTable')
-        .directive('mdDataTableSortHandler', mdDataTableSortHandlerDirective);
+        .module('md-data-table')
+        .directive('mdtSortHandler', mdtSortHandlerDirective);
 }());

@@ -1,7 +1,7 @@
 (function(){
     'use strict';
 
-    function mdDataTableAnimateSortIconHandlerDirective(){
+    function mdtAnimateSortIconHandlerDirective(){
         return {
             restrict: 'A',
             scope: false,
@@ -14,6 +14,6 @@
     }
 
     angular
-        .module('mdDataTable')
-        .directive('mdDataTableAnimateSortIconHandler', mdDataTableAnimateSortIconHandlerDirective);
+        .module('md-data-table')
+        .directive('mdtAnimateSortIconHandler', mdtAnimateSortIconHandlerDirective);
 }());

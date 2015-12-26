@@ -1,7 +1,7 @@
 (function(){
     'use strict';
 
-    function mdDataTableCellDirective($parse){
+    function mdtCellDirective($parse){
         return {
             restrict: 'E',
             replace: true,
@@ -9,18 +9,18 @@
             scope: {
                 htmlContent: '@'
             },
-            require: ['^mdDataTable','^mdDataTableRow'],
+            require: ['^mdtTable','^mdtRow'],
             link: function($scope, element, attrs, ctrl, transclude){
-                var mdDataTableRowCtrl = ctrl[1];
+                var mdtRowCtrl = ctrl[1];
 
                 transclude(function (clone) {
                     //TODO: rework, figure out something for including html content
                     if($scope.htmlContent){
-                        mdDataTableRowCtrl.addToRowDataStorage(clone, 'htmlContent');
+                        mdtRowCtrl.addToRowDataStorage(clone, 'htmlContent');
                     }else{
                         //TODO: better idea?
                         var cellValue = $parse(clone.html().replace('{{', '').replace('}}', ''))($scope.$parent);
-                        mdDataTableRowCtrl.addToRowDataStorage(cellValue);
+                        mdtRowCtrl.addToRowDataStorage(cellValue);
                     }
                 });
             }
@@ -28,6 +28,6 @@
     }
 
     angular
-        .module('mdDataTable')
-        .directive('mdDataTableCell', mdDataTableCellDirective);
+        .module('md-data-table')
+        .directive('mdtCell', mdtCellDirective);
 }());

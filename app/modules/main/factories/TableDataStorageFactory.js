@@ -152,6 +152,6 @@
     }
 
     angular
-        .module('mdDataTable')
+        .module('md-data-table')
         .factory('TableDataStorageFactory', TableDataStorageFactory);
 }());

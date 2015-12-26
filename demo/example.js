@@ -2,7 +2,7 @@
     'use strict';
 
     angular
-        .module('exampleApp', ['ngMaterial', 'mdDataTable'])
+        .module('exampleApp', ['ngMaterial', 'md-data-table'])
         .config(['$mdThemingProvider', function ($mdThemingProvider) {
             'use strict';
 

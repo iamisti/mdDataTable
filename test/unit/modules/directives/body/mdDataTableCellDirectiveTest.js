@@ -1,4 +1,4 @@
-xdescribe('mdDataTableColumnDirective', function(){
+xdescribe('mdtColumnDirective', function(){
     var $compile,
         $rootScope,
         $scope,
@@ -7,8 +7,8 @@ xdescribe('mdDataTableColumnDirective', function(){
 
     var DIRECTIVE_DEFAULT_CASE = 'DIRECTIVE_DEFAULT_CASE';
 
-    beforeEach(module('templates'));
-    beforeEach(module('mdDataTable'));
+    beforeEach(module('mdtTemplates'));
+    beforeEach(module('md-data-table'));
 
     beforeEach(inject(function($injector){
         $compile = $injector.get('$compile');
@@ -38,14 +38,14 @@ xdescribe('mdDataTableColumnDirective', function(){
             case DIRECTIVE_DEFAULT_CASE:
             default:
                 mainElement = $compile('' +
-                    '<md-data-table>' +
-                    '   <md-data-table-header-row>' +
-                    '       <md-data-table-column>A Column</md-data-table-column>' +
-                    '   </md-data-table-header-row>' +
-                    '   <md-data-table-row>' +
-                    '       <md-data-table-cell>cell</md-data-table-cell>' +
-                    '   </md-data-table-row>' +
-                    '</md-data-table>')($scope);
+                    '<mdt-table>' +
+                    '   <mdt-header-row>' +
+                    '       <mdt-column>A Column</mdt-column>' +
+                    '   </mdt-header-row>' +
+                    '   <mdt-row>' +
+                    '       <mdt-cell>cell</mdt-cell>' +
+                    '   </mdt-row>' +
+                    '</mdt-table>')($scope);
         }
 
         $scope.$digest();

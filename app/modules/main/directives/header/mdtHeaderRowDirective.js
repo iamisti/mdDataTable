@@ -1,14 +1,14 @@
 (function(){
     'use strict';
 
-    function mdDataTableHeaderRowDirective(){
+    function mdtHeaderRowDirective(){
         return {
             restrict: 'E',
             replace: true,
             transclude: true,
-            require: '^mdDataTable',
+            require: '^mdtTable',
             scope: true,
-            link: function($scope, element, attrs, mdDataTableCtrl, transclude){
+            link: function($scope, element, attrs, mdtCtrl, transclude){
                 appendColumns();
 
                 function appendColumns(){
@@ -21,6 +21,6 @@
     }
 
     angular
-        .module('mdDataTable')
-        .directive('mdDataTableHeaderRow', mdDataTableHeaderRowDirective);
+        .module('md-data-table')
+        .directive('mdtHeaderRow', mdtHeaderRowDirective);
 }());

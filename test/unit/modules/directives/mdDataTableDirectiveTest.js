@@ -1,4 +1,4 @@
-xdescribe('mdDataTableDirective', function(){
+xdescribe('mdtTableDirective', function(){
     var $compile,
         $rootScope,
         $scope,
@@ -13,8 +13,8 @@ xdescribe('mdDataTableDirective', function(){
     var DIRECTIVE_SORTABLE_COLUMNS_FALSE = 'DIRECTIVE_SORTABLE_COLUMNS_FALSE';
     var DIRECTIVE_WITH_COMPILED_CONTENT = 'DIRECTIVE_WITH_COMPILED_CONTENT';
 
-    beforeEach(module('templates'));
-    beforeEach(module('mdDataTable'));
+    beforeEach(module('mdtTemplates'));
+    beforeEach(module('md-data-table'));
 
     beforeEach(inject(function($injector){
         $compile = $injector.get('$compile');
@@ -195,7 +195,7 @@ xdescribe('mdDataTableDirective', function(){
 
         $scope.$digest();
 
-        elementController = element.controller('mdDataTable');
+        elementController = element.controller('mdtTable');
         elementIsolatedScope = element.isolateScope();
 
         spyOn(elementIsolatedScope.tableDataStorageService, 'sortByColumnIndex');

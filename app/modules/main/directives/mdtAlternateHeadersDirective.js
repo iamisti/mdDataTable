@@ -1,14 +1,14 @@
 (function(){
     'use strict';
 
-    function mdDataTableAlternateHeadersDirective(){
+    function mdtAlternateHeadersDirective(){
         return {
             restrict: 'E',
-            templateUrl: '/main/templates/mdDataTableAlternateHeaders.html',
+            templateUrl: '/main/templates/mdtAlternateHeaders.html',
             transclude: true,
             replace: true,
             scope: true,
-            require: ['^mdDataTable'],
+            require: ['^mdtTable'],
             link: function($scope){
                 $scope.deleteSelectedRows = deleteSelectedRows;
 
@@ -22,6 +22,6 @@
     }
 
     angular
-        .module('mdDataTable')
-        .directive('mdDataTableAlternateHeaders', mdDataTableAlternateHeadersDirective);
+        .module('md-data-table')
+        .directive('mdtAlternateHeaders', mdtAlternateHeadersDirective);
 }());

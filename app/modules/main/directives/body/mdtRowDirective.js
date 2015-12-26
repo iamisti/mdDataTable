@@ -1,11 +1,11 @@
 (function(){
     'use strict';
 
-    function mdDataTableRowDirective(IndexTrackerFactory){
+    function mdtRowDirective(IndexTrackerFactory){
         return {
             restrict: 'E',
             transclude: true,
-            require: '^mdDataTable',
+            require: '^mdtTable',
             scope: {
                 tableRowId: '='
             },
@@ -48,6 +48,6 @@
     }
 
     angular
-        .module('mdDataTable')
-        .directive('mdDataTableRow', mdDataTableRowDirective);
+        .module('md-data-table')
+        .directive('mdtRow', mdtRowDirective);
 }());
