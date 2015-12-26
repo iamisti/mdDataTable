@@ -4,15 +4,10 @@
     function mdtAddHtmlContentToCellDirective(){
         return {
             restrict: 'A',
-            scope: {
-                htmlContent: '=mdtAddHtmlContentToCell'
-            },
-            link: function($scope, element){
-                element.append($scope.htmlContent);
-
+            link: function($scope, element, attr){
                 $scope.$watch('htmlContent', function(){
                     element.empty();
-                    element.append($scope.htmlContent);
+                    element.append($scope.$eval(attr.mdtAddHtmlContentToCell));
                 });
             }
         };

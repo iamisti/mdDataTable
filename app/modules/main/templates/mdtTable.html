@@ -47,8 +47,8 @@
                 ng-repeat="cellData in rowData.data track by $index"
                 mdt-add-align-class="tableDataStorageService.header[$index].alignRule">
 
-                <span ng-if="!cellData.type">{{cellData}}</span>
-                <span ng-if="cellData.type === 'html'"
+                <span ng-show="!cellData.type">{{cellData}}</span>
+                <span ng-show="cellData.type === 'html'"
                       mdt-add-html-content-to-cell="cellData.value"></span>
             </td>
         </tr>
