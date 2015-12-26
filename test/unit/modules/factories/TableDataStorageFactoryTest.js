@@ -7,7 +7,7 @@ describe('TableDataStorageFactory', function(){
         $log;
 
     beforeEach(module('mdtTemplates'));
-    beforeEach(module('md-data-table'));
+    beforeEach(module('mdDataTable'));
 
     beforeEach(inject(function($injector){
         TableDataStorageFactory = $injector.get('TableDataStorageFactory');

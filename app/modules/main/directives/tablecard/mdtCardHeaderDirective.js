@@ -13,6 +13,6 @@
     }
 
     angular
-        .module('md-data-table')
+        .module('mdDataTable')
         .directive('mdtCardHeader', mdtCardHeaderDirective);
 }());

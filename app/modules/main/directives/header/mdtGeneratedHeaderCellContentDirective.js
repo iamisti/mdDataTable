@@ -14,6 +14,6 @@
     }
 
     angular
-        .module('md-data-table')
+        .module('mdDataTable')
         .directive('mdtGeneratedHeaderCellContent', mdtGeneratedHeaderCellContentDirective);
 }());

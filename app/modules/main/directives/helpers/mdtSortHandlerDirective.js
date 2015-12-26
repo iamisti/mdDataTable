@@ -33,6 +33,6 @@
     }
 
     angular
-        .module('md-data-table')
+        .module('mdDataTable')
         .directive('mdtSortHandler', mdtSortHandlerDirective);
 }());

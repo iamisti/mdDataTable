@@ -14,7 +14,7 @@ xdescribe('mdtTableDirective', function(){
     var DIRECTIVE_WITH_COMPILED_CONTENT = 'DIRECTIVE_WITH_COMPILED_CONTENT';
 
     beforeEach(module('mdtTemplates'));
-    beforeEach(module('md-data-table'));
+    beforeEach(module('mdDataTable'));
 
     beforeEach(inject(function($injector){
         $compile = $injector.get('$compile');
@@ -166,31 +166,31 @@ xdescribe('mdtTableDirective', function(){
     function compileDirective(status){
         switch(status){
             case DIRECTIVE_SELECTABLE_ROWS_TRUE:
-                element = $compile('<md-data-table selectable-rows="true"></md-data-table>')($scope);
+                element = $compile('<mdt-table selectable-rows="true"></mdt-table>')($scope);
                 break;
             case DIRECTIVE_SELECTABLE_ROWS_FALSE:
-                element = $compile('<md-data-table selectable-rows="false"></md-data-table>')($scope);
+                element = $compile('<mdt-table selectable-rows="false"></mdt-table>')($scope);
                 break;
             case DIRECTIVE_SORTABLE_COLUMNS_TRUE:
-                element = $compile('<md-data-table sortable-columns="true"></md-data-table>')($scope);
+                element = $compile('<mdt-table sortable-columns="true"></mdt-table>')($scope);
                 break;
             case DIRECTIVE_SORTABLE_COLUMNS_FALSE:
-                element = $compile('<md-data-table sortable-columns="false"></md-data-table>')($scope);
+                element = $compile('<mdt-table sortable-columns="false"></mdt-table>')($scope);
                 break;
             case DIRECTIVE_WITH_COMPILED_CONTENT:
                 element = $compile('' +
-                    '<md-data-table>' +
+                    '<mdt-table>' +
                     '   <tr class="theadTrRow">' +
                     '       <th>headrow</th>' +
                     '   </tr>' +
                     '   <tr>' +
                     '       <td>bodyrow</td>' +
                     '   </tr>' +
-                    '</md-data-table>')($scope);
+                    '</mdt-table>')($scope);
                 break;
             case DIRECTIVE_DEFAULT_CASE:
             default:
-                element = $compile('<md-data-table></md-data-table>')($scope);
+                element = $compile('<mdt-table></mdt-table>')($scope);
         }
 
         $scope.$digest();

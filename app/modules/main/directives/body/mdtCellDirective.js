@@ -28,6 +28,6 @@
     }
 
     angular
-        .module('md-data-table')
+        .module('mdDataTable')
         .directive('mdtCell', mdtCellDirective);
 }());
