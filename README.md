@@ -1,14 +1,14 @@
 > New version! v0.2.5 - Added pagination support, animated sort icon, ripple effect, fixes and so on.
 
+Angular material table. Complete implementation of google material design based on angular material components.
+
+> Live demo http://iamisti.github.io/md-data-table/
+
 [![Build Status](https://travis-ci.org/iamisti/md-data-table.svg?branch=master)](https://travis-ci.org/iamisti/md-data-table) 
 [![Code Climate](https://codeclimate.com/github/iamisti/md-data-table/badges/gpa.svg)](https://codeclimate.com/github/iamisti/md-data-table) 
 [![Test Coverage](https://codeclimate.com/github/iamisti/md-data-table/badges/coverage.svg?branch=master)](https://codeclimate.com/github/iamisti/md-data-table/coverage) 
 [![Dependency Status](https://gemnasium.com/iamisti/md-data-table.svg)](https://gemnasium.com/iamisti/md-data-table)
 [![Codacy Badge](https://www.codacy.com/project/badge/055f7343f2ef4b168706056a69a2875c)](https://www.codacy.com/app/programtervezo/md-data-table)
-
-Angular material table. Complete implementation of google material design based on angular material components.
-
-> Live demo http://iamisti.github.io/md-data-table/
 
 ## Install
 
