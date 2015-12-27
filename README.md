@@ -2,7 +2,7 @@
 
 Angular material table. Complete implementation of google material design based on angular material components.
 
-> Live demo http://iamisti.github.io/md-data-table/
+> Live demo http://iamisti.github.io/mdDataTable/
 
 [![Build Status](https://travis-ci.org/iamisti/md-data-table.svg?branch=master)](https://travis-ci.org/iamisti/md-data-table) 
 [![Code Climate](https://codeclimate.com/github/iamisti/md-data-table/badges/gpa.svg)](https://codeclimate.com/github/iamisti/md-data-table) 
@@ -12,8 +12,8 @@ Angular material table. Complete implementation of google material design based 
 
 ## Install
 
-1. `bower install md-data-table` or [download the source](https://github.com/iamisti/md-data-table/archive/master.zip).
-2. Make sure the `md-data-table` lib is loaded. It's served in three different files: `md-data-table-style.css`, `md-data-table.js`, `md-data-table-templates.js`
+1. `bower install mdDataTable` or [download the source](https://github.com/iamisti/mdDataTable/archive/master.zip).
+2. Make sure the `mdDataTable` lib is loaded. It's served in three different files: `mdDataTableStyle.css`, `mdDataTable.js`, `mdDataTableTemplates.js`
 3. Add `mdDataTable` as a dependency of your app.
 
 ## UI&UX driven by google data table
@@ -33,16 +33,16 @@ http://www.google.com/design/spec/components/data-tables.html
  - paginated-rows
  - alternate-headers
 
-[Column attributes (`md-data-table-column`)](#column-attributes)
+[Column attributes (`mdt-column`)](#column-attributes)
  - align-rule
  - column-definition
  - ! sortable-rows-default
  - sort-by
 
-[Data-Row attributes (`md-data-table-row`)](#data-row-attributes)
+[Row attributes (`mdt-row`)](#data-row-attributes)
  - table-row-id
 
-[Data-Cell attributes (`md-data-table-cell`)](#data-cell-attributes)
+[Cell attributes (`mdt-cell`)](#data-cell-attributes)
  - ! inline-menu
  - ! editable-field
  - html-content
@@ -57,7 +57,7 @@ http://www.google.com/design/spec/components/data-tables.html
 | Available        | Params                                         | Type          | Details       |
 | ---------------- | ---------------------------------------------- | ------------- | ------------- |
 |:white_check_mark:| selectable-rows                                | Boolean       | optional, checkboxes accompany each row if need to select or manipulate data |
-|:white_check_mark:| delete-row-callback                            | Function      | optional, callback function when deleting rows. The callback will be called with the array of the deleted row ids. Don't forget to specify `table-row-id` for `md-data-table-row`. If you do, it will return the deleted rows data. |
+|:white_check_mark:| delete-row-callback                            | Function      | optional, callback function when deleting rows. The callback will be called with the array of the deleted row ids. Don't forget to specify `table-row-id` for `mdt-row`. If you do, it will return the deleted rows data. |
 ![alt tag](http://material-design.storage.googleapis.com/publish/material_v_4/material_ext_publish/0B3mOPoJlxiFhcWNyQl9xYmRkQnc/components_datatables_interaction_selectedrow.png)
 
 | Available        | Params                                         | Type          | Details       |
@@ -100,7 +100,7 @@ http://www.google.com/design/spec/components/data-tables.html
 
 
 ## Column attributes
->`md-data-table-column` attributes
+>`mdt-column` attributes
 
 | Available        | Params                                         | ChildPArams         | Type         | Details         |
 | ---------------- | ---------------------------------------------- | --------------------|------------- | --------------- |
@@ -121,7 +121,7 @@ http://www.google.com/design/spec/components/data-tables.html
 
 
 # Data-Row attributes 
-> `md-data-table-row` attributes
+> `mdt-row` attributes
 
 | Available        | Params                                         | Type          | Details         |
 | ---------------- | ---------------------------------------------- | ------------- | --------------- |
@@ -129,7 +129,7 @@ http://www.google.com/design/spec/components/data-tables.html
 
 
 # Data-Cell attributes 
->`md-data-table-cell` attributes
+>`mdt-cell` attributes
 
 | Available        | Params                                         | ChildParams        | Type          | Details         |
 | ---------------- | ---------------------------------------------- | ------------------ | ------------- | --------------- |
@@ -154,41 +154,41 @@ http://www.google.com/design/spec/components/data-tables.html
 |:white_check_mark:| html-content                                   |                    | Boolean       | When the cell content is not a simple value (html content) |
 
 ## Example usage:
-    <md-data-table
+    <mdt-table
         selectable-rows="true"
         table-card="{title: Nutrition, actionIcons: true}">
 
-        <md-data-table-header-row>
+        <mdt-header-row>
             <!-- defining column descriptions, align content to the left -->
-            <md-data-table-column
+            <mdt-column
                 align-rule="left"
                 column-definition="The total amount of food energy in the given serving size.">
                 Dessert (100g serving)
-            </md-data-table-column>
+            </mdt-column>
 
             <!-- in case of inline menu -->
-            <md-data-table-column inline-menu="[ {iceCream: 'Ice Cream', pastry: 'Pastry', other: 'Other'} ]">Type</md-data-table-column>
+            <mdt-column inline-menu="[ {iceCream: 'Ice Cream', pastry: 'Pastry', other: 'Other'} ]">Type</mdt-column>
 
             <!-- inline text editing -->
-            <md-data-table-column editable-field="textInput">
+            <mdt-column editable-field="textInput">
                 Calories
-            </md-data-table-column>
+            </mdt-column>
 
             <!-- in case of sortable columns, we can set the defaultly sortable column -->
-            <md-data-table-column sortable-rows-default>
+            <mdt-column sortable-rows-default>
                 Fat (g)
-            </md-data-table-column>
-            <md-data-table-column>Carbs (g)</md-data-table-column>
-            <md-data-table-column>Protein (g)</md-data-table-column>
-        </md-data-table-header-row>
+            </mt-column>
+            <mdt-column>Carbs (g)</mdt-column>
+            <mdt-column>Protein (g)</mdt-column>
+        </mdt-header-row>
 
-        <md-data-table-row ng-repeat="nutrition in nutritionList">
-            <md-data-table-cell>Frozen Joghurt</md-data-table-cell>
-            <md-data-table-cell>159</md-data-table-cell>
-            <md-data-table-cell>6</md-data-table-cell>
-            <md-data-table-cell>24</md-data-table-cell>
-            <md-data-table-cell>4</md-data-table-cell>
-            <md-data-table-cell>87</md-data-table-cell>
-        </md-data-table-row>
+        <mdt-row ng-repeat="nutrition in nutritionList">
+            <mdt-cell>Frozen Joghurt</mdt-cell>
+            <mdt-cell>159</mdt-cell>
+            <mdt-cell>6</mdt-cell>
+            <mdt-cell>24</mdt-cell>
+            <mdt-cell>4</mdt-cell>
+            <mdt-cell>87</mdt-cell>
+        </mdt-row>
 
-    </md-data-table>
+    </mdt-table>
