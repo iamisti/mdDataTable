@@ -32,6 +32,7 @@ http://www.google.com/design/spec/components/data-tables.html
  - table-card 
  - paginated-rows
  - alternate-headers
+ - mdt-row
 
 [Column attributes (`mdt-column`)](#column-attributes)
  - align-rule
@@ -97,6 +98,13 @@ http://www.google.com/design/spec/components/data-tables.html
 |:x:               |                                    | persistentActions               | -             | Shows persistent action buttons in header |
 |:white_check_mark:|                                    | contextual                      | -             | Shows contextual content depending on what has been selected |
 ![persistent and contextual headers](http://material-design.storage.googleapis.com/publish/material_v_4/material_ext_publish/0B3mOPoJlxiFhemNvbnZOcXNpODQ/components_datatables_cards_altheaders.png)
+
+| Available        | Params                             | ChildParams                     | Type          | Details       |
+| ---------------- |----------------------------------- | ------------------------------- | ------------- | ------------- |
+|:white_check_mark:| mdt-row                            |                                 | Object        | optional, makes possible to provide row data by passing the information through this attribute. Makes it possible to listen on data changes. |
+|:white_check_mark:|                                    | data                            | Array         | required, The input data |
+|:white_check_mark:|                                    | table-row-id-key                | String|Integer| optional (same as `table-row-id`), defines the id of the row. Useful if you specified the callback function (`delete-row-callback`) for deleting a row. |
+|:white_check_mark:|                                    | column-keys                     | Array         | required, property names of the passed data array. Makes it possible to configure which property should go in which column.
 
 
 ## Column attributes
@@ -166,10 +174,10 @@ http://www.google.com/design/spec/components/data-tables.html
                 Dessert (100g serving)
             </mdt-column>
 
-            <!-- in case of inline menu -->
+            <!-- in case of inline menu (INLINE-MENU FEATURE DOES NOT EXIST YET) -->
             <mdt-column inline-menu="[ {iceCream: 'Ice Cream', pastry: 'Pastry', other: 'Other'} ]">Type</mdt-column>
 
-            <!-- inline text editing -->
+            <!-- inline text editing (EDITABLE-FIELDS FEATURE DOES NOT EXIST YET) -->
             <mdt-column editable-field="textInput">
                 Calories
             </mdt-column>
@@ -191,4 +199,41 @@ http://www.google.com/design/spec/components/data-tables.html
             <mdt-cell>87</mdt-cell>
         </mdt-row>
 
+    </mdt-table>
+
+## Example usage for `mdt-row` attribute:
+    <mdt-table
+        selectable-rows="true"
+        table-card="{title: Nutrition, actionIcons: true}"
+        mdt-row="{
+            'data': filteredItems,
+            'table-row-id-key': 'id',
+            'column-keys': ['name', 'calories', 'fat', 'carbs', 'protein', 'sodium', 'calcium', 'iron']
+        }">
+
+        <mdt-header-row>
+            <!-- defining column descriptions, align content to the left -->
+            <mdt-column
+                align-rule="left"
+                column-definition="The total amount of food energy in the given serving size.">
+                Dessert (100g serving)
+            </mdt-column>
+
+            <!-- in case of inline menu (INLINE-MENU FEATURE DOES NOT EXIST YET) -->
+            <mdt-column inline-menu="[ {iceCream: 'Ice Cream', pastry: 'Pastry', other: 'Other'} ]">Type</mdt-column>
+
+            <!-- inline text editing (EDITABLE-FIELDS FEATURE DOES NOT EXIST YET) -->
+            <mdt-column editable-field="textInput">
+                Calories
+            </mdt-column>
+
+            <!-- in case of sortable columns, we can set the defaultly sortable column -->
+            <mdt-column sortable-rows-default>
+                Fat (g)
+            </mt-column>
+            <mdt-column>Carbs (g)</mdt-column>
+            <mdt-column>Protein (g)</mdt-column>
+        </mdt-header-row>
+
+        <!-- notice we didn't provide mdt-row here -->
     </mdt-table>
