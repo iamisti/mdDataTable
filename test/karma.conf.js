@@ -24,7 +24,7 @@ module.exports = function() {
 
         ngHtml2JsPreprocessor: {
             stripPrefix: 'app/modules',
-            moduleName:  'templates'
+            moduleName:  'mdtTemplates'
         },
 
         frameworks: ['jasmine-jquery', 'jasmine'],

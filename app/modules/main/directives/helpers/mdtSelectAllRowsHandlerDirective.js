@@ -1,7 +1,7 @@
 (function(){
     'use strict';
 
-    function mdDataTableSelectAllRowsHandlerDirective(){
+    function mdtSelectAllRowsHandlerDirective(){
         return {
             restrict: 'A',
             scope: false,
@@ -17,5 +17,5 @@
 
     angular
         .module('mdDataTable')
-        .directive('mdDataTableSelectAllRowsHandler', mdDataTableSelectAllRowsHandlerDirective);
+        .directive('mdtSelectAllRowsHandler', mdtSelectAllRowsHandlerDirective);
 }());

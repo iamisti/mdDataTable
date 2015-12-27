@@ -1,12 +1,12 @@
-<md-content class="mdDataTable md-whiteframe-z1" layout="column">
+<md-content class="mdtTable md-whiteframe-z1" layout="column">
     <!-- table card -->
-    <md-data-table-card-header
+    <mdt-card-header
             ng-if="tableCard.visible"
             ng-hide="alternateHeaders && isAnyRowSelected()">
-    </md-data-table-card-header>
+    </mdt-card-header>
 
     <!-- alternate headers -->
-    <md-data-table-alternate-headers ng-if="alternateHeaders && isAnyRowSelected()"></md-data-table-alternate-headers>
+    <mdt-alternate-headers ng-if="alternateHeaders && isAnyRowSelected()"></mdt-alternate-headers>
     <!-- alternate headers end -->
 
     <div id="reader" style="display:none;"></div>
@@ -14,23 +14,23 @@
     <table cellpadding="0" cellspacing="0">
         <thead>
             <tr class="theadTrRow"
-                md-data-table-animate-sort-icon-handler>
+                mdt-animate-sort-icon-handler>
 
                 <!-- TODO: fix text-align:left, in theory it should not be there to make it work -->
                 <th class="checkboxCell"
                     style="text-align:left;"
                     ng-show="selectableRows"
-                    md-data-table-select-all-rows-handler>
+                    mdt-select-all-rows-handler>
                     <md-checkbox aria-label="select all" ng-model="selectAllRows"></md-checkbox>
                 </th>
 
                 <th class="column"
                     ng-repeat="headerRowData in tableDataStorageService.header track by $index"
-                    md-data-table-add-align-class="headerRowData.alignRule"
-                    md-data-table-sort-handler
+                    mdt-add-align-class="headerRowData.alignRule"
+                    mdt-sort-handler
                     md-ink-ripple="{{rippleEffect}}">
 
-                    <md-data-table-generated-header-cell-content-directive></md-data-table-generated-header-cell-content-directive>
+                    <mdt-generated-header-cell-content></mdt-generated-header-cell-content>
                 </th>
             </tr>
         </thead>
@@ -45,17 +45,17 @@
 
             <td class="column"
                 ng-repeat="cellData in rowData.data track by $index"
-                md-data-table-add-align-class="tableDataStorageService.header[$index].alignRule">
+                mdt-add-align-class="tableDataStorageService.header[$index].alignRule">
 
-                <span ng-if="!cellData.type">{{cellData}}</span>
-                <span ng-if="cellData.type === 'html'"
-                      md-data-table-add-html-content-to-cell="cellData.value"></span>
+                <span ng-show="!cellData.type">{{cellData}}</span>
+                <span ng-show="cellData.type === 'html'"
+                      mdt-add-html-content-to-cell="cellData.value"></span>
             </td>
         </tr>
         </tbody>
     </table>
 
     <!-- table card -->
-    <md-data-table-card-footer ng-if="tableCard.visible"></md-data-table-card-footer>
+    <mdt-card-footer ng-if="tableCard.visible"></mdt-card-footer>
     <!-- table card end -->
 </md-content>

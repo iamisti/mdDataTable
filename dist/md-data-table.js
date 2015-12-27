@@ -1,19 +1,19 @@
 (function(){
     'use strict';
 
-    angular.module('mdDataTable', ['templates', 'ngMaterial', 'ngMdIcons']);
+    angular.module('mdDataTable', ['mdtTemplates', 'ngMaterial', 'ngMdIcons']);
 }());
 (function(){
     'use strict';
 
-    function mdDataTableAlternateHeadersDirective(){
+    function mdtAlternateHeadersDirective(){
         return {
             restrict: 'E',
-            templateUrl: '/main/templates/mdDataTableAlternateHeaders.html',
+            templateUrl: '/main/templates/mdtAlternateHeaders.html',
             transclude: true,
             replace: true,
             scope: true,
-            require: ['^mdDataTable'],
+            require: ['^mdtTable'],
             link: function($scope){
                 $scope.deleteSelectedRows = deleteSelectedRows;
 
@@ -28,16 +28,16 @@
 
     angular
         .module('mdDataTable')
-        .directive('mdDataTableAlternateHeaders', mdDataTableAlternateHeadersDirective);
+        .directive('mdtAlternateHeaders', mdtAlternateHeadersDirective);
 }());
 (function(){
     'use strict';
 
-    mdDataTableDirective.$inject = ['TableDataStorageFactory', 'mdtPaginationHelperFactory', 'IndexTrackerFactory'];
-    function mdDataTableDirective(TableDataStorageFactory, mdtPaginationHelperFactory, IndexTrackerFactory){
+    mdtTableDirective.$inject = ['TableDataStorageFactory', 'mdtPaginationHelperFactory', 'IndexTrackerFactory'];
+    function mdtTableDirective(TableDataStorageFactory, mdtPaginationHelperFactory, IndexTrackerFactory){
         return {
             restrict: 'E',
-            templateUrl: '/main/templates/mdDataTable.html',
+            templateUrl: '/main/templates/mdtTable.html',
             transclude: true,
             scope: {
                 tableCard: '=',
@@ -47,7 +47,8 @@
                 deleteRowCallback: '&',
                 animateSortIcon: '=',
                 rippleEffect: '=',
-                paginatedRows: '='
+                paginatedRows: '=',
+                mdtRow: '='
             },
             controller: ['$scope', function($scope){
                 var vm = this;
@@ -81,6 +82,25 @@
                 $scope.isAnyRowSelected = _.bind($scope.tableDataStorageService.isAnyRowSelected, $scope.tableDataStorageService);
                 $scope.isPaginationEnabled = isPaginationEnabled;
 
+                $scope.$watch('mdtRow', function(mdtRow){
+                    if(typeof mdtRow === 'object'){
+                        $scope.tableDataStorageService.storage = [];
+
+                        var rowId;
+                        var columnValues = [];
+                        _.each(mdtRow['data'], function(row){
+                            rowId = row[mdtRow['table-row-id-key']];
+                            columnValues = [];
+
+                            _.each(mdtRow['column-keys'], function(columnKey){
+                                columnValues.push(row[columnKey]);
+                            });
+
+                            $scope.tableDataStorageService.addRowData(rowId, columnValues);
+                        });
+                    }
+                }, true);
+
                 function isPaginationEnabled(){
                     if($scope.paginatedRows === true || ($scope.paginatedRows && $scope.paginatedRows.hasOwnProperty('isEnabled') && $scope.paginatedRows.isEnabled === true)){
                         return true;
@@ -113,7 +133,7 @@
 
     angular
         .module('mdDataTable')
-        .directive('mdDataTable', mdDataTableDirective);
+        .directive('mdtTable', mdtTableDirective);
 }());
 (function(){
     'use strict';
@@ -410,27 +430,24 @@
 (function(){
     'use strict';
 
-    mdDataTableCellDirective.$inject = ['$parse'];
-    function mdDataTableCellDirective($parse){
+    mdtCellDirective.$inject = ['$parse'];
+    function mdtCellDirective($parse){
         return {
             restrict: 'E',
             replace: true,
             transclude: true,
-            scope: {
-                htmlContent: '@'
-            },
-            require: ['^mdDataTable','^mdDataTableRow'],
-            link: function($scope, element, attrs, ctrl, transclude){
-                var mdDataTableRowCtrl = ctrl[1];
+            require: ['^mdtTable','^mdtRow'],
+            link: function($scope, element, attr, ctrl, transclude){
+                var mdtRowCtrl = ctrl[1];
 
                 transclude(function (clone) {
                     //TODO: rework, figure out something for including html content
-                    if($scope.htmlContent){
-                        mdDataTableRowCtrl.addToRowDataStorage(clone, 'htmlContent');
+                    if(attr.htmlContent){
+                        mdtRowCtrl.addToRowDataStorage(clone, 'htmlContent');
                     }else{
                         //TODO: better idea?
                         var cellValue = $parse(clone.html().replace('{{', '').replace('}}', ''))($scope.$parent);
-                        mdDataTableRowCtrl.addToRowDataStorage(cellValue);
+                        mdtRowCtrl.addToRowDataStorage(cellValue);
                     }
                 });
             }
@@ -439,17 +456,17 @@
 
     angular
         .module('mdDataTable')
-        .directive('mdDataTableCell', mdDataTableCellDirective);
+        .directive('mdtCell', mdtCellDirective);
 }());
 (function(){
     'use strict';
 
-    mdDataTableRowDirective.$inject = ['IndexTrackerFactory'];
-    function mdDataTableRowDirective(IndexTrackerFactory){
+    mdtRowDirective.$inject = ['IndexTrackerFactory'];
+    function mdtRowDirective(IndexTrackerFactory){
         return {
             restrict: 'E',
             transclude: true,
-            require: '^mdDataTable',
+            require: '^mdtTable',
             scope: {
                 tableRowId: '='
             },
@@ -493,12 +510,12 @@
 
     angular
         .module('mdDataTable')
-        .directive('mdDataTableRow', mdDataTableRowDirective);
+        .directive('mdtRow', mdtRowDirective);
 }());
 (function(){
     'use strict';
 
-    function mdDataTableColumnDirective(){
+    function mdtColumnDirective(){
         return {
             restrict: 'E',
             transclude: true,
@@ -508,12 +525,12 @@
                 sortBy: '=',
                 columnDefinition: '@'
             },
-            require: ['^mdDataTable'],
+            require: ['^mdtTable'],
             link: function ($scope, element, attrs, ctrl, transclude) {
-                var mdDataTableCtrl = ctrl[0];
+                var mdtTableCtrl = ctrl[0];
 
                 transclude(function (clone) {
-                    mdDataTableCtrl.addHeaderCell({
+                    mdtTableCtrl.addHeaderCell({
                         alignRule: $scope.alignRule,
                         sortBy: $scope.sortBy,
                         columnDefinition: $scope.columnDefinition,
@@ -526,15 +543,15 @@
 
     angular
         .module('mdDataTable')
-        .directive('mdDataTableColumn', mdDataTableColumnDirective);
+        .directive('mdtColumn', mdtColumnDirective);
 }());
 (function(){
     'use strict';
 
-    function mdDataTableGeneratedHeaderCellContentDirective(){
+    function mdtGeneratedHeaderCellContentDirective(){
         return {
             restrict: 'E',
-            templateUrl: '/main/templates/mdDataTableGeneratedHeaderCellContent.html',
+            templateUrl: '/main/templates/mdtGeneratedHeaderCellContent.html',
             replace: true,
             scope: false,
             link: function(){
@@ -545,19 +562,19 @@
 
     angular
         .module('mdDataTable')
-        .directive('mdDataTableGeneratedHeaderCellContentDirective', mdDataTableGeneratedHeaderCellContentDirective);
+        .directive('mdtGeneratedHeaderCellContent', mdtGeneratedHeaderCellContentDirective);
 }());
 (function(){
     'use strict';
 
-    function mdDataTableHeaderRowDirective(){
+    function mdtHeaderRowDirective(){
         return {
             restrict: 'E',
             replace: true,
             transclude: true,
-            require: '^mdDataTable',
+            require: '^mdtTable',
             scope: true,
-            link: function($scope, element, attrs, mdDataTableCtrl, transclude){
+            link: function($scope, element, attrs, mdtCtrl, transclude){
                 appendColumns();
 
                 function appendColumns(){
@@ -571,20 +588,20 @@
 
     angular
         .module('mdDataTable')
-        .directive('mdDataTableHeaderRow', mdDataTableHeaderRowDirective);
+        .directive('mdtHeaderRow', mdtHeaderRowDirective);
 }());
 (function(){
     'use strict';
 
-    mdDataTableAddAlignClass.$inject = ['ColumnAlignmentHelper'];
-    function mdDataTableAddAlignClass(ColumnAlignmentHelper){
+    mdtAddAlignClass.$inject = ['ColumnAlignmentHelper'];
+    function mdtAddAlignClass(ColumnAlignmentHelper){
         return {
             restrict: 'A',
             scope: {
-                mdDataTableAddAlignClass: '='
+                mdtAddAlignClass: '='
             },
             link: function($scope, element){
-                var classToAdd = ColumnAlignmentHelper.getColumnAlignClass($scope.mdDataTableAddAlignClass);
+                var classToAdd = ColumnAlignmentHelper.getColumnAlignClass($scope.mdtAddAlignClass);
 
                 element.addClass(classToAdd);
             }
@@ -593,23 +610,18 @@
 
     angular
         .module('mdDataTable')
-        .directive('mdDataTableAddAlignClass', mdDataTableAddAlignClass);
+        .directive('mdtAddAlignClass', mdtAddAlignClass);
 }());
 (function(){
     'use strict';
 
-    function mdDataTableAddHtmlContentToCellDirective(){
+    function mdtAddHtmlContentToCellDirective(){
         return {
             restrict: 'A',
-            scope: {
-                htmlContent: '=mdDataTableAddHtmlContentToCell'
-            },
-            link: function($scope, element){
-                element.append($scope.htmlContent);
-
+            link: function($scope, element, attr){
                 $scope.$watch('htmlContent', function(){
                     element.empty();
-                    element.append($scope.htmlContent);
+                    element.append($scope.$eval(attr.mdtAddHtmlContentToCell));
                 });
             }
         };
@@ -617,12 +629,12 @@
 
     angular
         .module('mdDataTable')
-        .directive('mdDataTableAddHtmlContentToCell', mdDataTableAddHtmlContentToCellDirective);
+        .directive('mdtAddHtmlContentToCell', mdtAddHtmlContentToCellDirective);
 }());
 (function(){
     'use strict';
 
-    function mdDataTableAnimateSortIconHandlerDirective(){
+    function mdtAnimateSortIconHandlerDirective(){
         return {
             restrict: 'A',
             scope: false,
@@ -636,12 +648,12 @@
 
     angular
         .module('mdDataTable')
-        .directive('mdDataTableAnimateSortIconHandler', mdDataTableAnimateSortIconHandlerDirective);
+        .directive('mdtAnimateSortIconHandler', mdtAnimateSortIconHandlerDirective);
 }());
 (function(){
     'use strict';
 
-    function mdDataTableSelectAllRowsHandlerDirective(){
+    function mdtSelectAllRowsHandlerDirective(){
         return {
             restrict: 'A',
             scope: false,
@@ -657,12 +669,12 @@
 
     angular
         .module('mdDataTable')
-        .directive('mdDataTableSelectAllRowsHandler', mdDataTableSelectAllRowsHandlerDirective);
+        .directive('mdtSelectAllRowsHandler', mdtSelectAllRowsHandlerDirective);
 }());
 (function(){
     'use strict';
 
-    function mdDataTableSortHandlerDirective(){
+    function mdtSortHandlerDirective(){
         return {
             restrict: 'A',
             scope: false,
@@ -695,19 +707,19 @@
 
     angular
         .module('mdDataTable')
-        .directive('mdDataTableSortHandler', mdDataTableSortHandlerDirective);
+        .directive('mdtSortHandler', mdtSortHandlerDirective);
 }());
 (function(){
     'use strict';
 
-    function mdDataTableCardFooterDirective(){
+    function mdtCardFooterDirective(){
         return {
             restrict: 'E',
-            templateUrl: '/main/templates/mdDataTableCardFooter.html',
+            templateUrl: '/main/templates/mdtCardFooter.html',
             transclude: true,
             replace: true,
             scope: true,
-            require: ['^mdDataTable'],
+            require: ['^mdtTable'],
             link: function($scope){
                 
             }
@@ -716,23 +728,23 @@
 
     angular
         .module('mdDataTable')
-        .directive('mdDataTableCardFooter', mdDataTableCardFooterDirective);
+        .directive('mdtCardFooter', mdtCardFooterDirective);
 }());
 (function(){
     'use strict';
 
-    function mdDataTableCardHeaderDirective(){
+    function mdtCardHeaderDirective(){
         return {
             restrict: 'E',
-            templateUrl: '/main/templates/mdDataTableCardHeader.html',
+            templateUrl: '/main/templates/mdtCardHeader.html',
             transclude: true,
             replace: true,
             scope: true,
-            require: ['^mdDataTable']
+            require: ['^mdtTable']
         };
     }
 
     angular
         .module('mdDataTable')
-        .directive('mdDataTableCardHeader', mdDataTableCardHeaderDirective);
+        .directive('mdtCardHeader', mdtCardHeaderDirective);
 }());

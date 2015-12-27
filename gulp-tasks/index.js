@@ -28,5 +28,9 @@ gulp.task('create index.html', ['inject assets into index.html'], function() {
         watch('app/index.html', { verbose: true }, function() {
             runSequence('inject assets into index.html', utils.livereload);
         });
+
+        watch('demo/*', { verbose: true }, function() {
+            runSequence('inject assets into index.html', utils.livereload);
+        });
     }
 });

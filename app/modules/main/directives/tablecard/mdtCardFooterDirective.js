@@ -1,14 +1,14 @@
 (function(){
     'use strict';
 
-    function mdDataTableCardFooterDirective(){
+    function mdtCardFooterDirective(){
         return {
             restrict: 'E',
-            templateUrl: '/main/templates/mdDataTableCardFooter.html',
+            templateUrl: '/main/templates/mdtCardFooter.html',
             transclude: true,
             replace: true,
             scope: true,
-            require: ['^mdDataTable'],
+            require: ['^mdtTable'],
             link: function($scope){
                 
             }
@@ -17,5 +17,5 @@
 
     angular
         .module('mdDataTable')
-        .directive('mdDataTableCardFooter', mdDataTableCardFooterDirective);
+        .directive('mdtCardFooter', mdtCardFooterDirective);
 }());

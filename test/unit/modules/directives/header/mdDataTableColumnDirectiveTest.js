@@ -1,4 +1,4 @@
-xdescribe('mdDataTableColumnDirective', function(){
+xdescribe('mdtColumnDirective', function(){
     var $compile,
         $rootScope,
         $scope,
@@ -10,7 +10,7 @@ xdescribe('mdDataTableColumnDirective', function(){
     var DIRECTIVE_RIGHT_ALIGNED = 'DIRECTIVE_RIGHT_ALIGNED';
     var DIRECTIVE_MULTI_COLUMN = 'DIRECTIVE_MULTI_COLUMN';
 
-    beforeEach(module('templates'));
+    beforeEach(module('mdtTemplates'));
     beforeEach(module('mdDataTable'));
 
     beforeEach(inject(function($injector){
@@ -193,40 +193,40 @@ xdescribe('mdDataTableColumnDirective', function(){
         switch(status){
             case DIRECTIVE_LEFT_ALIGNED:
                 mainElement = $compile('' +
-                    '<md-data-table>' +
-                    '   <md-data-table-header-row>' +
-                    '       <md-data-table-column align-rule="left">A Column</md-data-table-column>' +
-                    '   </md-data-table-header-row>' +
-                    '</md-data-table>')($scope);
+                    '<mdt-table>' +
+                    '   <mdt-header-row>' +
+                    '       <mdt-column align-rule="left">A Column</mdt-column>' +
+                    '   </mdt-header-row>' +
+                    '</mdt-table>')($scope);
                 break;
 
             case DIRECTIVE_RIGHT_ALIGNED:
                 mainElement = $compile('' +
-                    '<md-data-table>' +
-                    '   <md-data-table-header-row>' +
-                    '       <md-data-table-column align-rule="right">A Column</md-data-table-column>' +
-                    '   </md-data-table-header-row>' +
-                    '</md-data-table>')($scope);
+                    '<mdt-table>' +
+                    '   <mdt-header-row>' +
+                    '       <mdt-column align-rule="right">A Column</mdt-column>' +
+                    '   </mdt-header-row>' +
+                    '</mdt-table>')($scope);
                 break;
 
             case DIRECTIVE_MULTI_COLUMN:
                 mainElement = $compile('' +
-                    '<md-data-table>' +
-                    '   <md-data-table-header-row>' +
-                    '       <md-data-table-column>A Column</md-data-table-column>' +
-                    '       <md-data-table-column>Another Column</md-data-table-column>' +
-                    '   </md-data-table-header-row>' +
-                    '</md-data-table>')($scope);
+                    '<mdt-table>' +
+                    '   <mdt-header-row>' +
+                    '       <mdt-column>A Column</mdt-column>' +
+                    '       <mdt-column>Another Column</mdt-column>' +
+                    '   </mdt-header-row>' +
+                    '</mdt-table>')($scope);
                 break;
             
             case DIRECTIVE_DEFAULT_CASE:
             default:
                 mainElement = $compile('' +
-                    '<md-data-table>' +
-                    '   <md-data-table-header-row>' +
-                    '       <md-data-table-column>A Column</md-data-table-column>' +
-                    '   </md-data-table-header-row>' +
-                    '</md-data-table>')($scope);
+                    '<mdt-table>' +
+                    '   <mdt-header-row>' +
+                    '       <mdt-column>A Column</mdt-column>' +
+                    '   </mdt-header-row>' +
+                    '</mdt-table>')($scope);
         }
 
         $scope.$digest();

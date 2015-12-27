@@ -6,7 +6,7 @@ describe('TableDataStorageFactory', function(){
         rowId = 324,
         $log;
 
-    beforeEach(module('templates'));
+    beforeEach(module('mdtTemplates'));
     beforeEach(module('mdDataTable'));
 
     beforeEach(inject(function($injector){

@@ -1,4 +1,4 @@
-.mdDataTable{
+.mdtTable{
     table{
         width:100%;
 
@@ -79,7 +79,7 @@
         }
     }
     
-    /* optional animation of sort icons: add class 'animate-sort-icon' to md-data-table-header-row to activate animation */
+    /* optional animation of sort icons: add class 'animate-sort-icon' to mdt-header-row to activate animation */
     thead tr.animate-sort-icon .sortedColumn ng-md-icon svg{
         -webkit-transition: 0.3s linear all;
         transition: 0.3s linear all;
@@ -87,7 +87,7 @@
 
     
     /* 64dp card header height */
-    .mdDataTable-header{
+    .mdt-header{
         height: 64px;
         padding-left: 24px;
         padding-right: 14px;
@@ -101,8 +101,8 @@
         }
     }
 
-    .mdDataTable-header-alternate{
-        @extend .mdDataTable-header;
+    .mdt-header-alternate{
+        @extend .mdt-header;
 
         background-color: lighten($primaryColorPalette, 60%);
 
@@ -112,10 +112,10 @@
     }
 
     /* 56do for last row */
-    .mdDataTable-footer, tr th{
+    .mdt-footer, tr th{
         height: 56px;
 
-        .mdDataTable-pagination{
+        .mdt-pagination{
             font-size: 12px;
             color: darken($whiteColor, 54%);
 

@@ -1,7 +1,7 @@
 (function(){
     'use strict';
 
-    function mdDataTableColumnDirective(){
+    function mdtColumnDirective(){
         return {
             restrict: 'E',
             transclude: true,
@@ -11,12 +11,12 @@
                 sortBy: '=',
                 columnDefinition: '@'
             },
-            require: ['^mdDataTable'],
+            require: ['^mdtTable'],
             link: function ($scope, element, attrs, ctrl, transclude) {
-                var mdDataTableCtrl = ctrl[0];
+                var mdtTableCtrl = ctrl[0];
 
                 transclude(function (clone) {
-                    mdDataTableCtrl.addHeaderCell({
+                    mdtTableCtrl.addHeaderCell({
                         alignRule: $scope.alignRule,
                         sortBy: $scope.sortBy,
                         columnDefinition: $scope.columnDefinition,
@@ -29,5 +29,5 @@
 
     angular
         .module('mdDataTable')
-        .directive('mdDataTableColumn', mdDataTableColumnDirective);
+        .directive('mdtColumn', mdtColumnDirective);
 }());

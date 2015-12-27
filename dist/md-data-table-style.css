@@ -1,7 +1,7 @@
-.mdDataTable {
+.mdtTable {
   font-size: 15px;
   /* 12sp Roboto Medium, 54% black */
-  /* optional animation of sort icons: add class 'animate-sort-icon' to md-data-table-header-row to activate animation */
+  /* optional animation of sort icons: add class 'animate-sort-icon' to mdt-header-row to activate animation */
   /* 64dp card header height */
   /* 56do for last row */
   /* column padding */
@@ -11,17 +11,17 @@
   /* INTERACTION */
   /* default icon color */
 }
-.mdDataTable table {
+.mdtTable table {
   width: 100%;
 }
-.mdDataTable table:focus {
+.mdtTable table:focus {
   outline: none;
 }
-.mdDataTable td, .mdDataTable th {
+.mdtTable td, .mdtTable th {
   padding: 0;
   margin: 0;
 }
-.mdDataTable th {
+.mdtTable th {
   font-size: 12px;
   font-weight: 500;
   color: #757575;
@@ -33,120 +33,123 @@
   /* remove the default blue outline in Chrome for consistent button-like behaviour */
   /* when hoverSortIcons on a non-sorted column*/
 }
-.mdDataTable th[disabled] {
+.mdtTable th[disabled] {
   cursor: auto;
 }
-.mdDataTable th:focus {
+.mdtTable th:focus {
   outline: none;
 }
-.mdDataTable th .hoverSortIcons ng-md-icon {
+.mdtTable th .hoverSortIcons ng-md-icon {
   visibility: hidden;
   width: 16px;
   height: 16px;
   fill: #b3b3b3;
 }
-.mdDataTable th .hoverSortIcons ng-md-icon svg {
+.mdtTable th .hoverSortIcons ng-md-icon svg {
   -webkit-transform: rotate(90deg);
   transform: rotate(90deg);
 }
-.mdDataTable th:hover .hoverSortIcons ng-md-icon {
+.mdtTable th:hover .hoverSortIcons ng-md-icon {
   visibility: visible;
 }
-.mdDataTable th .sortedColumn {
+.mdtTable th .sortedColumn {
   /* when hoverSortIcons on a sorted column*/
   /* sort icon rotated -90 degrees for descending sort */
 }
-.mdDataTable th .sortedColumn .hoverSortIcons ng-md-icon {
+.mdtTable th .sortedColumn .hoverSortIcons ng-md-icon {
   display: none;
 }
-.mdDataTable th .sortedColumn ng-md-icon {
+.mdtTable th .sortedColumn ng-md-icon {
+  /* specified 16px is a fix now cause angular materia generates a 24x24 icon even the passed value is 16  */
+  width: 16px;
+  height: 16px;
   fill: #212121;
   /* sort icon rotated 90 degrees for ascending sort (default) */
 }
-.mdDataTable th .sortedColumn ng-md-icon svg {
+.mdtTable th .sortedColumn ng-md-icon svg {
   -webkit-transform: rotate(90deg);
   transform: rotate(90deg);
 }
-.mdDataTable th .sortedColumn.descending ng-md-icon > svg {
+.mdtTable th .sortedColumn.descending ng-md-icon > svg {
   -webkit-transform: rotate(-90deg);
   transform: rotate(-90deg);
 }
-.mdDataTable thead tr.animate-sort-icon .sortedColumn ng-md-icon svg {
+.mdtTable thead tr.animate-sort-icon .sortedColumn ng-md-icon svg {
   -webkit-transition: 0.3s linear all;
   transition: 0.3s linear all;
 }
-.mdDataTable .mdDataTable-header, .mdDataTable .mdDataTable-header-alternate {
+.mdtTable .mdt-header, .mdtTable .mdt-header-alternate {
   height: 64px;
   padding-left: 24px;
   padding-right: 14px;
 }
-.mdDataTable .mdDataTable-header md-button, .mdDataTable .mdDataTable-header-alternate md-button {
+.mdtTable .mdt-header md-button, .mdtTable .mdt-header-alternate md-button {
   margin-left: 24px;
 }
-.mdDataTable .mdDataTable-header ng-md-icon, .mdDataTable .mdDataTable-header-alternate ng-md-icon {
+.mdtTable .mdt-header ng-md-icon, .mdtTable .mdt-header-alternate ng-md-icon {
   fill: #757575;
 }
-.mdDataTable .mdDataTable-header-alternate {
+.mdtTable .mdt-header-alternate {
   background-color: #e3edfd;
 }
-.mdDataTable .mdDataTable-header-alternate .alternate-text {
+.mdtTable .mdt-header-alternate .alternate-text {
   color: #0D47A1;
 }
-.mdDataTable .mdDataTable-footer, .mdDataTable tr th {
+.mdtTable .mdt-footer, .mdtTable tr th {
   height: 56px;
 }
-.mdDataTable .mdDataTable-footer .mdDataTable-pagination, .mdDataTable tr th .mdDataTable-pagination {
+.mdtTable .mdt-footer .mdt-pagination, .mdtTable tr th .mdt-pagination {
   font-size: 12px;
   color: #757575;
 }
-.mdDataTable .mdDataTable-footer .mdDataTable-pagination md-input-container, .mdDataTable tr th .mdDataTable-pagination md-input-container {
+.mdtTable .mdt-footer .mdt-pagination md-input-container, .mdtTable tr th .mdt-pagination md-input-container {
   margin-top: 0px;
   margin-bottom: 0px;
 }
-.mdDataTable .checkboxCell {
+.mdtTable .checkboxCell {
   width: 18px;
   /*the next cell should not have just 24px padding */
 }
-.mdDataTable .checkboxCell md-checkbox {
+.mdtTable .checkboxCell md-checkbox {
   margin: 0;
   padding: 0;
 }
-.mdDataTable .checkboxCell + td, .mdDataTable .checkboxCell + th {
+.mdtTable .checkboxCell + td, .mdtTable .checkboxCell + th {
   padding-left: 24px;
 }
-.mdDataTable tr td {
+.mdtTable tr td {
   padding: 0;
   height: 48px;
   font-size: 13px;
   color: #212121;
 }
-.mdDataTable td:first-child, .mdDataTable th:first-child {
+.mdtTable td:first-child, .mdtTable th:first-child {
   padding: 0 0 0 24px;
 }
-.mdDataTable td:last-child, .mdDataTable th:last-child {
+.mdtTable td:last-child, .mdtTable th:last-child {
   padding-right: 24px;
 }
-.mdDataTable .column {
+.mdtTable .column {
   padding-left: 56px;
 }
-.mdDataTable .leftAlignedColumn {
+.mdtTable .leftAlignedColumn {
   text-align: left;
 }
-.mdDataTable .rightAlignedColumn {
+.mdtTable .rightAlignedColumn {
   text-align: right;
 }
-.mdDataTable tr th {
+.mdtTable tr th {
   border-bottom: solid 1px #DDDDDD;
 }
-.mdDataTable tr td {
+.mdtTable tr td {
   border-bottom: solid 1px #DDDDDD;
 }
-.mdDataTable tr:hover td {
+.mdtTable tr:hover td {
   background: #EEEEEE;
 }
-.mdDataTable .selectedRow td {
+.mdtTable .selectedRow td {
   background: #F5F5F5;
 }
-.mdDataTable ng-md-icon {
+.mdtTable ng-md-icon {
   fill: #757575;
 }

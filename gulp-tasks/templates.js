@@ -9,7 +9,7 @@ var htmlFiles = ['./app/modules/**/*.html'];
 gulp.task('cache templates', function() {
     return gulp
         .src(htmlFiles)
-        .pipe(templateCache('templates.js', { module:'templates', root:'/', standalone:true }))
+        .pipe(templateCache('templates.js', { module:'mdtTemplates', root:'/', standalone:true }))
         .pipe(gulp.dest('build'));
 });
 
