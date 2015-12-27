@@ -1,4 +1,4 @@
-> New version! v0.2.5 - Added pagination support, animated sort icon, ripple effect, fixes and so on.
+> New version! v1.0.0
 
 Angular material table. Complete implementation of google material design based on angular material components.
 
