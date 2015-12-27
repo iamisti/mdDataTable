@@ -23,7 +23,7 @@ gulp.task('dist', function() {
 
     var templatesStream = gulp
         .src(htmlFiles)
-        .pipe(templateCache('md-data-table-templates.js', { root:'/', standalone:true }))
+        .pipe(templateCache('md-data-table-templates.js', { root:'/', module:'mdtTemplates', standalone:true }))
         .pipe(gulp.dest('dist'));
 
     return eventStream.merge([jsStream, templatesStream, cssStream]);
