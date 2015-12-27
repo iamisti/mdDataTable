@@ -7,16 +7,16 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
-    <title>md-data-table demo</title>
+    <title>mdDataTable demo</title>
     <meta name="description" content="">
 
     <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/angular_material/1.0.0/angular-material.min.css" />
 
     <!-- mdDataTable css -->
-    <link rel="stylesheet" href="https://rawgit.com/iamisti/md-data-table/master/dist/md-data-table-style.css"/>
+    <link rel="stylesheet" href="https://rawgit.com/iamisti/mdDataTable/master/dist/md-data-table-style.css"/>
 
     <style>
-        body{
+        html, body{
             background: #DDDDDD;
         }
     </style>
@@ -30,22 +30,35 @@
 <div layout="row" ng-controller="ExampleController">
     <div flex="20">
         <md-card>
+            <md-subheader>Filter by search</md-subheader>
+
+            <md-input-container style="margin:15px;">
+                <label>Search</label>
+                <input type="text" ng-model="filterName">
+            </md-input-container>
+
+            <div ng-hide="true">
+                {{(filteredItems = (nutritionList | filter: filterName))}}
+            </div>
+        </md-card>
+
+        <md-card>
             <md-subheader>Attributes playground</md-subheader>
 
-            <md-checkbox ng-model="tableCardIsEnabled" aria-label="Enable table card">
+            <md-checkbox ng-model="tableCardIsEnabled" aria-label="Enable/Disable table card">
                 Table card
             </md-checkbox>
 
-            <md-checkbox ng-model="tableIsSelectable" aria-label="Enable selectable rows">
+            <md-checkbox ng-model="tableIsSelectable" aria-label="Enable/Disable selectable rows">
                 Selectable rows
             </md-checkbox>
 
-            <md-checkbox ng-model="tableIsSortable" aria-label="Enable sortable columns">
+            <md-checkbox ng-model="tableIsSortable" aria-label="Enable/Disable sortable columns">
                 Sortable columns
             </md-checkbox>
 
-            <md-checkbox ng-model="paginationEnabled" aria-label="Paginated rows">
-                Paginated rows
+            <md-checkbox ng-model="paginationEnabled" aria-label="Enable/Disable pagination">
+                Pagination
             </md-checkbox>
         </md-card>
 
@@ -61,7 +74,7 @@
         </md-card>
     </div>
     <div flex style="padding-top:8px;">
-        <md-data-table
+        <mdt-table
                 table-card="{visible: tableCardIsEnabled, title: 'Nutrition'}"
                 selectable-rows="tableIsSelectable"
                 alternate-headers="'contextual'"
@@ -69,32 +82,24 @@
                 delete-row-callback="deleteRowCallback(rows)"
                 animate-sort-icon="isSortIconAnimated"
                 ripple-effect="rippleEffectEnabled"
-                paginated-rows="{isEnabled: paginationEnabled, rowsPerPageValues: [5,10,20,100]}">
+                paginated-rows="{isEnabled: paginationEnabled, rowsPerPageValues: [5,10,20,100]}"
+                mdt-row="{
+                    'data': filteredItems,
+                    'table-row-id-key': 'id',
+                    'column-keys': ['name', 'calories', 'fat', 'carbs', 'protein', 'sodium', 'calcium', 'iron']
+                }">
 
-            <md-data-table-header-row class="animate-sort-icon">
-                <md-data-table-column align-rule="left">Dessert (100g serving)</md-data-table-column>
-                <md-data-table-column align-rule="right" column-definition="The total amount of food energy in the given serving size.">Calories</md-data-table-column>
-                <md-data-table-column align-rule="right" column-definition="The total amount of fat in the given serving size.">Fat (g)</md-data-table-column>
-                <md-data-table-column align-rule="right">Carbs (g)</md-data-table-column>
-                <md-data-table-column align-rule="right">Protein (g)</md-data-table-column>
-                <md-data-table-column align-rule="right">Sodium (mg)</md-data-table-column>
-                <md-data-table-column align-rule="right">Calcium (%)</md-data-table-column>
-                <md-data-table-column align-rule="right">Iron (%)</md-data-table-column>
-            </md-data-table-header-row>
-
-            <md-data-table-row
-                    table-row-id="nutrition.id"
-                    ng-repeat="nutrition in nutritionList">
-                <md-data-table-cell>{{nutrition.name}}</md-data-table-cell>
-                <md-data-table-cell>{{nutrition.calories}}</md-data-table-cell>
-                <md-data-table-cell>{{nutrition.fat}}</md-data-table-cell>
-                <md-data-table-cell>{{nutrition.carbs}}</md-data-table-cell>
-                <md-data-table-cell>{{nutrition.protein}}</md-data-table-cell>
-                <md-data-table-cell>{{nutrition.sodium}}</md-data-table-cell>
-                <md-data-table-cell>{{nutrition.calcium}}</md-data-table-cell>
-                <md-data-table-cell>{{nutrition.iron}}</md-data-table-cell>
-            </md-data-table-row>
-        </md-data-table>
+            <mdt-header-row>
+                <mdt-column align-rule="left">Dessert (100g serving)</mdt-column>
+                <mdt-column align-rule="right" column-definition="The total amount of food energy in the given serving size.">Calories</mdt-column>
+                <mdt-column align-rule="right" column-definition="The total amount of fat in the given serving size.">Fat (g)</mdt-column>
+                <mdt-column align-rule="right">Carbs (g)</mdt-column>
+                <mdt-column align-rule="right">Protein (g)</mdt-column>
+                <mdt-column align-rule="right">Sodium (mg)</mdt-column>
+                <mdt-column align-rule="right">Calcium (%)</mdt-column>
+                <mdt-column align-rule="right">Iron (%)</mdt-column>
+            </mdt-header-row>
+        </mdt-table>
 <!--
         <br />
 
@@ -149,8 +154,8 @@
     <script src="https://cdn.jsdelivr.net/angular-material-icons/0.6.0/angular-material-icons.min.js"></script>
 
     <!-- mdDataTable -->
-    <script src="https://rawgit.com/iamisti/md-data-table/master/dist/md-data-table-templates.js"></script>
-    <script src="https://rawgit.com/iamisti/md-data-table/master/dist/md-data-table.js"></script>
+    <script src="https://rawgit.com/iamisti/mdDataTable/master/dist/md-data-table-templates.js"></script>
+    <script src="https://rawgit.com/iamisti/mdDataTable/master/dist/md-data-table.js"></script>
 
     <!-- example app -->
     <script src="example.js"></script>
