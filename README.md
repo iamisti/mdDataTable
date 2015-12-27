@@ -13,7 +13,7 @@ Angular material table. Complete implementation of google material design based 
 ## Install
 
 1. `bower install mdDataTable` or [download the source](https://github.com/iamisti/mdDataTable/archive/master.zip).
-2. Make sure the `mdDataTable` lib is loaded. It's served in three different files: `mdDataTableStyle.css`, `mdDataTable.js`, `mdDataTableTemplates.js`
+2. Make sure the `mdDataTable` lib is loaded. It's served in three different files: `md-data-table-style.css`, `md-data-table.js`, `md-data-table-templates.js`
 3. Add `mdDataTable` as a dependency of your app.
 
 ## UI&UX driven by google data table
