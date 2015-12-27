@@ -4,8 +4,8 @@ Angular material table. Complete implementation of google material design based 
 
 > Live demo http://iamisti.github.io/mdDataTable/
 
-[![Build Status](https://travis-ci.org/iamisti/mdDataTable.svg?branch=master)](https://travis-ci.org/iamisti/md-data-table) 
-[![Code Climate](https://codeclimate.com/github/iamisti/md-data-table/badges/gpa.svg)](https://codeclimate.com/github/iamisti/md-data-table) 
+[![Build Status](https://travis-ci.org/iamisti/mdDataTable.svg?branch=master)](https://travis-ci.org/iamisti/mdDataTable) 
+[![Code Climate](https://codeclimate.com/github/iamisti/mdDataTable/badges/gpa.svg)](https://codeclimate.com/github/iamisti/mdDataTable) 
 [![Test Coverage](https://codeclimate.com/github/iamisti/md-data-table/badges/coverage.svg?branch=master)](https://codeclimate.com/github/iamisti/md-data-table/coverage) 
 [![Dependency Status](https://gemnasium.com/iamisti/md-data-table.svg)](https://gemnasium.com/iamisti/md-data-table)
 [![Codacy Badge](https://www.codacy.com/project/badge/055f7343f2ef4b168706056a69a2875c)](https://www.codacy.com/app/programtervezo/md-data-table)
