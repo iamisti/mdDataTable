@@ -33,8 +33,8 @@
 (function(){
     'use strict';
 
-    mdtTableDirective.$inject = ['TableDataStorageFactory', 'mdtPaginationHelperFactory', 'IndexTrackerFactory'];
-    function mdtTableDirective(TableDataStorageFactory, mdtPaginationHelperFactory, IndexTrackerFactory){
+    mdtTableDirective.$inject = ['TableDataStorageFactory', 'mdtPaginationHelperFactory'];
+    function mdtTableDirective(TableDataStorageFactory, mdtPaginationHelperFactory){
         return {
             restrict: 'E',
             templateUrl: '/main/templates/mdtTable.html',
@@ -52,24 +52,15 @@
             },
             controller: ['$scope', function($scope){
                 var vm = this;
+                vm.addHeaderCell = addHeaderCell;
 
                 initTableStorageServiceAndBindMethods();
-                initIndexTrackerServiceAndBindMethods();
-
-                vm.addHeaderCell = addHeaderCell;
 
                 function initTableStorageServiceAndBindMethods(){
                     $scope.tableDataStorageService = TableDataStorageFactory.getInstance();
                     $scope.mdtPaginationHelper = mdtPaginationHelperFactory.getInstance($scope.tableDataStorageService, $scope.paginatedRows);
 
                     vm.addRowData = _.bind($scope.tableDataStorageService.addRowData, $scope.tableDataStorageService);
-                }
-
-                function initIndexTrackerServiceAndBindMethods(){
-                    var indexHelperService = IndexTrackerFactory.getInstance();
-
-                    vm.increaseIndex = _.bind(indexHelperService.increaseIndex, indexHelperService);
-                    vm.getIndex = _.bind(indexHelperService.getIndex, indexHelperService);
                 }
 
                 function addHeaderCell(ops){
@@ -134,34 +125,6 @@
     angular
         .module('mdDataTable')
         .directive('mdtTable', mdtTableDirective);
-}());
-(function(){
-    'use strict';
-
-    function IndexTrackerFactory(){
-
-        function IndexTrackerService(){
-            this.indexValue = 0;
-        }
-
-        IndexTrackerService.prototype.increaseIndex = function(){
-            this.indexValue++;
-        };
-
-        IndexTrackerService.prototype.getIndex = function(){
-            return this.indexValue;
-        };
-
-        return {
-            getInstance: function(){
-                return new IndexTrackerService();
-            }
-        };
-    }
-
-    angular
-        .module('mdDataTable')
-        .service('IndexTrackerFactory', IndexTrackerFactory);
 }());
 (function(){
     'use strict';
@@ -430,91 +393,6 @@
 (function(){
     'use strict';
 
-    mdtCellDirective.$inject = ['$parse'];
-    function mdtCellDirective($parse){
-        return {
-            restrict: 'E',
-            replace: true,
-            transclude: true,
-            require: ['^mdtTable','^mdtRow'],
-            link: function($scope, element, attr, ctrl, transclude){
-                var mdtRowCtrl = ctrl[1];
-
-                transclude(function (clone) {
-                    //TODO: rework, figure out something for including html content
-                    if(attr.htmlContent){
-                        mdtRowCtrl.addToRowDataStorage(clone, 'htmlContent');
-                    }else{
-                        //TODO: better idea?
-                        var cellValue = $parse(clone.html().replace('{{', '').replace('}}', ''))($scope.$parent);
-                        mdtRowCtrl.addToRowDataStorage(cellValue);
-                    }
-                });
-            }
-        };
-    }
-
-    angular
-        .module('mdDataTable')
-        .directive('mdtCell', mdtCellDirective);
-}());
-(function(){
-    'use strict';
-
-    mdtRowDirective.$inject = ['IndexTrackerFactory'];
-    function mdtRowDirective(IndexTrackerFactory){
-        return {
-            restrict: 'E',
-            transclude: true,
-            require: '^mdtTable',
-            scope: {
-                tableRowId: '='
-            },
-            controller: ['$scope', function($scope){
-                var vm = this;
-
-                vm.addToRowDataStorage = addToRowDataStorage;
-                $scope.rowDataStorage = [];
-
-                initIndexTrackerServiceAndBindMethods();
-
-                function initIndexTrackerServiceAndBindMethods(){
-                    var indexHelperService = IndexTrackerFactory.getInstance();
-
-                    vm.increaseIndex = _.bind(indexHelperService.increaseIndex, indexHelperService);
-                    vm.getIndex = _.bind(indexHelperService.getIndex, indexHelperService);
-                }
-
-                function addToRowDataStorage(value, contentType){
-                    if(contentType === 'htmlContent'){
-                        $scope.rowDataStorage.push({value: value, type: 'html'});
-                    }else{
-                        $scope.rowDataStorage.push(value);
-                    }
-                }
-            }],
-            link: function($scope, element, attrs, ctrl, transclude){
-                appendColumns();
-
-                ctrl.addRowData($scope.tableRowId, $scope.rowDataStorage);
-                //ctrl.increaseIndex();
-
-                function appendColumns(){
-                    transclude(function (clone) {
-                        element.append(clone);
-                    });
-                }
-            }
-        };
-    }
-
-    angular
-        .module('mdDataTable')
-        .directive('mdtRow', mdtRowDirective);
-}());
-(function(){
-    'use strict';
-
     function mdtColumnDirective(){
         return {
             restrict: 'E',
@@ -708,6 +586,81 @@
     angular
         .module('mdDataTable')
         .directive('mdtSortHandler', mdtSortHandlerDirective);
+}());
+(function(){
+    'use strict';
+
+    mdtCellDirective.$inject = ['$parse'];
+    function mdtCellDirective($parse){
+        return {
+            restrict: 'E',
+            replace: true,
+            transclude: true,
+            require: ['^mdtTable','^mdtRow'],
+            link: function($scope, element, attr, ctrl, transclude){
+                var mdtRowCtrl = ctrl[1];
+
+                transclude(function (clone) {
+                    //TODO: rework, figure out something for including html content
+                    if(attr.htmlContent){
+                        mdtRowCtrl.addToRowDataStorage(clone, 'htmlContent');
+                    }else{
+                        //TODO: better idea?
+                        var cellValue = $parse(clone.html().replace('{{', '').replace('}}', ''))($scope.$parent);
+                        mdtRowCtrl.addToRowDataStorage(cellValue);
+                    }
+                });
+            }
+        };
+    }
+
+    angular
+        .module('mdDataTable')
+        .directive('mdtCell', mdtCellDirective);
+}());
+(function(){
+    'use strict';
+
+    function mdtRowDirective(){
+        return {
+            restrict: 'E',
+            transclude: true,
+            require: '^mdtTable',
+            scope: {
+                tableRowId: '='
+            },
+            controller: ['$scope', function($scope){
+                var vm = this;
+
+                vm.addToRowDataStorage = addToRowDataStorage;
+                $scope.rowDataStorage = [];
+
+                function addToRowDataStorage(value, contentType){
+                    if(contentType === 'htmlContent'){
+                        $scope.rowDataStorage.push({value: value, type: 'html'});
+                    }else{
+                        $scope.rowDataStorage.push(value);
+                    }
+                }
+            }],
+            link: function($scope, element, attrs, ctrl, transclude){
+                appendColumns();
+
+                ctrl.addRowData($scope.tableRowId, $scope.rowDataStorage);
+                //ctrl.increaseIndex();
+
+                function appendColumns(){
+                    transclude(function (clone) {
+                        element.append(clone);
+                    });
+                }
+            }
+        };
+    }
+
+    angular
+        .module('mdDataTable')
+        .directive('mdtRow', mdtRowDirective);
 }());
 (function(){
     'use strict';

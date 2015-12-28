@@ -1,7 +1,7 @@
 (function(){
     'use strict';
 
-    function mdtRowDirective(IndexTrackerFactory){
+    function mdtRowDirective(){
         return {
             restrict: 'E',
             transclude: true,
@@ -14,15 +14,6 @@
 
                 vm.addToRowDataStorage = addToRowDataStorage;
                 $scope.rowDataStorage = [];
-
-                initIndexTrackerServiceAndBindMethods();
-
-                function initIndexTrackerServiceAndBindMethods(){
-                    var indexHelperService = IndexTrackerFactory.getInstance();
-
-                    vm.increaseIndex = _.bind(indexHelperService.increaseIndex, indexHelperService);
-                    vm.getIndex = _.bind(indexHelperService.getIndex, indexHelperService);
-                }
 
                 function addToRowDataStorage(value, contentType){
                     if(contentType === 'htmlContent'){
