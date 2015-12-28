@@ -10,7 +10,7 @@
                 paginationSetting.hasOwnProperty('rowsPerPageValues') &&
                 paginationSetting.rowsPerPageValues.length > 0){
 
-                this.rowsPerPageValues = paginationSetting.rowsPerPageValues
+                this.rowsPerPageValues = paginationSetting.rowsPerPageValues;
             }else{
                 this.rowsPerPageValues = [10,20,30,50,100];
             }
