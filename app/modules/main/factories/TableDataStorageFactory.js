@@ -51,7 +51,7 @@
         };
 
         TableDataStorageService.prototype.setAllRowsSelected = function(isSelected, isPaginationEnabled){
-            if(isSelected === undefined){
+            if(typeof isSelected === 'undefined'){
                 $log.error('`isSelected` parameter is required');
                 return;
             }
