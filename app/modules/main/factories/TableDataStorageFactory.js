@@ -16,11 +16,6 @@
         };
 
         TableDataStorageService.prototype.addRowData = function(explicitRowId, rowArray){
-            if(rowArray === undefined){
-                $log.error('`rowArray` parameter is required');
-                return;
-            }
-
             if(!(rowArray instanceof Array)){
                 $log.error('`rowArray` parameter should be array');
                 return;
