@@ -1,12 +1,9 @@
 <md-content class="mdtTable md-whiteframe-z1" layout="column">
     <!-- table card -->
-    <mdt-card-header
-            ng-if="tableCard.visible"
-            ng-hide="alternateHeaders && isAnyRowSelected()">
-    </mdt-card-header>
+    <mdt-card-header ng-hide="alternateHeaders && isAnyRowSelected()"></mdt-card-header>
 
     <!-- alternate headers -->
-    <mdt-alternate-headers ng-if="alternateHeaders && isAnyRowSelected()"></mdt-alternate-headers>
+    <mdt-alternate-headers ng-show="alternateHeaders && isAnyRowSelected()"></mdt-alternate-headers>
     <!-- alternate headers end -->
 
     <div id="reader" style="display:none;"></div>

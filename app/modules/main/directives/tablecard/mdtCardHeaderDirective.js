@@ -8,7 +8,14 @@
             transclude: true,
             replace: true,
             scope: true,
-            require: ['^mdtTable']
+            require: ['^mdtTable'],
+            link: function($scope){
+                $scope.isTableCardEnabled = false;
+
+                if($scope.tableCard && $scope.tableCard.visible !== false){
+                    $scope.isTableCardEnabled = true;
+                }
+            }
         };
     }
 

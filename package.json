@@ -1,11 +1,11 @@
 {
   "name": "mdDataTable",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "author": "Istvan Fodor <programtervezo@gmail.com>",
   "registry": "github",
   "repository": {
     "type": "git",
-    "url": "git://github.com/angular/iamisti/md-data-table"
+    "url": "git://github.com/angular/iamisti/mdDataTable"
   },
   "license": "MIT",
   "devDependencies": {

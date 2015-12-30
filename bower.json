@@ -1,7 +1,7 @@
 {
   "name": "mdDataTable",
-  "version": "1.0.2",
-  "homepage": "https://github.com/iamisti/md-data-table",
+  "version": "1.0.3",
+  "homepage": "https://github.com/iamisti/mdDataTable",
   "author":"Istvan Fodor <programtervezo@gmail.com>",
   "main": [
     "dist/md-data-table.js",
