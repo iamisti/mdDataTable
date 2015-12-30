@@ -17,132 +17,39 @@
     <!-- inject:css -->
     <!-- built css files will go here... -->
     <!-- endinject -->
+
     <link rel="stylesheet" href="main.css"/>
+
     <style>
-        html, body{
+        html, body, iframe{
             background: #DDDDDD;
+        }
+
+        md-list .md-button {
+            text-align: left;
         }
     </style>
 </head>
-<body ng-app="exampleApp">
+<body layout="column" ng-app="demo" ng-controller="DemoController">
 
 <md-toolbar layout="row" layout-align="left center" layout-padding>
-    <h1 class="md-title">Material Design Data Table</h1>
+    <h1 class="md-title">Material Design Data Table - DEVELOPMENT</h1>
 </md-toolbar>
 
-<div layout="row" ng-controller="ExampleController">
-    <div flex="20">
-        <md-card>
-            <md-subheader>Filter by search</md-subheader>
+<div layout="row" flex>
+    <md-sidenav md-is-locked-open="true">
+        <md-list>
+            <md-list-item ng-repeat="aPage in pages">
+                <md-button flex ng-click="selectPage(aPage)" ng-class="{'md-primary md-raised' : aPage.name === selectedPage.name }">
+                    {{aPage.name}}
+                </md-button>
+            </md-list-item>
+        </md-list>
+    </md-sidenav>
 
-            <md-input-container style="margin:15px;">
-                <label>Search</label>
-                <input type="text" ng-model="filterName">
-            </md-input-container>
-
-            <div ng-hide="true">
-                {{(filteredItems = (nutritionList | filter: filterName))}}
-            </div>
-        </md-card>
-
-        <md-card>
-            <md-subheader>Attributes playground</md-subheader>
-
-            <md-checkbox ng-model="tableCardIsEnabled" aria-label="Enable/Disable table card">
-                Table card
-            </md-checkbox>
-
-            <md-checkbox ng-model="tableIsSelectable" aria-label="Enable/Disable selectable rows">
-                Selectable rows
-            </md-checkbox>
-
-            <md-checkbox ng-model="tableIsSortable" aria-label="Enable/Disable sortable columns">
-                Sortable columns
-            </md-checkbox>
-
-            <md-checkbox ng-model="paginationEnabled" aria-label="Enable/Disable pagination">
-                Pagination
-            </md-checkbox>
-        </md-card>
-
-        <md-card>
-            <md-subheader>The following attributes are not dynamic attributes (you can't change after specified)</md-subheader>
-            <md-checkbox ng-model="isSortIconAnimated" aria-label="Animated sort icon" ng-disabled="true">
-                Animate sort icon
-            </md-checkbox>
-
-            <md-checkbox ng-model="rippleEffectEnabled" aria-label="Ripple effect" ng-disabled="true">
-                Ripple effect
-            </md-checkbox>
-        </md-card>
-    </div>
-    <div flex style="padding-top:8px;">
-        <mdt-table
-                table-card="{visible: tableCardIsEnabled, title: 'Nutrition'}"
-                selectable-rows="tableIsSelectable"
-                alternate-headers="'contextual'"
-                sortable-columns="tableIsSortable"
-                delete-row-callback="deleteRowCallback(rows)"
-                animate-sort-icon="isSortIconAnimated"
-                ripple-effect="rippleEffectEnabled"
-                paginated-rows="{isEnabled: paginationEnabled, rowsPerPageValues: [5,10,20,100]}"
-                mdt-row="{
-                    'data': filteredItems,
-                    'table-row-id-key': 'id',
-                    'column-keys': ['name', 'calories', 'fat', 'carbs', 'protein', 'sodium', 'calcium', 'iron']
-                }">
-
-            <mdt-header-row>
-                <mdt-column align-rule="left">Dessert (100g serving)</mdt-column>
-                <mdt-column align-rule="right" column-definition="The total amount of food energy in the given serving size.">Calories</mdt-column>
-                <mdt-column align-rule="right" column-definition="The total amount of fat in the given serving size.">Fat (g)</mdt-column>
-                <mdt-column align-rule="right">Carbs (g)</mdt-column>
-                <mdt-column align-rule="right">Protein (g)</mdt-column>
-                <mdt-column align-rule="right">Sodium (mg)</mdt-column>
-                <mdt-column align-rule="right">Calcium (%)</mdt-column>
-                <mdt-column align-rule="right">Iron (%)</mdt-column>
-           </mdt-header-row>
-        </mdt-table>
-
-        <br />
-
-        <mdt-table
-                table-card="{visible: tableCardIsEnabled, title: 'Nutrition - with html content'}"
-                selectable-rows="tableIsSelectable"
-                alternate-headers="'contextual'"
-                sortable-columns="tableIsSortable"
-                delete-row-callback="deleteRowCallback(rows)">
-
-            <mdt-header-row>
-                <mdt-column align-rule="left">Dessert (100g serving)</mdt-column>
-                <mdt-column align-rule="right">Calories</mdt-column>
-                <mdt-column align-rule="right">Fat (g)</mdt-column>
-                <mdt-column align-rule="right">Carbs (g)</mdt-column>
-                <mdt-column align-rule="right">Protein (g)</mdt-column>
-                <mdt-column align-rule="right">Sodium (mg)</mdt-column>
-                <mdt-column align-rule="right">Calcium (%)</mdt-column>
-                <mdt-column align-rule="right">Iron (%)</mdt-column>
-            </mdt-header-row>
-
-            <mdt-row ng-repeat="nutrition in nutritionList">
-                <mdt-cell>{{nutrition.name}}</mdt-cell>
-                <mdt-cell>{{nutrition.calories}}</mdt-cell>
-                <mdt-cell>{{nutrition.fat}}</mdt-cell>
-                <mdt-cell>{{nutrition.carbs}}</mdt-cell>
-                <mdt-cell>{{nutrition.protein}}</mdt-cell>
-                <mdt-cell>{{nutrition.sodium}}</mdt-cell>
-                <mdt-cell>{{nutrition.calcium}}</mdt-cell>
-                <mdt-cell html-content="true">
-                    <md-button class="md-raised" ng-hide="hideButton" ng-click="hideButton=true">
-                        {{nutrition.iron}} {{hideButton ? 'yes': 'no'}}
-                    </md-button>
-                    <label ng-show="hideButton">{{nutrition.iron}} - clicked</label>
-                </mdt-cell>
-            </mdt-row>
-        </mdt-table>
-
-    </div>
+    <div id="myDiv" flex></div>
 </div>
+
 
 <!-- Placed at the end of the document so the pages load faster -->
 <!-- bower:js -->
@@ -157,6 +64,15 @@
 <!-- app scripts will go here... -->
 <!-- endinject -->
 
+<!-- feature examples -->
+<script src="http://codepen.io/iamisti/pen/mVOKEw.js"></script>
+<script src="http://codepen.io/iamisti/pen/bEBKgK.js"></script>
+<script src="http://codepen.io/iamisti/pen/bEBKRj.js"></script>
+<script src="http://codepen.io/iamisti/pen/dGOKzN.js"></script>
+<script src="http://codepen.io/iamisti/pen/GoNGMy.js"></script>
+<script src="http://codepen.io/iamisti/pen/bEBKYx.js"></script>
+<script src="http://codepen.io/iamisti/pen/MKbXOM.js"></script>
+<script src="http://codepen.io/iamisti/pen/xZRzpV.js"></script>
 
 <script src="/templates.js"></script>
 </body>
