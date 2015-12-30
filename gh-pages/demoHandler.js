@@ -6,16 +6,14 @@
         $scope.selectPage = selectPage;
 
         //init
-        setTimeout(function(){
-            selectPage($scope.pages[0]);
-        }, 2000);
+        selectPage($scope.pages[0]);
 
 
         function selectPage(aPage){
             $scope.selectedPage = aPage;
 
             $http.get('http://codepen.io/iamisti/pen/'+aPage.codepen+'.html').then(function(content){
-                //angular.element('#myDiv').empty();
+                angular.element('#myDiv').empty();
                 angular.element('#myDiv').append($compile(content.data)($scope));
             });
         }
@@ -29,7 +27,7 @@
         var pages = [
             {
                 name: 'Basic',
-                codepen: 'PZbyRe'
+                codepen: 'mVOKEw'
             },{
                 name: 'Table card',
                 codepen: 'bEBKgK'
@@ -59,7 +57,8 @@
         }
     }
 
-    angular.module('exampleApp', ['ngMaterial', 'mdDataTable']);
+    //already defined in external resources
+    //angular.module('exampleApp', ['ngMaterial', 'mdDataTable']);
 
     angular.module('exampleApp').service('PageService', PageService);
     angular.module('exampleApp').controller('DemoController', DemoController);
