@@ -3,15 +3,14 @@
 
     function DemoController($scope, $sce, PageService){
         $scope.pages = PageService.getAllPages();
-
         $scope.selectPage = selectPage;
 
-
-        $scope.selectedPage = $scope.pages[0];
-        $scope.examplePageUrl = $sce.trustAsResourceUrl('//codepen.io/eMaj/embed/'+$scope.selectedPage.codepen+'/?height=3000&theme-id=0&default-tab=result');
+        //init
+        selectPage($scope.pages[0]);
 
         function selectPage(aPage){
             $scope.selectedPage = aPage;
+            $scope.examplePageUrl = $sce.trustAsResourceUrl('//codepen.io/eMaj/embed/'+aPage.codepen+'/?height=3000&theme-id=0&default-tab=result');
         }
     }
 
@@ -26,26 +25,26 @@
                 codepen: 'mVOKEw'
             },{
                 name: 'Table card',
-                codepen: 'GJMPba'
+                codepen: 'bEBKgK'
             },{
                 name: 'Selectable rows',
-                codepen: 'OVxdNV'
+                codepen: 'bEBKRj'
             },{
                 name: 'Sortable columns',
-                codepen: 'MwELyv'
+                codepen: 'dGOKzN'
             },{
                 name: 'Pagination',
-                codepen: 'MwELyv'
+                codepen: 'GoNGMy'
             },{
                 name: 'Search',
-                codepen: 'MwELyv'
+                codepen: 'bEBKYx'
             },{
                 name: 'Animated sort icon',
-                codepen: 'MwELyv'
-            },{
+                codepen: 'MKbXOM'
+            }/*,{
                 name: 'Ripple effect',
-                codepen: 'MwELyv'
-            }
+                codepen: 'xZRzpV'
+            }*/
         ];
 
         function getAllPages(){
