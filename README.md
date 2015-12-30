@@ -54,6 +54,7 @@ http://www.google.com/design/spec/components/data-tables.html
 ![A selected table row](http://material-design.storage.googleapis.com/publish/material_v_4/material_ext_publish/0B3mOPoJlxiFhV25CdGNXYzA4cXM/components_datatables_structure_basictable.png)
 
 ## Table attributes
+> Global attributes for the table
 
 | Available        | Params                                         | Type          | Details       |
 | ---------------- | ---------------------------------------------- | ------------- | ------------- |
