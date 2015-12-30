@@ -100,17 +100,17 @@
                 <mdt-column align-rule="right">Iron (%)</mdt-column>
             </mdt-header-row>
         </mdt-table>
-<!--
+
         <br />
 
-        <md-data-table
+        <mdt-table
                 table-card="{visible: tableCardIsEnabled, title: 'Nutrition - with html content'}"
                 selectable-rows="tableIsSelectable"
                 alternate-headers="'contextual'"
                 sortable-columns="tableIsSortable"
                 delete-row-callback="deleteRowCallback(rows)">
 
-            <md-data-table-header-row>
+            <mdt-header-row>
                 <md-data-table-column align-rule="left">Dessert (100g serving)</md-data-table-column>
                 <md-data-table-column align-rule="right">Calories</md-data-table-column>
                 <md-data-table-column align-rule="right">Fat (g)</md-data-table-column>
@@ -119,23 +119,25 @@
                 <md-data-table-column align-rule="right">Sodium (mg)</md-data-table-column>
                 <md-data-table-column align-rule="right">Calcium (%)</md-data-table-column>
                 <md-data-table-column align-rule="right">Iron (%)</md-data-table-column>
-            </md-data-table-header-row>
+            </mdt-header-row>
 
-            <md-data-table-row ng-repeat="nutrition in nutritionList2">
-                <md-data-table-cell>{{nutrition.name}}</md-data-table-cell>
-                <md-data-table-cell>{{nutrition.calories}}</md-data-table-cell>
-                <md-data-table-cell>{{nutrition.fat}}</md-data-table-cell>
-                <md-data-table-cell>{{nutrition.carbs}}</md-data-table-cell>
-                <md-data-table-cell>{{nutrition.protein}}</md-data-table-cell>
-                <md-data-table-cell>{{nutrition.sodium}}</md-data-table-cell>
-                <md-data-table-cell>{{nutrition.calcium}}</md-data-table-cell>
-                <md-data-table-cell html-content="true">
+            <mdt-row ng-repeat="nutrition in nutritionList2">
+                <mdt-cell>{{nutrition.name}}</mdt-cell>
+                <mdt-cell>{{nutrition.calories}}</mdt-cell>
+                <mdt-cell>{{nutrition.fat}}</mdt-cell>
+                <mdt-cell>{{nutrition.carbs}}</mdt-cell>
+                <mdt-cell>{{nutrition.protein}}</mdt-cell>
+                <mdt-cell>{{nutrition.sodium}}</mdt-cell>
+                <mdt-cell>{{nutrition.calcium}}</mdt-cell>
+                <mdt-cell>{{nutrition.iron}}</mdt-cell>
+                <!--<md-data-table-cell html-content="true">
                     <md-button class="md-raised" ng-hide="hideButton" ng-click="hideButton=true;">{{nutrition.iron}}</md-button>
                     <label ng-show="hideButton">{{nutrition.iron}} - clicked</label>
                 </md-data-table-cell>
-            </md-data-table-row>
-        </md-data-table>
--->
+                -->
+            </mdt-row>
+        </mdt-table>
+
     </div>
 </div>
 
