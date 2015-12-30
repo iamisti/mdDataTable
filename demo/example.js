@@ -57,6 +57,7 @@
 
     //already defined in external resources
     angular.module('demo', ['ngMaterial',
+        'exampleApp',
         'exampleApp2',
         'exampleApp3',
         'exampleApp4',
