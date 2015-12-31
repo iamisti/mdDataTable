@@ -48,6 +48,8 @@
         mdtPaginationHelper.prototype.previousPage = function(){
             if(this.page > 1){
                 this.page--;
+
+                this.getRows();
             }
         };
 
@@ -56,6 +58,8 @@
 
             if(this.page < totalPages){
                 this.page++;
+
+                this.getRows();
             }
         };
 

@@ -27,21 +27,6 @@
             this.fetchPage(this.page);
         }
 
-        mdtRestPaginationHelper.prototype.getRows = function(){
-            var that = this;
-
-            _.each(this.tableDataStorageService.storage, function (rowData, index) {
-                console.log(that.getStartRowIndex(), that.getEndRowIndex(), that.tableDataStorageService.storage.length);
-                if(index >= that.getStartRowIndex() && index <= that.getEndRowIndex()) {
-                    rowData.optionList.visible = true;
-                } else {
-                    rowData.optionList.visible = false;
-                }
-            });
-
-            return this.tableDataStorageService.storage;
-        };
-
         mdtRestPaginationHelper.prototype.getStartRowIndex = function(){
             return (this.page-1) * this.rowsPerPage;
         };
@@ -55,8 +40,11 @@
         };
 
         mdtRestPaginationHelper.prototype.previousPage = function(){
+            var that = this;
             if(this.page > 1){
-                this.page--;
+                this.fetchPage(this.page-1).then(function(){
+                    that.page--;
+                });
             }
         };
 
@@ -76,7 +64,8 @@
 
             return this.paginatorFunction({page: page, pageSize: this.rowsPerPage})
                 .then(function(data){
-                    that.addRawDataToStorage(that, data.results, that.rowOptions['table-row-id-key'], that.rowOptions['column-keys']);
+                    that.tableDataStorageService.storage = [];
+                    that.setRawDataToStorage(that, data.results, that.rowOptions['table-row-id-key'], that.rowOptions['column-keys']);
                     that.totalResultCount = data.totalResultCount;
                     that.totalPages = Math.ceil(data.totalResultCount / that.rowsPerPage);
                     that.isLoading = false;
@@ -85,7 +74,7 @@
                 });
         };
 
-        mdtRestPaginationHelper.prototype.addRawDataToStorage = function(that, data, tableRowIdKey, columnKeys){
+        mdtRestPaginationHelper.prototype.setRawDataToStorage = function(that, data, tableRowIdKey, columnKeys){
             var rowId;
             var columnValues = [];
             _.each(data, function(row){
@@ -102,6 +91,8 @@
 
         mdtRestPaginationHelper.prototype.setRowsPerPage = function(rowsPerPage){
             this.rowsPerPage = rowsPerPage;
+            this.page = 1;
+
             this.fetchPage(this.page);
         };
 
