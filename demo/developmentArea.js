@@ -1,7 +1,7 @@
 (function(){
     'use strict';
 
-    angular.module('developmentAreaApp', ['ngMaterial', 'mdDataTable', 'nix.api']);
+    angular.module('developmentAreaApp', ['ngMaterial', 'mdDataTable']);
     angular.module('developmentAreaApp').controller('DevelopmentAreaController', function($scope, $http, $mdToast){
         $scope.nutritionList = [];
 
