@@ -59,6 +59,12 @@
             }
         };
 
+        mdtPaginationHelper.prototype.setRowsPerPage = function(rowsPerPage){
+            this.rowsPerPage = rowsPerPage;
+
+            //TODO: this.getRows() call maybe
+        };
+
         return {
             getInstance: function(tableDataStorageService, isEnabled){
                 return new mdtPaginationHelper(tableDataStorageService, isEnabled);

@@ -10,7 +10,13 @@
             scope: true,
             require: ['^mdtTable'],
             link: function($scope){
-                
+                $scope.rowsPerPage = $scope.mdtPaginationHelper.rowsPerPage;
+
+                $scope.$watch('rowsPerPage', function(newVal, oldVal){
+                    if(newVal !== oldVal){
+                        $scope.mdtPaginationHelper.setRowsPerPage(newVal);
+                    }
+                });
             }
         };
     }

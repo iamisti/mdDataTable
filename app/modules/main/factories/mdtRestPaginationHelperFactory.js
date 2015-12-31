@@ -100,6 +100,11 @@
             });
         };
 
+        mdtRestPaginationHelper.prototype.setRowsPerPage = function(rowsPerPage){
+            this.rowsPerPage = rowsPerPage;
+            this.fetchPage(this.page);
+        };
+
         return {
             getInstance: function(tableDataStorageService, isEnabled, paginatorFunction, rowOptions){
                 return new mdtRestPaginationHelper(tableDataStorageService, isEnabled, paginatorFunction, rowOptions);
