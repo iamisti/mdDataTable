@@ -47,11 +47,11 @@
                         var rowId;
                         var columnValues = [];
                         _.each(mdtRow['data'], function(row){
-                            rowId = row[mdtRow['table-row-id-key']];
+                            rowId = _.get(row, mdtRow['table-row-id-key']);
                             columnValues = [];
 
                             _.each(mdtRow['column-keys'], function(columnKey){
-                                columnValues.push(row[columnKey]);
+                                columnValues.push(_.get(row, columnKey));
                             });
 
                             $scope.tableDataStorageService.addRowData(rowId, columnValues);

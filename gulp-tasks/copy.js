@@ -6,7 +6,7 @@ var gulp  = require('gulp'),
 
 gulp.task('copy',function() {
     var applicationSources = ['app/modules/**/*.js'],
-        demoSources = ['demo/**/*.js'],
+        demoSources = ['demo/**/*.js', 'demo/developmentArea.html'],
         applicationAssets  = ['app/assets/**/*.js'],
         bowerComponents    = ['app/bower_components/**'];
 
