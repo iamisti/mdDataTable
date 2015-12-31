@@ -3,7 +3,10 @@
         table-card="{title: 'Nutritions'}"
         alternate-headers="'contextual'"
         selectable-rows="true"
+        paginated-rows="{isEnabled: true, rowsPerPageValues: [5,10,20,100]}"
         delete-row-callback="deleteRowCallback(rows)"
+
+        mdt-row-paginator="paginatorCallback(page, pageSize)"
         mdt-row="{
             'data': nutritionList,
             'table-row-id-key': 'fields.item_id',
@@ -16,7 +19,7 @@
                 'fields.nf_sodium',
                 'fields.nf_calcium_dv',
                 'fields.nf_iron_dv'
-            ]
+            ],
         }">
         <mdt-header-row>
             <mdt-column align-rule="left">Dessert (100g serving)</mdt-column>

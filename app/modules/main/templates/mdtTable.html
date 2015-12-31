@@ -32,7 +32,7 @@
             </tr>
         </thead>
         <tbody>
-        <tr ng-repeat="rowData in mdtPaginationHelper.getRows() track by $index"
+        <tr ng-repeat="rowData in tableDataStorageService.storage track by $index"
             ng-class="{'selectedRow': rowData.optionList.selected}"
             ng-show="(isPaginationEnabled() === false || rowData.optionList.visible === true) && rowData.optionList.deleted === false">
 
@@ -49,6 +49,9 @@
                       mdt-add-html-content-to-cell="cellData.value"></span>
             </td>
         </tr>
+        <tr ng-show="mdtPaginationHelper.isLoading"><td colspan="999">
+            <md-progress-linear md-mode="indeterminate"></md-progress-linear>
+        </td></tr>
         </tbody>
     </table>
 
