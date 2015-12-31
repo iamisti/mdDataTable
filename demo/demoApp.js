@@ -2,6 +2,7 @@
     'use strict';
 
     function DemoController($scope, PageService, $http, $compile){
+        $scope.isDevelopmentAreaActive = false;
         $scope.pages = PageService.getAllPages();
         $scope.selectPage = selectPage;
 
@@ -11,9 +12,15 @@
         function selectPage(aPage){
             $scope.selectedPage = aPage;
 
-            $http.get('http://codepen.io/iamisti/pen/'+aPage.codepen+'.html').then(function(content){
-                angular.element('#myDiv').empty().append($compile(content.data)($scope));
-            });
+            if(aPage.name === 'Development area' || aPage.codepen === '-'){
+                $scope.isDevelopmentAreaActive = true;
+            }else{
+                $scope.isDevelopmentAreaActive = false;
+
+                $http.get('http://codepen.io/iamisti/pen/'+aPage.codepen+'.html').then(function(content){
+                    angular.element('#myDiv').empty().append($compile(content.data)($scope));
+                });
+            }
         }
     }
 
@@ -24,6 +31,9 @@
 
         var pages = [
             {
+                name: 'Development area',
+                codepen: '-'
+            },{
                 name: 'Basic',
                 codepen: 'mVOKEw'
             },{
@@ -57,6 +67,7 @@
 
     //already defined in external resources
     angular.module('demo', ['ngMaterial',
+        'developmentAreaApp',
         'exampleApp',
         'exampleApp2',
         'exampleApp3',
