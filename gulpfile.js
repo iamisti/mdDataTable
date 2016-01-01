@@ -38,3 +38,10 @@ gulp.task('test', function(next) {
 gulp.task('release', function(next) {
     runSequence('dist', /*'integration', */next);
 });
+
+gulp.task('ngdocs', [], function () {
+    var gulpDocs = require('gulp-ngdocs');
+    return gulp.src('app/modules/**/*.js')
+        .pipe(gulpDocs.process())
+        .pipe(gulp.dest('./docs'));
+});

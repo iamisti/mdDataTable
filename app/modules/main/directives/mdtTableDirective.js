@@ -1,6 +1,12 @@
 (function(){
     'use strict';
 
+    /**
+     * @ngdoc directive
+     * @module mdDataTable
+     * @name mdDataTable
+     * @restrict E
+     */
     function mdtTableDirective(TableDataStorageFactory, mdtPaginationHelperFactory, mdtAjaxPaginationHelperFactory){
         return {
             restrict: 'E',
