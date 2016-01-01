@@ -41,6 +41,9 @@
             },{
                 name: 'Animated sort icon',
                 codepen: 'MKbXOM'
+            },{
+                name: 'Ajax support',
+                codepen: 'BjpNow'
             }/*,{
                 name: 'Ripple effect',
                 codepen: 'xZRzpV'
