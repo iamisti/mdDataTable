@@ -33,17 +33,17 @@
                 name: 'Sortable columns',
                 codepen: 'dGOKzN'
             },{
-                name: 'Pagination',
-                codepen: 'GoNGMy'
-            },{
-                name: 'Search',
-                codepen: 'bEBKYx'
-            },{
                 name: 'Animated sort icon',
                 codepen: 'MKbXOM'
             },{
+                name: 'Pagination',
+                codepen: 'GoNGMy'
+            },{
                 name: 'Ajax support',
                 codepen: 'BjpNow'
+            },{
+                name: 'Search',
+                codepen: 'bEBKYx'
             }/*,{
                 name: 'Ripple effect',
                 codepen: 'xZRzpV'
