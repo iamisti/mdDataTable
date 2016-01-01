@@ -1,5 +1,3 @@
-> New version! v1.1.1
-
 Angular material table. Complete implementation of google material design based on angular material components.
 
 > Live demo http://iamisti.github.io/mdDataTable/
