@@ -55,7 +55,7 @@
                 name: 'Animated sort icon',
                 codepen: 'MKbXOM'
             },{
-                name: 'Ajax loading and pagination',
+                name: 'Ajax support',
                 codepen: 'BjpNow'
             }/*,{
              name: 'Ripple effect',
