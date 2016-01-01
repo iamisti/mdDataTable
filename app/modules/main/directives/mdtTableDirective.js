@@ -1,7 +1,7 @@
 (function(){
     'use strict';
 
-    function mdtTableDirective(TableDataStorageFactory, mdtPaginationHelperFactory){
+    function mdtTableDirective(TableDataStorageFactory, mdtPaginationHelperFactory, mdtAjaxPaginationHelperFactory){
         return {
             restrict: 'E',
             templateUrl: '/main/templates/mdtTable.html',
@@ -15,7 +15,8 @@
                 animateSortIcon: '=',
                 rippleEffect: '=',
                 paginatedRows: '=',
-                mdtRow: '='
+                mdtRow: '=',
+                mdtRowPaginator: '&?'
             },
             controller: function($scope){
                 var vm = this;
@@ -25,7 +26,15 @@
 
                 function initTableStorageServiceAndBindMethods(){
                     $scope.tableDataStorageService = TableDataStorageFactory.getInstance();
-                    $scope.mdtPaginationHelper = mdtPaginationHelperFactory.getInstance($scope.tableDataStorageService, $scope.paginatedRows);
+
+                    if(!$scope.mdtRowPaginator){
+                        $scope.mdtPaginationHelper = mdtPaginationHelperFactory
+                            .getInstance($scope.tableDataStorageService, $scope.paginatedRows, $scope.mdtRow);
+                    }else{
+                        $scope.mdtPaginationHelper = mdtAjaxPaginationHelperFactory
+                            .getInstance($scope.tableDataStorageService, $scope.paginatedRows, $scope.mdtRowPaginator, $scope.mdtRow);
+                    }
+
 
                     vm.addRowData = _.bind($scope.tableDataStorageService.addRowData, $scope.tableDataStorageService);
                 }
@@ -40,24 +49,35 @@
                 $scope.isAnyRowSelected = _.bind($scope.tableDataStorageService.isAnyRowSelected, $scope.tableDataStorageService);
                 $scope.isPaginationEnabled = isPaginationEnabled;
 
-                $scope.$watch('mdtRow', function(mdtRow){
-                    if(typeof mdtRow === 'object'){
-                        $scope.tableDataStorageService.storage = [];
+                if(!_.isEmpty($scope.mdtRow)) {
+                    //local search/filter
+                    if (angular.isUndefined(attrs.mdtRowPaginator)) {
+                        $scope.$watch('mdtRow', function (mdtRow) {
+                            $scope.tableDataStorageService.storage = [];
 
-                        var rowId;
-                        var columnValues = [];
-                        _.each(mdtRow['data'], function(row){
-                            rowId = row[mdtRow['table-row-id-key']];
-                            columnValues = [];
+                            addRawDataToStorage(mdtRow['data']);
+                        }, true);
 
-                            _.each(mdtRow['column-keys'], function(columnKey){
-                                columnValues.push(row[columnKey]);
-                            });
 
-                            $scope.tableDataStorageService.addRowData(rowId, columnValues);
-                        });
+                    }else{
+                        //if it's used for 'Ajax pagination'
                     }
-                }, true);
+                }
+
+                function addRawDataToStorage(data){
+                    var rowId;
+                    var columnValues = [];
+                    _.each(data, function(row){
+                        rowId = _.get(row, $scope.mdtRow['table-row-id-key']);
+                        columnValues = [];
+
+                        _.each($scope.mdtRow['column-keys'], function(columnKey){
+                            columnValues.push(_.get(row, columnKey));
+                        });
+
+                        $scope.tableDataStorageService.addRowData(rowId, columnValues);
+                    });
+                }
 
                 function isPaginationEnabled(){
                     if($scope.paginatedRows === true || ($scope.paginatedRows && $scope.paginatedRows.hasOwnProperty('isEnabled') && $scope.paginatedRows.isEnabled === true)){

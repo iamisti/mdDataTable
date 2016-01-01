@@ -19,7 +19,7 @@
             this.page = 1;
         }
 
-        mdtPaginationHelper.prototype.getRows = function(){
+        mdtPaginationHelper.prototype.calculateVisibleRows = function (){
             var that = this;
 
             _.each(this.tableDataStorageService.storage, function (rowData, index) {
@@ -29,8 +29,6 @@
                     rowData.optionList.visible = false;
                 }
             });
-
-            return this.tableDataStorageService.storage;
         };
 
         mdtPaginationHelper.prototype.getStartRowIndex = function(){
@@ -45,6 +43,12 @@
             return this.tableDataStorageService.storage.length;
         };
 
+        mdtPaginationHelper.prototype.getRows = function(){
+            this.calculateVisibleRows();
+
+            return this.tableDataStorageService.storage;
+        };
+
         mdtPaginationHelper.prototype.previousPage = function(){
             if(this.page > 1){
                 this.page--;
@@ -57,6 +61,11 @@
             if(this.page < totalPages){
                 this.page++;
             }
+        };
+
+        mdtPaginationHelper.prototype.setRowsPerPage = function(rowsPerPage){
+            this.rowsPerPage = rowsPerPage;
+            this.page = 1;
         };
 
         return {

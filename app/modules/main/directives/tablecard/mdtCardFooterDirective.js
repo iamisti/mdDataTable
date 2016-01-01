@@ -1,7 +1,7 @@
 (function(){
     'use strict';
 
-    function mdtCardFooterDirective(){
+    function mdtCardFooterDirective($timeout){
         return {
             restrict: 'E',
             templateUrl: '/main/templates/mdtCardFooter.html',
@@ -10,7 +10,11 @@
             scope: true,
             require: ['^mdtTable'],
             link: function($scope){
-                
+                $scope.rowsPerPage = $scope.mdtPaginationHelper.rowsPerPage;
+
+                $scope.$watch('rowsPerPage', function(newVal, oldVal){
+                    $scope.mdtPaginationHelper.setRowsPerPage(newVal);
+                });
             }
         };
     }

@@ -1,0 +1,24 @@
+<div ng-app="developmentAreaApp" ng-controller="DevelopmentAreaController" layout-margin>
+    <mdt-table>
+        <mdt-header-row>
+            <mdt-column align-rule="left">Dessert (100g serving)</mdt-column>
+            <mdt-column align-rule="right">Calories</mdt-column>
+            <mdt-column align-rule="right">Fat (g)</mdt-column>
+            <mdt-column align-rule="right">Carbs (g)</mdt-column>
+            <mdt-column align-rule="right">Protein (g)</mdt-column>
+            <mdt-column align-rule="right">Sodium (mg)</mdt-column>
+            <mdt-column align-rule="right">Calcium (%)</mdt-column>
+            <mdt-column align-rule="right">Iron (%)</mdt-column>
+        </mdt-header-row>
+        <mdt-row ng-repeat="nutrition in nutritionList">
+            <mdt-cell>{{nutrition.name}}</mdt-cell>
+            <mdt-cell>{{nutrition.calories}}</mdt-cell>
+            <mdt-cell>{{nutrition.fat}}</mdt-cell>
+            <mdt-cell>{{nutrition.carbs}}</mdt-cell>
+            <mdt-cell>{{nutrition.protein}}</mdt-cell>
+            <mdt-cell>{{nutrition.sodium}}</mdt-cell>
+            <mdt-cell>{{nutrition.calcium}}</mdt-cell>
+            <mdt-cell>{{nutrition.iron}}</mdt-cell>
+        </mdt-row>
+    </mdt-table>
+</div>
