@@ -33,8 +33,8 @@
 (function(){
     'use strict';
 
-    mdtTableDirective.$inject = ['TableDataStorageFactory', 'mdtPaginationHelperFactory'];
-    function mdtTableDirective(TableDataStorageFactory, mdtPaginationHelperFactory){
+    mdtTableDirective.$inject = ['TableDataStorageFactory', 'mdtPaginationHelperFactory', 'mdtAjaxPaginationHelperFactory'];
+    function mdtTableDirective(TableDataStorageFactory, mdtPaginationHelperFactory, mdtAjaxPaginationHelperFactory){
         return {
             restrict: 'E',
             templateUrl: '/main/templates/mdtTable.html',
@@ -48,7 +48,8 @@
                 animateSortIcon: '=',
                 rippleEffect: '=',
                 paginatedRows: '=',
-                mdtRow: '='
+                mdtRow: '=',
+                mdtRowPaginator: '&?'
             },
             controller: ['$scope', function($scope){
                 var vm = this;
@@ -58,7 +59,15 @@
 
                 function initTableStorageServiceAndBindMethods(){
                     $scope.tableDataStorageService = TableDataStorageFactory.getInstance();
-                    $scope.mdtPaginationHelper = mdtPaginationHelperFactory.getInstance($scope.tableDataStorageService, $scope.paginatedRows);
+
+                    if(!$scope.mdtRowPaginator){
+                        $scope.mdtPaginationHelper = mdtPaginationHelperFactory
+                            .getInstance($scope.tableDataStorageService, $scope.paginatedRows, $scope.mdtRow);
+                    }else{
+                        $scope.mdtPaginationHelper = mdtAjaxPaginationHelperFactory
+                            .getInstance($scope.tableDataStorageService, $scope.paginatedRows, $scope.mdtRowPaginator, $scope.mdtRow);
+                    }
+
 
                     vm.addRowData = _.bind($scope.tableDataStorageService.addRowData, $scope.tableDataStorageService);
                 }
@@ -73,24 +82,35 @@
                 $scope.isAnyRowSelected = _.bind($scope.tableDataStorageService.isAnyRowSelected, $scope.tableDataStorageService);
                 $scope.isPaginationEnabled = isPaginationEnabled;
 
-                $scope.$watch('mdtRow', function(mdtRow){
-                    if(typeof mdtRow === 'object'){
-                        $scope.tableDataStorageService.storage = [];
+                if(!_.isEmpty($scope.mdtRow)) {
+                    //local search/filter
+                    if (angular.isUndefined(attrs.mdtRowPaginator)) {
+                        $scope.$watch('mdtRow', function (mdtRow) {
+                            $scope.tableDataStorageService.storage = [];
 
-                        var rowId;
-                        var columnValues = [];
-                        _.each(mdtRow['data'], function(row){
-                            rowId = row[mdtRow['table-row-id-key']];
-                            columnValues = [];
+                            addRawDataToStorage(mdtRow['data']);
+                        }, true);
 
-                            _.each(mdtRow['column-keys'], function(columnKey){
-                                columnValues.push(row[columnKey]);
-                            });
 
-                            $scope.tableDataStorageService.addRowData(rowId, columnValues);
-                        });
+                    }else{
+                        //if it's used for 'Ajax pagination'
                     }
-                }, true);
+                }
+
+                function addRawDataToStorage(data){
+                    var rowId;
+                    var columnValues = [];
+                    _.each(data, function(row){
+                        rowId = _.get(row, $scope.mdtRow['table-row-id-key']);
+                        columnValues = [];
+
+                        _.each($scope.mdtRow['column-keys'], function(columnKey){
+                            columnValues.push(_.get(row, columnKey));
+                        });
+
+                        $scope.tableDataStorageService.addRowData(rowId, columnValues);
+                    });
+                }
 
                 function isPaginationEnabled(){
                     if($scope.paginatedRows === true || ($scope.paginatedRows && $scope.paginatedRows.hasOwnProperty('isEnabled') && $scope.paginatedRows.isEnabled === true)){
@@ -126,6 +146,40 @@
         .module('mdDataTable')
         .directive('mdtTable', mdtTableDirective);
 }());
+(function(){
+    'use strict';
+
+    ColumnAlignmentHelper.$inject = ['ColumnOptionProvider'];
+    function ColumnAlignmentHelper(ColumnOptionProvider){
+        var service = this;
+        service.getColumnAlignClass = getColumnAlignClass;
+
+        function getColumnAlignClass(alignRule) {
+            if (alignRule === ColumnOptionProvider.ALIGN_RULE.ALIGN_RIGHT) {
+                return 'rightAlignedColumn';
+            } else {
+                return 'leftAlignedColumn';
+            }
+        }
+    }
+
+    angular
+        .module('mdDataTable')
+        .service('ColumnAlignmentHelper', ColumnAlignmentHelper);
+}());
+(function(){
+    'use strict';
+
+    var ColumnOptionProvider = {
+        ALIGN_RULE : {
+            ALIGN_LEFT: 'left',
+            ALIGN_RIGHT: 'right'
+        }
+    };
+
+    angular.module('mdDataTable')
+        .value('ColumnOptionProvider', ColumnOptionProvider);
+})();
 (function(){
     'use strict';
 
@@ -282,6 +336,117 @@
 (function(){
     'use strict';
 
+    function mdtAjaxPaginationHelperFactory(){
+
+        function mdtAjaxPaginationHelper(tableDataStorageService, paginationSetting, mdtRowPaginatorFunction, mdtRowOptions){
+            this.tableDataStorageService = tableDataStorageService;
+            this.rowOptions = mdtRowOptions;
+
+            if(paginationSetting &&
+                paginationSetting.hasOwnProperty('rowsPerPageValues') &&
+                paginationSetting.rowsPerPageValues.length > 0){
+
+                this.rowsPerPageValues = paginationSetting.rowsPerPageValues;
+            }else{
+                this.rowsPerPageValues = [10,20,30,50,100];
+            }
+
+            this.rowsPerPage = this.rowsPerPageValues[0];
+            this.page = 1;
+            this.totalResultCount = 0;
+            this.totalPages = 0;
+            this.paginatorFunction = mdtRowPaginatorFunction;
+            this.isLoading = false;
+
+            //fetching the 1st page
+            this.fetchPage(this.page);
+        }
+
+        mdtAjaxPaginationHelper.prototype.getStartRowIndex = function(){
+            return (this.page-1) * this.rowsPerPage;
+        };
+
+        mdtAjaxPaginationHelper.prototype.getEndRowIndex = function(){
+            return this.getStartRowIndex() + this.rowsPerPage-1;
+        };
+
+        mdtAjaxPaginationHelper.prototype.getTotalRowsCount = function(){
+            return this.totalPages;
+        };
+
+        mdtAjaxPaginationHelper.prototype.getRows = function(){
+            return this.tableDataStorageService.storage;
+        };
+
+        mdtAjaxPaginationHelper.prototype.previousPage = function(){
+            var that = this;
+            if(this.page > 1){
+                this.fetchPage(this.page-1).then(function(){
+                    that.page--;
+                });
+            }
+        };
+
+        mdtAjaxPaginationHelper.prototype.nextPage = function(){
+            var that = this;
+            if(this.page < this.totalPages){
+                this.fetchPage(this.page+1).then(function(){
+                    that.page++;
+                });
+            }
+        };
+
+        mdtAjaxPaginationHelper.prototype.fetchPage = function(page){
+            this.isLoading = true;
+
+            var that = this;
+
+            return this.paginatorFunction({page: page, pageSize: this.rowsPerPage})
+                .then(function(data){
+                    that.tableDataStorageService.storage = [];
+                    that.setRawDataToStorage(that, data.results, that.rowOptions['table-row-id-key'], that.rowOptions['column-keys']);
+                    that.totalResultCount = data.totalResultCount;
+                    that.totalPages = Math.ceil(data.totalResultCount / that.rowsPerPage);
+                    that.isLoading = false;
+                });
+        };
+
+        mdtAjaxPaginationHelper.prototype.setRawDataToStorage = function(that, data, tableRowIdKey, columnKeys){
+            var rowId;
+            var columnValues = [];
+            _.each(data, function(row){
+                rowId = _.get(row, tableRowIdKey);
+                columnValues = [];
+
+                _.each(columnKeys, function(columnKey){
+                    columnValues.push(_.get(row, columnKey));
+                });
+
+                that.tableDataStorageService.addRowData(rowId, columnValues);
+            });
+        };
+
+        mdtAjaxPaginationHelper.prototype.setRowsPerPage = function(rowsPerPage){
+            this.rowsPerPage = rowsPerPage;
+            this.page = 1;
+
+            this.fetchPage(this.page);
+        };
+
+        return {
+            getInstance: function(tableDataStorageService, isEnabled, paginatorFunction, rowOptions){
+                return new mdtAjaxPaginationHelper(tableDataStorageService, isEnabled, paginatorFunction, rowOptions);
+            }
+        };
+    }
+
+    angular
+        .module('mdDataTable')
+        .service('mdtAjaxPaginationHelperFactory', mdtAjaxPaginationHelperFactory);
+}());
+(function(){
+    'use strict';
+
     function mdtPaginationHelperFactory(){
 
         function mdtPaginationHelper(tableDataStorageService, paginationSetting){
@@ -300,7 +465,7 @@
             this.page = 1;
         }
 
-        mdtPaginationHelper.prototype.getRows = function(){
+        mdtPaginationHelper.prototype.calculateVisibleRows = function (){
             var that = this;
 
             _.each(this.tableDataStorageService.storage, function (rowData, index) {
@@ -310,8 +475,6 @@
                     rowData.optionList.visible = false;
                 }
             });
-
-            return this.tableDataStorageService.storage;
         };
 
         mdtPaginationHelper.prototype.getStartRowIndex = function(){
@@ -324,6 +487,12 @@
 
         mdtPaginationHelper.prototype.getTotalRowsCount = function(){
             return this.tableDataStorageService.storage.length;
+        };
+
+        mdtPaginationHelper.prototype.getRows = function(){
+            this.calculateVisibleRows();
+
+            return this.tableDataStorageService.storage;
         };
 
         mdtPaginationHelper.prototype.previousPage = function(){
@@ -340,6 +509,11 @@
             }
         };
 
+        mdtPaginationHelper.prototype.setRowsPerPage = function(rowsPerPage){
+            this.rowsPerPage = rowsPerPage;
+            this.page = 1;
+        };
+
         return {
             getInstance: function(tableDataStorageService, isEnabled){
                 return new mdtPaginationHelper(tableDataStorageService, isEnabled);
@@ -351,40 +525,6 @@
         .module('mdDataTable')
         .service('mdtPaginationHelperFactory', mdtPaginationHelperFactory);
 }());
-(function(){
-    'use strict';
-
-    ColumnAlignmentHelper.$inject = ['ColumnOptionProvider'];
-    function ColumnAlignmentHelper(ColumnOptionProvider){
-        var service = this;
-        service.getColumnAlignClass = getColumnAlignClass;
-
-        function getColumnAlignClass(alignRule) {
-            if (alignRule === ColumnOptionProvider.ALIGN_RULE.ALIGN_RIGHT) {
-                return 'rightAlignedColumn';
-            } else {
-                return 'leftAlignedColumn';
-            }
-        }
-    }
-
-    angular
-        .module('mdDataTable')
-        .service('ColumnAlignmentHelper', ColumnAlignmentHelper);
-}());
-(function(){
-    'use strict';
-
-    var ColumnOptionProvider = {
-        ALIGN_RULE : {
-            ALIGN_LEFT: 'left',
-            ALIGN_RIGHT: 'right'
-        }
-    };
-
-    angular.module('mdDataTable')
-        .value('ColumnOptionProvider', ColumnOptionProvider);
-})();
 (function(){
     'use strict';
 
@@ -660,7 +800,8 @@
 (function(){
     'use strict';
 
-    function mdtCardFooterDirective(){
+    mdtCardFooterDirective.$inject = ['$timeout'];
+    function mdtCardFooterDirective($timeout){
         return {
             restrict: 'E',
             templateUrl: '/main/templates/mdtCardFooter.html',
@@ -669,7 +810,11 @@
             scope: true,
             require: ['^mdtTable'],
             link: function($scope){
-                
+                $scope.rowsPerPage = $scope.mdtPaginationHelper.rowsPerPage;
+
+                $scope.$watch('rowsPerPage', function(newVal, oldVal){
+                    $scope.mdtPaginationHelper.setRowsPerPage(newVal);
+                });
             }
         };
     }
