@@ -33,6 +33,8 @@ http://www.google.com/design/spec/components/data-tables.html
  - paginated-rows
  - alternate-headers
  - mdt-row
+ - mdt-row-paginator
+ - mdt-row-paginator-error-message
 
 [Column attributes (`mdt-column`)](#column-attributes)
  - align-rule
@@ -129,6 +131,42 @@ http://www.google.com/design/spec/components/data-tables.html
 
         <!-- notice we didn't provide mdt-row here -->
     </mdt-table>
+
+| Available        | Params                             | Type          | Details       |
+| ---------------- |----------------------------------- | ------------- | ------------- |
+|:white_check_mark:| mdt-row-paginator                  | Function      | optional, makes possible to provide a callback function which returns a promise, providing the data for the table. Has two parameters: `page` and `pageSize` |
+|:white_check_mark:| mdt-row-paginator-error-message    | String        | optional, overrides default error mesasge when promise gets rejected by the paginator function. |
+
+## Example usage for `mdt-row-paginator` attribute:
+    <mdt-table
+            paginated-rows="{isEnabled: true, rowsPerPageValues: [5,10,20,100]}"
+            mdt-row-paginator="paginatorCallback(page, pageSize)"
+            mdt-row-paginator-error-message="Error happened during loading nutritions."
+            mdt-row="{
+                'table-row-id-key': 'fields.item_id',
+                'column-keys': [
+                    'fields.item_name',
+                    'fields.nf_calories',
+                    'fields.nf_total_fat',
+                    'fields.nf_total_carbohydrate',
+                    'fields.nf_protein',
+                    'fields.nf_sodium',
+                    'fields.nf_calcium_dv',
+                    'fields.nf_iron_dv'
+                ],
+            }">
+
+            <mdt-header-row>
+                <mdt-column align-rule="left">Dessert (100g serving)</mdt-column>
+                <mdt-column align-rule="right">Calories</mdt-column>
+                <mdt-column align-rule="right">Fat (g)</mdt-column>
+                <mdt-column align-rule="right">Carbs (g)</mdt-column>
+                <mdt-column align-rule="right">Protein (g)</mdt-column>
+                <mdt-column align-rule="right">Sodium (mg)</mdt-column>
+                <mdt-column align-rule="right">Calcium (%)</mdt-column>
+                <mdt-column align-rule="right">Iron (%)</mdt-column>
+            </mdt-header-row>
+        </mdt-table>
 
 
 ## Column attributes

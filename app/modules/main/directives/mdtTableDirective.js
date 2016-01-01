@@ -16,7 +16,8 @@
                 rippleEffect: '=',
                 paginatedRows: '=',
                 mdtRow: '=',
-                mdtRowPaginator: '&?'
+                mdtRowPaginator: '&?',
+                mdtRowPaginatorErrorMessage:"@"
             },
             controller: function($scope){
                 var vm = this;
@@ -31,10 +32,14 @@
                         $scope.mdtPaginationHelper = mdtPaginationHelperFactory
                             .getInstance($scope.tableDataStorageService, $scope.paginatedRows, $scope.mdtRow);
                     }else{
-                        $scope.mdtPaginationHelper = mdtAjaxPaginationHelperFactory
-                            .getInstance($scope.tableDataStorageService, $scope.paginatedRows, $scope.mdtRowPaginator, $scope.mdtRow);
+                        $scope.mdtPaginationHelper = mdtAjaxPaginationHelperFactory.getInstance({
+                            tableDataStorageService: $scope.tableDataStorageService,
+                            paginationSetting: $scope.paginatedRows,
+                            mdtRowOptions: $scope.mdtRow,
+                            mdtRowPaginatorFunction: $scope.mdtRowPaginator,
+                            mdtRowPaginatorErrorMessage: $scope.mdtRowPaginatorErrorMessage
+                        });
                     }
-
 
                     vm.addRowData = _.bind($scope.tableDataStorageService.addRowData, $scope.tableDataStorageService);
                 }

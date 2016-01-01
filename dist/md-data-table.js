@@ -49,7 +49,8 @@
                 rippleEffect: '=',
                 paginatedRows: '=',
                 mdtRow: '=',
-                mdtRowPaginator: '&?'
+                mdtRowPaginator: '&?',
+                mdtRowPaginatorErrorMessage:"@"
             },
             controller: ['$scope', function($scope){
                 var vm = this;
@@ -64,10 +65,14 @@
                         $scope.mdtPaginationHelper = mdtPaginationHelperFactory
                             .getInstance($scope.tableDataStorageService, $scope.paginatedRows, $scope.mdtRow);
                     }else{
-                        $scope.mdtPaginationHelper = mdtAjaxPaginationHelperFactory
-                            .getInstance($scope.tableDataStorageService, $scope.paginatedRows, $scope.mdtRowPaginator, $scope.mdtRow);
+                        $scope.mdtPaginationHelper = mdtAjaxPaginationHelperFactory.getInstance({
+                            tableDataStorageService: $scope.tableDataStorageService,
+                            paginationSetting: $scope.paginatedRows,
+                            mdtRowOptions: $scope.mdtRow,
+                            mdtRowPaginatorFunction: $scope.mdtRowPaginator,
+                            mdtRowPaginatorErrorMessage: $scope.mdtRowPaginatorErrorMessage
+                        });
                     }
-
 
                     vm.addRowData = _.bind($scope.tableDataStorageService.addRowData, $scope.tableDataStorageService);
                 }
@@ -304,15 +309,17 @@
 
     function mdtAjaxPaginationHelperFactory(){
 
-        function mdtAjaxPaginationHelper(tableDataStorageService, paginationSetting, mdtRowPaginatorFunction, mdtRowOptions){
-            this.tableDataStorageService = tableDataStorageService;
-            this.rowOptions = mdtRowOptions;
+        function mdtAjaxPaginationHelper(params){
+            this.tableDataStorageService = params.tableDataStorageService;
+            this.rowOptions = params.mdtRowOptions;
+            this.paginatorFunction = params.mdtRowPaginatorFunction;
+            this.mdtRowPaginatorErrorMessage = params.mdtRowPaginatorErrorMessage || 'Ajax error during loading contents.';
 
-            if(paginationSetting &&
-                paginationSetting.hasOwnProperty('rowsPerPageValues') &&
-                paginationSetting.rowsPerPageValues.length > 0){
+            if(params.paginationSetting &&
+                params.paginationSetting.hasOwnProperty('rowsPerPageValues') &&
+                params.paginationSetting.rowsPerPageValues.length > 0){
 
-                this.rowsPerPageValues = paginationSetting.rowsPerPageValues;
+                this.rowsPerPageValues = params.paginationSetting.rowsPerPageValues;
             }else{
                 this.rowsPerPageValues = [10,20,30,50,100];
             }
@@ -321,7 +328,7 @@
             this.page = 1;
             this.totalResultCount = 0;
             this.totalPages = 0;
-            this.paginatorFunction = mdtRowPaginatorFunction;
+
             this.isLoading = false;
 
             //fetching the 1st page
@@ -373,6 +380,14 @@
                     that.setRawDataToStorage(that, data.results, that.rowOptions['table-row-id-key'], that.rowOptions['column-keys']);
                     that.totalResultCount = data.totalResultCount;
                     that.totalPages = Math.ceil(data.totalResultCount / that.rowsPerPage);
+
+                    that.isLoadError = false;
+                    that.isLoading = false;
+
+                }, function(){
+                    that.tableDataStorageService.storage = [];
+
+                    that.isLoadError = true;
                     that.isLoading = false;
                 });
         };
