@@ -32,7 +32,7 @@
             </tr>
         </thead>
         <tbody>
-        <tr ng-repeat="rowData in tableDataStorageService.storage track by $index"
+        <tr ng-repeat="rowData in mdtPaginationHelper.getRows() track by $index"
             ng-class="{'selectedRow': rowData.optionList.selected}"
             ng-show="(isPaginationEnabled() === false || rowData.optionList.visible === true) && rowData.optionList.deleted === false">
 

@@ -1,7 +1,7 @@
 (function(){
     'use strict';
 
-    function mdtCardFooterDirective(){
+    function mdtCardFooterDirective($timeout){
         return {
             restrict: 'E',
             templateUrl: '/main/templates/mdtCardFooter.html',
@@ -13,9 +13,7 @@
                 $scope.rowsPerPage = $scope.mdtPaginationHelper.rowsPerPage;
 
                 $scope.$watch('rowsPerPage', function(newVal, oldVal){
-                    if(newVal !== oldVal){
-                        $scope.mdtPaginationHelper.setRowsPerPage(newVal);
-                    }
+                    $scope.mdtPaginationHelper.setRowsPerPage(newVal);
                 });
             }
         };

@@ -1,9 +1,9 @@
 (function(){
     'use strict';
 
-    function mdtRestPaginationHelperFactory(){
+    function mdtAjaxPaginationHelperFactory(){
 
-        function mdtRestPaginationHelper(tableDataStorageService, paginationSetting, mdtRowPaginatorFunction, mdtRowOptions){
+        function mdtAjaxPaginationHelper(tableDataStorageService, paginationSetting, mdtRowPaginatorFunction, mdtRowOptions){
             this.tableDataStorageService = tableDataStorageService;
             this.rowOptions = mdtRowOptions;
 
@@ -27,19 +27,23 @@
             this.fetchPage(this.page);
         }
 
-        mdtRestPaginationHelper.prototype.getStartRowIndex = function(){
+        mdtAjaxPaginationHelper.prototype.getStartRowIndex = function(){
             return (this.page-1) * this.rowsPerPage;
         };
 
-        mdtRestPaginationHelper.prototype.getEndRowIndex = function(){
+        mdtAjaxPaginationHelper.prototype.getEndRowIndex = function(){
             return this.getStartRowIndex() + this.rowsPerPage-1;
         };
 
-        mdtRestPaginationHelper.prototype.getTotalRowsCount = function(){
+        mdtAjaxPaginationHelper.prototype.getTotalRowsCount = function(){
             return this.totalPages;
         };
 
-        mdtRestPaginationHelper.prototype.previousPage = function(){
+        mdtAjaxPaginationHelper.prototype.getRows = function(){
+            return this.tableDataStorageService.storage;
+        };
+
+        mdtAjaxPaginationHelper.prototype.previousPage = function(){
             var that = this;
             if(this.page > 1){
                 this.fetchPage(this.page-1).then(function(){
@@ -48,7 +52,7 @@
             }
         };
 
-        mdtRestPaginationHelper.prototype.nextPage = function(){
+        mdtAjaxPaginationHelper.prototype.nextPage = function(){
             var that = this;
             if(this.page < this.totalPages){
                 this.fetchPage(this.page+1).then(function(){
@@ -57,7 +61,7 @@
             }
         };
 
-        mdtRestPaginationHelper.prototype.fetchPage = function(page){
+        mdtAjaxPaginationHelper.prototype.fetchPage = function(page){
             this.isLoading = true;
 
             var that = this;
@@ -69,12 +73,10 @@
                     that.totalResultCount = data.totalResultCount;
                     that.totalPages = Math.ceil(data.totalResultCount / that.rowsPerPage);
                     that.isLoading = false;
-
-                    that.getRows();
                 });
         };
 
-        mdtRestPaginationHelper.prototype.setRawDataToStorage = function(that, data, tableRowIdKey, columnKeys){
+        mdtAjaxPaginationHelper.prototype.setRawDataToStorage = function(that, data, tableRowIdKey, columnKeys){
             var rowId;
             var columnValues = [];
             _.each(data, function(row){
@@ -89,7 +91,7 @@
             });
         };
 
-        mdtRestPaginationHelper.prototype.setRowsPerPage = function(rowsPerPage){
+        mdtAjaxPaginationHelper.prototype.setRowsPerPage = function(rowsPerPage){
             this.rowsPerPage = rowsPerPage;
             this.page = 1;
 
@@ -98,12 +100,12 @@
 
         return {
             getInstance: function(tableDataStorageService, isEnabled, paginatorFunction, rowOptions){
-                return new mdtRestPaginationHelper(tableDataStorageService, isEnabled, paginatorFunction, rowOptions);
+                return new mdtAjaxPaginationHelper(tableDataStorageService, isEnabled, paginatorFunction, rowOptions);
             }
         };
     }
 
     angular
         .module('mdDataTable')
-        .service('mdtRestPaginationHelperFactory', mdtRestPaginationHelperFactory);
+        .service('mdtAjaxPaginationHelperFactory', mdtAjaxPaginationHelperFactory);
 }());

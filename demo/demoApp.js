@@ -54,6 +54,9 @@
             },{
                 name: 'Animated sort icon',
                 codepen: 'MKbXOM'
+            },{
+                name: 'Ajax loading and pagination',
+                codepen: 'BjpNow'
             }/*,{
              name: 'Ripple effect',
              codepen: 'xZRzpV'
@@ -75,7 +78,8 @@
         'exampleApp5',
         'exampleApp6',
         'exampleApp7',
-        'exampleApp8'
+        'exampleApp8',
+        'exampleApp9'
     ]);
 
     angular.module('demo').service('PageService', PageService);

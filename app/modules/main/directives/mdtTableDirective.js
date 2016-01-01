@@ -1,7 +1,7 @@
 (function(){
     'use strict';
 
-    function mdtTableDirective(TableDataStorageFactory, mdtPaginationHelperFactory, mdtRestPaginationHelperFactory){
+    function mdtTableDirective(TableDataStorageFactory, mdtPaginationHelperFactory, mdtAjaxPaginationHelperFactory){
         return {
             restrict: 'E',
             templateUrl: '/main/templates/mdtTable.html',
@@ -28,9 +28,10 @@
                     $scope.tableDataStorageService = TableDataStorageFactory.getInstance();
 
                     if(!$scope.mdtRowPaginator){
-                        $scope.mdtPaginationHelper = mdtPaginationHelperFactory.getInstance($scope.tableDataStorageService, $scope.paginatedRows);
+                        $scope.mdtPaginationHelper = mdtPaginationHelperFactory
+                            .getInstance($scope.tableDataStorageService, $scope.paginatedRows, $scope.mdtRow);
                     }else{
-                        $scope.mdtPaginationHelper = mdtRestPaginationHelperFactory
+                        $scope.mdtPaginationHelper = mdtAjaxPaginationHelperFactory
                             .getInstance($scope.tableDataStorageService, $scope.paginatedRows, $scope.mdtRowPaginator, $scope.mdtRow);
                     }
 
@@ -49,7 +50,7 @@
                 $scope.isPaginationEnabled = isPaginationEnabled;
 
                 if(!_.isEmpty($scope.mdtRow)) {
-                    //if it's used for search/filter
+                    //local search/filter
                     if (angular.isUndefined(attrs.mdtRowPaginator)) {
                         $scope.$watch('mdtRow', function (mdtRow) {
                             $scope.tableDataStorageService.storage = [];
@@ -57,14 +58,9 @@
                             addRawDataToStorage(mdtRow['data']);
                         }, true);
 
-                    //if it's used for 'REST pagination'
-                    }else{
-                        /*
-                        $scope.mdtRowPaginator({page: 1, pageSize: 5}).then(function (data) {
-                            console.log(data);
 
-                            addRawDataToStorage(data.results)
-                        });*/
+                    }else{
+                        //if it's used for 'Ajax pagination'
                     }
                 }
 
