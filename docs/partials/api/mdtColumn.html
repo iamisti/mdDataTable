@@ -1,0 +1,46 @@
+<h1><code ng:non-bindable="">mdtColumn</code>
+<div><span class="hint"></span>
+</div>
+</h1>
+<div><h2 id="description">Description</h2>
+<div class="description"><div class="mdtcolumn-page"><p>Representing a header column cell which should be placed inside <code>mdt-header-row</code> element directive.</p>
+</div></div>
+<h2 id="dependencies">Dependencies</h2>
+<ul class="dependencies"><li><code ng:non-bindable=""><a href="api/mdtTable">mdtTable</a></code>
+</li>
+</ul>
+<h2 id="usage">Usage</h2>
+<div class="usage">as element:<pre class="prettyprint linenums">&lt;mdt-column
+       [align-rule="{string}"]
+       [sort-by="{function()}"]
+       [column-definition="{string}"]&gt;
+&lt;/mdt-column&gt;</pre>
+<h4 id="usage_parameters">Parameters</h4><table class="variables-matrix table table-bordered table-striped"><thead><tr><th>Param</th><th>Type</th><th>Details</th></tr></thead><tbody><tr><td>alignRule <div><em>(optional)</em></div></td><td><a href="" class="label type-hint type-hint-string">string</a></td><td><div class="mdtcolumn-page"><p>align cell content. This settings will have affect on each data cells in the same
+column (e.g. every x.th cell in every row).</p>
+<p>Assignable values:</p>
+<ul>
+<li>&#39;left&#39;</li>
+<li>&#39;right&#39;</li>
+</ul>
+</div></td></tr><tr><td>sortBy <div><em>(optional)</em></div></td><td><a href="" class="label type-hint type-hint-function">function()</a></td><td><div class="mdtcolumn-page"><p>compareFunction callback for sorting the column data&#39;s. As every compare function,
+should get two parameters and return with the comapred result (-1,1,0)</p>
+</div></td></tr><tr><td>columnDefinition <div><em>(optional)</em></div></td><td><a href="" class="label type-hint type-hint-string">string</a></td><td><div class="mdtcolumn-page"><p>displays a tooltip on hover.</p>
+</div></td></tr></tbody></table></div>
+<h2 id="example">Example</h2>
+<div class="example"><div class="mdtcolumn-page"><pre class="prettyprint linenums">
+&lt;mdt-table&gt;
+    &lt;mdt-header-row&gt;
+        &lt;mdt-column align-rule="left"&gt;Product name&lt;/mdt-column&gt;
+        &lt;mdt-column
+            align-rule="right"
+            column-definition="The price of the product in gross."&gt;Price&lt;/mdt-column&gt;
+    &lt;/mdt-header-row&gt;
+
+    &lt;mdt-row ng-repeat="product in ctrl.products"&gt;
+        &lt;mdt-cell&gt;{{product.name}}&lt;/mdt-cell&gt;
+        &lt;mdt-cell&gt;{{product.price}}&lt;/mdt-cell&gt;
+    &lt;/mdt-row&gt;
+&lt;/mdt-table&gt;
+</pre>
+</div></div>
+</div>

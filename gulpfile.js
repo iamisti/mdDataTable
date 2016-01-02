@@ -24,7 +24,7 @@ gulp.task('default', function(next) {
 });
 
 gulp.task('build', function(next) {
-    runSequence('test', 'copy', 'templates', 'compass', 'create index.html', next);
+    runSequence('test', 'copy', 'templates', 'compass', 'create index.html', 'ngdocs', next);
 });
 
 gulp.task('ci', function(next) {
@@ -36,5 +36,12 @@ gulp.task('test', function(next) {
 });
 
 gulp.task('release', function(next) {
-    runSequence('dist', /*'integration', */next);
+    runSequence('build', 'dist', /*'integration', */next);
+});
+
+gulp.task('ngdocs', [], function () {
+    var gulpDocs = require('gulp-ngdocs');
+    return gulp.src('app/modules/**/*.js')
+        .pipe(gulpDocs.process())
+        .pipe(gulp.dest('./docs'));
 });

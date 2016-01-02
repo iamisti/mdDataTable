@@ -1,0 +1,41 @@
+<h1><code ng:non-bindable="">mdtRow</code>
+<div><span class="hint"></span>
+</div>
+</h1>
+<div><h2 id="description">Description</h2>
+<div class="description"><div class="mdtrow-page"><p>Representing a row which should be placed inside <code>mdt-table</code> element directive.</p>
+<p><i>Please note the following: This element has limited functionality. It cannot listen on data changes that happens outside of the
+component. E.g.: if you provide an ng-repeat to generate your data rows for the table, using this directive,
+it won&#39;t work well if this data will change. Since the way how transclusions work, it&#39;s (with my best
+knowledge) an impossible task to solve at the moment. If you intend to use dynamic data rows, it&#39;s still
+possible with using mdtRow attribute of mdtTable.</i></p>
+</div></div>
+<h2 id="dependencies">Dependencies</h2>
+<ul class="dependencies"><li><code ng:non-bindable=""><a href="api/mdtTable">mdtTable</a></code>
+</li>
+</ul>
+<h2 id="usage">Usage</h2>
+<div class="usage">as element:<pre class="prettyprint linenums">&lt;mdt-row
+       [table-row-id="{string|integer}"]&gt;
+&lt;/mdt-row&gt;</pre>
+<h4 id="usage_parameters">Parameters</h4><table class="variables-matrix table table-bordered table-striped"><thead><tr><th>Param</th><th>Type</th><th>Details</th></tr></thead><tbody><tr><td>tableRowId <div><em>(optional)</em></div></td><td><a href="" class="label type-hint type-hint-string">string</a><a href="" class="label type-hint type-hint-integer">integer</a></td><td><div class="mdtrow-page"><p>when set table will have a uniqe id. In case of deleting a row will give
+back this id.</p>
+</div></td></tr></tbody></table></div>
+<h2 id="example">Example</h2>
+<div class="example"><div class="mdtrow-page"><pre class="prettyprint linenums">
+&lt;mdt-table&gt;
+    &lt;mdt-header-row&gt;
+        &lt;mdt-column&gt;Product name&lt;/mdt-column&gt;
+        &lt;mdt-column&gt;Price&lt;/mdt-column&gt;
+    &lt;/mdt-header-row&gt;
+
+    &lt;mdt-row
+        ng-repeat="product in products"
+        table-row-id="{{product.id}}"&gt;
+        &lt;mdt-cell&gt;{{product.name}}&lt;/mdt-cell&gt;
+        &lt;mdt-cell&gt;{{product.price}}&lt;/mdt-cell&gt;
+    &lt;/mdt-row&gt;
+&lt;/mdt-table&gt;
+</pre>
+</div></div>
+</div>

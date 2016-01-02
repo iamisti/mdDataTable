@@ -1,6 +1,6 @@
 {
   "name": "mdDataTable",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "homepage": "https://github.com/iamisti/mdDataTable",
   "author":"Istvan Fodor <programtervezo@gmail.com>",
   "main": [
@@ -20,6 +20,7 @@
   "ignore": [
     "test",
     "demo",
+    "docs",
     "gulp-tasks",
     "gulpfile.js",
     "package.json",
