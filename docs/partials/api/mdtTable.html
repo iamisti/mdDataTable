@@ -1,0 +1,92 @@
+<h1><code ng:non-bindable="">mdtTable</code>
+<div><span class="hint"></span>
+</div>
+</h1>
+<div><h2 id="description">Description</h2>
+<div class="description"><div class="mdttable-page"><p>The base HTML tag for the component.</p>
+</div></div>
+<h2 id="usage">Usage</h2>
+<div class="usage">as element:<pre class="prettyprint linenums">&lt;mdt-table
+       [table-card="{object}"]
+       [selectable-rows="{boolean}"]
+       [alternate-headers="{String}"]
+       [sortable-columns="{boolean}"]
+       [delete-row-callback="{function(rows)}"]
+       [animate-sort-icon="{boolean}"]
+       [ripple-effect="{boolean}"]
+       [paginated-rows="{boolean}"]
+       [mdt-row="{object}"]
+       [mdt-row-paginator="{function(page, pageSize)}"]
+       [mdt-row-paginator-error-message="{string}"]&gt;
+&lt;/mdt-table&gt;</pre>
+<h4 id="usage_parameters">Parameters</h4><table class="variables-matrix table table-bordered table-striped"><thead><tr><th>Param</th><th>Type</th><th>Details</th></tr></thead><tbody><tr><td>tableCard <div><em>(optional)</em></div></td><td><a href="" class="label type-hint type-hint-object">object</a></td><td><div class="mdttable-page"><p>when set table will be embedded within a card, with data manipulation tools available
+at the top and bottom.</p>
+<p>Properties:</p>
+<ul>
+<li><code>{boolean=}</code> <code>visible</code> - enable/disable table card explicitly</li>
+<li><code>{string}</code> <code>title</code> - the title of the card</li>
+<li><code>{array=}</code> <code>actionIcons</code> - (not implemented yet)</li>
+</ul>
+</div></td></tr><tr><td>selectableRows <div><em>(optional)</em></div></td><td><a href="" class="label type-hint type-hint-boolean">boolean</a></td><td><div class="mdttable-page"><p>when set each row will have a checkbox</p>
+</div></td></tr><tr><td>alternateHeaders <div><em>(optional)</em></div></td><td><a href="" class="label type-hint type-hint-string">String</a></td><td><div class="mdttable-page"><p>some table cards may require headers with actions instead of titles.
+Two possible approaches to this are to display persistent actions, or a contextual header that activates
+when items are selected</p>
+<p>Assignable values are:</p>
+<ul>
+<li>&#39;contextual&#39; - when set table will have kind of dynamic header. E.g.: When selecting rows, the header will
+change and it&#39;ll show the number of selected rows and a delete icon on the right.</li>
+<li>&#39;persistentActions&#39; - (not implemented yet)</li>
+</ul>
+</div></td></tr><tr><td>sortableColumns <div><em>(optional)</em></div></td><td><a href="" class="label type-hint type-hint-boolean">boolean</a></td><td><div class="mdttable-page"><p>sort data and display a sorted state in the header. Clicking on a column which
+is already sorted will reverse the sort order and rotate the sort icon.
+(not implemented yet: Use <code>sortable-rows-default</code> attribute directive on a column which intended to be the
+default sortable column)</p>
+</div></td></tr><tr><td>deleteRowCallback <div><em>(optional)</em></div></td><td><a href="" class="label type-hint type-hint-function">function(rows</a></td><td><div class="mdttable-page"><p>callback function when deleting rows.
+At default an array of the deleted row&#39;s data will be passed as the argument.
+When <code>table-row-id</code> set for the deleted row then that value will be passed.</p>
+</div></td></tr><tr><td>animateSortIcon <div><em>(optional)</em></div></td><td><a href="" class="label type-hint type-hint-boolean">boolean</a></td><td><div class="mdttable-page"><p>sort icon will be animated on change</p>
+</div></td></tr><tr><td>rippleEffect <div><em>(optional)</em></div></td><td><a href="" class="label type-hint type-hint-boolean">boolean</a></td><td><div class="mdttable-page"><p>ripple effect will be applied on the columns when clicked (not implemented yet)</p>
+</div></td></tr><tr><td>paginatedRows <div><em>(optional)</em></div></td><td><a href="" class="label type-hint type-hint-boolean">boolean</a></td><td><div class="mdttable-page"><p>if set then basic pagination will applied to the bottom of the table.</p>
+<pre><code> Properties:
+
+ - `{boolean=}` `isEnabled` - enables pagination
+ - `{array}` `rowsPerPageValues` - set page sizes. Example: [5,10,20]
+</code></pre></div></td></tr><tr><td>mdtRow <div><em>(optional)</em></div></td><td><a href="" class="label type-hint type-hint-object">object</a></td><td><div class="mdttable-page"><p>passing rows data through this attribute will initialize the table with data. Additional
+benefit instead of using <code>mdt-row</code> element directive is that it makes possible to listen on data changes.</p>
+<p>Properties:</p>
+<ul>
+<li><code>{array}</code> <code>data</code> - the input data for rows</li>
+<li><code>{integer|string=}</code> <code>table-row-id-key</code> - the uniq identifier for a row</li>
+<li><code>{array}</code> <code>column-keys</code> - specifying property names for the passed data array. Makes it possible to
+configure which property assigned to which column in the table. The list should provided at the same order
+as it was specified inside <code>mdt-header-row</code> element directive.</li>
+</ul>
+</div></td></tr><tr><td>mdtRowPaginator <div><em>(optional)</em></div></td><td><a href="" class="label type-hint type-hint-function">function(page, pageSize</a></td><td><div class="mdttable-page"><p>providing the data for the table by a function. Should set a
+function which returns a promise when it&#39;s called. When the function is called, these parameters will be
+passed: <code>page</code> and <code>pageSize</code> which can help implementing an ajax-based paging.</p>
+</div></td></tr><tr><td>mdtRowPaginatorErrorMessage <div><em>(optional)</em></div></td><td><a href="" class="label type-hint type-hint-string">string</a></td><td><div class="mdttable-page"><p>overrides default error message when promise gets rejected by the
+paginator function.</p>
+</div></td></tr></tbody></table></div>
+<h2 id="example">Example</h2>
+<div class="example"><div class="mdttable-page"><h4 id="example_-attribute"><code>mdt-row</code> attribute:</h4>
+
+<p>When column names are: <code>Product name</code>, <code>Creator</code>, <code>Last Update</code>
+The passed data row&#39;s structure: <code>id</code>, <code>item_name</code>, <code>update_date</code>, <code>created_by</code></p>
+<p>Then the following setup will parese the data to the right columns:
+<pre class="prettyprint linenums">
+    &lt;mdt-table
+        mdt-row="{
+            'data': controller.data,
+            'table-row-id-key': 'id',
+            'column-keys': ['item_name', 'update_date', 'created_by']
+        }"&gt;
+
+        &lt;mdt-header-row&gt;
+            &lt;mdt-column&gt;Product name&lt;/mdt-column&gt;
+            &lt;mdt-column&gt;Creator&lt;/mdt-column&gt;
+            &lt;mdt-column&gt;Last Update&lt;/mdt-column&gt;
+        &lt;/mdt-header-row&gt;
+    &lt;/mdt-table&gt;
+</pre>
+</div></div>
+</div>
