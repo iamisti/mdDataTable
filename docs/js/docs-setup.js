@@ -14,12 +14,30 @@ NG_DOCS={
     },
     {
       "section": "api",
+      "id": "mdtColumn",
+      "shortName": "mdtColumn",
+      "type": "directive",
+      "moduleName": "mdtColumn",
+      "shortDescription": "Representing a header column cell which should be placed inside mdt-header-row element directive.",
+      "keywords": "affect align align-rule alignrule api assignable callback cell cells column column-definition columndefinition comapred compare comparefunction content ctrl data directive displays element function gross header hover inside left mdt-header-row mdtcolumn mdttable ng-repeat parameters price product products representing result return row settings sortby sorting tooltip values"
+    },
+    {
+      "section": "api",
+      "id": "mdtHeaderRow",
+      "shortName": "mdtHeaderRow",
+      "type": "directive",
+      "moduleName": "mdtHeaderRow",
+      "shortDescription": "Representing a header row which should be placed inside mdt-table element directive.",
+      "keywords": "api directive directives element execute header inside main mdt-column mdt-table mdtheaderrow mdttable representing responsibility row transcluded"
+    },
+    {
+      "section": "api",
       "id": "mdtRow",
       "shortName": "mdtRow",
       "type": "directive",
       "moduleName": "mdtRow",
       "shortDescription": "Representing a row which should be placed inside mdt-table element directive.",
-      "keywords": "api case deleting directive element inside mdt-table mdtrow mdttable representing row set table tablerowid uniqe"
+      "keywords": "api attribute best case change changes component data deleting directive dynamic element functionality generate impossible inside intend knowledge limited listen mdt-table mdtrow mdttable moment ng-repeat note price product products provide representing row rows set solve table table-row-id tablerowid task transclusions uniqe won work"
     },
     {
       "section": "api",
