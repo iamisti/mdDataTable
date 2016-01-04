@@ -39,7 +39,7 @@
      *  </mdt-table>
      * </pre>
      */
-    function mdtColumnDirective(){
+    function mdtColumnDirective($parse){
         return {
             restrict: 'E',
             transclude: true,
@@ -54,11 +54,19 @@
                 var mdtTableCtrl = ctrl[0];
 
                 transclude(function (clone) {
+                    var cellValue;
+
+                    if(clone.html().indexOf('{{') !== -1){
+                        cellValue = $parse(clone.html().replace('{{', '').replace('}}', ''))($scope.$parent);
+                    }else{
+                        cellValue = clone.html();
+                    }
+
                     mdtTableCtrl.addHeaderCell({
                         alignRule: $scope.alignRule,
                         sortBy: $scope.sortBy,
                         columnDefinition: $scope.columnDefinition,
-                        columnName: clone.html()
+                        columnName: cellValue
                     });
                 });
             }
