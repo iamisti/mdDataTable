@@ -44,6 +44,9 @@
             },{
                 name: 'Search',
                 codepen: 'bEBKYx'
+            },{
+                name: 'Html support',
+                codepen: 'LGLYjZ'
             }/*,{
                 name: 'Ripple effect',
                 codepen: 'xZRzpV'
