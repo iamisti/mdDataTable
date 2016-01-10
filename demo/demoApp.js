@@ -57,6 +57,9 @@
             },{
                 name: 'Search',
                 codepen: 'bEBKYx'
+            },{
+                name: 'Html support',
+                codepen: 'LGLYjZ'
             }/*,{
              name: 'Ripple effect',
              codepen: 'xZRzpV'
@@ -79,7 +82,8 @@
         'exampleApp6',
         'exampleApp7',
         'exampleApp8',
-        'exampleApp9'
+        'exampleApp9',
+        'exampleApp10'
     ]);
 
     angular.module('demo').service('PageService', PageService);

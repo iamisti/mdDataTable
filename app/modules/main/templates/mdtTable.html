@@ -22,7 +22,8 @@
                 </th>
 
                 <th class="column"
-                    ng-repeat="headerRowData in tableDataStorageService.header track by $index"
+                    ng-repeat="headerRowData in headerData track by $index"
+                    ng-class="{'clickable': sortableColumns}"
                     mdt-add-align-class="headerRowData.alignRule"
                     mdt-sort-handler
                     md-ink-ripple="{{rippleEffect}}">
@@ -42,11 +43,9 @@
 
             <td class="column"
                 ng-repeat="cellData in rowData.data track by $index"
-                mdt-add-align-class="tableDataStorageService.header[$index].alignRule">
+                mdt-add-align-class="headerData[$index].alignRule">
 
-                <span ng-show="!cellData.type">{{cellData}}</span>
-                <span ng-show="cellData.type === 'html'"
-                      mdt-add-html-content-to-cell="cellData.value"></span>
+                <span mdt-add-html-content-to-cell="cellData"></span>
             </td>
         </tr>
         <tr ng-show="mdtPaginationHelper.isLoading">

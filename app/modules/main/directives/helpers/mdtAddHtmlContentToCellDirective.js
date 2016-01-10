@@ -5,9 +5,14 @@
         return {
             restrict: 'A',
             link: function($scope, element, attr){
-                $scope.$watch('htmlContent', function(){
+                $scope.$watch(attr.mdtAddHtmlContentToCell, function(val){
                     element.empty();
-                    element.append($scope.$eval(attr.mdtAddHtmlContentToCell));
+
+                    if(val.type === 'html'){
+                        element.append(val.value);
+                    }else{
+                        element.append(val);
+                    }
                 });
             }
         };

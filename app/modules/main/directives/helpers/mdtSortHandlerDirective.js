@@ -5,7 +5,8 @@
         return {
             restrict: 'A',
             scope: false,
-            link: function($scope, element){
+            require: '^mdtTable',
+            link: function($scope, element, attrs, ctrl){
                 var columnIndex = $scope.$index;
                 $scope.isSorted = isSorted;
                 $scope.direction = 1;
@@ -15,14 +16,13 @@
                 function sortHandler(){
                     if($scope.sortableColumns){
                         $scope.$apply(function(){
-                            $scope.direction = $scope.tableDataStorageService.sortByColumn(columnIndex, $scope.headerRowData.sortBy);
+                            $scope.direction = ctrl.tableDataStorageService.sortByColumn(columnIndex, $scope.headerRowData.sortBy);
                         });
                     }
-
                 }
 
                 function isSorted(){
-                    return $scope.tableDataStorageService.sortByColumnLastIndex === columnIndex;
+                    return ctrl.tableDataStorageService.sortByColumnLastIndex === columnIndex;
                 }
 
                 $scope.$on('$destroy', function(){

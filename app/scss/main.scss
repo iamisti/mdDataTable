@@ -17,10 +17,13 @@
         font-size: 12px;
         font-weight: 500;
         color: darken($whiteColor, 54%);
-        cursor: pointer;
         white-space: nowrap;
         /* prevent ink ripple bleeding */
         position: relative;
+
+        &.clickable{
+            cursor: pointer;
+        }
 
         /* no pointer cursor when disabled, could be not-allowed but i think that indication is to strong */
         &[disabled]{

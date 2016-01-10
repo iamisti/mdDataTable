@@ -8,12 +8,13 @@
             transclude: true,
             replace: true,
             scope: true,
-            require: ['^mdtTable'],
-            link: function($scope){
+            require: '^mdtTable',
+            link: function($scope, element, attrs, ctrl){
                 $scope.deleteSelectedRows = deleteSelectedRows;
+                $scope.getNumberOfSelectedRows = _.bind(ctrl.tableDataStorageService.getNumberOfSelectedRows, ctrl.tableDataStorageService);
 
                 function deleteSelectedRows(){
-                    var deletedRows = $scope.tableDataStorageService.deleteSelectedRows();
+                    var deletedRows = ctrl.tableDataStorageService.deleteSelectedRows();
 
                     $scope.deleteRowCallback({rows: deletedRows});
                 }

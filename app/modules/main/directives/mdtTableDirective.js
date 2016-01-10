@@ -89,7 +89,7 @@
      *     </mdt-table>
      * </pre>
      */
-    function mdtTableDirective(TableDataStorageFactory, mdtPaginationHelperFactory, mdtAjaxPaginationHelperFactory){
+    function mdtTableDirective(TableDataStorageFactory, mdtPaginationHelperFactory, mdtAjaxPaginationHelperFactory, $injector){
         return {
             restrict: 'E',
             templateUrl: '/main/templates/mdtTable.html',
@@ -107,51 +107,53 @@
                 mdtRowPaginator: '&?',
                 mdtRowPaginatorErrorMessage:"@"
             },
-            controller: function($scope){
+            controller: function mdtTableController($scope){
                 var vm = this;
-                vm.addHeaderCell = addHeaderCell;
 
                 initTableStorageServiceAndBindMethods();
 
+                vm.addHeaderCell = addHeaderCell;
+
                 function initTableStorageServiceAndBindMethods(){
-                    $scope.tableDataStorageService = TableDataStorageFactory.getInstance();
+                    vm.tableDataStorageService = TableDataStorageFactory.getInstance();
 
                     if(!$scope.mdtRowPaginator){
                         $scope.mdtPaginationHelper = mdtPaginationHelperFactory
-                            .getInstance($scope.tableDataStorageService, $scope.paginatedRows, $scope.mdtRow);
+                            .getInstance(vm.tableDataStorageService, $scope.paginatedRows, $scope.mdtRow);
                     }else{
                         $scope.mdtPaginationHelper = mdtAjaxPaginationHelperFactory.getInstance({
-                            tableDataStorageService: $scope.tableDataStorageService,
+                            tableDataStorageService: vm.tableDataStorageService,
                             paginationSetting: $scope.paginatedRows,
                             mdtRowOptions: $scope.mdtRow,
                             mdtRowPaginatorFunction: $scope.mdtRowPaginator,
                             mdtRowPaginatorErrorMessage: $scope.mdtRowPaginatorErrorMessage
                         });
                     }
-
-                    vm.addRowData = _.bind($scope.tableDataStorageService.addRowData, $scope.tableDataStorageService);
                 }
 
                 function addHeaderCell(ops){
-                    $scope.tableDataStorageService.addHeaderCellData(ops);
+                    vm.tableDataStorageService.addHeaderCellData(ops);
                 }
             },
             link: function($scope, element, attrs, ctrl, transclude){
+                $scope.headerData = ctrl.tableDataStorageService.header;
+                $scope.isPaginationEnabled = isPaginationEnabled;
+                $scope.isAnyRowSelected = _.bind(ctrl.tableDataStorageService.isAnyRowSelected, ctrl.tableDataStorageService);
+
                 injectContentIntoTemplate();
 
-                $scope.isAnyRowSelected = _.bind($scope.tableDataStorageService.isAnyRowSelected, $scope.tableDataStorageService);
-                $scope.isPaginationEnabled = isPaginationEnabled;
-
                 if(!_.isEmpty($scope.mdtRow)) {
+                    processAttributeProvidedData();
+                }
+
+                function processAttributeProvidedData(){
                     //local search/filter
                     if (angular.isUndefined(attrs.mdtRowPaginator)) {
                         $scope.$watch('mdtRow', function (mdtRow) {
-                            $scope.tableDataStorageService.storage = [];
+                            ctrl.tableDataStorageService.storage = [];
 
                             addRawDataToStorage(mdtRow['data']);
                         }, true);
-
-
                     }else{
                         //if it's used for 'Ajax pagination'
                     }
@@ -168,7 +170,7 @@
                             columnValues.push(_.get(row, columnKey));
                         });
 
-                        $scope.tableDataStorageService.addRowData(rowId, columnValues);
+                        ctrl.tableDataStorageService.addRowData(rowId, columnValues);
                     });
                 }
 

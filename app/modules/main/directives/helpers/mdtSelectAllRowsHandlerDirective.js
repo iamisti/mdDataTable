@@ -5,11 +5,12 @@
         return {
             restrict: 'A',
             scope: false,
-            link: function($scope){
+            require: '^mdtTable',
+            link: function($scope, element, attrs, ctrl){
                 $scope.selectAllRows = false;
 
                 $scope.$watch('selectAllRows', function(val){
-                    $scope.tableDataStorageService.setAllRowsSelected(val, $scope.isPaginationEnabled());
+                    ctrl.tableDataStorageService.setAllRowsSelected(val, $scope.isPaginationEnabled());
                 });
             }
         };

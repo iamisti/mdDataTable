@@ -61,7 +61,7 @@
             link: function($scope, element, attrs, ctrl, transclude){
                 appendColumns();
 
-                ctrl.addRowData($scope.tableRowId, $scope.rowDataStorage);
+                ctrl.tableDataStorageService.addRowData($scope.tableRowId, $scope.rowDataStorage);
 
                 function appendColumns(){
                     transclude(function (clone) {
