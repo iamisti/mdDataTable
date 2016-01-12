@@ -32,54 +32,54 @@
 </head>
 <body layout="column" ng-app="demo" ng-controller="DemoController">
 
-<md-toolbar layout="row" layout-align="left center" layout-padding>
-    <h1 class="md-title">Material Design Data Table - DEVELOPMENT</h1>
-</md-toolbar>
+    <md-toolbar layout="row" layout-align="left center" layout-padding>
+        <h1 class="md-title">Material Design Data Table - DEVELOPMENT</h1>
+    </md-toolbar>
 
-<div layout="row" flex>
-    <md-sidenav md-is-locked-open="true">
-        <md-list>
-            <md-list-item ng-repeat="aPage in pages">
-                <md-button flex ng-click="selectPage(aPage)" ng-class="{'md-primary md-raised' : aPage.name === selectedPage.name }">
-                    {{aPage.name}}
-                </md-button>
-            </md-list-item>
-        </md-list>
-    </md-sidenav>
+    <div layout="row" flex>
+        <md-sidenav md-is-locked-open="true">
+            <md-list>
+                <md-list-item ng-repeat="aPage in pages">
+                    <md-button flex ng-click="selectPage(aPage)" ng-class="{'md-primary md-raised' : aPage.name === selectedPage.name }">
+                        {{aPage.name}}
+                    </md-button>
+                </md-list-item>
+            </md-list>
+        </md-sidenav>
 
-    <div flex ng-show="isDevelopmentAreaActive">
-        <div ng-include="'demo/developmentArea.html'"></div>
+        <div flex ng-show="isDevelopmentAreaActive">
+            <div ng-include="'demo/developmentArea.html'"></div>
+        </div>
+
+        <div id="myDiv" flex ng-hide="isDevelopmentAreaActive"></div>
     </div>
 
-    <div id="myDiv" flex ng-hide="isDevelopmentAreaActive"></div>
-</div>
 
-
-<!-- Placed at the end of the document so the pages load faster -->
-<!-- bower:js -->
-<!-- bower installed scripts will go here... -->
-<!-- endinject -->
-
-<!-- inject:js -->
-<!-- app scripts will go here... -->
-<!-- endinject -->
-
-<!-- demo:js -->
-<!-- app scripts will go here... -->
-<!-- endinject -->
-
-<!-- feature examples -->
-<script src="http://codepen.io/iamisti/pen/mVOKEw.js"></script>
-<script src="http://codepen.io/iamisti/pen/bEBKgK.js"></script>
-<script src="http://codepen.io/iamisti/pen/bEBKRj.js"></script>
-<script src="http://codepen.io/iamisti/pen/dGOKzN.js"></script>
-<script src="http://codepen.io/iamisti/pen/GoNGMy.js"></script>
-<script src="http://codepen.io/iamisti/pen/bEBKYx.js"></script>
-<script src="http://codepen.io/iamisti/pen/MKbXOM.js"></script>
-<script src="http://codepen.io/iamisti/pen/xZRzpV.js"></script>
-<script src="http://codepen.io/iamisti/pen/BjpNow.js"></script>
-<script src="http://codepen.io/iamisti/pen/LGLYjZ.js"></script>
-
-<script src="/templates.js"></script>
+    <!-- Placed at the end of the document so the pages load faster -->
+    <!-- bower:js -->
+    <!-- bower installed scripts will go here... -->
+    <!-- endinject -->
+    
+    <!-- inject:js -->
+    <!-- app scripts will go here... -->
+    <!-- endinject -->
+    
+    <!-- demo:js -->
+    <!-- app scripts will go here... -->
+    <!-- endinject -->
+    
+    <!-- feature examples -->
+    <script src="http://codepen.io/iamisti/pen/mVOKEw.js"></script>
+    <script src="http://codepen.io/iamisti/pen/bEBKgK.js"></script>
+    <script src="http://codepen.io/iamisti/pen/bEBKRj.js"></script>
+    <script src="http://codepen.io/iamisti/pen/dGOKzN.js"></script>
+    <script src="http://codepen.io/iamisti/pen/GoNGMy.js"></script>
+    <script src="http://codepen.io/iamisti/pen/bEBKYx.js"></script>
+    <script src="http://codepen.io/iamisti/pen/MKbXOM.js"></script>
+    <script src="http://codepen.io/iamisti/pen/xZRzpV.js"></script>
+    <script src="http://codepen.io/iamisti/pen/BjpNow.js"></script>
+    <script src="http://codepen.io/iamisti/pen/LGLYjZ.js"></script>
+    
+    <script src="/templates.js"></script>
 </body>
 </html>
