@@ -36,7 +36,7 @@ gulp.task('test', function(next) {
 });
 
 gulp.task('release', function(next) {
-    runSequence('build', 'dist', /*'integration', */next);
+    runSequence('build', 'dist', next);
 });
 
 gulp.task('ngdocs', [], function () {
