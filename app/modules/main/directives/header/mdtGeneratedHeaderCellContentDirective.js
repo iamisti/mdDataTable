@@ -7,13 +7,11 @@
             templateUrl: '/main/templates/mdtGeneratedHeaderCellContent.html',
             replace: true,
             scope: false,
-            link: function(){
-
-            }
+            link: function(){}
         };
     }
 
     angular
-        .module('mdDataTable')
+    .module('mdDataTable')
         .directive('mdtGeneratedHeaderCellContent', mdtGeneratedHeaderCellContentDirective);
 }());
