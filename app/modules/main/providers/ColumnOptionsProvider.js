@@ -14,6 +14,7 @@
         }
     };
 
-    angular.module('mdDataTable')
+    angular
+        .module('mdDataTable')
         .value('ColumnOptionProvider', ColumnOptionProvider);
 })();
