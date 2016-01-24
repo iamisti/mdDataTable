@@ -46,6 +46,9 @@
                 name: 'Sortable columns',
                 codepen: 'dGOKzN'
             },{
+                name: 'Virtual Repeat',
+                codepen: 'qbxLEQ'
+            },{
                 name: 'Animated sort icon',
                 codepen: 'MKbXOM'
             },{
@@ -83,7 +86,8 @@
         'exampleApp7',
         'exampleApp8',
         'exampleApp9',
-        'exampleApp10'
+        'exampleApp10',
+        'exampleApp11'
     ]);
 
     angular.module('demo').service('PageService', PageService);
