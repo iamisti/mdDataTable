@@ -33,6 +33,9 @@
                 name: 'Sortable columns',
                 codepen: 'dGOKzN'
             },{
+                name: 'Virtual Repeat',
+                codepen: 'qbxLEQ'
+            },{
                 name: 'Animated sort icon',
                 codepen: 'MKbXOM'
             },{
