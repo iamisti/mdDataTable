@@ -197,5 +197,16 @@
         fill: darken($whiteColor, 54%);
     }
 
+    /* virtual repeat needed classes */
+    .virtualRepeatEnabled .originalHeader tr th{
+        height: 0px !important;
+        line-height: 0px !important;
+        margin:0px !important;
+        overflow: hidden !important;
+        border: none !important;
+    }
 
+    .virtualRepeatEnabled .originalHeader md-checkbox{
+        display: none;
+    }
 }

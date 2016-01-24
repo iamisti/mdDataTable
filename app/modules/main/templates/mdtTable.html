@@ -8,58 +8,38 @@
 
     <div id="reader" style="display:none;"></div>
 
-    <table cellpadding="0" cellspacing="0">
+    <table cellpadding="0" cellspacing="0" ng-if="virtualRepeat">
         <thead>
-            <tr class="theadTrRow"
-                mdt-animate-sort-icon-handler>
+        <tr class="theadTrRow"
+            mdt-animate-sort-icon-handler>
 
-                <!-- TODO: fix text-align:left, in theory it should not be there to make it work -->
-                <th class="checkboxCell"
-                    style="text-align:left;"
-                    ng-show="selectableRows"
-                    mdt-select-all-rows-handler>
-                    <md-checkbox aria-label="select all" ng-model="selectAllRows"></md-checkbox>
-                </th>
+            <!-- TODO: fix text-align:left, in theory it should not be there to make it work -->
+            <th class="checkboxCell"
+                style="text-align:left;"
+                ng-show="selectableRows"
+                mdt-select-all-rows-handler>
+                <md-checkbox aria-label="select all" ng-model="selectAllRows"></md-checkbox>
+            </th>
 
-                <th class="column"
-                    ng-repeat="headerRowData in headerData track by $index"
-                    ng-class="{'clickable': sortableColumns}"
-                    mdt-add-align-class="headerRowData.alignRule"
-                    mdt-sort-handler
-                    md-ink-ripple="{{rippleEffect}}">
+            <th class="column"
+                ng-repeat="headerRowData in headerData track by $index"
+                ng-class="{'clickable': sortableColumns}"
+                mdt-add-align-class="headerRowData.alignRule"
+                mdt-sort-handler
+                md-ink-ripple="{{rippleEffect}}">
 
-                    <mdt-generated-header-cell-content></mdt-generated-header-cell-content>
-                </th>
-            </tr>
+                <mdt-generated-header-cell-content></mdt-generated-header-cell-content>
+            </th>
+        </tr>
         </thead>
-        <tbody>
-        <tr ng-repeat="rowData in mdtPaginationHelper.getRows() track by $index"
-            ng-class="{'selectedRow': rowData.optionList.selected}"
-            ng-show="(isPaginationEnabled() === false || rowData.optionList.visible === true) && rowData.optionList.deleted === false">
-
-            <td class="checkboxCell" ng-show="selectableRows">
-                <md-checkbox aria-label="select" ng-model="rowData.optionList.selected"></md-checkbox>
-            </td>
-
-            <td class="column"
-                ng-repeat="cellData in rowData.data track by $index"
-                mdt-add-align-class="headerData[$index].alignRule">
-
-                <span mdt-add-html-content-to-cell="cellData"></span>
-            </td>
-        </tr>
-        <tr ng-show="mdtPaginationHelper.isLoading">
-            <td colspan="999">
-                <md-progress-linear md-mode="indeterminate"></md-progress-linear>
-            </td>
-        </tr>
-        <tr ng-show="mdtPaginationHelper.isLoadError">
-            <td colspan="999">
-                {{mdtPaginationHelper.mdtRowPaginatorErrorMessage}}
-            </td>
-        </tr>
-        </tbody>
     </table>
+
+    <div md-virtual-repeat-container ng-if="virtualRepeat">
+        <ng-include src="'/main/templates/generateTable.html'"></ng-include>
+    </div>
+    <div ng-if="!virtualRepeat">
+        <ng-include src="'/main/templates/generateTable.html'"></ng-include>
+    </div>
 
     <!-- table card -->
     <mdt-card-footer></mdt-card-footer>

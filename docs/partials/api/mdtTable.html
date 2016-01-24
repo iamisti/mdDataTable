@@ -9,6 +9,7 @@
 <div class="usage">as element:<pre class="prettyprint linenums">&lt;mdt-table
        [table-card="{object}"]
        [selectable-rows="{boolean}"]
+       [virtual-repeat="{boolean}"]
        [alternate-headers="{String}"]
        [sortable-columns="{boolean}"]
        [delete-row-callback="{function(rows)}"]
@@ -28,6 +29,9 @@ at the top and bottom.</p>
 <li><code>{array=}</code> <code>actionIcons</code> - (not implemented yet)</li>
 </ul>
 </div></td></tr><tr><td>selectableRows <div><em>(optional)</em></div></td><td><a href="" class="label type-hint type-hint-boolean">boolean</a></td><td><div class="mdttable-page"><p>when set each row will have a checkbox</p>
+</div></td></tr><tr><td>virtualRepeat <div><em>(optional)</em></div></td><td><a href="" class="label type-hint type-hint-boolean">boolean</a></td><td><div class="mdttable-page"><p>when set, virtual scrolling will be applied to the table. You must set a fixed
+height to the <code>.md-virtual-repeat-container</code> class in order to make it work properly. Since virtual
+scrolling is working with fixed height.</p>
 </div></td></tr><tr><td>alternateHeaders <div><em>(optional)</em></div></td><td><a href="" class="label type-hint type-hint-string">String</a></td><td><div class="mdttable-page"><p>some table cards may require headers with actions instead of titles.
 Two possible approaches to this are to display persistent actions, or a contextual header that activates
 when items are selected</p>

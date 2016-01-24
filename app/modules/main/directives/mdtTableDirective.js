@@ -19,6 +19,9 @@
      *      - `{array=}` `actionIcons` - (not implemented yet)
      *
      * @param {boolean=} selectableRows when set each row will have a checkbox
+     * @param {boolean=} virtualRepeat when set, virtual scrolling will be applied to the table. You must set a fixed
+     *      height to the `.md-virtual-repeat-container` class in order to make it work properly. Since virtual
+     *      scrolling is working with fixed height.
      * @param {String=} alternateHeaders some table cards may require headers with actions instead of titles.
      *      Two possible approaches to this are to display persistent actions, or a contextual header that activates
      *      when items are selected
@@ -105,7 +108,8 @@
                 paginatedRows: '=',
                 mdtRow: '=',
                 mdtRowPaginator: '&?',
-                mdtRowPaginatorErrorMessage:"@"
+                mdtRowPaginatorErrorMessage:"@",
+                virtualRepeat: '='
             },
             controller: function mdtTableController($scope){
                 var vm = this;

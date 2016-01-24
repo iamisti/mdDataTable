@@ -10,6 +10,7 @@
   /* border separation color */
   /* INTERACTION */
   /* default icon color */
+  /* virtual repeat needed classes */
 }
 .mdtTable table {
   width: 100%;
@@ -25,13 +26,15 @@
   font-size: 12px;
   font-weight: 500;
   color: #757575;
-  cursor: pointer;
   white-space: nowrap;
   /* prevent ink ripple bleeding */
   position: relative;
   /* no pointer cursor when disabled, could be not-allowed but i think that indication is to strong */
   /* remove the default blue outline in Chrome for consistent button-like behaviour */
   /* when hoverSortIcons on a non-sorted column*/
+}
+.mdtTable th.clickable {
+  cursor: pointer;
 }
 .mdtTable th[disabled] {
   cursor: auto;
@@ -152,4 +155,14 @@
 }
 .mdtTable ng-md-icon {
   fill: #757575;
+}
+.mdtTable .virtualRepeatEnabled .originalHeader tr th {
+  height: 0px !important;
+  line-height: 0px !important;
+  margin: 0px !important;
+  overflow: hidden !important;
+  border: none !important;
+}
+.mdtTable .virtualRepeatEnabled .originalHeader md-checkbox {
+  display: none;
 }

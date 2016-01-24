@@ -1,6 +1,6 @@
 {
   "name": "mdDataTable",
-  "version": "1.1.5",
+  "version": "1.2.0",
   "homepage": "https://github.com/iamisti/mdDataTable",
   "author":"Istvan Fodor <programtervezo@gmail.com>",
   "main": [
@@ -32,7 +32,7 @@
     "angular": "~1.4.8",
     "angular-sanitize": "~1.4.8",
     "angular-animate": "~1.4.8",
-    "angular-material": "1.0.1",
+    "angular-material": "1.0.2",
     "angular-material-icons": "~v0.6.0"
   },
   "devDependencies": {

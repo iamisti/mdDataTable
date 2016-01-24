@@ -1,4 +1,4 @@
-Angular material table. Complete implementation of google material design based on angular material components.
+sAngular material table. Complete implementation of google material design based on angular material components.
 
 > Live demo http://iamisti.github.io/mdDataTable/
 
@@ -22,6 +22,7 @@ http://www.google.com/design/spec/components/data-tables.html
 
 [Table attributes](#table-attributes)
  - selectable-rows
+ - virtual-repeat
  - delete-row-callback
  - sortable-columns
  - animate-sort-icon
@@ -59,6 +60,7 @@ http://www.google.com/design/spec/components/data-tables.html
 | Available        | Params                                         | Type          | Details       |
 | ---------------- | ---------------------------------------------- | ------------- | ------------- |
 |:white_check_mark:| selectable-rows                                | Boolean       | optional, checkboxes accompany each row if need to select or manipulate data |
+|:white_check_mark:| virtual-repeat                                 | Boolean       | optional, when set, virtual scrolling will be applied to the table. You must set a fixed height to the `.md-virtual-repeat-container` class in order to make it work properly. Since virtual scrolling is working with fixed height. |
 |:white_check_mark:| delete-row-callback                            | Function      | optional, callback function when deleting rows. The callback will be called with the array of the deleted row ids. Don't forget to specify `table-row-id` for `mdt-row`. If you do, it will return the deleted rows data. |
 ![alt tag](http://material-design.storage.googleapis.com/publish/material_v_4/material_ext_publish/0B3mOPoJlxiFhcWNyQl9xYmRkQnc/components_datatables_interaction_selectedrow.png)
 

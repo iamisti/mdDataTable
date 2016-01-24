@@ -1,0 +1,27 @@
+<table cellpadding="0" cellspacing="0" ng-class="{'virtualRepeatEnabled': virtualRepeat}">
+    <thead class="originalHeader">
+        <tr class="theadTrRow"
+            mdt-animate-sort-icon-handler>
+
+            <!-- TODO: fix text-align:left, in theory it should not be there to make it work -->
+            <th class="checkboxCell"
+                style="text-align:left;"
+                ng-show="selectableRows"
+                mdt-select-all-rows-handler>
+                <md-checkbox aria-label="select all" ng-model="selectAllRows"></md-checkbox>
+            </th>
+
+            <th class="column"
+                ng-repeat="headerRowData in headerData track by $index"
+                ng-class="{'clickable': sortableColumns}"
+                mdt-add-align-class="headerRowData.alignRule"
+                mdt-sort-handler
+                md-ink-ripple="{{rippleEffect}}">
+
+                <mdt-generated-header-cell-content></mdt-generated-header-cell-content>
+            </th>
+        </tr>
+    </thead>
+    <tbody ng-include="'/main/templates/generateRowsVirtualRepeat.html'" ng-if="virtualRepeat"></tbody>
+    <tbody ng-include="'/main/templates/generateRows.html'" ng-if="!virtualRepeat"></tbody>
+</table>
