@@ -30,6 +30,9 @@
                 name: 'Selectable rows',
                 codepen: 'bEBKRj'
             },{
+                name: 'Selectable rows callback',
+                codepen: 'OMvbMj'
+            },{
                 name: 'Sortable columns',
                 codepen: 'dGOKzN'
             },{
