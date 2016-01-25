@@ -103,6 +103,7 @@
                 alternateHeaders: '=',
                 sortableColumns: '=',
                 deleteRowCallback: '&',
+                selectedRowCallback: '&',
                 animateSortIcon: '=',
                 rippleEffect: '=',
                 paginatedRows: '=',
@@ -143,11 +144,18 @@
                 $scope.headerData = ctrl.tableDataStorageService.header;
                 $scope.isPaginationEnabled = isPaginationEnabled;
                 $scope.isAnyRowSelected = _.bind(ctrl.tableDataStorageService.isAnyRowSelected, ctrl.tableDataStorageService);
+                $scope.onCheckboxChange = onCheckboxChange;
 
                 injectContentIntoTemplate();
 
                 if(!_.isEmpty($scope.mdtRow)) {
                     processAttributeProvidedData();
+                }
+
+                function onCheckboxChange(){
+                    $scope.selectedRowCallback({
+                        rows: ctrl.tableDataStorageService.getSelectedRows()
+                    });
                 }
 
                 function processAttributeProvidedData(){

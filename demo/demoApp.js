@@ -43,6 +43,9 @@
                 name: 'Selectable rows',
                 codepen: 'bEBKRj'
             },{
+                name: 'Selected rows callback',
+                codepen: 'OMvbMj'
+            },{
                 name: 'Sortable columns',
                 codepen: 'dGOKzN'
             },{
@@ -87,7 +90,8 @@
         'exampleApp8',
         'exampleApp9',
         'exampleApp10',
-        'exampleApp11'
+        'exampleApp11',
+        'exampleApp12'
     ]);
 
     angular.module('demo').service('PageService', PageService);

@@ -3,7 +3,7 @@
     ng-show="(isPaginationEnabled() === false || rowData.optionList.visible === true) && rowData.optionList.deleted === false">
 
     <td class="checkboxCell" ng-show="selectableRows">
-        <md-checkbox aria-label="select" ng-model="rowData.optionList.selected"></md-checkbox>
+        <md-checkbox aria-label="select" ng-model="rowData.optionList.selected" ng-change="onCheckboxChange()"></md-checkbox>
     </td>
 
     <td class="column"
