@@ -1,4 +1,4 @@
-sAngular material table. Complete implementation of google material design based on angular material components.
+Angular material table. Complete implementation of google material design based on angular material components.
 
 > Live demo http://iamisti.github.io/mdDataTable/
 
