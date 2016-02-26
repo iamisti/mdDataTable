@@ -2,6 +2,8 @@ Angular material table. Complete implementation of google material design based 
 
 > Live demo http://iamisti.github.io/mdDataTable/
 
+> If you like what you see, you can even make it better by donating the project with even a small amount https://www.paypal.me/iamisti
+
 [![Build Status](https://travis-ci.org/iamisti/mdDataTable.svg?branch=master)](https://travis-ci.org/iamisti/mdDataTable) 
 [![Code Climate](https://codeclimate.com/github/iamisti/mdDataTable/badges/gpa.svg)](https://codeclimate.com/github/iamisti/mdDataTable) 
 [![Test Coverage](https://codeclimate.com/github/iamisti/md-data-table/badges/coverage.svg?branch=master)](https://codeclimate.com/github/iamisti/md-data-table/coverage) 
