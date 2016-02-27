@@ -12,6 +12,13 @@
      * Representing a cell which should be placed inside `mdt-row` element directive.
      *
      * @param {boolean=} htmlContent if set to true, then html content can be placed into the content of the directive.
+     * @param {string=} editableField if set, then content can be editable.
+     *
+     *      Available modes are:
+     *
+     *      - "textInput" - an editable table cell with placeholder text
+     *      - "smallEditDialog" - A simple, one-field edit dialog on click
+     *      - "largeEditDialog" - A complex, flexible edit edit dialog on click
      *
      * @example
      * <pre>
@@ -40,14 +47,19 @@
             require: '^mdtRow',
             link: function($scope, element, attr, mdtRowCtrl, transclude){
 
+                var attributes = {
+                    htmlContent: attr.htmlContent ? attr.htmlContent : false,
+                    editableField: attr.editableField ? attr.editableField : false
+                };
+
                 transclude(function (clone) {
                     //TODO: rework, figure out something for including html content
                     if(attr.htmlContent){
-                        mdtRowCtrl.addToRowDataStorage(clone, 'htmlContent');
+                        mdtRowCtrl.addToRowDataStorage(clone, attributes);
                     }else{
                         //TODO: better idea?
                         var cellValue = $parse(clone.html().replace('{{', '').replace('}}', ''))($scope.$parent);
-                        mdtRowCtrl.addToRowDataStorage(cellValue);
+                        mdtRowCtrl.addToRowDataStorage(cellValue, attributes);
                     }
                 });
             }

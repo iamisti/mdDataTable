@@ -1,5 +1,5 @@
 <div ng-app="developmentAreaApp" ng-controller="DevelopmentAreaController" layout-margin>
-    <mdt-table>
+    <mdt-table save-row-callback="saveRowCallback(row)">
         <mdt-header-row>
             <mdt-column align-rule="left">Dessert (100g serving)</mdt-column>
             <mdt-column align-rule="right">Calories</mdt-column>
@@ -12,7 +12,7 @@
         </mdt-header-row>
         <mdt-row ng-repeat="nutrition in nutritionList">
             <mdt-cell>{{nutrition.name}}</mdt-cell>
-            <mdt-cell>{{nutrition.calories}}</mdt-cell>
+            <mdt-cell editable-field="textInput">{{nutrition.calories}}</mdt-cell>
             <mdt-cell>{{nutrition.fat}}</mdt-cell>
             <mdt-cell>{{nutrition.carbs}}</mdt-cell>
             <mdt-cell>{{nutrition.protein}}</mdt-cell>

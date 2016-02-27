@@ -10,7 +10,35 @@
         ng-repeat="cellData in rowData.data track by $index"
         mdt-add-align-class="headerData[$index].alignRule">
 
-        <span mdt-add-html-content-to-cell="cellData"></span>
+        <!-- non editable cell -->
+        <span mdt-add-html-content-to-cell="cellData" ng-if="!cellData.attributes.editableField || !rowData.isEditModeEnabled"></span>
+
+        <!-- textInput editable cell -->
+        <span ng-if="cellData.attributes.editableField === 'textInput' && rowData.isEditModeEnabled">
+            <md-input-container md-no-float style="margin:0;">
+                <input type="text"
+                       ng-model="cellData.value"
+                       mdt-add-align-class="headerData[$index].alignRule"
+                       placeholder="color"
+                       style="position:relative;top:13px;" />
+            </md-input-container>
+        </span>
+    </td>
+
+    <td mdt-add-align-class="'right'" ng-if="rowData.hasEditableField">
+        <div style="width:74px;">
+            <ng-md-icon icon="edit" size="24" style="cursor:pointer" ng-if="!rowData.isEditModeEnabled" ng-click="rowData.isEditModeEnabled = !rowData.isEditModeEnabled;"></ng-md-icon>
+
+            <div layout="row" layout-align="center end" style="padding-left:24px;">
+                <ng-md-icon icon="check" size="24" style="cursor:pointer"
+                            ng-if="rowData.isEditModeEnabled"
+                            ng-click="saveRow(rowData)"></ng-md-icon>
+
+                <ng-md-icon icon="cancel" size="24" style="cursor:pointer"
+                            ng-if="rowData.isEditModeEnabled"
+                            ng-click="rowData.isEditModeEnabled = !rowData.isEditModeEnabled;"></ng-md-icon>
+            </div>
+        </div>
     </td>
 </tr>
 <tr ng-show="mdtPaginationHelper.isLoading">

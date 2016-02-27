@@ -7,6 +7,9 @@
             this.storage = [];
             this.header = [];
 
+            //used for table header checking if there is an editable row for any fields or not.
+            this.hasEditableField = false;
+
             this.sortByColumnLastIndex = null;
             this.orderByAscending = true;
         }
@@ -21,6 +24,19 @@
                 return;
             }
 
+            //for performance reasons calculate editable field value once that can be used later.
+            var hasEditableField = false;
+            var that = this;
+            _.each(rowArray, function(aRow){
+               if(aRow.attributes.editableField){
+                   hasEditableField = true;
+
+                   if(!that.hasEditableField){
+                       that.hasEditableField = true;
+                   }
+               }
+            });
+
             this.storage.push({
                 rowId: explicitRowId,
                 optionList: {
@@ -28,6 +44,8 @@
                     deleted: false,
                     visible: true
                 },
+                hasEditableField: hasEditableField,
+                isEditModeEnabled: false,
                 data: rowArray
             });
         };
@@ -156,6 +174,16 @@
             });
 
             return selectedRows;
+        };
+
+        TableDataStorageService.prototype.getSavedRowData = function(rowData){
+            var rawRowData = [];
+
+            _.each(rowData.data, function(aCell){
+                rawRowData.push(aCell.value);
+            });
+
+            return rawRowData;
         };
 
         return {

@@ -13,6 +13,7 @@
        [alternate-headers="{String}"]
        [sortable-columns="{boolean}"]
        [delete-row-callback="{function(rows)}"]
+       [selected-row-callback="{function(rows)}"]
        [animate-sort-icon="{boolean}"]
        [ripple-effect="{boolean}"]
        [paginated-rows="{boolean}"]
@@ -48,6 +49,9 @@ default sortable column)</p>
 </div></td></tr><tr><td>deleteRowCallback <div><em>(optional)</em></div></td><td><a href="" class="label type-hint type-hint-function">function(rows</a></td><td><div class="mdttable-page"><p>callback function when deleting rows.
 At default an array of the deleted row&#39;s data will be passed as the argument.
 When <code>table-row-id</code> set for the deleted row then that value will be passed.</p>
+</div></td></tr><tr><td>selectedRowCallback <div><em>(optional)</em></div></td><td><a href="" class="label type-hint type-hint-function">function(rows</a></td><td><div class="mdttable-page"><p>callback function when selecting rows.
+At default an array of the selected row&#39;s data will be passed as the argument.
+When <code>table-row-id</code> set for the selected row then that value will be passed.</p>
 </div></td></tr><tr><td>animateSortIcon <div><em>(optional)</em></div></td><td><a href="" class="label type-hint type-hint-boolean">boolean</a></td><td><div class="mdttable-page"><p>sort icon will be animated on change</p>
 </div></td></tr><tr><td>rippleEffect <div><em>(optional)</em></div></td><td><a href="" class="label type-hint type-hint-boolean">boolean</a></td><td><div class="mdttable-page"><p>ripple effect will be applied on the columns when clicked (not implemented yet)</p>
 </div></td></tr><tr><td>paginatedRows <div><em>(optional)</em></div></td><td><a href="" class="label type-hint type-hint-boolean">boolean</a></td><td><div class="mdttable-page"><p>if set then basic pagination will applied to the bottom of the table.</p>

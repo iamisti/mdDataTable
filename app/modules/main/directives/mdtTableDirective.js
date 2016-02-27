@@ -108,6 +108,7 @@
                 sortableColumns: '=',
                 deleteRowCallback: '&',
                 selectedRowCallback: '&',
+                saveRowCallback: '&',
                 animateSortIcon: '=',
                 rippleEffect: '=',
                 paginatedRows: '=',
@@ -149,6 +150,7 @@
                 $scope.isPaginationEnabled = isPaginationEnabled;
                 $scope.isAnyRowSelected = _.bind(ctrl.tableDataStorageService.isAnyRowSelected, ctrl.tableDataStorageService);
                 $scope.onCheckboxChange = onCheckboxChange;
+                $scope.saveRow = saveRow;
 
                 injectContentIntoTemplate();
 
@@ -215,6 +217,14 @@
 
                         element.find('#reader').append(headings).append(body);
                     });
+                }
+
+                function saveRow(rowData){
+                    rowData.isEditModeEnabled = !rowData.isEditModeEnabled;
+
+                    var rawRowData = ctrl.tableDataStorageService.getSavedRowData(rowData);
+
+                    $scope.saveRowCallback({row: rawRowData});
                 }
             }
         };

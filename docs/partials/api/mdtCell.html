@@ -13,10 +13,17 @@
 </ul>
 <h2 id="usage">Usage</h2>
 <div class="usage">as element:<pre class="prettyprint linenums">&lt;mdt-cell
-       [html-content="{boolean}"]&gt;
+       [html-content="{boolean}"]
+       [editable-field="{string}"]&gt;
 &lt;/mdt-cell&gt;</pre>
 <h4 id="usage_parameters">Parameters</h4><table class="variables-matrix table table-bordered table-striped"><thead><tr><th>Param</th><th>Type</th><th>Details</th></tr></thead><tbody><tr><td>htmlContent <div><em>(optional)</em></div></td><td><a href="" class="label type-hint type-hint-boolean">boolean</a></td><td><div class="mdtcell-page"><p>if set to true, then html content can be placed into the content of the directive.</p>
-</div></td></tr></tbody></table></div>
+</div></td></tr><tr><td>editableField <div><em>(optional)</em></div></td><td><a href="" class="label type-hint type-hint-string">string</a></td><td><div class="mdtcell-page"><p>if set, then content can be editable.</p>
+<pre><code> Available modes are:
+
+ - &quot;textInput&quot; - an editable table cell with placeholder text
+ - &quot;smallEditDialog&quot; - A simple, one-field edit dialog on click
+ - &quot;largeEditDialog&quot; - A complex, flexible edit edit dialog on click
+</code></pre></div></td></tr></tbody></table></div>
 <h2 id="example">Example</h2>
 <div class="example"><div class="mdtcell-page"><pre class="prettyprint linenums">
 &lt;mdt-table&gt;

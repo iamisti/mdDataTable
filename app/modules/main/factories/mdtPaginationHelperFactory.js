@@ -68,6 +68,10 @@
             this.page = 1;
         };
 
+        mdtPaginationHelper.prototype.hasEditableField = function(){
+            return this.tableDataStorageService.hasEditableField;
+        };
+
         return {
             getInstance: function(tableDataStorageService, isEnabled){
                 return new mdtPaginationHelper(tableDataStorageService, isEnabled);
