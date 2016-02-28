@@ -53,6 +53,12 @@
             },{
                 name: 'Html support',
                 codepen: 'LGLYjZ'
+            },{
+                name: 'Editable fields - small dialog',
+                codepen: 'LNYBZX'
+            },{
+                name: 'Editable fields - large dialog',
+                codepen: 'zqYLNj'
             }/*,{
                 name: 'Ripple effect',
                 codepen: 'xZRzpV'
