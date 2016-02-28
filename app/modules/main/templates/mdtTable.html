@@ -1,4 +1,4 @@
-<md-content class="mdtTable md-whiteframe-z1" layout="column">
+<md-content class="mdtTable md-whiteframe-z1" layout="column" ng-cloak>
     <!-- table card -->
     <mdt-card-header ng-hide="alternateHeaders && isAnyRowSelected()"></mdt-card-header>
 
@@ -30,6 +30,8 @@
 
                 <mdt-generated-header-cell-content></mdt-generated-header-cell-content>
             </th>
+
+            <!-- TODO for virtualrepeat: edit column of needed -->
         </tr>
         </thead>
     </table>

@@ -158,6 +158,16 @@
             return selectedRows;
         };
 
+        TableDataStorageService.prototype.getSavedRowData = function(rowData){
+            var rawRowData = [];
+
+            _.each(rowData.data, function(aCell){
+                rawRowData.push(aCell.value);
+            });
+
+            return rawRowData;
+        };
+
         return {
             getInstance: function(){
                 return new TableDataStorageService();

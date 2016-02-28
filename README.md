@@ -49,7 +49,7 @@ http://www.google.com/design/spec/components/data-tables.html
 
 [Cell attributes (`mdt-cell`)](#data-cell-attributes)
  - ! inline-menu
- - ! editable-field
+ - editable-field
  - html-content
 
 ## Overview
@@ -213,11 +213,11 @@ http://www.google.com/design/spec/components/data-tables.html
 
 | Available               | Params                                         | ChildParams        | Type          | Details         |
 | ----------------------- | ---------------------------------------------- | ------------------ | ------------- | --------------- |
-|:x:                      | editable-field                                 |                    | String        | if provided, provides basic text editing. Include editable fields within a table and denote them using placeholder text(if empty). You can use a simple edit dialog with just a text field, or display a full dialog component on click. |
-|:x:                      |                                                | textInput          | -             | An editable table cell with placeholder text |
-|:x:                      |                                                | smallEditDialog    | -             | A simple, one-field edit dialog on click |
-|:x:                      |                                                | largeEditDialog    | -             | A complex, flexible edit edit dialog on click |
-|:x:                   |                                                | editIcon           | -             | Inline edit icon |
+|:white_check_mark:                      | editable-field                                 |                    | String        | if provided, provides basic text editing. Include editable fields within a table and denote them using placeholder text(if empty). You can use a simple edit dialog with just a text field, or display a full dialog component on click. |
+|:white_check_mark:                      |                                                | smallEditDialog    | -             | A simple, one-field edit dialog on click |
+|:white_check_mark:                      |                                                | largeEditDialog    | -             | A complex, flexible edit edit dialog on click |
+|:white_check_mark:                      | editable-field-title                           |                    | String        | If set, then it sets the title of the dialog. (only for `largeEditDialog`) |
+|:white_check_mark:                      | editable-field-max-length                      |                    | Number        | if set, then it sets the maximum length of the field. |
 ![An editable table cell with placeholder text](http://material-design.storage.googleapis.com/publish/material_v_4/material_ext_publish/0B3mOPoJlxiFhZTViOVFXZTNucGs/components_datatables_interaction_editing1.png)
 ![A simple, one-field edit dialog](http://material-design.storage.googleapis.com/publish/material_v_4/material_ext_publish/0B3mOPoJlxiFhZHhJSVhoT2JuTkE/components_datatables_interaction_editing2.png)
 ![A complex, flexible edit dialog](http://material-design.storage.googleapis.com/publish/material_v_4/material_ext_publish/0B3mOPoJlxiFhZkY4b1VkME5QcXM/components_datatables_interaction_editing3.png)

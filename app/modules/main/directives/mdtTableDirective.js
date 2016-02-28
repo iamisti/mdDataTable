@@ -96,7 +96,7 @@
      *     </mdt-table>
      * </pre>
      */
-    function mdtTableDirective(TableDataStorageFactory, mdtPaginationHelperFactory, mdtAjaxPaginationHelperFactory, $injector){
+    function mdtTableDirective(TableDataStorageFactory, mdtPaginationHelperFactory, mdtAjaxPaginationHelperFactory, $mdDialog){
         return {
             restrict: 'E',
             templateUrl: '/main/templates/mdtTable.html',
@@ -108,6 +108,7 @@
                 sortableColumns: '=',
                 deleteRowCallback: '&',
                 selectedRowCallback: '&',
+                saveRowCallback: '&',
                 animateSortIcon: '=',
                 rippleEffect: '=',
                 paginatedRows: '=',
@@ -149,6 +150,8 @@
                 $scope.isPaginationEnabled = isPaginationEnabled;
                 $scope.isAnyRowSelected = _.bind(ctrl.tableDataStorageService.isAnyRowSelected, ctrl.tableDataStorageService);
                 $scope.onCheckboxChange = onCheckboxChange;
+                $scope.saveRow = saveRow;
+                $scope.showEditDialog = showEditDialog;
 
                 injectContentIntoTemplate();
 
@@ -214,6 +217,44 @@
                         });
 
                         element.find('#reader').append(headings).append(body);
+                    });
+                }
+
+                function saveRow(rowData){
+                    var rawRowData = ctrl.tableDataStorageService.getSavedRowData(rowData);
+                    $scope.saveRowCallback({row: rawRowData});
+                }
+
+                function showEditDialog(ev, cellData, rowData){
+                    var rect = ev.currentTarget.closest('td').getBoundingClientRect();
+                    var position = {
+                        top: rect.top,
+                        left: rect.left
+                    };
+
+                    var ops = {
+                        controller: 'InlineEditModalCtrl',
+                        targetEvent: ev,
+                        clickOutsideToClose: true,
+                        escapeToClose: true,
+                        focusOnOpen: false,
+                        locals: {
+                            position: position,
+                            cellData: JSON.parse(JSON.stringify(cellData))
+                        }
+                    };
+
+                    if(cellData.attributes.editableField === 'smallEditDialog'){
+                        ops.templateUrl = '/main/templates/smallEditDialog.html';
+                    }else{
+                        ops.templateUrl = '/main/templates/largeEditDialog.html';
+                    }
+
+                    var that = this;
+                    $mdDialog.show(ops).then(function(cellValue){
+                        cellData.value = cellValue;
+
+                        that.saveRow(rowData);
                     });
                 }
             }

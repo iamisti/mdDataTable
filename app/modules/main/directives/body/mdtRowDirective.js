@@ -50,12 +50,8 @@
                 vm.addToRowDataStorage = addToRowDataStorage;
                 $scope.rowDataStorage = [];
 
-                function addToRowDataStorage(value, contentType){
-                    if(contentType === 'htmlContent'){
-                        $scope.rowDataStorage.push({value: value, type: 'html'});
-                    }else{
-                        $scope.rowDataStorage.push(value);
-                    }
+                function addToRowDataStorage(value, attributes){
+                    $scope.rowDataStorage.push({value: value, attributes: attributes});
                 }
             },
             link: function($scope, element, attrs, ctrl, transclude){
