@@ -8,7 +8,7 @@
                 $scope.$watch(attr.mdtAddHtmlContentToCell, function(val){
                     element.empty();
                     element.append(val.value);
-                });
+                }, true);
             }
         };
     }

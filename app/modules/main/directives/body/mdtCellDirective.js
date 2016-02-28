@@ -16,9 +16,11 @@
      *
      *      Available modes are:
      *
-     *      - "textInput" - an editable table cell with placeholder text
      *      - "smallEditDialog" - A simple, one-field edit dialog on click
      *      - "largeEditDialog" - A complex, flexible edit edit dialog on click
+     *
+     * @param {string=} editableFieldTitle if set, then it sets the title of the dialog. (only for `largeEditDialog`)
+     *
      *
      * @example
      * <pre>
@@ -49,7 +51,9 @@
 
                 var attributes = {
                     htmlContent: attr.htmlContent ? attr.htmlContent : false,
-                    editableField: attr.editableField ? attr.editableField : false
+                    editableField: attr.editableField ? attr.editableField : false,
+                    editableFieldTitle: attr.editableFieldTitle ? attr.editableFieldTitle : false,
+                    editableFieldMaxLength: attr.editableFieldMaxLength ? attr.editableFieldMaxLength : false
                 };
 
                 transclude(function (clone) {

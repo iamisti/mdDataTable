@@ -10,7 +10,7 @@ NG_DOCS={
       "type": "directive",
       "moduleName": "mdtCell",
       "shortDescription": "Representing a cell which should be placed inside mdt-row element directive.",
-      "keywords": "api cell click complex content ctrl details dialog directive edit editable editablefield element flexible href html html-content htmlcontent inside largeeditdialog mdt-row mdtcell mdtrow mdttable modes ng-repeat one-field placeholder price product productdetails products representing set simple smalleditdialog table text textinput true"
+      "keywords": "api cell click complex content ctrl details dialog directive edit editable editablefield editablefieldtitle element flexible href html html-content htmlcontent inside largeeditdialog mdt-row mdtcell mdtrow mdttable modes ng-repeat one-field price product productdetails products representing set sets simple smalleditdialog title true"
     },
     {
       "section": "api",

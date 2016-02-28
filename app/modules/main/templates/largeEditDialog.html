@@ -1,0 +1,19 @@
+<md-dialog style="min-width: 300px;">
+    <md-dialog-content class="md-dialog-content" style="margin-bottom:0;padding-top:16px;padding-bottom:0;" layout-align="column">
+        <form ng-submit="saveRow()" name="editFieldForm">
+            <h2>{{cellData.attributes.editableFieldTitle}}</h2>
+            <md-input-container md-no-float style="margin-bottom:0;width:100%">
+
+                <input type="text"
+                       ng-model="cellData.value"
+                       placeholder="color"
+                       md-maxlength="{{cellData.attributes.editableFieldMaxLength}}" />
+            </md-input-container>
+        </form>
+    </md-dialog-content>
+
+    <md-dialog-actions>
+        <md-button class="md-primary" ng-click="saveRow()">Save</md-button>
+        <md-button class="md-primary" ng-click="cancel()">Cancel</md-button>
+    </md-dialog-actions>
+</md-dialog>

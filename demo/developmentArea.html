@@ -12,8 +12,10 @@
         </mdt-header-row>
         <mdt-row ng-repeat="nutrition in nutritionList">
             <mdt-cell editable-field="smallEditDialog">{{nutrition.name}}</mdt-cell>
-            <mdt-cell editable-field="textInput">{{nutrition.calories}}</mdt-cell>
-            <mdt-cell>{{nutrition.fat}}</mdt-cell>
+            <mdt-cell>{{nutrition.calories}}</mdt-cell>
+            <mdt-cell editable-field="largeEditDialog"
+                      editable-field-title="Add fat in gram"
+                      editable-field-max-length="35">{{nutrition.fat}}</mdt-cell>
             <mdt-cell>{{nutrition.carbs}}</mdt-cell>
             <mdt-cell>{{nutrition.protein}}</mdt-cell>
             <mdt-cell>{{nutrition.sodium}}</mdt-cell>

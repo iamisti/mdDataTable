@@ -228,60 +228,43 @@
                     $scope.saveRowCallback({row: rawRowData});
                 }
 
-                function showEditDialog(ev, cellData){
+                function showEditDialog(ev, cellData, rowData){
                     var rect = ev.currentTarget.closest('td').getBoundingClientRect();
                     var position = {
                         top: rect.top,
-                        left: rect.left};
+                        left: rect.left
+                    };
 
+                    var that = this;
                     var ops = {
-                        controller: 'DialogCtrl',
-                        templateUrl: '/main/templates/smallEditDialog.html',
+                        controller: 'InlineEditModalCtrl',
                         targetEvent: ev,
                         clickOutsideToClose: true,
                         escapeToClose: true,
+                        focusOnOpen: false,
                         locals: {
                             position: position,
-                            cellData: cellData
+                            cellData: JSON.parse(JSON.stringify(cellData)),
+                            rowData: rowData,
+                            mdtTableDirective: that
                         }
                     };
 
-/*
-                        var ops = $mdDialog.alert()
-                            .clickOutsideToClose(true)
-                            .title('Edit')
-                            .textContent('You can specify some description text in here.')
-                            .ariaLabel('Alert Dialog Demo')
-                            .ok('Got it!')
-                            .targetEvent(ev);
+                    if(cellData.attributes.editableField === 'smallEditDialog'){
+                        ops.templateUrl = '/main/templates/smallEditDialog.html';
+                    }else{
+                        ops.templateUrl = '/main/templates/largeEditDialog.html';
+                    }
 
-
-                        ops.locals = {
-                            'position': position
-                        };
-*/
-                        $mdDialog.show(ops);
+                    $mdDialog.show(ops).then(function(cellValue){
+                        cellData.value = cellValue;
+                    });
                 }
             }
         };
     }
 
-    function DialogCtrl($scope, position, cellData, $timeout){
-
-        $timeout(function() {
-            var el = $('md-dialog');
-            el.css('position', 'fixed');
-            el.css('top', position['top']);
-            el.css('left', position['left']);
-        });
-
-        $scope.cellData = cellData;
-    }
-
     angular
         .module('mdDataTable')
-        .directive('mdtTable', mdtTableDirective)
-        .controller('DialogCtrl', DialogCtrl);
-
-
+        .directive('mdtTable', mdtTableDirective);
 }());
