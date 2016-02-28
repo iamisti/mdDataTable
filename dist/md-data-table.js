@@ -46,6 +46,40 @@
 (function(){
     'use strict';
 
+    InlineEditModalCtrl.$inject = ['$scope', 'position', 'cellData', '$timeout', '$mdDialog'];
+    function InlineEditModalCtrl($scope, position, cellData, $timeout, $mdDialog){
+
+        $timeout(function() {
+            var el = $('md-dialog');
+            el.css('position', 'fixed');
+            el.css('top', position['top']);
+            el.css('left', position['left']);
+
+            el.find('input[type="text"]').focus();
+        });
+
+        $scope.cellData = cellData;
+        $scope.saveRow = saveRow;
+        $scope.cancel = cancel;
+
+        function saveRow(){
+            if($scope.editFieldForm.$valid){
+                $mdDialog.hide(cellData.value);
+            }
+        }
+
+        function cancel(){
+            $mdDialog.cancel();
+        }
+    }
+
+    angular
+        .module('mdDataTable')
+        .controller('InlineEditModalCtrl', InlineEditModalCtrl);
+}());
+(function(){
+    'use strict';
+
     TableDataStorageFactory.$inject = ['$log'];
     function TableDataStorageFactory($log){
 
@@ -204,6 +238,16 @@
             return selectedRows;
         };
 
+        TableDataStorageService.prototype.getSavedRowData = function(rowData){
+            var rawRowData = [];
+
+            _.each(rowData.data, function(aCell){
+                rawRowData.push(aCell.value);
+            });
+
+            return rawRowData;
+        };
+
         return {
             getInstance: function(){
                 return new TableDataStorageService();
@@ -311,7 +355,14 @@
                 columnValues = [];
 
                 _.each(columnKeys, function(columnKey){
-                    columnValues.push(_.get(row, columnKey));
+                    //TODO: centralize adding column values into one place.
+                    // Duplication occurs at mdtCellDirective's link function.
+                    columnValues.push({
+                        attributes: {
+                            editableField: false
+                        },
+                        value: _.get(row, columnKey)
+                    });
                 });
 
                 that.tableDataStorageService.addRowData(rowId, columnValues);
@@ -543,8 +594,8 @@
      *     </mdt-table>
      * </pre>
      */
-    mdtTableDirective.$inject = ['TableDataStorageFactory', 'mdtPaginationHelperFactory', 'mdtAjaxPaginationHelperFactory', '$injector'];
-    function mdtTableDirective(TableDataStorageFactory, mdtPaginationHelperFactory, mdtAjaxPaginationHelperFactory, $injector){
+    mdtTableDirective.$inject = ['TableDataStorageFactory', 'mdtPaginationHelperFactory', 'mdtAjaxPaginationHelperFactory', '$mdDialog'];
+    function mdtTableDirective(TableDataStorageFactory, mdtPaginationHelperFactory, mdtAjaxPaginationHelperFactory, $mdDialog){
         return {
             restrict: 'E',
             templateUrl: '/main/templates/mdtTable.html',
@@ -556,6 +607,7 @@
                 sortableColumns: '=',
                 deleteRowCallback: '&',
                 selectedRowCallback: '&',
+                saveRowCallback: '&',
                 animateSortIcon: '=',
                 rippleEffect: '=',
                 paginatedRows: '=',
@@ -597,6 +649,8 @@
                 $scope.isPaginationEnabled = isPaginationEnabled;
                 $scope.isAnyRowSelected = _.bind(ctrl.tableDataStorageService.isAnyRowSelected, ctrl.tableDataStorageService);
                 $scope.onCheckboxChange = onCheckboxChange;
+                $scope.saveRow = saveRow;
+                $scope.showEditDialog = showEditDialog;
 
                 injectContentIntoTemplate();
 
@@ -664,6 +718,44 @@
                         element.find('#reader').append(headings).append(body);
                     });
                 }
+
+                function saveRow(rowData){
+                    var rawRowData = ctrl.tableDataStorageService.getSavedRowData(rowData);
+                    $scope.saveRowCallback({row: rawRowData});
+                }
+
+                function showEditDialog(ev, cellData, rowData){
+                    var rect = ev.currentTarget.closest('td').getBoundingClientRect();
+                    var position = {
+                        top: rect.top,
+                        left: rect.left
+                    };
+
+                    var ops = {
+                        controller: 'InlineEditModalCtrl',
+                        targetEvent: ev,
+                        clickOutsideToClose: true,
+                        escapeToClose: true,
+                        focusOnOpen: false,
+                        locals: {
+                            position: position,
+                            cellData: JSON.parse(JSON.stringify(cellData))
+                        }
+                    };
+
+                    if(cellData.attributes.editableField === 'smallEditDialog'){
+                        ops.templateUrl = '/main/templates/smallEditDialog.html';
+                    }else{
+                        ops.templateUrl = '/main/templates/largeEditDialog.html';
+                    }
+
+                    var that = this;
+                    $mdDialog.show(ops).then(function(cellValue){
+                        cellData.value = cellValue;
+
+                        that.saveRow(rowData);
+                    });
+                }
             }
         };
     }
@@ -671,27 +763,6 @@
     angular
         .module('mdDataTable')
         .directive('mdtTable', mdtTableDirective);
-}());
-(function(){
-    'use strict';
-
-    ColumnAlignmentHelper.$inject = ['ColumnOptionProvider'];
-    function ColumnAlignmentHelper(ColumnOptionProvider){
-        var service = this;
-        service.getColumnAlignClass = getColumnAlignClass;
-
-        function getColumnAlignClass(alignRule) {
-            if (alignRule === ColumnOptionProvider.ALIGN_RULE.ALIGN_RIGHT) {
-                return 'rightAlignedColumn';
-            } else {
-                return 'leftAlignedColumn';
-            }
-        }
-    }
-
-    angular
-        .module('mdDataTable')
-        .service('ColumnAlignmentHelper', ColumnAlignmentHelper);
 }());
 (function(){
     'use strict';
@@ -717,6 +788,27 @@
 (function(){
     'use strict';
 
+    ColumnAlignmentHelper.$inject = ['ColumnOptionProvider'];
+    function ColumnAlignmentHelper(ColumnOptionProvider){
+        var service = this;
+        service.getColumnAlignClass = getColumnAlignClass;
+
+        function getColumnAlignClass(alignRule) {
+            if (alignRule === ColumnOptionProvider.ALIGN_RULE.ALIGN_RIGHT) {
+                return 'rightAlignedColumn';
+            } else {
+                return 'leftAlignedColumn';
+            }
+        }
+    }
+
+    angular
+        .module('mdDataTable')
+        .service('ColumnAlignmentHelper', ColumnAlignmentHelper);
+}());
+(function(){
+    'use strict';
+
     /**
      * @ngdoc directive
      * @name mdtCell
@@ -728,6 +820,16 @@
      * Representing a cell which should be placed inside `mdt-row` element directive.
      *
      * @param {boolean=} htmlContent if set to true, then html content can be placed into the content of the directive.
+     * @param {string=} editableField if set, then content can be editable.
+     *
+     *      Available modes are:
+     *
+     *      - "smallEditDialog" - A simple, one-field edit dialog on click
+     *      - "largeEditDialog" - A complex, flexible edit edit dialog on click
+     *
+     * @param {string=} editableFieldTitle if set, then it sets the title of the dialog. (only for `largeEditDialog`)
+     * @param {number=} editableFieldMaxLength if set, then it sets the maximum length of the field.
+     *
      *
      * @example
      * <pre>
@@ -757,14 +859,21 @@
             require: '^mdtRow',
             link: function($scope, element, attr, mdtRowCtrl, transclude){
 
+                var attributes = {
+                    htmlContent: attr.htmlContent ? attr.htmlContent : false,
+                    editableField: attr.editableField ? attr.editableField : false,
+                    editableFieldTitle: attr.editableFieldTitle ? attr.editableFieldTitle : false,
+                    editableFieldMaxLength: attr.editableFieldMaxLength ? attr.editableFieldMaxLength : false
+                };
+
                 transclude(function (clone) {
                     //TODO: rework, figure out something for including html content
                     if(attr.htmlContent){
-                        mdtRowCtrl.addToRowDataStorage(clone, 'htmlContent');
+                        mdtRowCtrl.addToRowDataStorage(clone, attributes);
                     }else{
                         //TODO: better idea?
                         var cellValue = $parse(clone.html().replace('{{', '').replace('}}', ''))($scope.$parent);
-                        mdtRowCtrl.addToRowDataStorage(cellValue);
+                        mdtRowCtrl.addToRowDataStorage(cellValue, attributes);
                     }
                 });
             }
@@ -827,12 +936,8 @@
                 vm.addToRowDataStorage = addToRowDataStorage;
                 $scope.rowDataStorage = [];
 
-                function addToRowDataStorage(value, contentType){
-                    if(contentType === 'htmlContent'){
-                        $scope.rowDataStorage.push({value: value, type: 'html'});
-                    }else{
-                        $scope.rowDataStorage.push(value);
-                    }
+                function addToRowDataStorage(value, attributes){
+                    $scope.rowDataStorage.push({value: value, attributes: attributes});
                 }
             }],
             link: function($scope, element, attrs, ctrl, transclude){
@@ -1019,13 +1124,8 @@
             link: function($scope, element, attr){
                 $scope.$watch(attr.mdtAddHtmlContentToCell, function(val){
                     element.empty();
-
-                    if(val.type === 'html'){
-                        element.append(val.value);
-                    }else{
-                        element.append(val);
-                    }
-                });
+                    element.append(val.value);
+                }, true);
             }
         };
     }
