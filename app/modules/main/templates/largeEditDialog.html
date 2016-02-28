@@ -4,9 +4,10 @@
             <h2>{{cellData.attributes.editableFieldTitle}}</h2>
             <md-input-container md-no-float style="margin-bottom:0;width:100%">
 
+                <!-- TODO getting placeholder -->
                 <input type="text"
                        ng-model="cellData.value"
-                       placeholder="color"
+                       placeholder=""
                        md-maxlength="{{cellData.attributes.editableFieldMaxLength}}" />
             </md-input-container>
         </form>
