@@ -94,7 +94,14 @@
                 columnValues = [];
 
                 _.each(columnKeys, function(columnKey){
-                    columnValues.push(_.get(row, columnKey));
+                    //TODO: centralize adding column values into one place.
+                    // Duplication occurs at mdtCellDirective's link function.
+                    columnValues.push({
+                        attributes: {
+                            editableField: false
+                        },
+                        value: _.get(row, columnKey)
+                    });
                 });
 
                 that.tableDataStorageService.addRowData(rowId, columnValues);
