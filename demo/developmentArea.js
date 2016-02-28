@@ -3,10 +3,6 @@
 
     angular.module('developmentAreaApp', ['ngMaterial', 'mdDataTable']);
     angular.module('developmentAreaApp').controller('DevelopmentAreaController', function($scope){
-        $scope.saveRowCallback = function(row){
-            console.log(row);
-        };
-
         $scope.nutritionList = [
             {
                 id: 601,
