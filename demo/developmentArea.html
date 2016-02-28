@@ -11,7 +11,7 @@
             <mdt-column align-rule="right">Iron (%)</mdt-column>
         </mdt-header-row>
         <mdt-row ng-repeat="nutrition in nutritionList">
-            <mdt-cell>{{nutrition.name}}</mdt-cell>
+            <mdt-cell editable-field="smallEditDialog">{{nutrition.name}}</mdt-cell>
             <mdt-cell editable-field="textInput">{{nutrition.calories}}</mdt-cell>
             <mdt-cell>{{nutrition.fat}}</mdt-cell>
             <mdt-cell>{{nutrition.carbs}}</mdt-cell>

@@ -8,7 +8,8 @@
 
     <td class="column"
         ng-repeat="cellData in rowData.data track by $index"
-        mdt-add-align-class="headerData[$index].alignRule">
+        mdt-add-align-class="headerData[$index].alignRule"
+    style="position:relative;">
 
         <!-- non editable cell -->
         <span mdt-add-html-content-to-cell="cellData" ng-if="!cellData.attributes.editableField || !rowData.isEditModeEnabled"></span>
@@ -21,6 +22,18 @@
                        mdt-add-align-class="headerData[$index].alignRule"
                        placeholder="color"
                        style="position:relative;top:13px;" />
+            </md-input-container>
+        </span>
+
+        <!-- smallEditDialog editable cell -->
+        <span ng-if="cellData.attributes.editableField === 'smallEditDialog' && rowData.isEditModeEnabled">
+            <md-input-container md-no-float style="margin:0;">
+
+                <input type="text"
+                       ng-model="cellData.value"
+                       mdt-add-align-class="headerData[$index].alignRule"
+                       placeholder="color"
+                       style="position:relative;top:13px;" ng-click="showEditDialog($event, cellData)" />
             </md-input-container>
         </span>
     </td>

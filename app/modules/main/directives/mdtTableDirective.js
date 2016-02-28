@@ -96,7 +96,7 @@
      *     </mdt-table>
      * </pre>
      */
-    function mdtTableDirective(TableDataStorageFactory, mdtPaginationHelperFactory, mdtAjaxPaginationHelperFactory, $injector){
+    function mdtTableDirective(TableDataStorageFactory, mdtPaginationHelperFactory, mdtAjaxPaginationHelperFactory, $mdDialog){
         return {
             restrict: 'E',
             templateUrl: '/main/templates/mdtTable.html',
@@ -151,6 +151,7 @@
                 $scope.isAnyRowSelected = _.bind(ctrl.tableDataStorageService.isAnyRowSelected, ctrl.tableDataStorageService);
                 $scope.onCheckboxChange = onCheckboxChange;
                 $scope.saveRow = saveRow;
+                $scope.showEditDialog = showEditDialog;
 
                 injectContentIntoTemplate();
 
@@ -226,11 +227,61 @@
 
                     $scope.saveRowCallback({row: rawRowData});
                 }
+
+                function showEditDialog(ev, cellData){
+                    var rect = ev.currentTarget.closest('td').getBoundingClientRect();
+                    var position = {
+                        top: rect.top,
+                        left: rect.left};
+
+                    var ops = {
+                        controller: 'DialogCtrl',
+                        templateUrl: '/main/templates/smallEditDialog.html',
+                        targetEvent: ev,
+                        clickOutsideToClose: true,
+                        escapeToClose: true,
+                        locals: {
+                            position: position,
+                            cellData: cellData
+                        }
+                    };
+
+/*
+                        var ops = $mdDialog.alert()
+                            .clickOutsideToClose(true)
+                            .title('Edit')
+                            .textContent('You can specify some description text in here.')
+                            .ariaLabel('Alert Dialog Demo')
+                            .ok('Got it!')
+                            .targetEvent(ev);
+
+
+                        ops.locals = {
+                            'position': position
+                        };
+*/
+                        $mdDialog.show(ops);
+                }
             }
         };
     }
 
+    function DialogCtrl($scope, position, cellData, $timeout){
+
+        $timeout(function() {
+            var el = $('md-dialog');
+            el.css('position', 'fixed');
+            el.css('top', position['top']);
+            el.css('left', position['left']);
+        });
+
+        $scope.cellData = cellData;
+    }
+
     angular
         .module('mdDataTable')
-        .directive('mdtTable', mdtTableDirective);
+        .directive('mdtTable', mdtTableDirective)
+        .controller('DialogCtrl', DialogCtrl);
+
+
 }());
