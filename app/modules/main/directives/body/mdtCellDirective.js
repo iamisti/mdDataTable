@@ -20,6 +20,7 @@
      *      - "largeEditDialog" - A complex, flexible edit edit dialog on click
      *
      * @param {string=} editableFieldTitle if set, then it sets the title of the dialog. (only for `largeEditDialog`)
+     * @param {number=} editableFieldMaxLength if set, then it sets the maximum length of the field.
      *
      *
      * @example
