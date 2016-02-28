@@ -221,10 +221,7 @@
                 }
 
                 function saveRow(rowData){
-                    rowData.isEditModeEnabled = !rowData.isEditModeEnabled;
-
                     var rawRowData = ctrl.tableDataStorageService.getSavedRowData(rowData);
-
                     $scope.saveRowCallback({row: rawRowData});
                 }
 
@@ -235,7 +232,6 @@
                         left: rect.left
                     };
 
-                    var that = this;
                     var ops = {
                         controller: 'InlineEditModalCtrl',
                         targetEvent: ev,
@@ -244,9 +240,7 @@
                         focusOnOpen: false,
                         locals: {
                             position: position,
-                            cellData: JSON.parse(JSON.stringify(cellData)),
-                            rowData: rowData,
-                            mdtTableDirective: that
+                            cellData: JSON.parse(JSON.stringify(cellData))
                         }
                     };
 
@@ -256,8 +250,11 @@
                         ops.templateUrl = '/main/templates/largeEditDialog.html';
                     }
 
+                    var that = this;
                     $mdDialog.show(ops).then(function(cellValue){
                         cellData.value = cellValue;
+
+                        that.saveRow(rowData);
                     });
                 }
             }

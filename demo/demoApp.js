@@ -66,6 +66,12 @@
             },{
                 name: 'Html support',
                 codepen: 'LGLYjZ'
+            },{
+                name: 'Editable fields - small dialog',
+                codepen: 'LNYBZX'
+            },{
+                name: 'Editable fields - large dialog',
+                codepen: 'zqYLNj'
             }/*,{
              name: 'Ripple effect',
              codepen: 'xZRzpV'
@@ -91,7 +97,9 @@
         'exampleApp9',
         'exampleApp10',
         'exampleApp11',
-        'exampleApp12'
+        'exampleApp12',
+        'exampleApp13',
+        'exampleApp14'
     ]);
 
     angular.module('demo').service('PageService', PageService);

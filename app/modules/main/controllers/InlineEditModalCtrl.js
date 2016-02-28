@@ -1,7 +1,7 @@
 (function(){
     'use strict';
 
-    function InlineEditModalCtrl($scope, position, cellData, $timeout, rowData, mdtTableDirective, $mdDialog){
+    function InlineEditModalCtrl($scope, position, cellData, $timeout, $mdDialog){
 
         $timeout(function() {
             var el = $('md-dialog');
@@ -18,8 +18,6 @@
 
         function saveRow(){
             if($scope.editFieldForm.$valid){
-                mdtTableDirective.saveRow(rowData);
-
                 $mdDialog.hide(cellData.value);
             }
         }
