@@ -1,6 +1,6 @@
 {
   "name": "md-data-table",
-  "version": "1.4.2",
+  "version": "1.4.3",
   "author": "Istvan Fodor <programtervezo@gmail.com>",
   "registry": "github",
   "repository": {
@@ -44,5 +44,13 @@
     "run-sequence": "~1.1.5",
     "traceur": "~0.0.95"
   },
-  "dependencies": {}
+  "dependencies": {
+    "jquery": "~2.1.4",
+    "lodash": "~3.10.1",
+    "angular": "~1.4.8",
+    "angular-sanitize": "~1.4.8",
+    "angular-animate": "~1.4.8",
+    "angular-material": "1.0.2",
+    "angular-material-icons": "~v0.6.0"
+  }
 }
