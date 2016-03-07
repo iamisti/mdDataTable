@@ -115,26 +115,28 @@ http://www.google.com/design/spec/components/data-tables.html
 |:x:               | html-contnent support              |                                 |               | |
 
 ## Example usage for `mdt-row` attribute:
-    <mdt-table
-        selectable-rows="true"
-        table-card="{title: Nutrition, actionIcons: true}"
-        mdt-row="{
-            'data': filteredItems,
-            'table-row-id-key': 'id',
-            'column-keys': ['name', 'calories', 'fat', 'carbs', 'protein', 'sodium', 'calcium', 'iron']
-        }">
+```html
+<mdt-table
+    selectable-rows="true"
+    table-card="{title: Nutrition, actionIcons: true}"
+    mdt-row="{
+        'data': filteredItems,
+        'table-row-id-key': 'id',
+        'column-keys': ['name', 'calories', 'fat', 'carbs', 'protein', 'sodium', 'calcium', 'iron']
+    }">
 
-        <mdt-header-row>
-            <mdt-column>Dessert (100g serving)</mdt-column>
-            <mdt-column>Type</mdt-column>
-            <mdt-column>Calories</mdt-column>
-            <mdt-column sortable-rows-default>Fat (g)</mt-column>
-            <mdt-column>Carbs (g)</mdt-column>
-            <mdt-column>Protein (g)</mdt-column>
-        </mdt-header-row>
+    <mdt-header-row>
+        <mdt-column>Dessert (100g serving)</mdt-column>
+        <mdt-column>Type</mdt-column>
+        <mdt-column>Calories</mdt-column>
+        <mdt-column sortable-rows-default>Fat (g)</mt-column>
+        <mdt-column>Carbs (g)</mdt-column>
+        <mdt-column>Protein (g)</mdt-column>
+    </mdt-header-row>
 
-        <!-- notice we didn't provide mdt-row here -->
-    </mdt-table>
+    <!-- notice we didn't provide mdt-row here -->
+</mdt-table>
+```
 
 | Available        | Params                             | Type          | Details       |
 | ---------------- |----------------------------------- | ------------- | ------------- |
@@ -142,35 +144,37 @@ http://www.google.com/design/spec/components/data-tables.html
 |:white_check_mark:| mdt-row-paginator-error-message    | String        | optional, overrides default error mesasge when promise gets rejected by the paginator function. |
 
 ## Example usage for `mdt-row-paginator` attribute:
-    <mdt-table
-            paginated-rows="{isEnabled: true, rowsPerPageValues: [5,10,20,100]}"
-            mdt-row-paginator="paginatorCallback(page, pageSize)"
-            mdt-row-paginator-error-message="Error happened during loading nutritions."
-            mdt-row="{
-                'table-row-id-key': 'fields.item_id',
-                'column-keys': [
-                    'fields.item_name',
-                    'fields.nf_calories',
-                    'fields.nf_total_fat',
-                    'fields.nf_total_carbohydrate',
-                    'fields.nf_protein',
-                    'fields.nf_sodium',
-                    'fields.nf_calcium_dv',
-                    'fields.nf_iron_dv'
-                ],
-            }">
+```html
+<mdt-table
+    paginated-rows="{isEnabled: true, rowsPerPageValues: [5,10,20,100]}"
+    mdt-row-paginator="paginatorCallback(page, pageSize)"
+    mdt-row-paginator-error-message="Error happened during loading nutritions."
+    mdt-row="{
+        'table-row-id-key': 'fields.item_id',
+        'column-keys': [
+            'fields.item_name',
+            'fields.nf_calories',
+            'fields.nf_total_fat',
+            'fields.nf_total_carbohydrate',
+            'fields.nf_protein',
+            'fields.nf_sodium',
+            'fields.nf_calcium_dv',
+            'fields.nf_iron_dv'
+        ],
+    }">
 
-            <mdt-header-row>
-                <mdt-column align-rule="left">Dessert (100g serving)</mdt-column>
-                <mdt-column align-rule="right">Calories</mdt-column>
-                <mdt-column align-rule="right">Fat (g)</mdt-column>
-                <mdt-column align-rule="right">Carbs (g)</mdt-column>
-                <mdt-column align-rule="right">Protein (g)</mdt-column>
-                <mdt-column align-rule="right">Sodium (mg)</mdt-column>
-                <mdt-column align-rule="right">Calcium (%)</mdt-column>
-                <mdt-column align-rule="right">Iron (%)</mdt-column>
-            </mdt-header-row>
-        </mdt-table>
+    <mdt-header-row>
+        <mdt-column align-rule="left">Dessert (100g serving)</mdt-column>
+        <mdt-column align-rule="right">Calories</mdt-column>
+        <mdt-column align-rule="right">Fat (g)</mdt-column>
+        <mdt-column align-rule="right">Carbs (g)</mdt-column>
+        <mdt-column align-rule="right">Protein (g)</mdt-column>
+        <mdt-column align-rule="right">Sodium (mg)</mdt-column>
+        <mdt-column align-rule="right">Calcium (%)</mdt-column>
+        <mdt-column align-rule="right">Iron (%)</mdt-column>
+    </mdt-header-row>
+</mdt-table>
+```
 
 
 ## Column attributes
@@ -228,41 +232,43 @@ http://www.google.com/design/spec/components/data-tables.html
 |:white_check_mark:| html-content                                   |                    | Boolean       | When the cell content is not a simple value (html content) |
 
 ## Example usage:
-    <mdt-table
-        selectable-rows="true"
-        table-card="{title: Nutrition, actionIcons: true}">
+```html
+<mdt-table
+    selectable-rows="true"
+    table-card="{title: Nutrition, actionIcons: true}">
 
-        <mdt-header-row>
-            <!-- defining column descriptions, align content to the left -->
-            <mdt-column
-                align-rule="left"
-                column-definition="The total amount of food energy in the given serving size.">
-                Dessert (100g serving)
-            </mdt-column>
+    <mdt-header-row>
+        <!-- defining column descriptions, align content to the left -->
+        <mdt-column
+            align-rule="left"
+            column-definition="The total amount of food energy in the given serving size.">
+            Dessert (100g serving)
+        </mdt-column>
 
-            <!-- in case of inline menu (INLINE-MENU FEATURE DOES NOT EXIST YET) -->
-            <mdt-column inline-menu="[ {iceCream: 'Ice Cream', pastry: 'Pastry', other: 'Other'} ]">Type</mdt-column>
+        <!-- in case of inline menu (INLINE-MENU FEATURE DOES NOT EXIST YET) -->
+        <mdt-column inline-menu="[ {iceCream: 'Ice Cream', pastry: 'Pastry', other: 'Other'} ]">Type</mdt-column>
 
-            <!-- inline text editing (EDITABLE-FIELDS FEATURE DOES NOT EXIST YET) -->
-            <mdt-column editable-field="textInput">
-                Calories
-            </mdt-column>
+        <!-- inline text editing (EDITABLE-FIELDS FEATURE DOES NOT EXIST YET) -->
+        <mdt-column editable-field="textInput">
+            Calories
+        </mdt-column>
 
-            <!-- in case of sortable columns, we can set the defaultly sortable column -->
-            <mdt-column sortable-rows-default>
-                Fat (g)
-            </mt-column>
-            <mdt-column>Carbs (g)</mdt-column>
-            <mdt-column>Protein (g)</mdt-column>
-        </mdt-header-row>
+        <!-- in case of sortable columns, we can set the defaultly sortable column -->
+        <mdt-column sortable-rows-default>
+            Fat (g)
+        </mt-column>
+        <mdt-column>Carbs (g)</mdt-column>
+        <mdt-column>Protein (g)</mdt-column>
+    </mdt-header-row>
 
-        <mdt-row ng-repeat="nutrition in nutritionList">
-            <mdt-cell>Frozen Joghurt</mdt-cell>
-            <mdt-cell>159</mdt-cell>
-            <mdt-cell>6</mdt-cell>
-            <mdt-cell>24</mdt-cell>
-            <mdt-cell>4</mdt-cell>
-            <mdt-cell>87</mdt-cell>
-        </mdt-row>
+    <mdt-row ng-repeat="nutrition in nutritionList">
+        <mdt-cell>Frozen Joghurt</mdt-cell>
+        <mdt-cell>159</mdt-cell>
+        <mdt-cell>6</mdt-cell>
+        <mdt-cell>24</mdt-cell>
+        <mdt-cell>4</mdt-cell>
+        <mdt-cell>87</mdt-cell>
+    </mdt-row>
 
-    </mdt-table>
+</mdt-table>
+```
