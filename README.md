@@ -256,7 +256,7 @@ http://www.google.com/design/spec/components/data-tables.html
         <!-- in case of sortable columns, we can set the defaultly sortable column -->
         <mdt-column sortable-rows-default>
             Fat (g)
-        </mt-column>
+        </mdt-column>
         <mdt-column>Carbs (g)</mdt-column>
         <mdt-column>Protein (g)</mdt-column>
     </mdt-header-row>
