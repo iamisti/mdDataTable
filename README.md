@@ -4,9 +4,9 @@ Angular material table. Complete implementation of google material design based 
 
 > If you like what you see, you can even make it better by donating the project with even a small amount https://www.paypal.me/iamisti
 
-[![Build Status](https://travis-ci.org/iamisti/mdDataTable.svg?branch=master)](https://travis-ci.org/iamisti/mdDataTable) 
-[![Code Climate](https://codeclimate.com/github/iamisti/mdDataTable/badges/gpa.svg)](https://codeclimate.com/github/iamisti/mdDataTable) 
-[![Test Coverage](https://codeclimate.com/github/iamisti/md-data-table/badges/coverage.svg?branch=master)](https://codeclimate.com/github/iamisti/md-data-table/coverage) 
+[![Build Status](https://travis-ci.org/iamisti/mdDataTable.svg?branch=master)](https://travis-ci.org/iamisti/mdDataTable)
+[![Code Climate](https://codeclimate.com/github/iamisti/mdDataTable/badges/gpa.svg)](https://codeclimate.com/github/iamisti/mdDataTable)
+[![Test Coverage](https://codeclimate.com/github/iamisti/md-data-table/badges/coverage.svg?branch=master)](https://codeclimate.com/github/iamisti/md-data-table/coverage)
 [![Dependency Status](https://gemnasium.com/iamisti/mdDataTable.svg)](https://gemnasium.com/iamisti/mdDataTable)
 [![Codacy Badge](https://api.codacy.com/project/badge/grade/fdcfe195e886430aaefefa54c972d3f7)](https://www.codacy.com/app/programtervezo/mdDataTable)
 
@@ -15,6 +15,15 @@ Angular material table. Complete implementation of google material design based 
 1. `bower install mdDataTable` or [download the source](https://github.com/iamisti/mdDataTable/archive/master.zip).
 2. Make sure the `mdDataTable` lib is loaded. It's served in three different files: `md-data-table-style.css`, `md-data-table.js`, `md-data-table-templates.js`
 3. Add `mdDataTable` as a dependency of your app.
+
+### npm install with webpack(on commonjs, etc)
+1. npm install md-data-table
+2. "require('md-data-table')" in your app this will bring in `md-data-table.js`, `md-data-table-templates.js`. Alternatively if your using es6 you can "import mdDataTable from 'md-data-table'"
+3. for css you have three options:
+  1. use a style tag in your header for `md-data-table-style.css`
+  2. if your using webpack and the css loader you can "require('style!css!md-data-table-style.css')" in your app
+  3. uncomment line 4 in this repo's index.js, I left it commented out if people weren't using webpack by default
+
 
 ## UI&UX driven by google data table
 http://www.google.com/design/spec/components/data-tables.html
@@ -31,7 +40,7 @@ http://www.google.com/design/spec/components/data-tables.html
  - animate-sort-icon
  - ripple-effect
  - ! title-overflow-handler
- - table-card 
+ - table-card
  - paginated-rows
  - alternate-headers
  - mdt-row
@@ -183,8 +192,8 @@ http://www.google.com/design/spec/components/data-tables.html
 | Available        | Params                                         | ChildPArams         | Type         | Details         |
 | ---------------- | ---------------------------------------------- | --------------------|------------- | --------------- |
 |:white_check_mark:| align-rule                                     |                     |String        | if provided, align the text to the needed direction for the entire column (note, that it aligns the data that belongs to the column) |
-|:white_check_mark:|                                                | _(default)_ left    |              | left-align content 
-|:white_check_mark:|                                                | right               |              | right-align content 
+|:white_check_mark:|                                                | _(default)_ left    |              | left-align content
+|:white_check_mark:|                                                | right               |              | right-align content
 
 
 | Available        | Params                                         | Type          | Details         |
@@ -198,7 +207,7 @@ http://www.google.com/design/spec/components/data-tables.html
 |:white_check_mark:| sort-by                                        | Function      | if provided, used as the iteratee during sort operations to transform the cell value to a value that can be ranked in order. |
 
 
-# Data-Row attributes 
+# Data-Row attributes
 > `mdt-row` attributes
 
 | Available        | Params                                         | Type          | Details         |
@@ -206,7 +215,7 @@ http://www.google.com/design/spec/components/data-tables.html
 |:white_check_mark:| table-row-id                                   | String|Integer| defines the id of the row. Useful if you specified the callback function (`delete-row-callback`) for deleting a row. |
 
 
-# Data-Cell attributes 
+# Data-Cell attributes
 >`mdt-cell` attributes
 
 | Available        | Params                                         | ChildParams        | Type          | Details         |
