@@ -7,6 +7,7 @@
     "type": "git",
     "url": "git://github.com/iamisti/mdDataTable"
   },
+  "main": "index.js",
   "license": "MIT",
   "devDependencies": {
     "codeclimate-test-reporter": "~0.1.1",
@@ -42,15 +43,20 @@
     "lodash": "~3.10.1",
     "main-bower-files": "~2.11.0",
     "run-sequence": "~1.1.5",
-    "traceur": "~0.0.95"
+    "traceur": "~0.0.95",
+    "jshint": "^2.9.2",
+    "phantomjs": "^2.1.7"
+
   },
   "dependencies": {
-    "jquery": "~2.1.4",
-    "lodash": "~3.10.1",
     "angular": "~1.4.8",
-    "angular-sanitize": "~1.4.8",
     "angular-animate": "~1.4.8",
+    "angular-aria": "^1.4.8",
     "angular-material": "1.0.2",
-    "angular-material-icons": "~v0.6.0"
+    "angular-material-icons": "~v0.6.0",
+    "angular-sanitize": "~1.4.8",
+    "jasmine-core": "^2.4.1",
+    "jquery": "~2.1.4",
+    "lodash": "~3.10.1"
   }
 }
