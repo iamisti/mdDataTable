@@ -39,7 +39,7 @@
      *  </mdt-table>
      * </pre>
      */
-    function mdtColumnDirective($parse){
+    function mdtColumnDirective($interpolate){
         return {
             restrict: 'E',
             transclude: true,
@@ -54,13 +54,8 @@
                 var mdtTableCtrl = ctrl[0];
 
                 transclude(function (clone) {
-                    var cellValue;
-
-                    if(clone.html().indexOf('{{') !== -1){
-                        cellValue = $parse(clone.html().replace('{{', '').replace('}}', ''))($scope.$parent);
-                    }else{
-                        cellValue = clone.html();
-                    }
+                    // directive creates an isolate scope so use parent scope to resolve variables.
+                    var cellValue = $interpolate(clone.html())($scope.$parent);
 
                     mdtTableCtrl.addHeaderCell({
                         alignRule: $scope.alignRule,

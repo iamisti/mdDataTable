@@ -42,7 +42,7 @@
      *  </mdt-table>
      * </pre>
      */
-    function mdtCellDirective($parse){
+    function mdtCellDirective($interpolate){
         return {
             restrict: 'E',
             replace: true,
@@ -62,8 +62,7 @@
                     if(attr.htmlContent){
                         mdtRowCtrl.addToRowDataStorage(clone, attributes);
                     }else{
-                        //TODO: better idea?
-                        var cellValue = $parse(clone.html().replace('{{', '').replace('}}', ''))($scope.$parent);
+                        var cellValue = $interpolate(clone.html())($scope);
                         mdtRowCtrl.addToRowDataStorage(cellValue, attributes);
                     }
                 });
