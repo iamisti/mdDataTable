@@ -46,6 +46,40 @@
 (function(){
     'use strict';
 
+    InlineEditModalCtrl.$inject = ['$scope', 'position', 'cellData', '$timeout', '$mdDialog'];
+    function InlineEditModalCtrl($scope, position, cellData, $timeout, $mdDialog){
+
+        $timeout(function() {
+            var el = $('md-dialog');
+            el.css('position', 'fixed');
+            el.css('top', position['top']);
+            el.css('left', position['left']);
+
+            el.find('input[type="text"]').focus();
+        });
+
+        $scope.cellData = cellData;
+        $scope.saveRow = saveRow;
+        $scope.cancel = cancel;
+
+        function saveRow(){
+            if($scope.editFieldForm.$valid){
+                $mdDialog.hide(cellData.value);
+            }
+        }
+
+        function cancel(){
+            $mdDialog.cancel();
+        }
+    }
+
+    angular
+        .module('mdDataTable')
+        .controller('InlineEditModalCtrl', InlineEditModalCtrl);
+}());
+(function(){
+    'use strict';
+
     function mdtAlternateHeadersDirective(){
         return {
             restrict: 'E',
@@ -338,40 +372,6 @@
     angular
         .module('mdDataTable')
         .directive('mdtTable', mdtTableDirective);
-}());
-(function(){
-    'use strict';
-
-    InlineEditModalCtrl.$inject = ['$scope', 'position', 'cellData', '$timeout', '$mdDialog'];
-    function InlineEditModalCtrl($scope, position, cellData, $timeout, $mdDialog){
-
-        $timeout(function() {
-            var el = $('md-dialog');
-            el.css('position', 'fixed');
-            el.css('top', position['top']);
-            el.css('left', position['left']);
-
-            el.find('input[type="text"]').focus();
-        });
-
-        $scope.cellData = cellData;
-        $scope.saveRow = saveRow;
-        $scope.cancel = cancel;
-
-        function saveRow(){
-            if($scope.editFieldForm.$valid){
-                $mdDialog.hide(cellData.value);
-            }
-        }
-
-        function cancel(){
-            $mdDialog.cancel();
-        }
-    }
-
-    angular
-        .module('mdDataTable')
-        .controller('InlineEditModalCtrl', InlineEditModalCtrl);
 }());
 (function(){
     'use strict';
@@ -767,27 +767,6 @@
 (function(){
     'use strict';
 
-    /**
-     * @name ColumnOptionProvider
-     * @returns possible assignable column options you can give
-     *
-     * @describe Representing the assignable properties to the columns you can give.
-     */
-    var ColumnOptionProvider = {
-        ALIGN_RULE : {
-            ALIGN_LEFT: 'left',
-            ALIGN_RIGHT: 'right'
-        }
-    };
-
-    angular
-        .module('mdDataTable')
-        .value('ColumnOptionProvider', ColumnOptionProvider);
-})();
-
-(function(){
-    'use strict';
-
     ColumnAlignmentHelper.$inject = ['ColumnOptionProvider'];
     function ColumnAlignmentHelper(ColumnOptionProvider){
         var service = this;
@@ -806,6 +785,27 @@
         .module('mdDataTable')
         .service('ColumnAlignmentHelper', ColumnAlignmentHelper);
 }());
+(function(){
+    'use strict';
+
+    /**
+     * @name ColumnOptionProvider
+     * @returns possible assignable column options you can give
+     *
+     * @describe Representing the assignable properties to the columns you can give.
+     */
+    var ColumnOptionProvider = {
+        ALIGN_RULE : {
+            ALIGN_LEFT: 'left',
+            ALIGN_RIGHT: 'right'
+        }
+    };
+
+    angular
+        .module('mdDataTable')
+        .value('ColumnOptionProvider', ColumnOptionProvider);
+})();
+
 (function(){
     'use strict';
 
@@ -850,8 +850,8 @@
      *  </mdt-table>
      * </pre>
      */
-    mdtCellDirective.$inject = ['$parse'];
-    function mdtCellDirective($parse){
+    mdtCellDirective.$inject = ['$interpolate'];
+    function mdtCellDirective($interpolate){
         return {
             restrict: 'E',
             replace: true,
@@ -871,8 +871,7 @@
                     if(attr.htmlContent){
                         mdtRowCtrl.addToRowDataStorage(clone, attributes);
                     }else{
-                        //TODO: better idea?
-                        var cellValue = $parse(clone.html().replace('{{', '').replace('}}', ''))($scope.$parent);
+                        var cellValue = $interpolate(clone.html())($scope);
                         mdtRowCtrl.addToRowDataStorage(cellValue, attributes);
                     }
                 });
@@ -999,8 +998,8 @@
      *  </mdt-table>
      * </pre>
      */
-    mdtColumnDirective.$inject = ['$parse'];
-    function mdtColumnDirective($parse){
+    mdtColumnDirective.$inject = ['$interpolate'];
+    function mdtColumnDirective($interpolate){
         return {
             restrict: 'E',
             transclude: true,
@@ -1015,13 +1014,8 @@
                 var mdtTableCtrl = ctrl[0];
 
                 transclude(function (clone) {
-                    var cellValue;
-
-                    if(clone.html().indexOf('{{') !== -1){
-                        cellValue = $parse(clone.html().replace('{{', '').replace('}}', ''))($scope.$parent);
-                    }else{
-                        cellValue = clone.html();
-                    }
+                    // directive creates an isolate scope so use parent scope to resolve variables.
+                    var cellValue = $interpolate(clone.html())($scope.$parent);
 
                     mdtTableCtrl.addHeaderCell({
                         alignRule: $scope.alignRule,
