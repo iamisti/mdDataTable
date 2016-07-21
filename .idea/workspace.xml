@@ -2,17 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="7139558c-ee16-4751-b8fb-86e8f61790c7" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gitignore" afterPath="$PROJECT_DIR$/.gitignore" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/modules/main/directives/helpers/mdtAddHtmlContentToCellDirective.js" afterPath="$PROJECT_DIR$/app/modules/main/directives/helpers/mdtAddHtmlContentToCellDirective.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/modules/main/factories/mdtAjaxPaginationHelperFactory.js" afterPath="$PROJECT_DIR$/app/modules/main/factories/mdtAjaxPaginationHelperFactory.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/modules/main/templates/generateRows.html" afterPath="$PROJECT_DIR$/app/modules/main/templates/generateRows.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/demo/demoApp.js" afterPath="$PROJECT_DIR$/demo/demoApp.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/demo/developmentArea.html" afterPath="$PROJECT_DIR$/demo/developmentArea.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/demo/developmentArea.js" afterPath="$PROJECT_DIR$/demo/developmentArea.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/demo/index.html" afterPath="$PROJECT_DIR$/demo/index.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dist/md-data-table-templates.js" afterPath="$PROJECT_DIR$/dist/md-data-table-templates.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dist/md-data-table.js" afterPath="$PROJECT_DIR$/dist/md-data-table.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/package.json" afterPath="$PROJECT_DIR$/package.json" />
     </list>
     <ignored path="mdDataTable.iws" />
@@ -66,10 +55,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="index.html" pinned="false" current-in-tab="true">
+      <file leaf-file-name="index.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/demo/index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1242">
+            <state relative-caret-position="2805">
               <caret line="85" column="53" selection-start-line="85" selection-start-column="53" selection-end-line="85" selection-end-column="53" />
               <folding />
             </state>
@@ -108,10 +97,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="package.json" pinned="false" current-in-tab="false">
+      <file leaf-file-name="package.json" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/package.json">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-517">
+            <state relative-caret-position="66">
               <caret line="2" column="19" selection-start-line="2" selection-start-column="19" selection-end-line="2" selection-end-column="19" />
               <folding />
             </state>
@@ -161,8 +150,8 @@
         <option value="$PROJECT_DIR$/demo/developmentArea.js" />
         <option value="$PROJECT_DIR$/app/modules/main/directives/helpers/mdtAddHtmlContentToCellDirective.js" />
         <option value="$PROJECT_DIR$/demo/demoApp.js" />
-        <option value="$PROJECT_DIR$/package.json" />
         <option value="$PROJECT_DIR$/demo/index.html" />
+        <option value="$PROJECT_DIR$/package.json" />
       </list>
     </option>
   </component>
@@ -351,12 +340,12 @@
       <option name="presentableId" value="Default" />
       <updated>1469013878218</updated>
       <workItem from="1469013879594" duration="4937000" />
-      <workItem from="1469084970799" duration="8890000" />
+      <workItem from="1469084970799" duration="9029000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="13827000" />
+    <option name="totallyTimeSpent" value="13966000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-11" y="65" width="3385" height="1845" extended-state="0" />
@@ -625,14 +614,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/package.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-517">
-          <caret line="2" column="19" selection-start-line="2" selection-start-column="19" selection-end-line="2" selection-end-column="19" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/demo/demoApp.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="726">
@@ -643,8 +624,16 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/demo/index.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1242">
+        <state relative-caret-position="2805">
           <caret line="85" column="53" selection-start-line="85" selection-start-column="53" selection-end-line="85" selection-end-column="53" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/package.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="66">
+          <caret line="2" column="19" selection-start-line="2" selection-start-column="19" selection-end-line="2" selection-end-column="19" />
           <folding />
         </state>
       </provider>
