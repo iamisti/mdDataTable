@@ -48,6 +48,9 @@
                 name: 'Ajax support',
                 codepen: 'BjpNow'
             },{
+                name: 'Ajax search support',
+                codepen: 'RRrjLk'
+            },{
                 name: 'Search',
                 codepen: 'bEBKYx'
             },{
