@@ -115,7 +115,8 @@
                 mdtRow: '=',
                 mdtRowPaginator: '&?',
                 mdtRowPaginatorErrorMessage:"@",
-                virtualRepeat: '='
+                virtualRepeat: '=',
+                mdtTriggerRequest: '&?'
             },
             controller: function mdtTableController($scope){
                 var vm = this;
@@ -136,7 +137,8 @@
                             paginationSetting: $scope.paginatedRows,
                             mdtRowOptions: $scope.mdtRow,
                             mdtRowPaginatorFunction: $scope.mdtRowPaginator,
-                            mdtRowPaginatorErrorMessage: $scope.mdtRowPaginatorErrorMessage
+                            mdtRowPaginatorErrorMessage: $scope.mdtRowPaginatorErrorMessage,
+                            mdtTriggerRequest: $scope.mdtTriggerRequest
                         });
                     }
                 }

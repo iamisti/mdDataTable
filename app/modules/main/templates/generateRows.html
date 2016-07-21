@@ -23,7 +23,8 @@
                   ng-click="showEditDialog($event, cellData, rowData)"></span>
 
             <!-- non editable field -->
-            <span mdt-add-html-content-to-cell="cellData" ng-if="cellData.attributes.editableField === false"></span>
+            <!-- if cellData is a raw value, then 'attributes' doesn't exist. TODO: make sure that the structure will remain the same in this case too -->
+            <span mdt-add-html-content-to-cell="cellData" ng-if="!cellData.attributes || cellData.attributes.editableField == false"></span>
     </td>
 </tr>
 <tr ng-show="mdtPaginationHelper.isLoading">
