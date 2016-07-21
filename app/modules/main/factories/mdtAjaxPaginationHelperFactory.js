@@ -8,6 +8,7 @@
             this.rowOptions = params.mdtRowOptions;
             this.paginatorFunction = params.mdtRowPaginatorFunction;
             this.mdtRowPaginatorErrorMessage = params.mdtRowPaginatorErrorMessage || 'Ajax error during loading contents.';
+            this.mdtTriggerRequest = params.mdtTriggerRequest;
 
             if(params.paginationSetting &&
                 params.paginationSetting.hasOwnProperty('rowsPerPageValues') &&
@@ -27,6 +28,13 @@
 
             //fetching the 1st page
             this.fetchPage(this.page);
+
+            //triggering ajax call manually
+            if(this.mdtTriggerRequest) {
+                params.mdtTriggerRequest({
+                    loadPage: this.fetchPage.bind(this)
+                });
+            }
         }
 
         mdtAjaxPaginationHelper.prototype.getStartRowIndex = function(){
@@ -112,7 +120,7 @@
             this.rowsPerPage = rowsPerPage;
             this.page = 1;
 
-            this.fetchPage(this.page);
+            //this.fetchPage(this.page);
         };
 
         return {

@@ -10,8 +10,8 @@
   "license": "MIT",
   "devDependencies": {
     "codeclimate-test-reporter": "~0.1.1",
-    "event-stream": "~3.3.2",
-    "fstream": "^1.0.8",
+    "event-stream": "~3.3.4",
+    "fstream": "^1.0.10",
     "glob": "~6.0.2",
     "gulp": "~3.9.0",
     "gulp-angular-filesort": "~1.1.1",
@@ -30,6 +30,7 @@
     "gulp-rimraf": "~0.2.0",
     "gulp-uglify": "~1.5.1",
     "gulp-watch": "~4.3.5",
+    "jasmine-core": "^2.4.1",
     "jasmine-reporters": "~2.1.0",
     "karma": "~0.13.15",
     "karma-coverage": "~0.5.3",
@@ -45,12 +46,13 @@
     "traceur": "~0.0.95"
   },
   "dependencies": {
-    "jquery": "~2.1.4",
-    "lodash": "~3.10.1",
     "angular": "~1.4.8",
-    "angular-sanitize": "~1.4.8",
     "angular-animate": "~1.4.8",
     "angular-material": "1.0.2",
-    "angular-material-icons": "~v0.6.0"
+    "angular-material-icons": "~v0.6.0",
+    "angular-sanitize": "~1.4.8",
+    "jquery": "~2.1.4",
+    "lodash": "~3.10.1",
+    "phantomjs": "^2.1.7"
   }
 }
