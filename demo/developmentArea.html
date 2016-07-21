@@ -1,12 +1,20 @@
 <div ng-app="developmentAreaApp" ng-controller="DevelopmentAreaController" layout-margin>
 
-    <button ng-click="abcd()">trigger</button>
+    <md-subheader>Filter by search</md-subheader>
+
+    <md-card style="margin:0px">
+        <md-input-container style="margin:15px;">
+            <label>Search</label>
+            <input type="text" ng-model="filterText">
+        </md-input-container>
+    </md-card>
+
 
     <mdt-table
             paginated-rows="{isEnabled: true, rowsPerPageValues: [5,10,20,50]}"
             mdt-row-paginator="paginatorCallback(page, pageSize)"
             mdt-row-paginator-error-message="Error happened during loading nutritions."
-            mdt-trigger-request="manuallyTriggered(loadPage)"
+            mdt-trigger-request="getLoadResultsCallback(loadPageCallback)"
             mdt-row="{
             'table-row-id-key': 'fields.item_id',
             'column-keys': [

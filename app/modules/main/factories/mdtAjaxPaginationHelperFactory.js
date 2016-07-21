@@ -32,7 +32,7 @@
             //triggering ajax call manually
             if(this.mdtTriggerRequest) {
                 params.mdtTriggerRequest({
-                    loadPage: this.fetchPage.bind(this)
+                    loadPageCallback: this.fetchPage.bind(this)
                 });
             }
         }
