@@ -197,6 +197,7 @@
                                 attributes: {
                                     editableField: false
                                 },
+                                columnKey: columnKey,
                                 value: _.get(row, columnKey)
                             });
                         });
@@ -217,12 +218,15 @@
                     transclude(function (clone) {
                         var headings = [];
                         var body = [];
+                        var customCell = [];
 
                         _.each(clone, function (child) {
                             var $child = angular.element(child);
 
                             if ($child.hasClass('theadTrRow')) {
                                 headings.push($child);
+                            } else if($child.hasClass('customCell')) {
+                                customCell.push($child);
                             } else {
                                 body.push($child);
                             }

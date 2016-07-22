@@ -305,6 +305,7 @@
                                 attributes: {
                                     editableField: false
                                 },
+                                columnKey: columnKey,
                                 value: _.get(row, columnKey)
                             });
                         });
@@ -325,12 +326,15 @@
                     transclude(function (clone) {
                         var headings = [];
                         var body = [];
+                        var customCell = [];
 
                         _.each(clone, function (child) {
                             var $child = angular.element(child);
 
                             if ($child.hasClass('theadTrRow')) {
                                 headings.push($child);
+                            } else if($child.hasClass('customCell')) {
+                                customCell.push($child);
                             } else {
                                 body.push($child);
                             }
@@ -384,6 +388,27 @@
     angular
         .module('mdDataTable')
         .directive('mdtTable', mdtTableDirective);
+}());
+(function(){
+    'use strict';
+
+    ColumnAlignmentHelper.$inject = ['ColumnOptionProvider'];
+    function ColumnAlignmentHelper(ColumnOptionProvider){
+        var service = this;
+        service.getColumnAlignClass = getColumnAlignClass;
+
+        function getColumnAlignClass(alignRule) {
+            if (alignRule === ColumnOptionProvider.ALIGN_RULE.ALIGN_RIGHT) {
+                return 'rightAlignedColumn';
+            } else {
+                return 'leftAlignedColumn';
+            }
+        }
+    }
+
+    angular
+        .module('mdDataTable')
+        .service('ColumnAlignmentHelper', ColumnAlignmentHelper);
 }());
 (function(){
     'use strict';
@@ -495,6 +520,7 @@
                         attributes: {
                             editableField: false
                         },
+                        columnKey: columnKey,
                         value: _.get(row, columnKey)
                     });
                 });
@@ -611,6 +637,7 @@
         function TableDataStorageService(){
             this.storage = [];
             this.header = [];
+            this.customCells = {};
 
             this.sortByColumnLastIndex = null;
             this.orderByAscending = true;
@@ -783,27 +810,6 @@
     angular
         .module('mdDataTable')
         .factory('TableDataStorageFactory', TableDataStorageFactory);
-}());
-(function(){
-    'use strict';
-
-    ColumnAlignmentHelper.$inject = ['ColumnOptionProvider'];
-    function ColumnAlignmentHelper(ColumnOptionProvider){
-        var service = this;
-        service.getColumnAlignClass = getColumnAlignClass;
-
-        function getColumnAlignClass(alignRule) {
-            if (alignRule === ColumnOptionProvider.ALIGN_RULE.ALIGN_RIGHT) {
-                return 'rightAlignedColumn';
-            } else {
-                return 'leftAlignedColumn';
-            }
-        }
-    }
-
-    angular
-        .module('mdDataTable')
-        .service('ColumnAlignmentHelper', ColumnAlignmentHelper);
 }());
 (function(){
     'use strict';
@@ -1116,6 +1122,56 @@
 (function(){
     'use strict';
 
+    function mdtCardFooterDirective(){
+        return {
+            restrict: 'E',
+            templateUrl: '/main/templates/mdtCardFooter.html',
+            transclude: true,
+            replace: true,
+            scope: true,
+            require: ['^mdtTable'],
+            link: function($scope){
+                $scope.rowsPerPage = $scope.mdtPaginationHelper.rowsPerPage;
+
+                $scope.$watch('rowsPerPage', function(newVal, oldVal){
+                    $scope.mdtPaginationHelper.setRowsPerPage(newVal);
+                });
+            }
+        };
+    }
+
+    angular
+        .module('mdDataTable')
+        .directive('mdtCardFooter', mdtCardFooterDirective);
+}());
+(function(){
+    'use strict';
+
+    function mdtCardHeaderDirective(){
+        return {
+            restrict: 'E',
+            templateUrl: '/main/templates/mdtCardHeader.html',
+            transclude: true,
+            replace: true,
+            scope: true,
+            require: ['^mdtTable'],
+            link: function($scope){
+                $scope.isTableCardEnabled = false;
+
+                if($scope.tableCard && $scope.tableCard.visible !== false){
+                    $scope.isTableCardEnabled = true;
+                }
+            }
+        };
+    }
+
+    angular
+        .module('mdDataTable')
+        .directive('mdtCardHeader', mdtCardHeaderDirective);
+}());
+(function(){
+    'use strict';
+
     mdtAddAlignClass.$inject = ['ColumnAlignmentHelper'];
     function mdtAddAlignClass(ColumnAlignmentHelper){
         return {
@@ -1138,11 +1194,12 @@
 (function(){
     'use strict';
 
-    mdtAddHtmlContentToCellDirective.$inject = ['$parse'];
-    function mdtAddHtmlContentToCellDirective($parse){
+    mdtAddHtmlContentToCellDirective.$inject = ['$parse', '$compile', '$rootScope'];
+    function mdtAddHtmlContentToCellDirective($parse, $compile, $rootScope){
         return {
             restrict: 'A',
-            link: function($scope, element, attr){
+            require: '^mdtTable',
+            link: function($scope, element, attr, ctrl){
                 $scope.$watch(function(){
                     //this needs to be like that. Passing only `attr.mdtAddHtmlContentToCell` will cause digest to go crazy 10 times.
                     // so we has to say explicitly that we only want to watch the content and nor the attributes, or the additional metadata.
@@ -1152,9 +1209,27 @@
 
                 }, function(val){
                     element.empty();
-                    element.append(val);
+
+                    var originalValue = $parse(attr.mdtAddHtmlContentToCell)($scope);
+
+                    if(originalValue.columnKey && ctrl.tableDataStorageService.customCells[originalValue.columnKey]){
+                        var clonedHtml = ctrl.tableDataStorageService.customCells[originalValue.columnKey];
+
+                        var localScope = $rootScope.$new();
+                        localScope.value = val;
+
+                        $compile(clonedHtml)(localScope, function(cloned){
+                            element.append(cloned);
+                        });
+                    }else{
+                        element.append(val);
+                    }
+
+
                 }, false);
                 // issue with false value. If fields are editable then it won't reflect the change.
+
+                //console.log(ctrl.tableDataStorageService);
             }
         };
     }
@@ -1181,6 +1256,32 @@
     angular
         .module('mdDataTable')
         .directive('mdtAnimateSortIconHandler', mdtAnimateSortIconHandlerDirective);
+}());
+(function(){
+    'use strict';
+
+    function mdtCustomCellDirective(){
+        return {
+            restrict: 'E',
+            transclude: true,
+            template: '<span class="customCell" ng-transclude></span>',
+            require: '^mdtTable',
+            link: {
+                pre: function($scope, element, attrs, ctrl, transclude){
+                    transclude(function (clone) {
+                        var columnKey = attrs.columnKey;
+
+                        ctrl.tableDataStorageService.customCells[columnKey] = clone.clone();
+                        //element.append(clone);
+                    });
+                }
+            }
+        };
+    }
+
+    angular
+        .module('mdDataTable')
+        .directive('mdtCustomCell', mdtCustomCellDirective);
 }());
 (function(){
     'use strict';
@@ -1241,55 +1342,4 @@
     angular
         .module('mdDataTable')
         .directive('mdtSortHandler', mdtSortHandlerDirective);
-}());
-(function(){
-    'use strict';
-
-    mdtCardFooterDirective.$inject = ['$timeout'];
-    function mdtCardFooterDirective($timeout){
-        return {
-            restrict: 'E',
-            templateUrl: '/main/templates/mdtCardFooter.html',
-            transclude: true,
-            replace: true,
-            scope: true,
-            require: ['^mdtTable'],
-            link: function($scope){
-                $scope.rowsPerPage = $scope.mdtPaginationHelper.rowsPerPage;
-
-                $scope.$watch('rowsPerPage', function(newVal, oldVal){
-                    $scope.mdtPaginationHelper.setRowsPerPage(newVal);
-                });
-            }
-        };
-    }
-
-    angular
-        .module('mdDataTable')
-        .directive('mdtCardFooter', mdtCardFooterDirective);
-}());
-(function(){
-    'use strict';
-
-    function mdtCardHeaderDirective(){
-        return {
-            restrict: 'E',
-            templateUrl: '/main/templates/mdtCardHeader.html',
-            transclude: true,
-            replace: true,
-            scope: true,
-            require: ['^mdtTable'],
-            link: function($scope){
-                $scope.isTableCardEnabled = false;
-
-                if($scope.tableCard && $scope.tableCard.visible !== false){
-                    $scope.isTableCardEnabled = true;
-                }
-            }
-        };
-    }
-
-    angular
-        .module('mdDataTable')
-        .directive('mdtCardHeader', mdtCardHeaderDirective);
 }());
