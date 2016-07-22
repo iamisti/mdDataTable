@@ -8,6 +8,7 @@
             this.rowOptions = params.mdtRowOptions;
             this.paginatorFunction = params.mdtRowPaginatorFunction;
             this.mdtRowPaginatorErrorMessage = params.mdtRowPaginatorErrorMessage || 'Ajax error during loading contents.';
+            this.mdtRowPaginatorNoResultsMessage = params.mdtRowPaginatorNoResultsMessage || 'No results.';
             this.mdtTriggerRequest = params.mdtTriggerRequest;
 
             if(params.paginationSetting &&
@@ -83,6 +84,12 @@
                     that.totalResultCount = data.totalResultCount;
                     that.totalPages = Math.ceil(data.totalResultCount / that.rowsPerPage);
 
+                    if(that.totalResultCount == 0){
+                        that.isNoResults = true;
+                    }else{
+                        that.isNoResults = false;
+                    }
+
                     that.isLoadError = false;
                     that.isLoading = false;
 
@@ -91,6 +98,7 @@
 
                     that.isLoadError = true;
                     that.isLoading = false;
+                    that.isNoResults = true;
                 });
         };
 

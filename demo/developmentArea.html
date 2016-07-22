@@ -1,30 +1,32 @@
-<style>
-    .red {
-        color: orangered;
-    }
-
-    .green {
-        color: greenyellow;
-    }
-</style>
 <div ng-app="developmentAreaApp" ng-controller="DevelopmentAreaController" layout-margin>
 
-    <md-card style="margin:0px">
-        <md-subheader>Filter by search</md-subheader>
+    <md-subheader>Filter by search</md-subheader>
 
+    <md-card style="margin:0px">
         <md-input-container style="margin:15px;">
             <label>Search</label>
-            <input type="text" ng-model="filterName">
+            <input type="text" ng-model="filterText">
         </md-input-container>
-
-        <div ng-hide="true">
-            {{(filteredItems = (nutritionList | filter: filterName))}}
-        </div>
     </md-card>
-    <mdt-table mdt-row="{'data': filteredItems,
-                      'table-row-id-key': 'id',
-                      'column-keys': ['name', 'calories', 'fat', 'carbs', 'protein', 'sodium', 'calcium', 'iron']}">
 
+    <mdt-table
+            paginated-rows="{isEnabled: true, rowsPerPageValues: [5,10,20,50]}"
+            mdt-row-paginator="paginatorCallback(page, pageSize)"
+            mdt-row-paginator-error-message="Error happened during loading nutritions."
+            mdt-trigger-request="getLoadResultsCallback(loadPageCallback)"
+            mdt-row="{
+            'table-row-id-key': 'fields.item_id',
+            'column-keys': [
+                'fields.item_name',
+                'fields.nf_calories',
+                'fields.nf_total_fat',
+                'fields.nf_total_carbohydrate',
+                'fields.nf_protein',
+                'fields.nf_sodium',
+                'fields.nf_calcium_dv',
+                'fields.nf_iron_dv'
+            ],
+        }">
         <mdt-header-row>
             <mdt-column align-rule="left">Dessert (100g serving)</mdt-column>
             <mdt-column align-rule="right">Calories</mdt-column>
@@ -35,9 +37,5 @@
             <mdt-column align-rule="right">Calcium (%)</mdt-column>
             <mdt-column align-rule="right">Iron (%)</mdt-column>
         </mdt-header-row>
-
-        <mdt-custom-cell column-key="protein">
-            <span ng-class="{'red': value > 5, 'green': value <= 5}">{{value}}</span>
-        </mdt-custom-cell>
     </mdt-table>
 </div>
