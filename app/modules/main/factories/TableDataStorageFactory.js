@@ -6,6 +6,7 @@
         function TableDataStorageService(){
             this.storage = [];
             this.header = [];
+            this.customCells = {};
 
             this.sortByColumnLastIndex = null;
             this.orderByAscending = true;

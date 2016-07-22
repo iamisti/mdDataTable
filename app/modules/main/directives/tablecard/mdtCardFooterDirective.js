@@ -1,7 +1,7 @@
 (function(){
     'use strict';
 
-    function mdtCardFooterDirective($timeout){
+    function mdtCardFooterDirective(){
         return {
             restrict: 'E',
             templateUrl: '/main/templates/mdtCardFooter.html',

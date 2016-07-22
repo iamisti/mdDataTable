@@ -108,6 +108,7 @@
                         attributes: {
                             editableField: false
                         },
+                        columnKey: columnKey,
                         value: _.get(row, columnKey)
                     });
                 });
