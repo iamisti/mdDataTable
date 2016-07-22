@@ -37,6 +37,7 @@ http://www.google.com/design/spec/components/data-tables.html
  - mdt-row
  - mdt-row-paginator
  - mdt-row-paginator-error-message
+ - mdt-trigger-request
 
 [Column attributes (`mdt-column`)](#column-attributes)
  - align-rule
@@ -51,6 +52,10 @@ http://www.google.com/design/spec/components/data-tables.html
  - ! inline-menu
  - editable-field
  - html-content
+ 
+[Custom cell content (`mdt-custom-cell`)](#custom-cell-content)
+ - column-key
+
 
 ## Overview
 > In its simplest form, a data table contains a top row of column names, and rows for data.
@@ -142,6 +147,7 @@ http://www.google.com/design/spec/components/data-tables.html
 | ---------------- |----------------------------------- | ------------- | ------------- |
 |:white_check_mark:| mdt-row-paginator                  | Function      | optional, makes possible to provide a callback function which returns a promise, providing the data for the table. Has two parameters: `page` and `pageSize` |
 |:white_check_mark:| mdt-row-paginator-error-message    | String        | optional, overrides default error mesasge when promise gets rejected by the paginator function. |
+|:white_check_mark:| mdt-trigger-request                | function(loadPageCallback) | optional, if `mdt-row-paginator` set, provides a callback function for manually triggering an ajax request. Can be useful when you want to populate the results in the table manually. (e.g.: having a search field in your page which then can trigger a new request in the table to show the results based on that filter.  |
 
 ## Example usage for `mdt-row-paginator` attribute:
 ```html
@@ -205,6 +211,40 @@ http://www.google.com/design/spec/components/data-tables.html
 | ---------------- | ---------------------------------------------- | ------------- | --------------- |
 |:white_check_mark:| table-row-id                                   | String|Integer| defines the id of the row. Useful if you specified the callback function (`delete-row-callback`) for deleting a row. |
 
+## Custom cell content
+>`mdt-custom-cell` attributes
+
+If you are using `mdt-row` attribute to load your data (which is only way of you are dealing with ajax contents), you can now have custom content for each cells you defined.
+
+| Available        | Params                                         | ChildParams        | Type          | Details         |
+| ---------------- | ---------------------------------------------- | ------------------ | ------------- | --------------- |
+|:white_check_mark:               | column-key                                     |                    | String        | required, specifies the column in the rows. |
+
+## Example usage for `mdt-custom-cell`:
+```html
+<mdt-table>
+    <mdt-table mdt-row="{'data': filteredItems,
+                      'table-row-id-key': 'id',
+                      'column-keys': ['name', 'calories', 'fat', 'carbs', 'protein', 'sodium', 'calcium', 'iron']}">
+        <mdt-header-row>
+            <mdt-column align-rule="left">Dessert (100g serving)</mdt-column>
+            <mdt-column align-rule="right">Calories</mdt-column>
+            <mdt-column align-rule="right">Fat (g)</mdt-column>
+            <mdt-column align-rule="right">Carbs (g)</mdt-column>
+            <mdt-column align-rule="right">Protein (g)</mdt-column>
+            <mdt-column align-rule="right">Sodium (mg)</mdt-column>
+            <mdt-column align-rule="right">Calcium (%)</mdt-column>
+            <mdt-column align-rule="right">Iron (%)</mdt-column>
+        </mdt-header-row>
+
+        <!-- here you have your own, customised cell for every 'protein' column -->
+        <mdt-custom-cell column-key="protein">
+            <span ng-class="{'red': value > 5, 'green': value <= 5}">{{value}}</span>
+        </mdt-custom-cell>
+    </mdt-table>
+</mdt-table>
+```
+
 
 # Data-Cell attributes 
 >`mdt-cell` attributes
@@ -230,6 +270,7 @@ http://www.google.com/design/spec/components/data-tables.html
 | Available        | Params                                         | ChildParams        | Type          | Details         |
 | ---------------- | ---------------------------------------------- | ------------------ | ------------- | --------------- |
 |:white_check_mark:| html-content                                   |                    | Boolean       | When the cell content is not a simple value (html content) |
+
 
 ## Example usage:
 ```html
