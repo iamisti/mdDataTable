@@ -219,6 +219,7 @@ If you are using `mdt-row` attribute to load your data (which is only way of you
 | Available        | Params                                         | ChildParams        | Type          | Details         |
 | ---------------- | ---------------------------------------------- | ------------------ | ------------- | --------------- |
 |:white_check_mark:               | column-key                                     |                    | String        | required, specifies the column in the rows. |
+There is only one scope variable that you can use in your template, and it's called `value`. Check the example.
 
 ## Example usage for `mdt-custom-cell`:
 ```html
