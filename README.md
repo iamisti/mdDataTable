@@ -1,5 +1,8 @@
+## Usage statistics
+
 [![NPM](https://nodei.co/npm-dl/md-data-table.png?months=6&height=3)](https://nodei.co/npm/md-data-table/)
 [![NPM](https://nodei.co/npm/md-data-table.png?downloads=true&downloadRank=true&stars=true)](https://nodei.co/npm/md-data-table/)
+
 [![Build Status](https://travis-ci.org/iamisti/mdDataTable.svg?branch=master)](https://travis-ci.org/iamisti/mdDataTable) 
 [![Code Climate](https://codeclimate.com/github/iamisti/mdDataTable/badges/gpa.svg)](https://codeclimate.com/github/iamisti/mdDataTable) 
 [![Test Coverage](https://codeclimate.com/github/iamisti/md-data-table/badges/coverage.svg?branch=master)](https://codeclimate.com/github/iamisti/md-data-table/coverage) 
