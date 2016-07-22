@@ -46,11 +46,11 @@
     "traceur": "~0.0.95"
   },
   "dependencies": {
-    "angular": "~1.4.8",
-    "angular-animate": "~1.4.8",
-    "angular-material": "1.0.2",
+    "angular": "~1.5.7",
+    "angular-animate": "~1.5.7",
+    "angular-material": "1.1.0-rc.5",
     "angular-material-icons": "~v0.6.0",
-    "angular-sanitize": "~1.4.8",
+    "angular-sanitize": "~1.5.7",
     "jquery": "~2.1.4",
     "jshint": "^2.9.2",
     "lodash": "~3.10.1",
