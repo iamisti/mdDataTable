@@ -84,7 +84,7 @@
      * When column names are: `Product name`, `Creator`, `Last Update`
      * The passed data row's structure: `id`, `item_name`, `update_date`, `created_by`
      *
-     * Then the following setup will parese the data to the right columns:
+     * Then the following setup will parse the data to the right columns:
      * <pre>
      *     <mdt-table
      *         mdt-row="{
@@ -193,7 +193,12 @@
                         columnValues = [];
 
                         _.each($scope.mdtRow['column-keys'], function(columnKey){
-                            columnValues.push(_.get(row, columnKey));
+                            columnValues.push({
+                                attributes: {
+                                    editableField: false
+                                },
+                                value: _.get(row, columnKey)
+                            });
                         });
 
                         ctrl.tableDataStorageService.addRowData(rowId, columnValues);

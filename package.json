@@ -1,6 +1,6 @@
 {
   "name": "md-data-table",
-  "version": "1.5.0",
+  "version": "1.5.1",
   "author": "Istvan Fodor <programtervezo@gmail.com>",
   "registry": "github",
   "repository": {
@@ -52,6 +52,7 @@
     "angular-material-icons": "~v0.6.0",
     "angular-sanitize": "~1.4.8",
     "jquery": "~2.1.4",
+    "jshint": "^2.9.2",
     "lodash": "~3.10.1",
     "phantomjs": "^2.1.7"
   }

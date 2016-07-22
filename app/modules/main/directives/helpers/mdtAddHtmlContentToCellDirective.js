@@ -10,11 +10,8 @@
                     // so we has to say explicitly that we only want to watch the content and nor the attributes, or the additional metadata.
                     var val = $parse(attr.mdtAddHtmlContentToCell)($scope);
 
-                    if(val.value){
-                        return val.value;
-                    }
+                    return val.value;
 
-                    return val;
                 }, function(val){
                     element.empty();
                     element.append(val);

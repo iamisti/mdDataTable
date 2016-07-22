@@ -19,6 +19,7 @@
        [paginated-rows="{boolean}"]
        [mdt-row="{object}"]
        [mdt-row-paginator="{function(page, pageSize)}"]
+       [mdt-trigger-request="{function(loadPageCallback)}"]
        [mdt-row-paginator-error-message="{string}"]&gt;
 &lt;/mdt-table&gt;</pre>
 <h4 id="usage_parameters">Parameters</h4><table class="variables-matrix table table-bordered table-striped"><thead><tr><th>Param</th><th>Type</th><th>Details</th></tr></thead><tbody><tr><td>tableCard <div><em>(optional)</em></div></td><td><a href="" class="label type-hint type-hint-object">object</a></td><td><div class="mdttable-page"><p>when set table will be embedded within a card, with data manipulation tools available
@@ -72,6 +73,10 @@ as it was specified inside <code>mdt-header-row</code> element directive.</li>
 </div></td></tr><tr><td>mdtRowPaginator <div><em>(optional)</em></div></td><td><a href="" class="label type-hint type-hint-function">function(page, pageSize</a></td><td><div class="mdttable-page"><p>providing the data for the table by a function. Should set a
 function which returns a promise when it&#39;s called. When the function is called, these parameters will be
 passed: <code>page</code> and <code>pageSize</code> which can help implementing an ajax-based paging.</p>
+</div></td></tr><tr><td>mdtTriggerRequest <div><em>(optional)</em></div></td><td><a href="" class="label type-hint type-hint-function">function(loadPageCallback</a></td><td><div class="mdttable-page"><p>provide a callback function for manually triggering an
+ajax request. Can be useful when you want to populate the results in the table manually. (e.g.: having a
+search field in your page which then can trigger a new request in the table to show the results based on
+that filter.</p>
 </div></td></tr><tr><td>mdtRowPaginatorErrorMessage <div><em>(optional)</em></div></td><td><a href="" class="label type-hint type-hint-string">string</a></td><td><div class="mdttable-page"><p>overrides default error message when promise gets rejected by the
 paginator function.</p>
 </div></td></tr></tbody></table></div>
@@ -80,7 +85,7 @@ paginator function.</p>
 
 <p>When column names are: <code>Product name</code>, <code>Creator</code>, <code>Last Update</code>
 The passed data row&#39;s structure: <code>id</code>, <code>item_name</code>, <code>update_date</code>, <code>created_by</code></p>
-<p>Then the following setup will parese the data to the right columns:
+<p>Then the following setup will parse the data to the right columns:
 <pre class="prettyprint linenums">
     &lt;mdt-table
         mdt-row="{

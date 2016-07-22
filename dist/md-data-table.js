@@ -176,6 +176,11 @@
      *      function which returns a promise when it's called. When the function is called, these parameters will be
      *      passed: `page` and `pageSize` which can help implementing an ajax-based paging.
      *
+     * @param {function(loadPageCallback)=} mdtTriggerRequest provide a callback function for manually triggering an
+     *      ajax request. Can be useful when you want to populate the results in the table manually. (e.g.: having a
+     *      search field in your page which then can trigger a new request in the table to show the results based on
+     *      that filter.
+     *
      * @param {string=} mdtRowPaginatorErrorMessage overrides default error message when promise gets rejected by the
      *      paginator function.
      *
@@ -186,7 +191,7 @@
      * When column names are: `Product name`, `Creator`, `Last Update`
      * The passed data row's structure: `id`, `item_name`, `update_date`, `created_by`
      *
-     * Then the following setup will parese the data to the right columns:
+     * Then the following setup will parse the data to the right columns:
      * <pre>
      *     <mdt-table
      *         mdt-row="{
@@ -296,7 +301,12 @@
                         columnValues = [];
 
                         _.each($scope.mdtRow['column-keys'], function(columnKey){
-                            columnValues.push(_.get(row, columnKey));
+                            columnValues.push({
+                                attributes: {
+                                    editableField: false
+                                },
+                                value: _.get(row, columnKey)
+                            });
                         });
 
                         ctrl.tableDataStorageService.addRowData(rowId, columnValues);
@@ -1138,11 +1148,8 @@
                     // so we has to say explicitly that we only want to watch the content and nor the attributes, or the additional metadata.
                     var val = $parse(attr.mdtAddHtmlContentToCell)($scope);
 
-                    if(val.value){
-                        return val.value;
-                    }
+                    return val.value;
 
-                    return val;
                 }, function(val){
                     element.empty();
                     element.append(val);

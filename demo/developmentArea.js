@@ -17,6 +17,7 @@
             loadPageCallbackWithDebounce = _.debounce(loadPageCallback, 1000);
         }
         function paginatorCallback(page, pageSize){
+            return;
             var offset = (page-1) * pageSize;
             var query = $scope.filterText ? $scope.filterText : '';
 
