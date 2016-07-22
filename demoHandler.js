@@ -51,6 +51,9 @@
                 name: 'Ajax search support',
                 codepen: 'RRrjLk'
             },{
+                name: 'Ajax html cell support',
+                codepen: 'pbLYwq'
+            },{
                 name: 'Search',
                 codepen: 'bEBKYx'
             },{
