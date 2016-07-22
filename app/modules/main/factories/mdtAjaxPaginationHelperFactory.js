@@ -121,7 +121,7 @@
             this.rowsPerPage = rowsPerPage;
             this.page = 1;
 
-            //this.fetchPage(this.page);
+            this.fetchPage(this.page);
         };
 
         return {
