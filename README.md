@@ -117,7 +117,7 @@ http://www.google.com/design/spec/components/data-tables.html
 |:white_check_mark:|                                    | data                            | Array         | required, The input data |
 |:white_check_mark:|                                    | table-row-id-key                | String|Integer| optional (same as `table-row-id`), defines the id of the row. Useful if you specified the callback function (`delete-row-callback`) for deleting a row. |
 |:white_check_mark:|                                    | column-keys                     | Array         | required, property names of the passed data array. Makes it possible to configure which property should go in which column. |
-|:x:               | html-content support              |                                 |               | |
+Html support is available for `mdt-row`, see more: [Custom cell content (`mdt-custom-cell`)](#custom-cell-content)
 
 ## Example usage for `mdt-row` attribute:
 ```html
