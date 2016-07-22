@@ -146,6 +146,7 @@
                             mdtRowOptions: $scope.mdtRow,
                             mdtRowPaginatorFunction: $scope.mdtRowPaginator,
                             mdtRowPaginatorErrorMessage: $scope.mdtRowPaginatorErrorMessage,
+                            mdtRowPaginatorNoResultsMessage: $scope.mdtRowPaginatorNoResultsMessage,
                             mdtTriggerRequest: $scope.mdtTriggerRequest
                         });
                     }

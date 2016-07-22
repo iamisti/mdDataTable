@@ -254,6 +254,7 @@
                             mdtRowOptions: $scope.mdtRow,
                             mdtRowPaginatorFunction: $scope.mdtRowPaginator,
                             mdtRowPaginatorErrorMessage: $scope.mdtRowPaginatorErrorMessage,
+                            mdtRowPaginatorNoResultsMessage: $scope.mdtRowPaginatorNoResultsMessage,
                             mdtTriggerRequest: $scope.mdtTriggerRequest
                         });
                     }
@@ -804,27 +805,6 @@
 (function(){
     'use strict';
 
-    /**
-     * @name ColumnOptionProvider
-     * @returns possible assignable column options you can give
-     *
-     * @describe Representing the assignable properties to the columns you can give.
-     */
-    var ColumnOptionProvider = {
-        ALIGN_RULE : {
-            ALIGN_LEFT: 'left',
-            ALIGN_RIGHT: 'right'
-        }
-    };
-
-    angular
-        .module('mdDataTable')
-        .value('ColumnOptionProvider', ColumnOptionProvider);
-})();
-
-(function(){
-    'use strict';
-
     ColumnAlignmentHelper.$inject = ['ColumnOptionProvider'];
     function ColumnAlignmentHelper(ColumnOptionProvider){
         var service = this;
@@ -843,6 +823,27 @@
         .module('mdDataTable')
         .service('ColumnAlignmentHelper', ColumnAlignmentHelper);
 }());
+(function(){
+    'use strict';
+
+    /**
+     * @name ColumnOptionProvider
+     * @returns possible assignable column options you can give
+     *
+     * @describe Representing the assignable properties to the columns you can give.
+     */
+    var ColumnOptionProvider = {
+        ALIGN_RULE : {
+            ALIGN_LEFT: 'left',
+            ALIGN_RIGHT: 'right'
+        }
+    };
+
+    angular
+        .module('mdDataTable')
+        .value('ColumnOptionProvider', ColumnOptionProvider);
+})();
+
 (function(){
     'use strict';
 
