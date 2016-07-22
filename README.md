@@ -1,14 +1,14 @@
-Angular material table. Complete implementation of google material design based on angular material components.
-
-> Live demo http://iamisti.github.io/mdDataTable/
-
-> If you like what you see, you can even make it better by donating the project with even a small amount https://www.paypal.me/iamisti
-
+[![NPM](https://nodei.co/npm-dl/md-data-table.png?months=6&height=3)](https://nodei.co/npm/md-data-table/)
+[![NPM](https://nodei.co/npm/md-data-table.png?downloads=true&downloadRank=true&stars=true)](https://nodei.co/npm/md-data-table/)
 [![Build Status](https://travis-ci.org/iamisti/mdDataTable.svg?branch=master)](https://travis-ci.org/iamisti/mdDataTable) 
 [![Code Climate](https://codeclimate.com/github/iamisti/mdDataTable/badges/gpa.svg)](https://codeclimate.com/github/iamisti/mdDataTable) 
 [![Test Coverage](https://codeclimate.com/github/iamisti/md-data-table/badges/coverage.svg?branch=master)](https://codeclimate.com/github/iamisti/md-data-table/coverage) 
 [![Dependency Status](https://gemnasium.com/iamisti/mdDataTable.svg)](https://gemnasium.com/iamisti/mdDataTable)
 [![Codacy Badge](https://api.codacy.com/project/badge/grade/fdcfe195e886430aaefefa54c972d3f7)](https://www.codacy.com/app/programtervezo/mdDataTable)
+
+Angular material table. Complete implementation of google material design based on angular material components.
+
+> Live demo http://iamisti.github.io/mdDataTable/
 
 ## Install
 
