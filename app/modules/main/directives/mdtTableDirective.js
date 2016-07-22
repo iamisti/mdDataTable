@@ -72,6 +72,8 @@
      * @param {string=} mdtRowPaginatorErrorMessage overrides default error message when promise gets rejected by the
      *      paginator function.
      *
+     * @param {string=} mdtRowPaginatorNoResultsMessage overrides default 'no results' message.
+     *
      * @param {function(loadPageCallback)=} mdtTriggerRequest provide a callback function for manually triggering an
      *      ajax request. Can be useful when you want to populate the results in the table manually. (e.g.: having a
      *      search field in your page which then can trigger a new request in the table to show the results based on
@@ -120,6 +122,7 @@
                 mdtRow: '=',
                 mdtRowPaginator: '&?',
                 mdtRowPaginatorErrorMessage:"@",
+                mdtRowPaginatorNoResultsMessage:"@",
                 virtualRepeat: '=',
                 mdtTriggerRequest: '&?'
             },
