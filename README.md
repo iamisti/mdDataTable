@@ -37,6 +37,7 @@ http://www.google.com/design/spec/components/data-tables.html
  - mdt-row
  - mdt-row-paginator
  - mdt-row-paginator-error-message
+ - mdt-row-paginator-no-results-message
  - mdt-trigger-request
 
 [Column attributes (`mdt-column`)](#column-attributes)
@@ -147,6 +148,7 @@ Html support is available for `mdt-row`, see more: [Custom cell content (`mdt-cu
 | ---------------- |----------------------------------- | ------------- | ------------- |
 |:white_check_mark:| mdt-row-paginator                  | Function      | optional, makes possible to provide a callback function which returns a promise, providing the data for the table. Has two parameters: `page` and `pageSize` |
 |:white_check_mark:| mdt-row-paginator-error-message    | String        | optional, overrides default error mesasge when promise gets rejected by the paginator function. |
+|:white_check_mark:| mdt-row-paginator-no-results-message    | String        | optional, overrides default 'no results' message when there are no results in the table. |
 |:white_check_mark:| mdt-trigger-request                | function(loadPageCallback) | optional, if `mdt-row-paginator` set, provides a callback function for manually triggering an ajax request. Can be useful when you want to populate the results in the table manually. (e.g.: having a search field in your page which then can trigger a new request in the table to show the results based on that filter.  |
 
 ## Example usage for `mdt-row-paginator` attribute:
