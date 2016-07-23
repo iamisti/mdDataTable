@@ -188,8 +188,8 @@ export class TableDataStorageService {
     };
 }
 
-class TableDataStorageFactory {
-    public static FactoryId: string = 'mdDataTable.TableDataStorageFactory';
+export class TableDataStorageServiceFactory {
+    public static FactoryId: string = 'mdDataTable.TableDataStorageServiceFactory';
     public static $inject: string[] = ['$log'];
 
     private $log:ILogService;
@@ -205,4 +205,4 @@ class TableDataStorageFactory {
 
 angular
     .module('mdDataTable')
-    .factory(TableDataStorageFactory.FactoryId, TableDataStorageFactory);
+    .factory(TableDataStorageServiceFactory.FactoryId, TableDataStorageServiceFactory);

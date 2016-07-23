@@ -1,7 +1,7 @@
 import {TableDataStorageService, RowData} from './TableDataStorageFactory';
 import {IPaginationHelper} from './IPaginationHelper';
 
-class PaginationHelper implements IPaginationHelper {
+export class PaginationHelper implements IPaginationHelper {
     public static $inject:string[] = [];
 
     private tableDataStorageService:TableDataStorageService;
@@ -77,7 +77,7 @@ class PaginationHelper implements IPaginationHelper {
     }
 }
 
-class PaginationHelperFactory {
+export class PaginationHelperFactory {
     public static FactoryId: string = 'mdDataTable.PaginationHelperFactory';
     public static $inject: string[] = [];
 

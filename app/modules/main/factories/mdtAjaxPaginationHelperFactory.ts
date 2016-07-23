@@ -3,7 +3,7 @@ import {TableDataStorageService, RowData} from './TableDataStorageFactory';
 import * as _ from 'lodash';
 import IPromise = angular.IPromise;
 
-class AjaxPaginationHelper implements IPaginationHelper {
+export class AjaxPaginationHelper implements IPaginationHelper {
 
     private tableDataStorageService:TableDataStorageService;
     private rowOptions:any;
@@ -148,7 +148,7 @@ class AjaxPaginationHelper implements IPaginationHelper {
     };
 }
 
-class AjaxPaginationHelperFactory {
+export class AjaxPaginationHelperFactory {
     public static FactoryId: string = 'mdDataTable.AjaxPaginationHelperFactory';
     public static $inject: string[] = [];
 
