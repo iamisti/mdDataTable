@@ -1,9 +1,7 @@
-import {
-    TableDataStorageService, TableDataStorageServiceFactory, RowData
-} from '../factories/TableDataStorageFactory';
+import IDialogService = angular.material.IDialogService;
 import {PaginationHelperFactory} from '../factories/mdtPaginationHelperFactory';
 import {AjaxPaginationHelperFactory} from '../factories/mdtAjaxPaginationHelperFactory';
-import IDialogService = angular.material.IDialogService;
+import {TableDataStorageServiceFactory, RowData} from '../factories/TableDataStorageFactory';
 /**
  * @ngdoc directive
  * @name mdtTable
@@ -106,7 +104,7 @@ import IDialogService = angular.material.IDialogService;
  *     </mdt-table>
  * </pre>
  */
-function mdtTableDirective(TableDataStorageFactory:TableDataStorageServiceFactory,
+function mdtTableDirective(tableDataStorageServiceFactory:TableDataStorageServiceFactory,
                            mdtPaginationHelperFactory:PaginationHelperFactory,
                            mdtAjaxPaginationHelperFactory:AjaxPaginationHelperFactory,
                            $mdDialog:IDialogService) {
@@ -141,7 +139,7 @@ function mdtTableDirective(TableDataStorageFactory:TableDataStorageServiceFactor
             vm.addHeaderCell = addHeaderCell;
 
             function initTableStorageServiceAndBindMethods() {
-                vm.tableDataStorageService = TableDataStorageFactory.getInstance();
+                vm.tableDataStorageService = tableDataStorageServiceFactory.getInstance();
 
                 if (!$scope['mdtRowPaginator']) {
                     $scope['mdtPaginationHelper'] = mdtPaginationHelperFactory
@@ -293,4 +291,9 @@ function mdtTableDirective(TableDataStorageFactory:TableDataStorageServiceFactor
 
 angular
     .module('mdDataTable')
-    .directive('mdtTable', mdtTableDirective);
+    .directive('mdtTable', [
+        TableDataStorageServiceFactory.FactoryId,
+        PaginationHelperFactory.FactoryId,
+        AjaxPaginationHelperFactory.FactoryId,
+        '$mdDialog',
+        mdtTableDirective]);

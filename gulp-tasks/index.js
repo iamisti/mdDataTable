@@ -5,7 +5,7 @@ var gulp   = require('gulp'),
     bowerFiles  = require('main-bower-files'),
     runSequence = require('run-sequence');
 
-var jsAssets    = ['app/modules/**/*.js'],
+var jsAssets    = ['build/js/**/*.js'],
     demoAssets  = ['demo/**/*.js'],
     bowerAssets = bowerFiles({ debug: true });
 

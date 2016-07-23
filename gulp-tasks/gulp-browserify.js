@@ -10,6 +10,5 @@ gulp.task('browserify', function() {
             insertGlobals : true,
             debug : !gulp.env.production
         }))
-        .pipe(rename('app.js')) //comment this out if you want all files instead of a bundle
         .pipe(gulp.dest('./build/js'))
 });
