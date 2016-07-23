@@ -1,6 +1,8 @@
-(function(){
-    'use strict';
+/// <reference path="../../tools/typings/tsd.d.ts"/>
 
+import * as angular from 'angular';
+
+module mdDataTable {
     /**
      * @description
      * Component resolution and creation flow:
@@ -42,4 +44,4 @@
      *
      */
     angular.module('mdDataTable', ['mdtTemplates', 'ngMaterial', 'ngMdIcons']);
-}());
+}

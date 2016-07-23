@@ -5,7 +5,7 @@ var gulp  = require('gulp'),
     ngAnnotate  = require('gulp-ng-annotate');
 
 gulp.task('copy',function() {
-    var applicationSources = ['app/modules/**/*.js'],
+    var applicationSources = ['build/js/app.js'],
         demoSources = ['demo/**/*.js', 'demo/developmentArea.html'],
         applicationAssets  = ['app/assets/**/*.js'],
         bowerComponents    = ['app/bower_components/**'];

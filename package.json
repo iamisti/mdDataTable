@@ -9,25 +9,32 @@
   },
   "license": "MIT",
   "devDependencies": {
+    "browser-sync": "^2.13.0",
     "codeclimate-test-reporter": "~0.1.1",
+    "del": "^2.2.1",
     "event-stream": "~3.3.4",
     "fstream": "^1.0.10",
     "glob": "~6.0.2",
     "gulp": "~3.9.0",
     "gulp-angular-filesort": "~1.1.1",
     "gulp-angular-templatecache": "~1.8.0",
+    "gulp-browserify": "^0.5.1",
     "gulp-cached": "~1.1.0",
     "gulp-compass": "~2.1.0",
     "gulp-concat": "~2.6.0",
     "gulp-connect": "~2.3.1",
-    "gulp-inject": "~3.0.0",
+    "gulp-debug": "^2.1.2",
+    "gulp-inject": "^3.0.0",
     "gulp-jshint": "~2.0.0",
     "gulp-karma": "~0.0.5",
     "gulp-ng-annotate": "~1.1.0",
     "gulp-ngdocs": "^0.2.13",
     "gulp-plumber": "~1.0.1",
     "gulp-rename": "~1.2.2",
-    "gulp-rimraf": "~0.2.0",
+    "gulp-rimraf": "^0.2.0",
+    "gulp-sourcemaps": "^1.6.0",
+    "gulp-tslint": "^6.0.1",
+    "gulp-typescript": "^2.13.6",
     "gulp-uglify": "~1.5.1",
     "gulp-watch": "~4.3.5",
     "jasmine-core": "^2.4.1",
@@ -43,6 +50,7 @@
     "lodash": "~3.10.1",
     "main-bower-files": "~2.11.0",
     "run-sequence": "~1.1.5",
+    "superstatic": "^4.0.3",
     "traceur": "~0.0.95"
   },
   "dependencies": {
@@ -54,6 +62,7 @@
     "jquery": "~2.1.4",
     "jshint": "^2.9.2",
     "lodash": "~3.10.1",
-    "phantomjs": "^2.1.7"
+    "phantomjs": "^2.1.7",
+    "tslint": "^3.13.0"
   }
 }

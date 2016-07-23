@@ -1,0 +1,13 @@
+{
+  "compilerOptions": {
+    "noImplicitAny": true,
+    "target": "ES5",
+    "declaration": true,
+    "sourceMap": true,
+    "module": "commonjs"
+  },
+  "files": [
+    "tools/typings/tsd.d.ts",
+    "app/modules/**/**.ts"
+  ]
+}

@@ -9,6 +9,8 @@ require('./gulp-tasks/templates');
 require('./gulp-tasks/lint');
 require('./gulp-tasks/test');
 require('./gulp-tasks/dist');
+require('./gulp-tasks/gulpfile.ts');
+require('./gulp-tasks/gulp-browserify');
 
 gulp.task('start development webserver', function() {
     connect.server({
