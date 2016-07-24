@@ -1,4 +1,3 @@
-import IDialogService = angular.material.IDialogService;
 import {PaginationHelperFactory} from '../factories/mdtPaginationHelperFactory';
 import {AjaxPaginationHelperFactory} from '../factories/mdtAjaxPaginationHelperFactory';
 import {TableDataStorageServiceFactory, RowData} from '../factories/TableDataStorageFactory';
@@ -104,6 +103,7 @@ import {TableDataStorageServiceFactory, RowData} from '../factories/TableDataSto
  *     </mdt-table>
  * </pre>
  */
+
 function mdtTableDirective(tableDataStorageServiceFactory:TableDataStorageServiceFactory,
                            mdtPaginationHelperFactory:PaginationHelperFactory,
                            mdtAjaxPaginationHelperFactory:AjaxPaginationHelperFactory,
@@ -131,7 +131,7 @@ function mdtTableDirective(tableDataStorageServiceFactory:TableDataStorageServic
             virtualRepeat: '=',
             mdtTriggerRequest: '&?'
         },
-        controller: function mdtTableController($scope:IScope) {
+        controller: function mdtTableController($scope:IScope): void {
             var vm = this;
 
             initTableStorageServiceAndBindMethods();
@@ -291,9 +291,6 @@ function mdtTableDirective(tableDataStorageServiceFactory:TableDataStorageServic
 
 angular
     .module('mdDataTable')
-    .directive('mdtTable', [
-        TableDataStorageServiceFactory.FactoryId,
-        PaginationHelperFactory.FactoryId,
-        AjaxPaginationHelperFactory.FactoryId,
-        '$mdDialog',
-        mdtTableDirective]);
+    .directive('mdtTable', mdtTableDirective);
+
+alert('pl');

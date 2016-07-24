@@ -9,7 +9,7 @@ module.exports = function() {
         files: dependencies.concat([
              //required for html2js
             'app/modules/**/*.html',
-            'app/modules/**/*.js',
+            'build/js/**/*.js',
             {
                 pattern: 'app/assets/**',
                 watched:  false,

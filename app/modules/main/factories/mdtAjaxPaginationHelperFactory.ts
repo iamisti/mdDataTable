@@ -1,6 +1,5 @@
 import {IPaginationHelper} from './IPaginationHelper';
 import {TableDataStorageService, RowData} from './TableDataStorageFactory';
-import * as _ from 'lodash';
 import IPromise = angular.IPromise;
 
 export class AjaxPaginationHelper implements IPaginationHelper {
@@ -149,7 +148,7 @@ export class AjaxPaginationHelper implements IPaginationHelper {
 }
 
 export class AjaxPaginationHelperFactory {
-    public static FactoryId: string = 'mdDataTable.AjaxPaginationHelperFactory';
+    public static FactoryId: string = 'AjaxPaginationHelperFactory';
     public static $inject: string[] = [];
 
     public getInstance(params:any): AjaxPaginationHelper {
@@ -159,4 +158,4 @@ export class AjaxPaginationHelperFactory {
 
 angular
     .module('mdDataTable')
-    .factory(AjaxPaginationHelperFactory.FactoryId, AjaxPaginationHelperFactory);
+    .service(AjaxPaginationHelperFactory.FactoryId, AjaxPaginationHelperFactory);

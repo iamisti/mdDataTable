@@ -1,3 +1,5 @@
+import {ColumnAlignmentHelper} from '../../helpers/ColumnAlignmentHelper';
+
 function mdtAddAlignClass(ColumnAlignmentHelper:ColumnAlignmentHelper) {
     return {
         restrict: 'A',

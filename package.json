@@ -16,7 +16,7 @@
     "fstream": "^1.0.10",
     "glob": "~6.0.2",
     "gulp": "~3.9.0",
-    "gulp-angular-filesort": "~1.1.1",
+    "gulp-angular-filesort": "^1.1.1",
     "gulp-angular-templatecache": "~1.8.0",
     "gulp-browserify": "^0.5.1",
     "gulp-cached": "~1.1.0",
@@ -63,6 +63,7 @@
     "jshint": "^2.9.2",
     "lodash": "~3.10.1",
     "phantomjs": "^2.1.7",
+    "requirejs": "^2.2.0",
     "tslint": "^3.13.0"
   }
 }

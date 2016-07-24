@@ -4,8 +4,11 @@
     "target": "ES5",
     "declaration": true,
     "sourceMap": true,
-    "module": "commonjs"
+    "module": "commonjs",
+    "outFile": "app.js",
+    "sortOutput": true
   },
+
   "files": [
     "tools/typings/tsd.d.ts",
     "app/modules/**/**.ts"

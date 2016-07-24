@@ -1,5 +1,5 @@
-class ColumnAlignmentHelper {
-    public static ServiceId: string = 'mdDataTable.ColumnAlignmentHelper';
+export class ColumnAlignmentHelper {
+    public static ServiceId: string = 'ColumnAlignmentHelper';
     public static $inject: string[] = ['ColumnOptionProvider'];
 
     private ColumnOptionProvider:any;

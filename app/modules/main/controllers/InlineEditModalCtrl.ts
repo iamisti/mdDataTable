@@ -1,5 +1,3 @@
-import * as angular from 'angular';
-
 import IServiceProvider = angular.IServiceProvider;
 import ITimeoutService = angular.ITimeoutService;
 import IDialogService = angular.material.IDialogService;
@@ -8,7 +6,7 @@ import IFormController = angular.IFormController;
 //TODO: cellData type
 //TODO: position type
 class InlineEditModalCtrl {
-    public static ControllerId: string = 'mdDataTable.InlineEditModalCtrl';
+    public static ControllerId: string = 'InlineEditModalCtrl';
     public static $inject: string[] = ['position', 'cellData', '$timeout', '$mdDialog'];
 
     public cellData:any;
@@ -42,4 +40,4 @@ class InlineEditModalCtrl {
 
 angular
     .module('mdDataTable')
-    .controller(InlineEditModalCtrl.ControllerId, [InlineEditModalCtrl]);
+    .controller(InlineEditModalCtrl.ControllerId, InlineEditModalCtrl);

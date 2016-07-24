@@ -78,7 +78,7 @@ export class PaginationHelper implements IPaginationHelper {
 }
 
 export class PaginationHelperFactory {
-    public static FactoryId: string = 'mdDataTable.PaginationHelperFactory';
+    public static FactoryId: string = 'PaginationHelperFactory';
     public static $inject: string[] = [];
 
     public getInstance(tableDataStorageService:TableDataStorageService, paginationSetting:any): PaginationHelper {

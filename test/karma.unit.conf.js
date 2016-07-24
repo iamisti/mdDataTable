@@ -18,7 +18,7 @@ var unitTestingConfig = _.merge(baseConfig(), {
     ],
 
     preprocessors: {
-        'app/modules/**/*.js': ['coverage']
+        'build/js/**/*.js': ['coverage']
     },
 
     reporters:  environment.getUnitReportersForCurrentRun(),

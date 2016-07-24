@@ -22,11 +22,11 @@ gulp.task('start development webserver', function() {
 
 gulp.task('default', function(next) {
     process.isLongRunning = true;
-    runSequence('start development webserver', 'build', next);
+    runSequence('build', 'start development webserver', next);
 });
 
 gulp.task('build', function(next) {
-    runSequence('test', 'copy', 'templates', 'compass', 'create index.html', 'ngdocs', next);
+    runSequence('ts', 'copy', 'browserify', /*'test', */'templates', 'compass', 'create index.html', 'ngdocs', next);
 });
 
 gulp.task('ci', function(next) {

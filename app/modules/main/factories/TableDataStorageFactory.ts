@@ -1,4 +1,3 @@
-import * as _ from 'lodash';
 import ILogService = angular.ILogService;
 
 export class RowData {
@@ -189,7 +188,7 @@ export class TableDataStorageService {
 }
 
 export class TableDataStorageServiceFactory {
-    public static FactoryId: string = 'mdDataTable.TableDataStorageServiceFactory';
+    public static FactoryId: string = 'TableDataStorageServiceFactory';
     public static $inject: string[] = ['$log'];
 
     private $log:ILogService;
@@ -205,4 +204,4 @@ export class TableDataStorageServiceFactory {
 
 angular
     .module('mdDataTable')
-    .factory(TableDataStorageServiceFactory.FactoryId, TableDataStorageServiceFactory);
+    .service(TableDataStorageServiceFactory.FactoryId, TableDataStorageServiceFactory);

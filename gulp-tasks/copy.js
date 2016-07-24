@@ -5,15 +5,15 @@ var gulp  = require('gulp'),
     ngAnnotate  = require('gulp-ng-annotate');
 
 gulp.task('copy',function() {
-    var applicationSources = ['build/js/**/*.js'],
+    var //applicationSources = ['build/compiled/**/*.js'],
         demoSources = ['demo/**/*.js', 'demo/developmentArea.html'],
         applicationAssets  = ['app/assets/**/*.js'],
         bowerComponents    = ['app/bower_components/**'];
 
-    var sourcesStream = gulp
-        .src(applicationSources, { base: '.' })
-        .pipe(ngAnnotate({ remove: false, add: true, single_quotes: true }))
-        .pipe(gulp.dest('build'));
+    // var sourcesStream = gulp
+    //     .src(applicationSources, { base: './build/compiled/' })
+    //     .pipe(ngAnnotate({ remove: false, add: true, single_quotes: true }))
+    //     .pipe(gulp.dest('build'));
 
     var demoStream = gulp
         .src(demoSources, { base: '.' })
@@ -28,17 +28,17 @@ gulp.task('copy',function() {
         .pipe(gulp.dest('build'));
 
     if(utils.isNeedToWatch()) {
-        watch(applicationSources, { base: '.', verbose: true }, utils.livereload)
-            .pipe(ngAnnotate({ remove: false, add: true, single_quotes: true }))
-            .pipe(gulp.dest('build'));
+        // watch(applicationSources, { base: '.', verbose: true }, utils.livereload)
+        //      .pipe(ngAnnotate({ remove: false, add: true, single_quotes: true }))
+        //      .pipe(gulp.dest('build'));
 
         watch(demoSources, { base: '.', verbose: true }, utils.livereload)
             .pipe(ngAnnotate({ remove: false, add: true, single_quotes: true }))
             .pipe(gulp.dest('build'));
 
-        watch(applicationAssets, { base: 'app', verbose: true }, utils.livereload)
+        watch(applicationAssets, { base: 'compiled', verbose: true }, utils.livereload)
             .pipe(gulp.dest('build'));
     }
 
-    return eventStream.merge([sourcesStream, bowerStream, assetsStream, demoStream]);
+    return eventStream.merge([/*sourcesStream, */bowerStream, assetsStream, demoStream]);
 });

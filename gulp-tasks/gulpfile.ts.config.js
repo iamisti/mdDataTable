@@ -6,7 +6,8 @@ var GulpConfig = (function () {
         this.source = './app/';
         this.sourceApp = this.source + 'modules/';
 
-        this.tsOutputPath = './build/compiled';
+        this.buildFolder = './build/';
+        this.tsOutputPath = this.buildFolder + 'compiled';
         this.allJavaScript = this.source + '/**/*.js';
         this.allTypeScript = this.sourceApp + '/**/*.ts';
 
