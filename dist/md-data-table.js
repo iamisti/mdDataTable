@@ -866,158 +866,6 @@
 
     /**
      * @ngdoc directive
-     * @name mdtCell
-     * @restrict E
-     * @requires mdtTable
-     * @requires mdtRow
-     *
-     * @description
-     * Representing a cell which should be placed inside `mdt-row` element directive.
-     *
-     * @param {boolean=} htmlContent if set to true, then html content can be placed into the content of the directive.
-     * @param {string=} editableField if set, then content can be editable.
-     *
-     *      Available modes are:
-     *
-     *      - "smallEditDialog" - A simple, one-field edit dialog on click
-     *      - "largeEditDialog" - A complex, flexible edit edit dialog on click
-     *
-     * @param {string=} editableFieldTitle if set, then it sets the title of the dialog. (only for `largeEditDialog`)
-     * @param {number=} editableFieldMaxLength if set, then it sets the maximum length of the field.
-     *
-     *
-     * @example
-     * <pre>
-     *  <mdt-table>
-     *      <mdt-header-row>
-     *          <mdt-column>Product name</mdt-column>
-     *          <mdt-column>Price</mdt-column>
-     *          <mdt-column>Details</mdt-column>
-     *      </mdt-header-row>
-     *
-     *      <mdt-row ng-repeat="product in ctrl.products">
-     *          <mdt-cell>{{product.name}}</mdt-cell>
-     *          <mdt-cell>{{product.price}}</mdt-cell>
-     *          <mdt-cell html-content="true">
-     *              <a href="productdetails/{{product.id}}">more details</a>
-     *          </mdt-cell>
-     *      </mdt-row>
-     *  </mdt-table>
-     * </pre>
-     */
-    mdtCellDirective.$inject = ['$parse'];
-    function mdtCellDirective($parse){
-        return {
-            restrict: 'E',
-            replace: true,
-            transclude: true,
-            require: '^mdtRow',
-            link: function($scope, element, attr, mdtRowCtrl, transclude){
-
-                var attributes = {
-                    htmlContent: attr.htmlContent ? attr.htmlContent : false,
-                    editableField: attr.editableField ? attr.editableField : false,
-                    editableFieldTitle: attr.editableFieldTitle ? attr.editableFieldTitle : false,
-                    editableFieldMaxLength: attr.editableFieldMaxLength ? attr.editableFieldMaxLength : false
-                };
-
-                transclude(function (clone) {
-                    //TODO: rework, figure out something for including html content
-                    if(attr.htmlContent){
-                        mdtRowCtrl.addToRowDataStorage(clone, attributes);
-                    }else{
-                        //TODO: better idea?
-                        var cellValue = $parse(clone.html().replace('{{', '').replace('}}', ''))($scope.$parent);
-                        mdtRowCtrl.addToRowDataStorage(cellValue, attributes);
-                    }
-                });
-            }
-        };
-    }
-
-    angular
-        .module('mdDataTable')
-        .directive('mdtCell', mdtCellDirective);
-}());
-(function(){
-    'use strict';
-
-    /**
-     * @ngdoc directive
-     * @name mdtRow
-     * @restrict E
-     * @requires mdtTable
-     *
-     * @description
-     * Representing a row which should be placed inside `mdt-table` element directive.
-     *
-     * <i>Please note the following: This element has limited functionality. It cannot listen on data changes that happens outside of the
-     * component. E.g.: if you provide an ng-repeat to generate your data rows for the table, using this directive,
-     * it won't work well if this data will change. Since the way how transclusions work, it's (with my best
-     * knowledge) an impossible task to solve at the moment. If you intend to use dynamic data rows, it's still
-     * possible with using mdtRow attribute of mdtTable.</i>
-     *
-     * @param {string|integer=} tableRowId when set table will have a uniqe id. In case of deleting a row will give
-     *      back this id.
-     *
-     * @example
-     * <pre>
-     *  <mdt-table>
-     *      <mdt-header-row>
-     *          <mdt-column>Product name</mdt-column>
-     *          <mdt-column>Price</mdt-column>
-     *      </mdt-header-row>
-     *
-     *      <mdt-row
-     *          ng-repeat="product in products"
-     *          table-row-id="{{product.id}}">
-     *          <mdt-cell>{{product.name}}</mdt-cell>
-     *          <mdt-cell>{{product.price}}</mdt-cell>
-     *      </mdt-row>
-     *  </mdt-table>
-     * </pre>
-     */
-    function mdtRowDirective(){
-        return {
-            restrict: 'E',
-            transclude: true,
-            require: '^mdtTable',
-            scope: {
-                tableRowId: '='
-            },
-            controller: ['$scope', function($scope){
-                var vm = this;
-
-                vm.addToRowDataStorage = addToRowDataStorage;
-                $scope.rowDataStorage = [];
-
-                function addToRowDataStorage(value, attributes){
-                    $scope.rowDataStorage.push({value: value, attributes: attributes});
-                }
-            }],
-            link: function($scope, element, attrs, ctrl, transclude){
-                appendColumns();
-
-                ctrl.tableDataStorageService.addRowData($scope.tableRowId, $scope.rowDataStorage);
-
-                function appendColumns(){
-                    transclude(function (clone) {
-                        element.append(clone);
-                    });
-                }
-            }
-        };
-    }
-
-    angular
-        .module('mdDataTable')
-        .directive('mdtRow', mdtRowDirective);
-}());
-(function(){
-    'use strict';
-
-    /**
-     * @ngdoc directive
      * @name mdtColumn
      * @restrict E
      * @requires mdtTable
@@ -1054,8 +902,8 @@
      *  </mdt-table>
      * </pre>
      */
-    mdtColumnDirective.$inject = ['$parse'];
-    function mdtColumnDirective($parse){
+    mdtColumnDirective.$inject = ['$interpolate'];
+    function mdtColumnDirective($interpolate){
         return {
             restrict: 'E',
             transclude: true,
@@ -1070,13 +918,8 @@
                 var mdtTableCtrl = ctrl[0];
 
                 transclude(function (clone) {
-                    var cellValue;
-
-                    if(clone.html().indexOf('{{') !== -1){
-                        cellValue = $parse(clone.html().replace('{{', '').replace('}}', ''))($scope.$parent);
-                    }else{
-                        cellValue = clone.html();
-                    }
+                    // directive creates an isolate scope so use parent scope to resolve variables.
+                    var cellValue = $interpolate(clone.html())($scope.$parent);
 
                     mdtTableCtrl.addHeaderCell({
                         alignRule: $scope.alignRule,
@@ -1371,4 +1214,155 @@
     angular
         .module('mdDataTable')
         .directive('mdtCardHeader', mdtCardHeaderDirective);
+}());
+(function(){
+    'use strict';
+
+    /**
+     * @ngdoc directive
+     * @name mdtCell
+     * @restrict E
+     * @requires mdtTable
+     * @requires mdtRow
+     *
+     * @description
+     * Representing a cell which should be placed inside `mdt-row` element directive.
+     *
+     * @param {boolean=} htmlContent if set to true, then html content can be placed into the content of the directive.
+     * @param {string=} editableField if set, then content can be editable.
+     *
+     *      Available modes are:
+     *
+     *      - "smallEditDialog" - A simple, one-field edit dialog on click
+     *      - "largeEditDialog" - A complex, flexible edit edit dialog on click
+     *
+     * @param {string=} editableFieldTitle if set, then it sets the title of the dialog. (only for `largeEditDialog`)
+     * @param {number=} editableFieldMaxLength if set, then it sets the maximum length of the field.
+     *
+     *
+     * @example
+     * <pre>
+     *  <mdt-table>
+     *      <mdt-header-row>
+     *          <mdt-column>Product name</mdt-column>
+     *          <mdt-column>Price</mdt-column>
+     *          <mdt-column>Details</mdt-column>
+     *      </mdt-header-row>
+     *
+     *      <mdt-row ng-repeat="product in ctrl.products">
+     *          <mdt-cell>{{product.name}}</mdt-cell>
+     *          <mdt-cell>{{product.price}}</mdt-cell>
+     *          <mdt-cell html-content="true">
+     *              <a href="productdetails/{{product.id}}">more details</a>
+     *          </mdt-cell>
+     *      </mdt-row>
+     *  </mdt-table>
+     * </pre>
+     */
+    mdtCellDirective.$inject = ['$interpolate'];
+    function mdtCellDirective($interpolate){
+        return {
+            restrict: 'E',
+            replace: true,
+            transclude: true,
+            require: '^mdtRow',
+            link: function($scope, element, attr, mdtRowCtrl, transclude){
+
+                var attributes = {
+                    htmlContent: attr.htmlContent ? attr.htmlContent : false,
+                    editableField: attr.editableField ? attr.editableField : false,
+                    editableFieldTitle: attr.editableFieldTitle ? attr.editableFieldTitle : false,
+                    editableFieldMaxLength: attr.editableFieldMaxLength ? attr.editableFieldMaxLength : false
+                };
+
+                transclude(function (clone) {
+                    //TODO: rework, figure out something for including html content
+                    if(attr.htmlContent){
+                        mdtRowCtrl.addToRowDataStorage(clone, attributes);
+                    }else{
+                        var cellValue = $interpolate(clone.html())($scope);
+                        mdtRowCtrl.addToRowDataStorage(cellValue, attributes);
+                    }
+                });
+            }
+        };
+    }
+
+    angular
+        .module('mdDataTable')
+        .directive('mdtCell', mdtCellDirective);
+}());
+(function(){
+    'use strict';
+
+    /**
+     * @ngdoc directive
+     * @name mdtRow
+     * @restrict E
+     * @requires mdtTable
+     *
+     * @description
+     * Representing a row which should be placed inside `mdt-table` element directive.
+     *
+     * <i>Please note the following: This element has limited functionality. It cannot listen on data changes that happens outside of the
+     * component. E.g.: if you provide an ng-repeat to generate your data rows for the table, using this directive,
+     * it won't work well if this data will change. Since the way how transclusions work, it's (with my best
+     * knowledge) an impossible task to solve at the moment. If you intend to use dynamic data rows, it's still
+     * possible with using mdtRow attribute of mdtTable.</i>
+     *
+     * @param {string|integer=} tableRowId when set table will have a uniqe id. In case of deleting a row will give
+     *      back this id.
+     *
+     * @example
+     * <pre>
+     *  <mdt-table>
+     *      <mdt-header-row>
+     *          <mdt-column>Product name</mdt-column>
+     *          <mdt-column>Price</mdt-column>
+     *      </mdt-header-row>
+     *
+     *      <mdt-row
+     *          ng-repeat="product in products"
+     *          table-row-id="{{product.id}}">
+     *          <mdt-cell>{{product.name}}</mdt-cell>
+     *          <mdt-cell>{{product.price}}</mdt-cell>
+     *      </mdt-row>
+     *  </mdt-table>
+     * </pre>
+     */
+    function mdtRowDirective(){
+        return {
+            restrict: 'E',
+            transclude: true,
+            require: '^mdtTable',
+            scope: {
+                tableRowId: '='
+            },
+            controller: ['$scope', function($scope){
+                var vm = this;
+
+                vm.addToRowDataStorage = addToRowDataStorage;
+                $scope.rowDataStorage = [];
+
+                function addToRowDataStorage(value, attributes){
+                    $scope.rowDataStorage.push({value: value, attributes: attributes});
+                }
+            }],
+            link: function($scope, element, attrs, ctrl, transclude){
+                appendColumns();
+
+                ctrl.tableDataStorageService.addRowData($scope.tableRowId, $scope.rowDataStorage);
+
+                function appendColumns(){
+                    transclude(function (clone) {
+                        element.append(clone);
+                    });
+                }
+            }
+        };
+    }
+
+    angular
+        .module('mdDataTable')
+        .directive('mdtRow', mdtRowDirective);
 }());
