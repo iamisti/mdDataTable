@@ -1,9 +1,5 @@
 <div ng-app="developmentAreaApp" ng-controller="DevelopmentAreaController" layout-margin>
-    <mdt-table
-            paginated-rows="{isEnabled: true, rowsPerPageValues: [5,10,20,100]}"
-            mdt-translations="{
-                'rowsPerPage': 'Rows per page'
-            }">
+    <mdt-table sortable-columns="true">
         <mdt-header-row>
             <mdt-column align-rule="left">Dessert (100g serving)</mdt-column>
             <mdt-column align-rule="right">Calories</mdt-column>

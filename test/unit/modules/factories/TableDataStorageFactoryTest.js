@@ -248,9 +248,9 @@ describe('TableDataStorageFactory', function(){
     });
 
     describe('WHEN calling `sortByColumnIndex`', function(){
-        var rowData1 = ['Song', 3, 6, 7];
-        var rowData2 = ['Xert', 3, 56, 2];
-        var rowData3 = ['Else', 1, 34, 99];
+        var rowData1 = [{value: 'Song'}, {value: 3}, {value: 6}, {value: 7}];
+        var rowData2 = [{value: 'Xert'}, {value: 3}, {value: 56}, {value: 2}];
+        var rowData3 = [{value: 'Else'}, {value: 1}, {value: 34}, {value: 99}];
 
         beforeEach(function(){
             //given
