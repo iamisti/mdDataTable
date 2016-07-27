@@ -4,7 +4,7 @@
          layout-align="end center"
          flex>
 
-        <span layout-margin>Rows per page:</span>
+        <span layout-margin>{{mdtTranslations.rowsPerPage}}</span>
         <md-input-container>
             <md-select ng-model="rowsPerPage" aria-label="rows per page">
                 <md-option ng-value="pageSize" ng-repeat="pageSize in mdtPaginationHelper.rowsPerPageValues">{{pageSize}}</md-option>

@@ -21,7 +21,8 @@
        [mdt-row-paginator="{function(page, pageSize)}"]
        [mdt-row-paginator-error-message="{string}"]
        [mdt-row-paginator-no-results-message="{string}"]
-       [mdt-trigger-request="{function(loadPageCallback)}"]&gt;
+       [mdt-trigger-request="{function(loadPageCallback)}"]
+       [mdt-translations="{object}"]&gt;
 &lt;/mdt-table&gt;</pre>
 <h4 id="usage_parameters">Parameters</h4><table class="variables-matrix table table-bordered table-striped"><thead><tr><th>Param</th><th>Type</th><th>Details</th></tr></thead><tbody><tr><td>tableCard <div><em>(optional)</em></div></td><td><a href="" class="label type-hint type-hint-object">object</a></td><td><div class="mdttable-page"><p>when set table will be embedded within a card, with data manipulation tools available
 at the top and bottom.</p>
@@ -81,6 +82,7 @@ paginator function.</p>
 ajax request. Can be useful when you want to populate the results in the table manually. (e.g.: having a
 search field in your page which then can trigger a new request in the table to show the results based on
 that filter.</p>
+</div></td></tr><tr><td>mdtTranslations <div><em>(optional)</em></div></td><td><a href="" class="label type-hint type-hint-object">object</a></td><td><div class="mdttable-page"><p>accepts various key-value pairs for custom translations.</p>
 </div></td></tr></tbody></table></div>
 <h2 id="example">Example</h2>
 <div class="example"><div class="mdttable-page"><h4 id="example_-attribute"><code>mdt-row</code> attribute:</h4>
