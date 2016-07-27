@@ -79,6 +79,7 @@
      *      search field in your page which then can trigger a new request in the table to show the results based on
      *      that filter.
      *
+     * @param {object=} mdtTranslations accepts various key-value pairs for custom translations.
      *
      * @example
      * <h2>`mdt-row` attribute:</h2>
@@ -124,10 +125,13 @@
                 mdtRowPaginatorErrorMessage:"@",
                 mdtRowPaginatorNoResultsMessage:"@",
                 virtualRepeat: '=',
-                mdtTriggerRequest: '&?'
+                mdtTriggerRequest: '&?',
+                mdtTranslations: '=?'
             },
             controller: function mdtTableController($scope){
                 var vm = this;
+
+                setDefaultTranslations();
 
                 initTableStorageServiceAndBindMethods();
 
@@ -154,6 +158,16 @@
 
                 function addHeaderCell(ops){
                     vm.tableDataStorageService.addHeaderCellData(ops);
+                }
+
+                function setDefaultTranslations(){
+                    $scope.mdtTranslations = $scope.mdtTranslations || {};
+
+                    $scope.mdtTranslations.rowsPerPage = $scope.mdtTranslations.rowsPerPage || 'Rows per page:';
+
+                    $scope.mdtTranslations.largeEditDialog = $scope.mdtTranslations.largeEditDialog || {};
+                    $scope.mdtTranslations.largeEditDialog.saveButtonLabel = $scope.mdtTranslations.largeEditDialog.saveButtonLabel || 'Save';
+                    $scope.mdtTranslations.largeEditDialog.cancelButtonLabel = $scope.mdtTranslations.largeEditDialog.cancelButtonLabel || 'Cancel';
                 }
             },
             link: function($scope, element, attrs, ctrl, transclude){
@@ -260,7 +274,8 @@
                         focusOnOpen: false,
                         locals: {
                             position: position,
-                            cellData: JSON.parse(JSON.stringify(cellData))
+                            cellData: JSON.parse(JSON.stringify(cellData)),
+                            mdtTranslations: $scope.mdtTranslations
                         }
                     };
 

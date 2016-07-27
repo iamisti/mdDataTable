@@ -1,7 +1,7 @@
 (function(){
     'use strict';
 
-    function InlineEditModalCtrl($scope, position, cellData, $timeout, $mdDialog){
+    function InlineEditModalCtrl($scope, position, cellData, mdtTranslations, $timeout, $mdDialog){
 
         $timeout(function() {
             var el = $('md-dialog');
@@ -13,6 +13,8 @@
         });
 
         $scope.cellData = cellData;
+        $scope.mdtTranslations = mdtTranslations;
+
         $scope.saveRow = saveRow;
         $scope.cancel = cancel;
 
