@@ -308,7 +308,7 @@ There is only one scope variable that you can use in your template, and it's cal
         <!-- in case of sortable columns, we can set the defaultly sortable column -->
         <mdt-column sortable-rows-default>
             Fat (g)
-        </mt-column>
+        </mdt-column>
         <mdt-column>Carbs (g)</mdt-column>
         <mdt-column>Protein (g)</mdt-column>
     </mdt-header-row>
