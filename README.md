@@ -143,7 +143,7 @@ Html support is available for `mdt-row`, see more: [Custom cell content (`mdt-cu
         <mdt-column>Dessert (100g serving)</mdt-column>
         <mdt-column>Type</mdt-column>
         <mdt-column>Calories</mdt-column>
-        <mdt-column sortable-rows-default>Fat (g)</mt-column>
+        <mdt-column sortable-rows-default>Fat (g)</mdt-column>
         <mdt-column>Carbs (g)</mdt-column>
         <mdt-column>Protein (g)</mdt-column>
     </mdt-header-row>
