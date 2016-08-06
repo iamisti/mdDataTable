@@ -1,3 +1,6 @@
+> Angular2 and Angular2 Material version of this plugin is under development. 
+If you want to be notified for the first release, please star the project here: [`md-data-table2`](https://github.com/iamisti/mdDataTable2)
+
 ## Usage statistics
 
 [![NPM](https://nodei.co/npm-dl/md-data-table.png?months=6&height=3)](https://nodei.co/npm/md-data-table/)
