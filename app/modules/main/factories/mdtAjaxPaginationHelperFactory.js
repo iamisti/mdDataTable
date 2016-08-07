@@ -1,7 +1,7 @@
 (function(){
     'use strict';
 
-    function mdtAjaxPaginationHelperFactory(){
+    function mdtAjaxPaginationHelperFactory(_){
 
         function mdtAjaxPaginationHelper(params){
             this.tableDataStorageService = params.tableDataStorageService;

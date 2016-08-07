@@ -82,7 +82,8 @@
 (function(){
     'use strict';
 
-    function mdtAlternateHeadersDirective(){
+    mdtAlternateHeadersDirective.$inject = ['_'];
+    function mdtAlternateHeadersDirective(_){
         return {
             restrict: 'E',
             templateUrl: '/main/templates/mdtAlternateHeaders.html',
@@ -213,8 +214,8 @@
      *     </mdt-table>
      * </pre>
      */
-    mdtTableDirective.$inject = ['TableDataStorageFactory', 'mdtPaginationHelperFactory', 'mdtAjaxPaginationHelperFactory', '$mdDialog'];
-    function mdtTableDirective(TableDataStorageFactory, mdtPaginationHelperFactory, mdtAjaxPaginationHelperFactory, $mdDialog){
+    mdtTableDirective.$inject = ['TableDataStorageFactory', 'mdtPaginationHelperFactory', 'mdtAjaxPaginationHelperFactory', '$mdDialog', '_'];
+    function mdtTableDirective(TableDataStorageFactory, mdtPaginationHelperFactory, mdtAjaxPaginationHelperFactory, $mdDialog, _){
         return {
             restrict: 'E',
             templateUrl: '/main/templates/mdtTable.html',
@@ -413,8 +414,8 @@
 (function(){
     'use strict';
 
-    TableDataStorageFactory.$inject = ['$log'];
-    function TableDataStorageFactory($log){
+    TableDataStorageFactory.$inject = ['$log', '_'];
+    function TableDataStorageFactory($log, _){
 
         function TableDataStorageService(){
             this.storage = [];
@@ -596,7 +597,8 @@
 (function(){
     'use strict';
 
-    function mdtAjaxPaginationHelperFactory(){
+    mdtAjaxPaginationHelperFactory.$inject = ['_'];
+    function mdtAjaxPaginationHelperFactory(_){
 
         function mdtAjaxPaginationHelper(params){
             this.tableDataStorageService = params.tableDataStorageService;
@@ -741,7 +743,24 @@
 (function(){
     'use strict';
 
-    function mdtPaginationHelperFactory(){
+    mdtLodashFactory.$inject = ['$window'];
+    function mdtLodashFactory($window){
+        if(!$window._){
+            throw Error('Lodash does not found. Please make sure you load Lodash before any source for mdDataTable');
+        }
+
+        return $window._;
+    }
+
+    angular
+        .module('mdDataTable')
+        .factory('_', mdtLodashFactory);
+}());
+(function(){
+    'use strict';
+
+    mdtPaginationHelperFactory.$inject = ['_'];
+    function mdtPaginationHelperFactory(_){
 
         function mdtPaginationHelper(tableDataStorageService, paginationSetting){
             this.tableDataStorageService = tableDataStorageService;

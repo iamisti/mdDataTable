@@ -1,7 +1,7 @@
 (function(){
     'use strict';
 
-    function mdtAlternateHeadersDirective(){
+    function mdtAlternateHeadersDirective(_){
         return {
             restrict: 'E',
             templateUrl: '/main/templates/mdtAlternateHeaders.html',

@@ -1,7 +1,7 @@
 (function(){
     'use strict';
 
-    function mdtPaginationHelperFactory(){
+    function mdtPaginationHelperFactory(_){
 
         function mdtPaginationHelper(tableDataStorageService, paginationSetting){
             this.tableDataStorageService = tableDataStorageService;

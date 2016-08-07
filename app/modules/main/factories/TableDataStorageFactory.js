@@ -1,7 +1,7 @@
 (function(){
     'use strict';
 
-    function TableDataStorageFactory($log){
+    function TableDataStorageFactory($log, _){
 
         function TableDataStorageService(){
             this.storage = [];
