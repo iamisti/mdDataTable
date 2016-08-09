@@ -55,7 +55,13 @@
 
                 transclude(function (clone) {
                     // directive creates an isolate scope so use parent scope to resolve variables.
-                    var cellValue = $interpolate(clone.html())($scope.$parent);
+                    var cellValue;
+
+                    if(clone.html().indexOf('{{') !== -1){
+                        cellValue = $interpolate(clone.html())($scope.$parent)
+                    }else{
+                        cellValue = clone.html();
+                    }
 
                     mdtTableCtrl.addHeaderCell({
                         alignRule: $scope.alignRule,
