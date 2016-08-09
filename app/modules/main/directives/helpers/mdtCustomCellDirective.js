@@ -12,8 +12,12 @@
                     transclude(function (clone) {
                         var columnKey = attrs.columnKey;
 
-                        ctrl.tableDataStorageService.customCells[columnKey] = clone.clone();
-                        //element.append(clone);
+                        // since user can have custom bindings inside the transcluded content, we have to store
+                        // scope as well, to be able to compile the html content with the right scope context
+                        ctrl.tableDataStorageService.customCells[columnKey] = {
+                            scope: $scope.$parent.$parent,
+                            htmlContent: clone.clone()
+                        };
                     });
                 }
             }

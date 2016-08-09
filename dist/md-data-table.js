@@ -924,8 +924,8 @@
      *  </mdt-table>
      * </pre>
      */
-    mdtCellDirective.$inject = ['$parse'];
-    function mdtCellDirective($parse){
+    mdtCellDirective.$inject = ['$interpolate'];
+    function mdtCellDirective($interpolate){
         return {
             restrict: 'E',
             replace: true,
@@ -941,12 +941,13 @@
                 };
 
                 transclude(function (clone) {
-                    //TODO: rework, figure out something for including html content
+
                     if(attr.htmlContent){
                         mdtRowCtrl.addToRowDataStorage(clone, attributes);
                     }else{
                         //TODO: better idea?
-                        var cellValue = $parse(clone.html().replace('{{', '').replace('}}', ''))($scope.$parent);
+                        var cellValue = $interpolate(clone.html())($scope.$parent);
+
                         mdtRowCtrl.addToRowDataStorage(cellValue, attributes);
                     }
                 });
@@ -1073,8 +1074,8 @@
      *  </mdt-table>
      * </pre>
      */
-    mdtColumnDirective.$inject = ['$parse'];
-    function mdtColumnDirective($parse){
+    mdtColumnDirective.$inject = ['$interpolate'];
+    function mdtColumnDirective($interpolate){
         return {
             restrict: 'E',
             transclude: true,
@@ -1089,13 +1090,8 @@
                 var mdtTableCtrl = ctrl[0];
 
                 transclude(function (clone) {
-                    var cellValue;
-
-                    if(clone.html().indexOf('{{') !== -1){
-                        cellValue = $parse(clone.html().replace('{{', '').replace('}}', ''))($scope.$parent);
-                    }else{
-                        cellValue = clone.html();
-                    }
+                    // directive creates an isolate scope so use parent scope to resolve variables.
+                    var cellValue = $interpolate(clone.html())($scope.$parent);
 
                     mdtTableCtrl.addHeaderCell({
                         alignRule: $scope.alignRule,
@@ -1211,9 +1207,12 @@
                     var originalValue = $parse(attr.mdtAddHtmlContentToCell)($scope);
 
                     if(originalValue.columnKey && ctrl.tableDataStorageService.customCells[originalValue.columnKey]){
-                        var clonedHtml = ctrl.tableDataStorageService.customCells[originalValue.columnKey];
+                        var customCellData = ctrl.tableDataStorageService.customCells[originalValue.columnKey];
 
-                        var localScope = $rootScope.$new();
+                        var clonedHtml = customCellData.htmlContent;
+                        var localScope = customCellData.scope;
+
+                        //append value to the scope
                         localScope.value = val;
 
                         $compile(clonedHtml)(localScope, function(cloned){
@@ -1222,7 +1221,6 @@
                     }else{
                         element.append(val);
                     }
-
 
                 }, false);
                 // issue with false value. If fields are editable then it won't reflect the change.
@@ -1269,8 +1267,12 @@
                     transclude(function (clone) {
                         var columnKey = attrs.columnKey;
 
-                        ctrl.tableDataStorageService.customCells[columnKey] = clone.clone();
-                        //element.append(clone);
+                        // since user can have custom bindings inside the transcluded content, we have to store
+                        // scope as well, to be able to compile the html content with the right scope context
+                        ctrl.tableDataStorageService.customCells[columnKey] = {
+                            scope: $scope.$parent.$parent,
+                            htmlContent: clone.clone()
+                        };
                     });
                 }
             }

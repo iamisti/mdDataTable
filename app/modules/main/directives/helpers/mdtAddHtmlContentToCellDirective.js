@@ -19,9 +19,12 @@
                     var originalValue = $parse(attr.mdtAddHtmlContentToCell)($scope);
 
                     if(originalValue.columnKey && ctrl.tableDataStorageService.customCells[originalValue.columnKey]){
-                        var clonedHtml = ctrl.tableDataStorageService.customCells[originalValue.columnKey];
+                        var customCellData = ctrl.tableDataStorageService.customCells[originalValue.columnKey];
 
-                        var localScope = $rootScope.$new();
+                        var clonedHtml = customCellData.htmlContent;
+                        var localScope = customCellData.scope;
+
+                        //append value to the scope
                         localScope.value = val;
 
                         $compile(clonedHtml)(localScope, function(cloned){
@@ -31,11 +34,8 @@
                         element.append(val);
                     }
 
-
                 }, false);
                 // issue with false value. If fields are editable then it won't reflect the change.
-
-                //console.log(ctrl.tableDataStorageService);
             }
         };
     }
