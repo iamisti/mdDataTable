@@ -1,11 +1,12 @@
 (function(){
     'use strict';
 
-    function mdtAddHtmlContentToCellDirective($parse, $compile, $rootScope){
+    function mdtAddHtmlContentToCellDirective($parse, $compile){
         return {
             restrict: 'A',
-            require: '^mdtTable',
+            require: '^?mdtTable',
             link: function($scope, element, attr, ctrl){
+
                 $scope.$watch(function(){
                     //this needs to be like that. Passing only `attr.mdtAddHtmlContentToCell` will cause digest to go crazy 10 times.
                     // so we has to say explicitly that we only want to watch the content and nor the attributes, or the additional metadata.

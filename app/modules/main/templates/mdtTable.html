@@ -8,40 +8,7 @@
 
     <div id="reader" style="display:none;"></div>
 
-    <table cellpadding="0" cellspacing="0" ng-if="virtualRepeat">
-        <thead>
-        <tr class="theadTrRow"
-            mdt-animate-sort-icon-handler>
-
-            <!-- TODO: fix text-align:left, in theory it should not be there to make it work -->
-            <th class="checkboxCell"
-                style="text-align:left;"
-                ng-show="selectableRows"
-                mdt-select-all-rows-handler>
-                <md-checkbox aria-label="select all" ng-model="selectAllRows"></md-checkbox>
-            </th>
-
-            <th class="column"
-                ng-repeat="headerRowData in headerData track by $index"
-                ng-class="{'clickable': sortableColumns}"
-                mdt-add-align-class="headerRowData.alignRule"
-                mdt-sort-handler
-                md-ink-ripple="{{rippleEffect}}">
-
-                <mdt-generated-header-cell-content></mdt-generated-header-cell-content>
-            </th>
-
-            <!-- TODO for virtualrepeat: edit column of needed -->
-        </tr>
-        </thead>
-    </table>
-
-    <div md-virtual-repeat-container ng-if="virtualRepeat">
-        <ng-include src="'/main/templates/generateTable.html'"></ng-include>
-    </div>
-    <div ng-if="!virtualRepeat">
-        <ng-include src="'/main/templates/generateTable.html'"></ng-include>
-    </div>
+    <ng-include src="'/main/templates/generateTable.html'"></ng-include>
 
     <!-- table card -->
     <mdt-card-footer></mdt-card-footer>
