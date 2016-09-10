@@ -4,7 +4,7 @@
     function mdtAddHtmlContentToCellDirective($compile){
         return {
             restrict: 'A',
-            require: '^?mdtTable',
+            require: '?mdtTable', //TODO: fix requiring controller, and use ctrl.tableDataStorageService.customCells[originalValue.columnKey]
             scope: {
                 mdtAddHtmlContentToCell: '='
             },
@@ -17,7 +17,7 @@
                     element.empty();
 
                     if(originalValue.columnKey){
-                        var customCellData = originalValue;
+                        var customCellData = originalValue; //so here use ctrl.tableDataStorageService.customCells[originalValue.columnKey] instead
 
                         var clonedHtml = customCellData.htmlContent;
 
