@@ -128,7 +128,7 @@
                 mdtTriggerRequest: '&?',
                 mdtTranslations: '=?'
             },
-            controller: function mdtTableController($scope){
+            controller: function mdtTable($scope){
                 var vm = this;
 
                 setDefaultTranslations();

@@ -6,8 +6,9 @@
         <md-checkbox aria-label="select" ng-model="rowData.optionList.selected" ng-change="onCheckboxChange()"></md-checkbox>
     </td>
 
-    <td class="column"
-        ng-repeat="cellData in rowData.data track by $index"
+    <td
+        class="column"
+        ng-repeat="cellData in rowData.data"
         mdt-add-align-class="headerData[$index].alignRule">
 
         <span mdt-add-html-content-to-cell="cellData"></span>

@@ -1,40 +1,44 @@
 (function(){
     'use strict';
 
-    function mdtAddHtmlContentToCellDirective($parse, $compile, $rootScope){
+    function mdtAddHtmlContentToCellDirective($compile){
         return {
             restrict: 'A',
-            require: '^mdtTable',
+            require: '?mdtTable', //TODO: fix requiring controller, and use ctrl.tableDataStorageService.customCells[originalValue.columnKey]
+            scope: {
+                mdtAddHtmlContentToCell: '='
+            },
             link: function($scope, element, attr, ctrl){
-                $scope.$watch(function(){
-                    //this needs to be like that. Passing only `attr.mdtAddHtmlContentToCell` will cause digest to go crazy 10 times.
-                    // so we has to say explicitly that we only want to watch the content and nor the attributes, or the additional metadata.
-                    var val = $parse(attr.mdtAddHtmlContentToCell)($scope);
-
-                    return val.value;
-
-                }, function(val){
+                /*if(!ctrl){
+                 element.closest('td').remove();
+                 return;
+                 }*/
+                $scope.$watch('mdtAddHtmlContentToCell', function(originalValue){
                     element.empty();
 
-                    var originalValue = $parse(attr.mdtAddHtmlContentToCell)($scope);
-
-                    if(originalValue.columnKey && ctrl.tableDataStorageService.customCells[originalValue.columnKey]){
-                        var customCellData = ctrl.tableDataStorageService.customCells[originalValue.columnKey];
+                    if(originalValue.columnKey){
+                        var customCellData = originalValue; //so here use ctrl.tableDataStorageService.customCells[originalValue.columnKey] instead
 
                         var clonedHtml = customCellData.htmlContent;
-                        var localScope = customCellData.scope;
 
-                        //append value to the scope
-                        localScope.value = val;
+                        if(clonedHtml){
+                            var localScope = customCellData.scope;
 
-                        $compile(clonedHtml)(localScope, function(cloned){
-                            element.append(cloned);
-                        });
+                            //append value to the scope
+                            localScope.value = originalValue.value;
+
+                            $compile(clonedHtml)(localScope, function(cloned){
+                                element.append(cloned);
+                            });
+                        }else{
+                            element.append(originalValue.value);
+                        }
+
                     }else{
-                        element.append(val);
+                        element.append(originalValue.value);
                     }
 
-                }, false);
+                }, true);
                 // issue with false value. If fields are editable then it won't reflect the change.
             }
         };
