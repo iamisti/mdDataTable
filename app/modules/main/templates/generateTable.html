@@ -22,6 +22,6 @@
             </th>
         </tr>
     </thead>
-    <tbody md-virtual-repeat-container ng-include="'/main/templates/generateRowsVirtualRepeat.html'" ng-if="virtualRepeat" style="display: table-row-group;"></tbody>
+    <tbody md-virtual-repeat-container ng-include="'/main/templates/generateRowsVirtualRepeat.html'" ng-show="virtualRepeat" style="display: table-row-group;"></tbody>
     <tbody ng-include="'/main/templates/generateRows.html'" ng-if="!virtualRepeat"></tbody>
 </table>
