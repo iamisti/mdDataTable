@@ -36,7 +36,13 @@
         };
 
         mdtPaginationHelper.prototype.getEndRowIndex = function(){
-            return this.getStartRowIndex() + this.rowsPerPage-1;
+            var lastItem = this.getStartRowIndex() + this.rowsPerPage-1;
+
+            if(this.tableDataStorageService.storage.length < lastItem){
+                return this.tableDataStorageService.storage.length - 1;
+            }
+
+            return lastItem;
         };
 
         mdtPaginationHelper.prototype.getTotalRowsCount = function(){
@@ -50,17 +56,25 @@
         };
 
         mdtPaginationHelper.prototype.previousPage = function(){
-            if(this.page > 1){
+            if(this.hasPreviousPage()){
                 this.page--;
             }
         };
 
         mdtPaginationHelper.prototype.nextPage = function(){
-            var totalPages = Math.ceil(this.getTotalRowsCount() / this.rowsPerPage);
-
-            if(this.page < totalPages){
+            if(this.hasNextPage()){
                 this.page++;
             }
+        };
+
+        mdtPaginationHelper.prototype.hasNextPage = function(){
+            var totalPages = Math.ceil(this.getTotalRowsCount() / this.rowsPerPage);
+
+            return this.page < totalPages;
+        };
+
+        mdtPaginationHelper.prototype.hasPreviousPage = function(){
+            return this.page > 1;
         };
 
         mdtPaginationHelper.prototype.setRowsPerPage = function(rowsPerPage){

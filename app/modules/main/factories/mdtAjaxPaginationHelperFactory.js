@@ -43,11 +43,17 @@
         };
 
         mdtAjaxPaginationHelper.prototype.getEndRowIndex = function(){
-            return this.getStartRowIndex() + this.rowsPerPage-1;
+            var lastItem = this.getStartRowIndex() + this.rowsPerPage - 1;
+
+            if(this.totalResultCount < lastItem){
+                return this.totalResultCount - 1;
+            }
+
+            return lastItem;
         };
 
         mdtAjaxPaginationHelper.prototype.getTotalRowsCount = function(){
-            return this.totalPages;
+            return this.totalResultCount;
         };
 
         mdtAjaxPaginationHelper.prototype.getRows = function(){
@@ -56,7 +62,7 @@
 
         mdtAjaxPaginationHelper.prototype.previousPage = function(){
             var that = this;
-            if(this.page > 1){
+            if(this.hasPreviousPage()){
                 this.fetchPage(this.page-1).then(function(){
                     that.page--;
                 });
@@ -65,11 +71,19 @@
 
         mdtAjaxPaginationHelper.prototype.nextPage = function(){
             var that = this;
-            if(this.page < this.totalPages){
+            if(this.hasNextPage()){
                 this.fetchPage(this.page+1).then(function(){
                     that.page++;
                 });
             }
+        };
+
+        mdtAjaxPaginationHelper.prototype.hasNextPage = function(){
+            return this.page < this.totalPages;
+        };
+
+        mdtAjaxPaginationHelper.prototype.hasPreviousPage = function(){
+            return this.page > 1;
         };
 
         mdtAjaxPaginationHelper.prototype.fetchPage = function(page){

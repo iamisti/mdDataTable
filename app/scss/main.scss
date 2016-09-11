@@ -197,6 +197,8 @@
         fill: darken($whiteColor, 54%);
     }
 
+    .md-inactive ng-md-icon { fill: rgba(0, 0, 0, 0.26); }
+
     /* virtual repeat needed classes */
     .virtualRepeatEnabled .originalHeader tr th{
         height: 0px !important;
