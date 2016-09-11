@@ -156,6 +156,9 @@
 .mdtTable ng-md-icon {
   fill: #757575;
 }
+.mdtTable .md-inactive ng-md-icon {
+  fill: rgba(0, 0, 0, 0.26);
+}
 .mdtTable .virtualRepeatEnabled .originalHeader tr th {
   height: 0px !important;
   line-height: 0px !important;
