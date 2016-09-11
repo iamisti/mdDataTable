@@ -62,7 +62,7 @@
 
         mdtAjaxPaginationHelper.prototype.previousPage = function(){
             var that = this;
-            if(this.page > 1){
+            if(this.hasPreviousPage()){
                 this.fetchPage(this.page-1).then(function(){
                     that.page--;
                 });
@@ -71,11 +71,19 @@
 
         mdtAjaxPaginationHelper.prototype.nextPage = function(){
             var that = this;
-            if(this.page < this.totalPages){
+            if(this.hasNextPage()){
                 this.fetchPage(this.page+1).then(function(){
                     that.page++;
                 });
             }
+        };
+
+        mdtAjaxPaginationHelper.prototype.hasNextPage = function(){
+            return this.page < this.totalPages;
+        };
+
+        mdtAjaxPaginationHelper.prototype.hasPreviousPage = function(){
+            return this.page > 1;
         };
 
         mdtAjaxPaginationHelper.prototype.fetchPage = function(page){

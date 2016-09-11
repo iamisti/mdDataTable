@@ -15,11 +15,11 @@
             {{mdtPaginationHelper.getStartRowIndex()+1}}-{{mdtPaginationHelper.getEndRowIndex()+1}} of {{mdtPaginationHelper.getTotalRowsCount()}}
         </span>
 
-        <md-button class="md-icon-button md-primary" aria-label="Previous page" ng-click="mdtPaginationHelper.previousPage()">
+        <md-button class="md-icon-button md-primary" ng-class="{'md-inactive': !mdtPaginationHelper.hasPreviousPage()}" aria-label="Previous page" ng-click="mdtPaginationHelper.previousPage()">
             <ng-md-icon icon="keyboard_arrow_left" size="24"></ng-md-icon>
         </md-button>
 
-        <md-button class="md-icon-button md-primary" aria-label="Next page" ng-click="mdtPaginationHelper.nextPage()">
+        <md-button class="md-icon-button md-primary" ng-class="{'md-inactive': !mdtPaginationHelper.hasNextPage()}" aria-label="Next page" ng-click="mdtPaginationHelper.nextPage()">
             <ng-md-icon icon="keyboard_arrow_right" size="24"></ng-md-icon>
         </md-button>
     </div>

@@ -56,17 +56,25 @@
         };
 
         mdtPaginationHelper.prototype.previousPage = function(){
-            if(this.page > 1){
+            if(this.hasPreviousPage()){
                 this.page--;
             }
         };
 
         mdtPaginationHelper.prototype.nextPage = function(){
-            var totalPages = Math.ceil(this.getTotalRowsCount() / this.rowsPerPage);
-
-            if(this.page < totalPages){
+            if(this.hasNextPage()){
                 this.page++;
             }
+        };
+
+        mdtPaginationHelper.prototype.hasNextPage = function(){
+            var totalPages = Math.ceil(this.getTotalRowsCount() / this.rowsPerPage);
+
+            return this.page < totalPages;
+        };
+
+        mdtPaginationHelper.prototype.hasPreviousPage = function(){
+            return this.page > 1;
         };
 
         mdtPaginationHelper.prototype.setRowsPerPage = function(rowsPerPage){
