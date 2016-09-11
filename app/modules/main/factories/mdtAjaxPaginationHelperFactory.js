@@ -43,11 +43,17 @@
         };
 
         mdtAjaxPaginationHelper.prototype.getEndRowIndex = function(){
-            return this.getStartRowIndex() + this.rowsPerPage-1;
+            var lastItem = this.getStartRowIndex() + this.rowsPerPage - 1;
+
+            if(this.totalResultCount < lastItem){
+                return this.totalResultCount - 1;
+            }
+
+            return lastItem;
         };
 
         mdtAjaxPaginationHelper.prototype.getTotalRowsCount = function(){
-            return this.totalPages;
+            return this.totalResultCount;
         };
 
         mdtAjaxPaginationHelper.prototype.getRows = function(){
