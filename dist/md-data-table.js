@@ -1216,8 +1216,8 @@
 (function(){
     'use strict';
 
-    mdtAddHtmlContentToCellDirective.$inject = ['$parse', '$compile'];
-    function mdtAddHtmlContentToCellDirective($parse, $compile){
+    mdtAddHtmlContentToCellDirective.$inject = ['$parse', '$compile', '$rootScope'];
+    function mdtAddHtmlContentToCellDirective($parse, $compile, $rootScope){
         return {
             restrict: 'A',
             require: '^mdtTable',
@@ -1238,14 +1238,15 @@
                         var customCellData = ctrl.tableDataStorageService.customCells[originalValue.columnKey];
 
                         var clonedHtml = customCellData.htmlContent;
-                        var localScope = customCellData.scope;
 
                         //append value to the scope
+                        var localScope = $rootScope.$new();
                         localScope.value = val;
 
                         $compile(clonedHtml)(localScope, function(cloned){
                             element.append(cloned);
                         });
+
                     }else{
                         element.append(val);
                     }
@@ -1293,10 +1294,7 @@
                     transclude(function (clone) {
                         var columnKey = attrs.columnKey;
 
-                        // since user can have custom bindings inside the transcluded content, we have to store
-                        // scope as well, to be able to compile the html content with the right scope context
                         ctrl.tableDataStorageService.customCells[columnKey] = {
-                            scope: $scope.$parent.$parent,
                             htmlContent: clone.clone()
                         };
                     });

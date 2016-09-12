@@ -1,7 +1,7 @@
 (function(){
     'use strict';
 
-    function mdtAddHtmlContentToCellDirective($parse, $compile){
+    function mdtAddHtmlContentToCellDirective($parse, $compile, $rootScope){
         return {
             restrict: 'A',
             require: '^mdtTable',
@@ -22,14 +22,15 @@
                         var customCellData = ctrl.tableDataStorageService.customCells[originalValue.columnKey];
 
                         var clonedHtml = customCellData.htmlContent;
-                        var localScope = customCellData.scope;
 
                         //append value to the scope
+                        var localScope = $rootScope.$new();
                         localScope.value = val;
 
                         $compile(clonedHtml)(localScope, function(cloned){
                             element.append(cloned);
                         });
+
                     }else{
                         element.append(val);
                     }
