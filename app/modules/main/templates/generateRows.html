@@ -37,7 +37,7 @@
         {{mdtPaginationHelper.mdtRowPaginatorErrorMessage}}
     </td>
 </tr>
-<tr ng-show="mdtPaginationHelper.isNoResults">
+<tr ng-show="mdtPaginationHelper.isNoResults && !mdtPaginationHelper.isLoadError">
     <td colspan="999">
         {{mdtPaginationHelper.mdtRowPaginatorNoResultsMessage}}
     </td>

@@ -1216,41 +1216,41 @@
 (function(){
     'use strict';
 
-    mdtAddHtmlContentToCellDirective.$inject = ['$compile'];
-    function mdtAddHtmlContentToCellDirective($compile){
+    mdtAddHtmlContentToCellDirective.$inject = ['$parse', '$compile'];
+    function mdtAddHtmlContentToCellDirective($parse, $compile){
         return {
             restrict: 'A',
             require: '^mdtTable',
-            scope: {
-                mdtAddHtmlContentToCell: '='
-            },
             link: function($scope, element, attr, ctrl){
-                $scope.$watch('mdtAddHtmlContentToCell', function(originalValue){
+                $scope.$watch(function(){
+                    //this needs to be like that. Passing only `attr.mdtAddHtmlContentToCell` will cause digest to go crazy 10 times.
+                    // so we has to say explicitly that we only want to watch the content and nor the attributes, or the additional metadata.
+                    var val = $parse(attr.mdtAddHtmlContentToCell)($scope);
+
+                    return val.value;
+
+                }, function(val){
                     element.empty();
 
+                    var originalValue = $parse(attr.mdtAddHtmlContentToCell)($scope);
+
                     if(originalValue.columnKey && ctrl.tableDataStorageService.customCells[originalValue.columnKey]){
-                        debugger;
                         var customCellData = ctrl.tableDataStorageService.customCells[originalValue.columnKey];
+
                         var clonedHtml = customCellData.htmlContent;
+                        var localScope = customCellData.scope;
 
-                        if(clonedHtml){
-                            var localScope = customCellData.scope;
+                        //append value to the scope
+                        localScope.value = val;
 
-                            //append value to the scope
-                            localScope.value = originalValue.value;
-
-                            $compile(clonedHtml)(localScope, function(cloned){
-                                element.append(cloned);
-                            });
-                        }else{
-                            element.append(originalValue.value);
-                        }
-
+                        $compile(clonedHtml)(localScope, function(cloned){
+                            element.append(cloned);
+                        });
                     }else{
-                        element.append(originalValue.value);
+                        element.append(val);
                     }
 
-                }, true);
+                }, false);
                 // issue with false value. If fields are editable then it won't reflect the change.
             }
         };
