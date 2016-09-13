@@ -41,5 +41,5 @@
      *              - contents generated but not yet transcluded
      *
      */
-    angular.module('mdDataTable', ['mdtTemplates', 'ngMaterial', 'ngMdIcons']);
+    angular.module('mdDataTable', ['mdtTemplates', 'ngMaterial', 'ngMdIcons', 'ngSanitize']);
 }());
