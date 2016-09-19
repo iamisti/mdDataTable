@@ -211,4 +211,17 @@
     .virtualRepeatEnabled .originalHeader md-checkbox{
         display: none;
     }
+
+    /* filter drop down */
+    .filter-dropdown {
+        position: absolute; left: 0;
+        z-index: 1; top: 110%; width: 220px;
+    }
+
+    .header-dropdown-btn {
+        position: relative;
+        .filter-dropdown {
+            position: absolute; top: 100%; right: 0; left: auto;
+        }
+    }
 }
