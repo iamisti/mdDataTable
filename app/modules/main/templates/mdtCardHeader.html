@@ -1,9 +1,27 @@
 <div class="mdt-header" layout="row" layout-align="start center" ng-show="isTableCardEnabled">
     <span flex>{{tableCard.title}}</span>
+    <div class="header-dropdown-btn">
+	    <md-button class="md-icon-button md-primary" aria-label="Filter">
+	        <ng-md-icon icon="filter_list" size="24"></ng-md-icon>
+	    </md-button>
+
+	    <div class="filter-dropdown">
+            <div class="md-whiteframe-z2">
+                <md-content layout-padding class="md-body-1">
+                    <div layout="row" layout-align="end center" class="b-b p-md">
+                        <a href="#">Sort A-Z </a>
+                    </div>
+                    <div layout="column">
+                        <md-checkbox class="md-primary">Loan</md-checkbox>
+                        <md-checkbox class="md-primary">Permanent</md-checkbox>
+                    </div>
+                    <md-button class="md-raised md-primary">Ok</md-button>
+                    <md-button class="md-raised">Cancel</md-button>
+                </md-content>
+            </div>
+        </div>
+    </div>
 <!--
-    <md-button class="md-icon-button md-primary" aria-label="Filter">
-        <ng-md-icon icon="filter_list" size="24"></ng-md-icon>
-    </md-button>
     <md-button class="md-icon-button md-primary" aria-label="More options">
         <ng-md-icon icon="more_vert" size="24"></ng-md-icon>
     </md-button>
