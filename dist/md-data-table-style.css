@@ -10,7 +10,6 @@
   /* border separation color */
   /* INTERACTION */
   /* default icon color */
-  /* virtual repeat needed classes */
 }
 .mdtTable table {
   width: 100%;
@@ -77,7 +76,7 @@
   -webkit-transform: rotate(-90deg);
   transform: rotate(-90deg);
 }
-.mdtTable thead tr.animate-sort-icon .sortedColumn ng-md-icon svg {
+.mdtTable tr.animate-sort-icon .sortedColumn ng-md-icon svg {
   -webkit-transition: 0.3s linear all;
   transition: 0.3s linear all;
 }
@@ -159,13 +158,6 @@
 .mdtTable .md-inactive ng-md-icon {
   fill: rgba(0, 0, 0, 0.26);
 }
-.mdtTable .virtualRepeatEnabled .originalHeader tr th {
-  height: 0px !important;
-  line-height: 0px !important;
-  margin: 0px !important;
-  overflow: hidden !important;
-  border: none !important;
-}
-.mdtTable .virtualRepeatEnabled .originalHeader md-checkbox {
-  display: none;
+.mdtTable .md-virtual-repeat-scroller {
+  top: 57px;
 }

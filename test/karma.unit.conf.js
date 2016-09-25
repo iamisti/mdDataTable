@@ -24,8 +24,8 @@ var unitTestingConfig = _.merge(baseConfig(), {
     reporters:  environment.getUnitReportersForCurrentRun(),
     coverageReporter: {
         reporters: environment.getCoverageReportersForCurrentRun(),
-        dir:    'reports',
-        subdir: 'coverage'
+        dir:    'coverage',
+        subdir: '.'
     }
 }, mergeTopLevel);
 

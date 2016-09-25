@@ -57,14 +57,14 @@
             .hoverSortIcons ng-md-icon{
                 display:none;
             }
-                   
+
             ng-md-icon{
                 /* specified 16px is a fix now cause angular materia generates a 24x24 icon even the passed value is 16  */
                 width: 16px;
                 height: 16px;
 
                 fill: darken($whiteColor, 87%);
- 
+
                 /* sort icon rotated 90 degrees for ascending sort (default) */
                 svg{
                     -webkit-transform:rotate(90deg);
@@ -77,18 +77,18 @@
             &.descending ng-md-icon>svg{
                 -webkit-transform:rotate(-90deg);
                 transform:rotate(-90deg);
-            }                    
+            }
 
         }
     }
-    
+
     /* optional animation of sort icons: add class 'animate-sort-icon' to mdt-header-row to activate animation */
-    thead tr.animate-sort-icon .sortedColumn ng-md-icon svg{
+    tr.animate-sort-icon .sortedColumn ng-md-icon svg{
         -webkit-transition: 0.3s linear all;
         transition: 0.3s linear all;
     }
 
-    
+
     /* 64dp card header height */
     .mdt-header{
         height: 64px;
@@ -199,16 +199,7 @@
 
     .md-inactive ng-md-icon { fill: rgba(0, 0, 0, 0.26); }
 
-    /* virtual repeat needed classes */
-    .virtualRepeatEnabled .originalHeader tr th{
-        height: 0px !important;
-        line-height: 0px !important;
-        margin:0px !important;
-        overflow: hidden !important;
-        border: none !important;
-    }
-
-    .virtualRepeatEnabled .originalHeader md-checkbox{
-        display: none;
+    .md-virtual-repeat-scroller{
+        top: 57px;
     }
 }

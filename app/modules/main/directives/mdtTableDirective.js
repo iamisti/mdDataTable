@@ -128,7 +128,7 @@
                 mdtTriggerRequest: '&?',
                 mdtTranslations: '=?'
             },
-            controller: function mdtTable($scope){
+            controller: function mdtTable($scope, $element){
                 var vm = this;
 
                 setDefaultTranslations();
@@ -138,7 +138,7 @@
                 vm.addHeaderCell = addHeaderCell;
 
                 function initTableStorageServiceAndBindMethods(){
-                    vm.tableDataStorageService = TableDataStorageFactory.getInstance();
+                    vm.tableDataStorageService = TableDataStorageFactory.getInstance(vm.virtualRepeat);
 
                     if(!$scope.mdtRowPaginator){
                         $scope.mdtPaginationHelper = mdtPaginationHelperFactory

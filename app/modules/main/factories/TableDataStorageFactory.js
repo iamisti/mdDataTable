@@ -3,13 +3,14 @@
 
     function TableDataStorageFactory($log, _){
 
-        function TableDataStorageService(){
+        function TableDataStorageService(isVirtualRepeatEnabled){
             this.storage = [];
             this.header = [];
             this.customCells = {};
 
             this.sortByColumnLastIndex = null;
             this.orderByAscending = true;
+            this.isVirtualRepeatEnabled = isVirtualRepeatEnabled;
         }
 
         TableDataStorageService.prototype.addHeaderCellData = function(ops){
@@ -170,8 +171,8 @@
         };
 
         return {
-            getInstance: function(){
-                return new TableDataStorageService();
+            getInstance: function(isVirtualRepeatEnabled){
+                return new TableDataStorageService(isVirtualRepeatEnabled);
             }
         };
     }

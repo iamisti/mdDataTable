@@ -4,8 +4,9 @@
     function mdtAddHtmlContentToCellDirective($parse, $compile, $rootScope){
         return {
             restrict: 'A',
-            require: '^mdtTable',
+            require: '^?mdtTable',
             link: function($scope, element, attr, ctrl){
+
                 $scope.$watch(function(){
                     //this needs to be like that. Passing only `attr.mdtAddHtmlContentToCell` will cause digest to go crazy 10 times.
                     // so we has to say explicitly that we only want to watch the content and nor the attributes, or the additional metadata.
@@ -18,7 +19,9 @@
 
                     var originalValue = $parse(attr.mdtAddHtmlContentToCell)($scope);
 
-                    if(originalValue.columnKey && ctrl.tableDataStorageService.customCells[originalValue.columnKey]){
+                    // ctrl doesn't exist on the first row, making html content impossible to show up.
+                    // TODO: make it as a global service .... I know but any better idea?
+                    if(originalValue.columnKey && ctrl && ctrl.tableDataStorageService.customCells[originalValue.columnKey]){
                         var customCellData = ctrl.tableDataStorageService.customCells[originalValue.columnKey];
 
                         var clonedHtml = customCellData.htmlContent;
