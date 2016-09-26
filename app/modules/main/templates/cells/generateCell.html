@@ -1,0 +1,13 @@
+<!-- editable field -->
+<ng-md-icon icon="edit" size="16"
+            style="cursor:pointer;float:right;height:16px;padding-left:5px;outline: none;"
+            ng-if="cellData.attributes.editableField"
+            ng-click="showEditDialog($event, cellData, rowData)"></ng-md-icon>
+
+<span mdt-add-html-content-to-cell="cellData"
+      style="cursor:pointer;outline: none;"
+      ng-if="cellData.attributes.editableField"
+      ng-click="showEditDialog($event, cellData, rowData)"></span>
+
+<!-- non editable field -->
+<span mdt-add-html-content-to-cell="cellData" ng-if="cellData.attributes.editableField == false"></span>

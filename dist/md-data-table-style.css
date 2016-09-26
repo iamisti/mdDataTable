@@ -159,6 +159,6 @@
 .mdtTable .md-inactive ng-md-icon {
   fill: rgba(0, 0, 0, 0.26);
 }
-.mdtTable .md-virtual-repeat-scroller {
-  top: 57px;
+.mdtTable .md-virtual-repeat-container {
+  min-height: 53px;
 }

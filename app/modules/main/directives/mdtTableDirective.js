@@ -185,9 +185,13 @@
                 }
 
                 function onCheckboxChange(){
-                    $scope.selectedRowCallback({
-                        rows: ctrl.tableDataStorageService.getSelectedRows()
-                    });
+                    // we need to push it to the event loop to make it happen last
+                    // (e.g.: all the elements can be selected before we call the callback)
+                    setTimeout(function(){
+                        $scope.selectedRowCallback({
+                            rows: ctrl.tableDataStorageService.getSelectedRows()
+                        });
+                    },0);
                 }
 
                 function processAttributeProvidedData(){

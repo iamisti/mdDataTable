@@ -1,0 +1,26 @@
+<!-- temporarly moved to generateTable.html -->
+<tr md-virtual-repeat="rowData in mdtPaginationHelper.getRows()"
+    ng-class="{'selectedRow': rowData.optionList.selected}"
+    ng-show="(isPaginationEnabled() === false || rowData.optionList.visible === true) && rowData.optionList.deleted === false">
+
+    <td class="checkboxCell" ng-show="selectableRows"
+        ng-include="'/main/templates/cells/generateCheckboxCell.html'"></td>
+
+    <td class="column"
+        ng-repeat="cellData in rowData.data track by $index"
+        mdt-add-align-class="headerData[$index].alignRule"
+        style="position:relative;"
+        ng-include src="'/main/templates/cells/generateCell.html'">
+
+        <!-- generate cell content -->
+    </td>
+</tr>
+
+<tr ng-show="mdtPaginationHelper.isLoading"
+    ng-include src="'/main/templates/rows/loadingIndicator.html'"></tr>
+
+<tr ng-show="mdtPaginationHelper.isLoadError"
+    ng-include src="'/main/templates/rows/errorIndicator.html'"></tr>
+
+<tr ng-show="mdtPaginationHelper.isNoResults && !mdtPaginationHelper.isLoadError"
+    ng-include src="'/main/templates/rows/noResultIndicator.html'"></tr>
