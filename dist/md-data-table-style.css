@@ -13,6 +13,7 @@
 }
 .mdtTable table {
   width: 100%;
+  display: table;
 }
 .mdtTable table:focus {
   outline: none;
