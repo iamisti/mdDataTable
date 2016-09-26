@@ -228,6 +228,9 @@ Html support is available for `mdt-row`, see more: [Custom cell content (`mdt-cu
 >`mdt-custom-cell` attributes
 
 If you are using `mdt-row` attribute to load your data (which is only way of you are dealing with ajax contents), you can now have custom content for each cells you defined.
+Important information:
+> You can still access your scope variables/functions with accessing `clientScope` within the `mdt-custom-cell` directive. The value of the cell can be accessed by accessing `value` inside the directive.
+
 
 | Available        | Params                                         | ChildParams        | Type          | Details         |
 | ---------------- | ---------------------------------------------- | ------------------ | ------------- | --------------- |
@@ -254,6 +257,7 @@ There is only one scope variable that you can use in your template, and it's cal
         <!-- here you have your own, customised cell for every 'protein' column -->
         <mdt-custom-cell column-key="protein">
             <span ng-class="{'red': value > 5, 'green': value <= 5}">{{value}}</span>
+            <span ng-click="clientScope.myMethodToExecute()">click here</span>
         </mdt-custom-cell>
     </mdt-table>
 </mdt-table>

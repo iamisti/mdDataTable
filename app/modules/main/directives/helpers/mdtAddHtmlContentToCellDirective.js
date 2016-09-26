@@ -5,6 +5,7 @@
         return {
             restrict: 'A',
             require: '^?mdtTable',
+            scope: true,
             link: function($scope, element, attr, ctrl){
 
                 $scope.$watch(function(){
@@ -28,6 +29,8 @@
 
                         //append value to the scope
                         var localScope = $rootScope.$new();
+
+                        localScope.clientScope = customCellData.scope;
                         localScope.value = val;
 
                         $compile(clonedHtml)(localScope, function(cloned){
