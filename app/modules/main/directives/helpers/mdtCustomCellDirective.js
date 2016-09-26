@@ -13,6 +13,7 @@
                         var columnKey = attrs.columnKey;
 
                         ctrl.tableDataStorageService.customCells[columnKey] = {
+                            scope: $scope,
                             htmlContent: clone.clone()
                         };
                     });

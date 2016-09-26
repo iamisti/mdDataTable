@@ -28,6 +28,8 @@
 
                         //append value to the scope
                         var localScope = $rootScope.$new();
+
+                        localScope.clientScope = customCellData.scope;
                         localScope.value = val;
 
                         $compile(clonedHtml)(localScope, function(cloned){

@@ -1,7 +1,8 @@
 <div ng-app="developmentAreaApp" ng-controller="DevelopmentAreaController" layout-margin>
-    <mdt-table virtual-repeat="true" mdt-row="{'data': nutritionList,
+    <mdt-table mdt-row="{'data': nutritionList,
                       'table-row-id-key': 'id',
                       'column-keys': ['name', 'calories', 'fat', 'carbs', 'protein', 'sodium', 'calcium', 'iron']}">
+
         <mdt-header-row>
             <mdt-column align-rule="left">Dessert (100g serving)</mdt-column>
             <mdt-column align-rule="right">Calories</mdt-column>
@@ -12,11 +13,20 @@
             <mdt-column align-rule="right">Calcium (%)</mdt-column>
             <mdt-column align-rule="right">Iron (%)</mdt-column>
         </mdt-header-row>
+
+        <mdt-custom-cell column-key="protein">
+            <span ng-class="{'red': value > 5, 'green': value <= 5}">{{value}}</span>
+            <span ng-click="clientScope.myMethodToExecute()">click here</span>
+        </mdt-custom-cell>
     </mdt-table>
 </div>
 
 <style>
-    .md-virtual-repeat-container{
-        height:301px;
+    .red {
+        color: orangered;
+    }
+
+    .green {
+        color: green;
     }
 </style>

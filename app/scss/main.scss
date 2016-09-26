@@ -1,6 +1,7 @@
 .mdtTable{
     table{
         width:100%;
+        display: table;
 
         &:focus{
             outline: none;
