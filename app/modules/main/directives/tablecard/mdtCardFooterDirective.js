@@ -13,8 +13,8 @@
                 $scope.rowsPerPage = $scope.mdtPaginationHelper.rowsPerPage;
 
                 $scope.$watch('rowsPerPage', function(newVal, oldVal){
-                    if(newVal != oldVal){
-                        $scope.mdtPaginationHelper.setRowsPerPage(newVal);  
+                    if(newVal !== oldVal){
+                        $scope.mdtPaginationHelper.setRowsPerPage(newVal);
                     }
                 });
             }
