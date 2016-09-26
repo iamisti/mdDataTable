@@ -5,7 +5,6 @@
         return {
             restrict: 'A',
             require: '^?mdtTable',
-            scope: true,
             link: function($scope, element, attr, ctrl){
 
                 $scope.$watch(function(){
