@@ -10,7 +10,7 @@
                 $scope.selectAllRows = false;
 
                 $scope.$watch('selectAllRows', function(val){
-                    ctrl.tableDataStorageService.setAllRowsSelected(val, $scope.isPaginationEnabled());
+                    ctrl.dataStorage.setAllRowsSelected(val, $scope.isPaginationEnabled());
                 });
             }
         };

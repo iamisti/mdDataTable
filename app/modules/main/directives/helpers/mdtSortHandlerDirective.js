@@ -16,13 +16,13 @@
                 function sortHandler(){
                     if($scope.sortableColumns){
                         $scope.$apply(function(){
-                            $scope.direction = ctrl.tableDataStorageService.sortByColumn(columnIndex, $scope.headerRowData.sortBy);
+                            $scope.direction = ctrl.dataStorage.sortByColumn(columnIndex, $scope.headerRowData.sortBy);
                         });
                     }
                 }
 
                 function isSorted(){
-                    return ctrl.tableDataStorageService.sortByColumnLastIndex === columnIndex;
+                    return ctrl.dataStorage.sortByColumnLastIndex === columnIndex;
                 }
 
                 $scope.$on('$destroy', function(){

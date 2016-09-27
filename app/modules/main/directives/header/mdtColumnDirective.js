@@ -57,7 +57,7 @@
                     // directive creates an isolate scope so use parent scope to resolve variables.
                     var cellValue = $interpolate(clone.html())($scope.$parent);
 
-                    mdtTableCtrl.tableDataStorageService.addHeaderCellData({
+                    mdtTableCtrl.dataStorage.addHeaderCellData({
                         alignRule: $scope.alignRule,
                         sortBy: $scope.sortBy,
                         columnDefinition: $scope.columnDefinition,

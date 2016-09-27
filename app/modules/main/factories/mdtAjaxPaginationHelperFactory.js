@@ -4,7 +4,7 @@
     function mdtAjaxPaginationHelperFactory(_){
 
         function mdtAjaxPaginationHelper(params){
-            this.tableDataStorageService = params.tableDataStorageService;
+            this.dataStorage = params.dataStorage;
             this.rowOptions = params.mdtRowOptions;
             this.paginatorFunction = params.mdtRowPaginatorFunction;
             this.mdtRowPaginatorErrorMessage = params.mdtRowPaginatorErrorMessage || 'Ajax error during loading contents.';
@@ -57,7 +57,7 @@
         };
 
         mdtAjaxPaginationHelper.prototype.getRows = function(){
-            return this.tableDataStorageService.storage;
+            return this.dataStorage.storage;
         };
 
         mdtAjaxPaginationHelper.prototype.previousPage = function(){
@@ -93,7 +93,7 @@
 
             return this.paginatorFunction({page: page, pageSize: this.rowsPerPage})
                 .then(function(data){
-                    that.tableDataStorageService.storage = [];
+                    that.dataStorage.storage = [];
                     that.setRawDataToStorage(that, data.results, that.rowOptions['table-row-id-key'], that.rowOptions['column-keys']);
                     that.totalResultCount = data.totalResultCount;
                     that.totalPages = Math.ceil(data.totalResultCount / that.rowsPerPage);
@@ -108,7 +108,7 @@
                     that.isLoading = false;
 
                 }, function(){
-                    that.tableDataStorageService.storage = [];
+                    that.dataStorage.storage = [];
 
                     that.isLoadError = true;
                     that.isLoading = false;
@@ -135,7 +135,7 @@
                     });
                 });
 
-                that.tableDataStorageService.addRowData(rowId, columnValues);
+                that.dataStorage.addRowData(rowId, columnValues);
             });
         };
 
@@ -147,8 +147,8 @@
         };
 
         return {
-            getInstance: function(tableDataStorageService, isEnabled, paginatorFunction, rowOptions){
-                return new mdtAjaxPaginationHelper(tableDataStorageService, isEnabled, paginatorFunction, rowOptions);
+            getInstance: function(dataStorage, isEnabled, paginatorFunction, rowOptions){
+                return new mdtAjaxPaginationHelper(dataStorage, isEnabled, paginatorFunction, rowOptions);
             }
         };
     }

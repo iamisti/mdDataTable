@@ -3,8 +3,8 @@
 
     function mdtPaginationHelperFactory(_){
 
-        function mdtPaginationHelper(tableDataStorageService, paginationSetting){
-            this.tableDataStorageService = tableDataStorageService;
+        function mdtPaginationHelper(dataStorage, paginationSetting){
+            this.dataStorage = dataStorage;
 
             if(paginationSetting &&
                 paginationSetting.hasOwnProperty('rowsPerPageValues') &&
@@ -22,7 +22,7 @@
         mdtPaginationHelper.prototype.calculateVisibleRows = function (){
             var that = this;
 
-            _.each(this.tableDataStorageService.storage, function (rowData, index) {
+            _.each(this.dataStorage.storage, function (rowData, index) {
                 if(index >= that.getStartRowIndex() && index <= that.getEndRowIndex()) {
                     rowData.optionList.visible = true;
                 } else {
@@ -38,21 +38,21 @@
         mdtPaginationHelper.prototype.getEndRowIndex = function(){
             var lastItem = this.getStartRowIndex() + this.rowsPerPage-1;
 
-            if(this.tableDataStorageService.storage.length < lastItem){
-                return this.tableDataStorageService.storage.length - 1;
+            if(this.dataStorage.storage.length < lastItem){
+                return this.dataStorage.storage.length - 1;
             }
 
             return lastItem;
         };
 
         mdtPaginationHelper.prototype.getTotalRowsCount = function(){
-            return this.tableDataStorageService.storage.length;
+            return this.dataStorage.storage.length;
         };
 
         mdtPaginationHelper.prototype.getRows = function(){
             this.calculateVisibleRows();
 
-            return this.tableDataStorageService.storage;
+            return this.dataStorage.storage;
         };
 
         mdtPaginationHelper.prototype.previousPage = function(){
@@ -83,8 +83,8 @@
         };
 
         return {
-            getInstance: function(tableDataStorageService, isEnabled){
-                return new mdtPaginationHelper(tableDataStorageService, isEnabled);
+            getInstance: function(dataStorage, isEnabled){
+                return new mdtPaginationHelper(dataStorage, isEnabled);
             }
         };
     }

@@ -143,14 +143,14 @@
 
                 // initialization of the storage service
                 function _initTableStorage(){
-                    vm.tableDataStorageService = TableDataStorageFactory.getInstance(vm.virtualRepeat);
+                    vm.dataStorage = TableDataStorageFactory.getInstance(vm.virtualRepeat);
 
                     if(!$scope.mdtRowPaginator){
                         $scope.mdtPaginationHelper = mdtPaginationHelperFactory
-                            .getInstance(vm.tableDataStorageService, $scope.paginatedRows, $scope.mdtRow);
+                            .getInstance(vm.dataStorage, $scope.paginatedRows, $scope.mdtRow);
                     }else{
                         $scope.mdtPaginationHelper = mdtAjaxPaginationHelperFactory.getInstance({
-                            tableDataStorageService: vm.tableDataStorageService,
+                            dataStorage: vm.dataStorage,
                             paginationSetting: $scope.paginatedRows,
                             mdtRowOptions: $scope.mdtRow,
                             mdtRowPaginatorFunction: $scope.mdtRowPaginator,
@@ -181,7 +181,7 @@
                     //local search/filter
                     if (angular.isUndefined($scope.mdtRowPaginator)) {
                         $scope.$watch('mdtRow', function (mdtRow) {
-                            vm.tableDataStorageService.storage = [];
+                            vm.dataStorage.storage = [];
 
                             _addRawDataToStorage(mdtRow['data']);
                         }, true);
@@ -207,14 +207,14 @@
                             });
                         });
 
-                        vm.tableDataStorageService.addRowData(rowId, columnValues);
+                        vm.dataStorage.addRowData(rowId, columnValues);
                     });
                 }
             },
             link: function($scope, element, attrs, ctrl, transclude){
-                $scope.headerData = ctrl.tableDataStorageService.header;
+                $scope.headerData = ctrl.dataStorage.header;
                 $scope.isPaginationEnabled = isPaginationEnabled;
-                $scope.isAnyRowSelected = _.bind(ctrl.tableDataStorageService.isAnyRowSelected, ctrl.tableDataStorageService);
+                $scope.isAnyRowSelected = _.bind(ctrl.dataStorage.isAnyRowSelected, ctrl.dataStorage);
                 $scope.onCheckboxChange = onCheckboxChange;
                 $scope.saveRow = saveRow;
                 $scope.showEditDialog = showEditDialog;
@@ -226,7 +226,7 @@
                     // (e.g.: all the elements can be selected before we call the callback)
                     setTimeout(function(){
                         $scope.selectedRowCallback({
-                            rows: ctrl.tableDataStorageService.getSelectedRows()
+                            rows: ctrl.dataStorage.getSelectedRows()
                         });
                     },0);
                 }
@@ -262,7 +262,7 @@
                 }
 
                 function saveRow(rowData){
-                    var rawRowData = ctrl.tableDataStorageService.getSavedRowData(rowData);
+                    var rawRowData = ctrl.dataStorage.getSavedRowData(rowData);
                     $scope.saveRowCallback({row: rawRowData});
                 }
 
