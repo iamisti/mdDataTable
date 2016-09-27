@@ -11,7 +11,7 @@
     </th>
 
     <th class="column"
-        ng-repeat="headerRowData in headerData track by $index"
+        ng-repeat="headerRowData in dataStorage.header track by $index"
         ng-class="{'clickable': sortableColumns}"
         mdt-add-align-class="headerRowData.alignRule"
         mdt-sort-handler

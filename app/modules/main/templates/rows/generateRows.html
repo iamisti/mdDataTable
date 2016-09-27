@@ -1,4 +1,3 @@
-<!-- temporarly moved to generateTable.html -->
 <tr class="tbodyTrRow"
     ng-repeat="rowData in mdtPaginationHelper.getRows() track by $index"
     ng-class="{'selectedRow': rowData.optionList.selected}"
@@ -9,7 +8,7 @@
 
     <td class="column"
         ng-repeat="cellData in rowData.data track by $index"
-        mdt-add-align-class="headerData[$index].alignRule"
+        mdt-add-align-class="dataStorage.header[$index].alignRule"
         style="position:relative;"
         ng-include src="'/main/templates/cells/generateCell.html'">
 

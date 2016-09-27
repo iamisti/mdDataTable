@@ -107,7 +107,7 @@
     function mdtTableDirective(TableDataStorageFactory,
                                mdtPaginationHelperFactory,
                                mdtAjaxPaginationHelperFactory,
-                               $mdDialog,
+                               EditRowFeatureFactory,
                                _){
         return {
             restrict: 'E',
@@ -212,13 +212,12 @@
                 }
             },
             link: function($scope, element, attrs, ctrl, transclude){
-                $scope.headerData = ctrl.dataStorage.header;
-                $scope.isPaginationEnabled = isPaginationEnabled;
-                $scope.isAnyRowSelected = _.bind(ctrl.dataStorage.isAnyRowSelected, ctrl.dataStorage);
-                $scope.onCheckboxChange = onCheckboxChange;
-                $scope.saveRow = saveRow;
-                $scope.showEditDialog = showEditDialog;
+                $scope.dataStorage = ctrl.dataStorage;
 
+                $scope.isPaginationEnabled = isPaginationEnabled;
+                $scope.onCheckboxChange = onCheckboxChange;
+
+                initEditRowFeature();
                 injectContentIntoTemplate();
 
                 function onCheckboxChange(){
@@ -261,43 +260,11 @@
                     });
                 }
 
-                function saveRow(rowData){
-                    var rawRowData = ctrl.dataStorage.getSavedRowData(rowData);
-                    $scope.saveRowCallback({row: rawRowData});
-                }
-
-                function showEditDialog(ev, cellData, rowData){
-                    var rect = ev.currentTarget.closest('td').getBoundingClientRect();
-                    var position = {
-                        top: rect.top,
-                        left: rect.left
-                    };
-
-                    var ops = {
-                        controller: 'InlineEditModalCtrl',
-                        targetEvent: ev,
-                        clickOutsideToClose: true,
-                        escapeToClose: true,
-                        focusOnOpen: false,
-                        locals: {
-                            position: position,
-                            cellData: JSON.parse(JSON.stringify(cellData)),
-                            mdtTranslations: $scope.mdtTranslations
-                        }
-                    };
-
-                    if(cellData.attributes.editableField === 'smallEditDialog'){
-                        ops.templateUrl = '/main/templates/smallEditDialog.html';
-                    }else{
-                        ops.templateUrl = '/main/templates/largeEditDialog.html';
-                    }
-
-                    var that = this;
-                    $mdDialog.show(ops).then(function(cellValue){
-                        cellData.value = cellValue;
-
-                        that.saveRow(rowData);
-                    });
+                function initEditRowFeature(){
+                    EditRowFeatureFactory.getInstance({
+                        $scope: $scope,
+                        ctrl: ctrl
+                    })
                 }
             }
         };
