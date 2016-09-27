@@ -107,7 +107,9 @@
     function mdtTableDirective(TableDataStorageFactory,
                                mdtPaginationHelperFactory,
                                mdtAjaxPaginationHelperFactory,
-                               EditRowFeatureFactory,
+                               EditRowFeature,
+                               SelectableRowsFeature,
+                               PaginationFeature,
                                _){
         return {
             restrict: 'E',
@@ -212,33 +214,16 @@
                 }
             },
             link: function($scope, element, attrs, ctrl, transclude){
+
                 $scope.dataStorage = ctrl.dataStorage;
 
-                $scope.isPaginationEnabled = isPaginationEnabled;
-                $scope.onCheckboxChange = onCheckboxChange;
+                _initEditRowFeature();
+                _initSelectableRowsFeature();
+                _initPaginationFeature();
+                _injectContentIntoTemplate();
 
-                initEditRowFeature();
-                injectContentIntoTemplate();
 
-                function onCheckboxChange(){
-                    // we need to push it to the event loop to make it happen last
-                    // (e.g.: all the elements can be selected before we call the callback)
-                    setTimeout(function(){
-                        $scope.selectedRowCallback({
-                            rows: ctrl.dataStorage.getSelectedRows()
-                        });
-                    },0);
-                }
-
-                function isPaginationEnabled(){
-                    if($scope.paginatedRows === true || ($scope.paginatedRows && $scope.paginatedRows.hasOwnProperty('isEnabled') && $scope.paginatedRows.isEnabled === true)){
-                        return true;
-                    }
-
-                    return false;
-                }
-
-                function injectContentIntoTemplate(){
+                function _injectContentIntoTemplate(){
                     transclude(function (clone) {
                         var headings = [];
                         var body = [];
@@ -260,11 +245,24 @@
                     });
                 }
 
-                function initEditRowFeature(){
-                    EditRowFeatureFactory.getInstance({
+                function _initEditRowFeature(){
+                    EditRowFeature.getInstance({
                         $scope: $scope,
                         ctrl: ctrl
                     })
+                }
+
+                function _initSelectableRowsFeature(){
+                    SelectableRowsFeature.getInstance({
+                        $scope: $scope,
+                        ctrl: ctrl
+                    });
+                }
+
+                function _initPaginationFeature(){
+                    PaginationFeature.getInstance({
+                        $scope: $scope
+                    });
                 }
             }
         };

@@ -60,5 +60,5 @@
 
     angular
         .module('mdDataTable')
-        .service('EditRowFeatureFactory', EditRowFeatureFactory);
+        .service('EditRowFeature', EditRowFeatureFactory);
 }());
