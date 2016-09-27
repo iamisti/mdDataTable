@@ -239,16 +239,19 @@
                 mdtTriggerRequest: '&?',
                 mdtTranslations: '=?'
             },
+            // This controller is picking up the values and initiating the services. No html generation is going on in this function.
+            // Shared methods are living here which is used by other directives.
             controller: ['$scope', function mdtTable($scope){
                 var vm = this;
 
-                setDefaultTranslations();
+                _setDefaultTranslations();
 
-                initTableStorageServiceAndBindMethods();
+                _initTableStorageService();
 
-                vm.addHeaderCell = addHeaderCell;
+                _processData();
 
-                function initTableStorageServiceAndBindMethods(){
+                // initialization of the storage service
+                function _initTableStorageService(){
                     vm.tableDataStorageService = TableDataStorageFactory.getInstance(vm.virtualRepeat);
 
                     if(!$scope.mdtRowPaginator){
@@ -267,11 +270,8 @@
                     }
                 }
 
-                function addHeaderCell(ops){
-                    vm.tableDataStorageService.addHeaderCellData(ops);
-                }
-
-                function setDefaultTranslations(){
+                // set translations or fallback to a default value
+                function _setDefaultTranslations(){
                     $scope.mdtTranslations = $scope.mdtTranslations || {};
 
                     $scope.mdtTranslations.rowsPerPage = $scope.mdtTranslations.rowsPerPage || 'Rows per page:';
@@ -280,45 +280,26 @@
                     $scope.mdtTranslations.largeEditDialog.saveButtonLabel = $scope.mdtTranslations.largeEditDialog.saveButtonLabel || 'Save';
                     $scope.mdtTranslations.largeEditDialog.cancelButtonLabel = $scope.mdtTranslations.largeEditDialog.cancelButtonLabel || 'Cancel';
                 }
-            }],
-            link: function($scope, element, attrs, ctrl, transclude){
-                $scope.headerData = ctrl.tableDataStorageService.header;
-                $scope.isPaginationEnabled = isPaginationEnabled;
-                $scope.isAnyRowSelected = _.bind(ctrl.tableDataStorageService.isAnyRowSelected, ctrl.tableDataStorageService);
-                $scope.onCheckboxChange = onCheckboxChange;
-                $scope.saveRow = saveRow;
-                $scope.showEditDialog = showEditDialog;
 
-                injectContentIntoTemplate();
+                // fill storage with values if set
+                function _processData(){
+                    if(_.isEmpty($scope.mdtRow)) {
+                        return;
+                    }
 
-                if(!_.isEmpty($scope.mdtRow)) {
-                    processAttributeProvidedData();
-                }
-
-                function onCheckboxChange(){
-                    // we need to push it to the event loop to make it happen last
-                    // (e.g.: all the elements can be selected before we call the callback)
-                    setTimeout(function(){
-                        $scope.selectedRowCallback({
-                            rows: ctrl.tableDataStorageService.getSelectedRows()
-                        });
-                    },0);
-                }
-
-                function processAttributeProvidedData(){
                     //local search/filter
-                    if (angular.isUndefined(attrs.mdtRowPaginator)) {
+                    if (angular.isUndefined($scope.mdtRowPaginator)) {
                         $scope.$watch('mdtRow', function (mdtRow) {
-                            ctrl.tableDataStorageService.storage = [];
+                            vm.tableDataStorageService.storage = [];
 
-                            addRawDataToStorage(mdtRow['data']);
+                            _addRawDataToStorage(mdtRow['data']);
                         }, true);
                     }else{
                         //if it's used for 'Ajax pagination'
                     }
                 }
 
-                function addRawDataToStorage(data){
+                function _addRawDataToStorage(data){
                     var rowId;
                     var columnValues = [];
                     _.each(data, function(row){
@@ -335,19 +316,35 @@
                             });
                         });
 
-                        ctrl.tableDataStorageService.addRowData(rowId, columnValues);
+                        vm.tableDataStorageService.addRowData(rowId, columnValues);
                     });
+                }
+            }],
+            link: function($scope, element, attrs, ctrl, transclude){
+                $scope.headerData = ctrl.tableDataStorageService.header;
+                $scope.isAnyRowSelected = _.bind(ctrl.tableDataStorageService.isAnyRowSelected, ctrl.tableDataStorageService);
+                $scope.isPaginationEnabled = isPaginationEnabled;
+                $scope.onCheckboxChange = onCheckboxChange;
+                $scope.saveRow = saveRow;
+                $scope.showEditDialog = showEditDialog;
+
+                _injectContentIntoTemplate();
+
+                function onCheckboxChange(){
+                    // we need to push it to the event loop to make it happen last
+                    // (e.g.: all the elements can be selected before we call the callback)
+                    setTimeout(function(){
+                        $scope.selectedRowCallback({
+                            rows: ctrl.tableDataStorageService.getSelectedRows()
+                        });
+                    },0);
                 }
 
                 function isPaginationEnabled(){
-                    if($scope.paginatedRows === true || ($scope.paginatedRows && $scope.paginatedRows.hasOwnProperty('isEnabled') && $scope.paginatedRows.isEnabled === true)){
-                        return true;
-                    }
-
-                    return false;
+                    return $scope.paginatedRows === true || ($scope.paginatedRows && $scope.paginatedRows.hasOwnProperty('isEnabled') && $scope.paginatedRows.isEnabled === true);
                 }
 
-                function injectContentIntoTemplate(){
+                function _injectContentIntoTemplate(){
                     transclude(function (clone) {
                         var headings = [];
                         var body = [];
@@ -1128,7 +1125,7 @@
                     // directive creates an isolate scope so use parent scope to resolve variables.
                     var cellValue = $interpolate(clone.html())($scope.$parent);
 
-                    mdtTableCtrl.addHeaderCell({
+                    mdtTableCtrl.tableDataStorageService.addHeaderCellData({
                         alignRule: $scope.alignRule,
                         sortBy: $scope.sortBy,
                         columnDefinition: $scope.columnDefinition,

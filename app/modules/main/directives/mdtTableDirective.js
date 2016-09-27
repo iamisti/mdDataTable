@@ -104,7 +104,11 @@
      *     </mdt-table>
      * </pre>
      */
-    function mdtTableDirective(TableDataStorageFactory, mdtPaginationHelperFactory, mdtAjaxPaginationHelperFactory, $mdDialog, _){
+    function mdtTableDirective(TableDataStorageFactory,
+                               mdtPaginationHelperFactory,
+                               mdtAjaxPaginationHelperFactory,
+                               $mdDialog,
+                               _){
         return {
             restrict: 'E',
             templateUrl: '/main/templates/mdtTable.html',
@@ -131,13 +135,14 @@
             controller: function mdtTable($scope){
                 var vm = this;
 
-                setDefaultTranslations();
+                _setDefaultTranslations();
 
-                initTableStorageServiceAndBindMethods();
+                _initTableStorage();
 
-                vm.addHeaderCell = addHeaderCell;
+                _processData();
 
-                function initTableStorageServiceAndBindMethods(){
+                // initialization of the storage service
+                function _initTableStorage(){
                     vm.tableDataStorageService = TableDataStorageFactory.getInstance(vm.virtualRepeat);
 
                     if(!$scope.mdtRowPaginator){
@@ -156,11 +161,8 @@
                     }
                 }
 
-                function addHeaderCell(ops){
-                    vm.tableDataStorageService.addHeaderCellData(ops);
-                }
-
-                function setDefaultTranslations(){
+                // set translations or fallback to a default value
+                function _setDefaultTranslations(){
                     $scope.mdtTranslations = $scope.mdtTranslations || {};
 
                     $scope.mdtTranslations.rowsPerPage = $scope.mdtTranslations.rowsPerPage || 'Rows per page:';
@@ -169,45 +171,26 @@
                     $scope.mdtTranslations.largeEditDialog.saveButtonLabel = $scope.mdtTranslations.largeEditDialog.saveButtonLabel || 'Save';
                     $scope.mdtTranslations.largeEditDialog.cancelButtonLabel = $scope.mdtTranslations.largeEditDialog.cancelButtonLabel || 'Cancel';
                 }
-            },
-            link: function($scope, element, attrs, ctrl, transclude){
-                $scope.headerData = ctrl.tableDataStorageService.header;
-                $scope.isPaginationEnabled = isPaginationEnabled;
-                $scope.isAnyRowSelected = _.bind(ctrl.tableDataStorageService.isAnyRowSelected, ctrl.tableDataStorageService);
-                $scope.onCheckboxChange = onCheckboxChange;
-                $scope.saveRow = saveRow;
-                $scope.showEditDialog = showEditDialog;
 
-                injectContentIntoTemplate();
+                // fill storage with values if set
+                function _processData(){
+                    if(_.isEmpty($scope.mdtRow)) {
+                        return;
+                    }
 
-                if(!_.isEmpty($scope.mdtRow)) {
-                    processAttributeProvidedData();
-                }
-
-                function onCheckboxChange(){
-                    // we need to push it to the event loop to make it happen last
-                    // (e.g.: all the elements can be selected before we call the callback)
-                    setTimeout(function(){
-                        $scope.selectedRowCallback({
-                            rows: ctrl.tableDataStorageService.getSelectedRows()
-                        });
-                    },0);
-                }
-
-                function processAttributeProvidedData(){
                     //local search/filter
-                    if (angular.isUndefined(attrs.mdtRowPaginator)) {
+                    if (angular.isUndefined($scope.mdtRowPaginator)) {
                         $scope.$watch('mdtRow', function (mdtRow) {
-                            ctrl.tableDataStorageService.storage = [];
+                            vm.tableDataStorageService.storage = [];
 
-                            addRawDataToStorage(mdtRow['data']);
+                            _addRawDataToStorage(mdtRow['data']);
                         }, true);
                     }else{
                         //if it's used for 'Ajax pagination'
                     }
                 }
 
-                function addRawDataToStorage(data){
+                function _addRawDataToStorage(data){
                     var rowId;
                     var columnValues = [];
                     _.each(data, function(row){
@@ -224,8 +207,28 @@
                             });
                         });
 
-                        ctrl.tableDataStorageService.addRowData(rowId, columnValues);
+                        vm.tableDataStorageService.addRowData(rowId, columnValues);
                     });
+                }
+            },
+            link: function($scope, element, attrs, ctrl, transclude){
+                $scope.headerData = ctrl.tableDataStorageService.header;
+                $scope.isPaginationEnabled = isPaginationEnabled;
+                $scope.isAnyRowSelected = _.bind(ctrl.tableDataStorageService.isAnyRowSelected, ctrl.tableDataStorageService);
+                $scope.onCheckboxChange = onCheckboxChange;
+                $scope.saveRow = saveRow;
+                $scope.showEditDialog = showEditDialog;
+
+                injectContentIntoTemplate();
+
+                function onCheckboxChange(){
+                    // we need to push it to the event loop to make it happen last
+                    // (e.g.: all the elements can be selected before we call the callback)
+                    setTimeout(function(){
+                        $scope.selectedRowCallback({
+                            rows: ctrl.tableDataStorageService.getSelectedRows()
+                        });
+                    },0);
                 }
 
                 function isPaginationEnabled(){
