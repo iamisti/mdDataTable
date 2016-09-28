@@ -47,7 +47,9 @@
             scope: {
                 alignRule: '@',
                 sortBy: '=',
-                columnDefinition: '@'
+                columnDefinition: '@',
+                columnFilterCallback: '&',
+                searchEndpoint: '&'
             },
             require: ['^mdtTable'],
             link: function ($scope, element, attrs, ctrl, transclude) {
@@ -61,7 +63,9 @@
                         alignRule: $scope.alignRule,
                         sortBy: $scope.sortBy,
                         columnDefinition: $scope.columnDefinition,
-                        columnName: cellValue
+                        columnName: cellValue,
+                        columnFilterCallback: $scope.columnFilterCallback,
+                        searchEndpoint: $scope.searchEndpoint
                     });
                 });
             }

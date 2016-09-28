@@ -1,4 +1,14 @@
-<div>
+<div ng-click="columnClickHandler()" style="position:relative;">
+
+    <!--
+    <mdt-column-filter-component
+            ng-if="isColumnFilterVisible"
+
+            confirm-callback="headerRowData.columnFilterCallback"
+            search-endpoint-callback="headerRowData.searchEndpoint"
+    ></mdt-column-filter-component>
+    -->
+
     <div ng-if="sortableColumns">
         <md-tooltip ng-show="headerRowData.columnDefinition">{{headerRowData.columnDefinition}}</md-tooltip>
 

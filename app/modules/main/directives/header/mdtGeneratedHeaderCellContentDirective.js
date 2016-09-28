@@ -7,7 +7,13 @@
             templateUrl: '/main/templates/mdtGeneratedHeaderCellContent.html',
             replace: true,
             scope: false,
-            link: function(){}
+            link: function($scope){
+                $scope.isColumnFilterVisible = false;
+
+                $scope.columnClickHandler = function(){
+                    $scope.isColumnFilterVisible = true;
+                }
+            }
         };
     }
 

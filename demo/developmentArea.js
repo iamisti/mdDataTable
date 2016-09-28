@@ -2,8 +2,10 @@
     'use strict';
 
     angular.module('developmentAreaApp', ['ngMaterial', 'mdDataTable']);
-    angular.module('developmentAreaApp').controller('DevelopmentAreaController', function($scope){
-        $scope.nutritionList = [
+    angular.module('developmentAreaApp').controller('DevelopmentAreaController', function($scope, $q){
+        var nameFilters = [];
+
+        var nutritionList = [
             {
                 id: 601,
                 name: 'Frozen joghurt',
@@ -115,6 +117,29 @@
                 iron: '6%'
             }
         ];
+
+        $scope.paginatorCallback = paginatorCallback;
+        $scope.personSearchEndpoint = personSearchEndpoint;
+
+        $scope.nameFilterCallback = function(items){
+            nameFilters = items;
+        };
+
+        function paginatorCallback(page, pageSize){
+            var offset = (page-1) * pageSize;
+
+            return $q.resolve({
+                results: nutritionList.slice(offset, offset + pageSize),
+                totalResultCount: nutritionList.length
+            });
+        }
+
+        //search endpoints
+        function personSearchEndpoint(names){
+            return $q.resolve({
+                results: ['Francesco', 'Istvan', 'Michael', 'Tobi']
+            });
+        }
 
         $scope.myMethodToExecute = function(){
             console.log('CLICKED');

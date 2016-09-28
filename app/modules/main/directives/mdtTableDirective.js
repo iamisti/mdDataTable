@@ -220,8 +220,8 @@
                 _initEditRowFeature();
                 _initSelectableRowsFeature();
                 _initPaginationFeature();
-                _injectContentIntoTemplate();
 
+                _injectContentIntoTemplate();
 
                 function _injectContentIntoTemplate(){
                     transclude(function (clone) {
