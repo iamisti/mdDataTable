@@ -120,10 +120,7 @@
 
         $scope.paginatorCallback = paginatorCallback;
         $scope.personSearchEndpoint = personSearchEndpoint;
-
-        $scope.nameFilterCallback = function(items){
-            nameFilters = items;
-        };
+        $scope.nameFilterCallback = nameFilterCallback;
 
         function paginatorCallback(page, pageSize){
             var offset = (page-1) * pageSize;
@@ -139,6 +136,10 @@
             return $q.resolve({
                 results: ['Francesco', 'Istvan', 'Michael', 'Tobi']
             });
+        }
+
+        function nameFilterCallback(items){
+            nameFilters = items;
         }
 
         $scope.myMethodToExecute = function(){

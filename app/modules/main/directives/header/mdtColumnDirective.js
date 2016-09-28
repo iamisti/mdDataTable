@@ -48,8 +48,7 @@
                 alignRule: '@',
                 sortBy: '=',
                 columnDefinition: '@',
-                columnFilterCallback: '&',
-                searchEndpoint: '&'
+                columnFilter: '=?'
             },
             require: ['^mdtTable'],
             link: function ($scope, element, attrs, ctrl, transclude) {
@@ -58,15 +57,25 @@
                 transclude(function (clone) {
                     // directive creates an isolate scope so use parent scope to resolve variables.
                     var cellValue = $interpolate(clone.html())($scope.$parent);
-
-                    mdtTableCtrl.dataStorage.addHeaderCellData({
+                    var cellDataToStore = {
                         alignRule: $scope.alignRule,
                         sortBy: $scope.sortBy,
                         columnDefinition: $scope.columnDefinition,
-                        columnName: cellValue,
-                        columnFilterCallback: $scope.columnFilterCallback,
-                        searchEndpoint: $scope.searchEndpoint
-                    });
+                        columnName: cellValue
+                    };
+
+                    //ColumnFilterFeature.appendHeader($scope, cellDataToStore);
+                    // or
+                    //cellDataToStore = ColumnFilterFeature.initColumnDirective($scope, cellDataToStore);
+                    if($scope.columnFilter &&
+                        $scope.columnFilter.applyFilterCallback && $scope.columnFilter.valuesProvider){
+
+                        cellDataToStore.columnFilterIsEnabled = true;
+                        cellDataToStore.columnFilterApplyFilterCallback = $scope.columnFilter.applyFilterCallback;
+                        cellDataToStore.columnFilterValuesProvider = $scope.columnFilter.valuesProvider
+                    }
+
+                    mdtTableCtrl.dataStorage.addHeaderCellData(cellDataToStore);
                 });
             }
         };

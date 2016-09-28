@@ -18,8 +18,10 @@
 
         <mdt-header-row>
             <mdt-column align-rule="left"
-                        column-filter-callback="nameFilterCallback(items)"
-                        search-endpoint="personSearchEndpoint(names)"
+                        column-filter="{
+                            'applyFilterCallback': nameFilterCallback,
+                            'valuesProvider': personSearchEndpoint
+                        }"
             >Dessert (100g serving)</mdt-column>
             <mdt-column align-rule="right">Calories</mdt-column>
             <mdt-column align-rule="right">Fat (g)</mdt-column>

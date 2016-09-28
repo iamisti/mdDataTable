@@ -8,10 +8,14 @@
             replace: true,
             scope: false,
             link: function($scope){
+                //ColumnFilterFeature.initHeaderCellDirective($scope, cellDataToStore);
                 $scope.isColumnFilterVisible = false;
 
                 $scope.columnClickHandler = function(){
-                    $scope.isColumnFilterVisible = true;
+                    //ColumnFilterFeature.columnClickHandler($scope);
+                    if($scope.headerRowData.columnFilterIsEnabled === true) {
+                        $scope.isColumnFilterVisible = true;
+                    }
                 }
             }
         };
