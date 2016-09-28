@@ -11,7 +11,7 @@
                 <md-checkbox aria-label="select all" ng-model="selectAllRows"></md-checkbox>
             </th>
 
-            <th class="column"
+            <th class="column has-filters"
                 ng-repeat="headerRowData in headerData track by $index"
                 ng-class="{'clickable': sortableColumns}"
                 mdt-add-align-class="headerRowData.alignRule"
@@ -22,16 +22,33 @@
 
                 <div class="filter-dropdown">
                     <div class="md-whiteframe-z2">
-                        <md-content layout-padding class="md-body-1">
+                        <md-content class="md-body-1">
                             <div layout="row" layout-align="end center" class="b-b p-md">
                                 <a href="#">Sort A-Z </a>
                             </div>
-                            <div layout="column">
+                            <div class="b-b p-md filter__search">
+                                <ng-md-icon icon="search" size="24"></ng-md-icon>
+                                <md-button class="md-icon-button" md-ink-ripple="#0078AB">
+                                    <ng-md-icon icon="close" size="24"></ng-md-icon>
+                                </md-button>
+                                <input type="text" class="input" placeholder="Filter column...">
+                            </div>
+                            <div class="p-t-sm p-b-sm p-l-md p-r-md">
+                                <a href="#">Select all</a> -
+                                <a href="#">Clear</a>
+                            </div>
+                            <div layout="column" class="p-b-n p-t-sm p-l-md p-r-md filter__scroll">
+                                <md-checkbox class="md-primary">Loan</md-checkbox>
+                                <md-checkbox class="md-primary">Permanent</md-checkbox>
+                                <md-checkbox class="md-primary">Loan</md-checkbox>
+                                <md-checkbox class="md-primary">Permanent</md-checkbox>
                                 <md-checkbox class="md-primary">Loan</md-checkbox>
                                 <md-checkbox class="md-primary">Permanent</md-checkbox>
                             </div>
-                            <md-button class="md-raised md-primary">Ok</md-button>
-                            <md-button class="md-raised">Cancel</md-button>
+                            <div class="p-b-sm p-t-sm">
+                                <md-button class="md-raised md-primary">Ok</md-button>
+                                <md-button class="md-raised">Cancel</md-button>
+                            </div>
                         </md-content>
                     </div>
                 </div>
