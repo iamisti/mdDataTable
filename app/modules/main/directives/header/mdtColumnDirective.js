@@ -39,7 +39,7 @@
      *  </mdt-table>
      * </pre>
      */
-    function mdtColumnDirective($interpolate){
+    function mdtColumnDirective($interpolate, ColumnFilterFeature){
         return {
             restrict: 'E',
             transclude: true,
@@ -64,16 +64,7 @@
                         columnName: cellValue
                     };
 
-                    //ColumnFilterFeature.appendHeader($scope, cellDataToStore);
-                    // or
-                    //cellDataToStore = ColumnFilterFeature.initColumnDirective($scope, cellDataToStore);
-                    if($scope.columnFilter &&
-                        $scope.columnFilter.applyFilterCallback && $scope.columnFilter.valuesProvider){
-
-                        cellDataToStore.columnFilterIsEnabled = true;
-                        cellDataToStore.columnFilterApplyFilterCallback = $scope.columnFilter.applyFilterCallback;
-                        cellDataToStore.columnFilterValuesProvider = $scope.columnFilter.valuesProvider
-                    }
+                    ColumnFilterFeature.appendHeaderCellData($scope, cellDataToStore);
 
                     mdtTableCtrl.dataStorage.addHeaderCellData(cellDataToStore);
                 });

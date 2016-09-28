@@ -1,20 +1,29 @@
 (function(){
     'use strict';
 
-    function mdtGeneratedHeaderCellContentDirective(){
+    function mdtGeneratedHeaderCellContentDirective(ColumnFilterFeature){
         return {
             restrict: 'E',
             templateUrl: '/main/templates/mdtGeneratedHeaderCellContent.html',
             replace: true,
             scope: false,
-            link: function($scope){
-                //ColumnFilterFeature.initHeaderCellDirective($scope, cellDataToStore);
-                $scope.isColumnFilterVisible = false;
+            require: '^mdtTable',
+            link: function($scope, element, attrs, ctrl){
+                ColumnFilterFeature.initGeneratedHeaderCellContent($scope);
 
                 $scope.columnClickHandler = function(){
-                    //ColumnFilterFeature.columnClickHandler($scope);
+                    ColumnFilterFeature.generatedHeaderCellClickHandler($scope, $scope.headerRowData);
+
+                    //simulating selected value, delete it afterwards
                     if($scope.headerRowData.columnFilterIsEnabled === true) {
-                        $scope.isColumnFilterVisible = true;
+                        $scope.headerRowData.columnFiltersApplied.push('Ice');
+
+                        if($scope.mdtRowPaginator){
+                            ctrl.mdtPaginationHelper.fetchPage(1);
+                        }else{
+                            // no support for non-ajax yet
+                        }
+
                     }
                 }
             }

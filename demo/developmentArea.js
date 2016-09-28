@@ -118,15 +118,28 @@
             }
         ];
 
+        $scope.nutritionList = nutritionList;
         $scope.paginatorCallback = paginatorCallback;
         $scope.personSearchEndpoint = personSearchEndpoint;
         $scope.nameFilterCallback = nameFilterCallback;
 
-        function paginatorCallback(page, pageSize){
+        function paginatorCallback(page, pageSize, filtersApplied){
+            console.log(filtersApplied);
             var offset = (page-1) * pageSize;
 
+            var nameFilter = filtersApplied.length && filtersApplied[0].length ? filtersApplied[0][0] : '';
+            var result;
+
+            if(nameFilter.length) {
+                result = _.filter(nutritionList, function (o) {
+                    return o.name.indexOf(nameFilter) !== -1;
+                });
+            }else{
+                result = nutritionList;
+            }
+
             return $q.resolve({
-                results: nutritionList.slice(offset, offset + pageSize),
+                results: result.slice(offset, offset + pageSize),
                 totalResultCount: nutritionList.length
             });
         }

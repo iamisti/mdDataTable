@@ -148,10 +148,10 @@
                     vm.dataStorage = TableDataStorageFactory.getInstance(vm.virtualRepeat);
 
                     if(!$scope.mdtRowPaginator){
-                        $scope.mdtPaginationHelper = mdtPaginationHelperFactory
+                        vm.mdtPaginationHelper = $scope.mdtPaginationHelper = mdtPaginationHelperFactory
                             .getInstance(vm.dataStorage, $scope.paginatedRows, $scope.mdtRow);
                     }else{
-                        $scope.mdtPaginationHelper = mdtAjaxPaginationHelperFactory.getInstance({
+                        vm.mdtPaginationHelper = $scope.mdtPaginationHelper = mdtAjaxPaginationHelperFactory.getInstance({
                             dataStorage: vm.dataStorage,
                             paginationSetting: $scope.paginatedRows,
                             mdtRowOptions: $scope.mdtRow,
@@ -217,11 +217,11 @@
 
                 $scope.dataStorage = ctrl.dataStorage;
 
+                _injectContentIntoTemplate();
+
                 _initEditRowFeature();
                 _initSelectableRowsFeature();
                 _initPaginationFeature();
-
-                _injectContentIntoTemplate();
 
                 function _injectContentIntoTemplate(){
                     transclude(function (clone) {

@@ -7,6 +7,13 @@
             this.$scope = params.$scope;
 
             this.$scope.isPaginationEnabled = _.bind(this.isPaginationEnabled, this);
+
+            if(this.$scope.mdtRowPaginator){
+                var that = this;
+                //setTimeout(function(){
+                    that.$scope.mdtPaginationHelper.fetchPage(1);
+                //},0);
+            }
         }
 
         PaginationFeature.prototype.isPaginationEnabled = function(){
