@@ -6,6 +6,8 @@
         var service = this;
 
         /**
+         * This is the first entry point when we initialize the feature.
+         *
          * The method adds feature-related variable to the passed object.
          * The variables gets stored afterwards in the dataStorage for the header cell
          *
@@ -24,7 +26,11 @@
             }
         };
 
-        service.initGeneratedHeaderCellContent = function($scope){
+        service.initGeneratedHeaderCellContent = function($scope, headerData){
+            if(!headerData.columnFilterIsEnabled){
+                return;
+            }
+
             $scope.isColumnFilterVisible = false;
 
             $scope.cancelFilterDialog = function(event){
@@ -33,13 +39,13 @@
             };
 
             $scope.confirmFilterDialog = function(items){
-                event.stopPropagation();
+                //event.stopPropagation();
                 $scope.isColumnFilterVisible = false;
 
                 headerRowData.columnFilterApplyFilterCallback(items);
 
                 if($scope.mdtRowPaginator){
-                    parentCtrl.mdtPaginationHelper.fetchPage(1);
+                    $scope.mdtPaginationHelper.fetchPage(1);
                 }else{
                     // no support for non-ajax yet
                 }
