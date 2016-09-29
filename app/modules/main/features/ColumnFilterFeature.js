@@ -26,6 +26,11 @@
 
         service.initGeneratedHeaderCellContent = function($scope){
             $scope.isColumnFilterVisible = false;
+
+            $scope.cancelFilterDialog = function(event){
+                event.stopPropagation();
+                $scope.isColumnFilterVisible = false;
+            };
         };
 
         service.generatedHeaderCellClickHandler = function($scope, headerRowData){

@@ -9,7 +9,7 @@
             scope: false,
             require: '^mdtTable',
             link: function($scope, element, attrs, ctrl){
-                ColumnFilterFeature.initGeneratedHeaderCellContent($scope);
+                ColumnFilterFeature.initGeneratedHeaderCellContent($scope, $scope.headerRowData);
 
                 $scope.columnClickHandler = function(){
                     ColumnFilterFeature.generatedHeaderCellClickHandler($scope, $scope.headerRowData);

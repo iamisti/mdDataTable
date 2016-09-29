@@ -4,6 +4,7 @@
             ng-if="isColumnFilterVisible"
             placeholder-text =""
             confirm-callback="bla"
+            cancel-callback="cancelFilterDialog(event)"
             values-provider-callback="headerRowData.columnFilterValuesProviderCallback">
     </mdt-column-filter>
 
@@ -16,10 +17,10 @@
 
         <span ng-show="headerRowData.alignRule == 'left'" ng-include src="'/main/templates/cells/generateSortingIcons.html'"></span>
     </div>
-
     <div ng-if="!sortableColumns">
         <md-tooltip ng-show="headerRowData.columnDefinition">{{headerRowData.columnDefinition}}</md-tooltip>
 
         <span ng-include src="'/main/templates/cells/generateCellValue.html'"></span>
     </div>
+
 </div>

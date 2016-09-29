@@ -7,8 +7,8 @@
             templateUrl: '/main/templates/mdtColumnFilter.html',
             scope: {
                 confirmCallback: '=',
-                valuesProviderCallback: '=',
-                placeholderText: '@'
+                cancelCallback: '&',
+                valuesProviderCallback: '='
             },
             link: function($scope, elem, attr){
 
@@ -23,7 +23,7 @@
                     $scope.searchText = null;
                     $scope.availableItems = [];
                     $scope.selectedItems = [];
-                    $scope.placeholderText = $scope.placeholderText || 'Filter column...';
+                    $scope.placeholderText = attr.placeholderText || 'Filter column...';
                 }
 
                 function transformChip(chip) {
