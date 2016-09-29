@@ -26,7 +26,7 @@
             }
         };
 
-        service.initGeneratedHeaderCellContent = function($scope, headerData){
+        service.initGeneratedHeaderCellContent = function($scope, headerData, parentCtrl){
             if(!headerData.columnFilterIsEnabled){
                 return;
             }
@@ -39,13 +39,13 @@
             };
 
             $scope.confirmFilterDialog = function(items){
-                //event.stopPropagation();
+                event.stopPropagation();
                 $scope.isColumnFilterVisible = false;
 
-                headerRowData.columnFilterApplyFilterCallback(items);
+                headerData.columnFilterApplyFilterCallback(items);
 
                 if($scope.mdtRowPaginator){
-                    $scope.mdtPaginationHelper.fetchPage(1);
+                    parentCtrl.mdtPaginationHelper.fetchPage(1);
                 }else{
                     // no support for non-ajax yet
                 }
