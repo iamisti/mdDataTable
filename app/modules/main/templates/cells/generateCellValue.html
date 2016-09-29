@@ -2,7 +2,7 @@
     {{headerRowData.columnName}}
 </span>
 
-<span class="filter-select" ng-if="headerRowData.columnFilterIsEnabled">
+<span class="filter-select" ng-class="{'is-active': headerRowData.columnFiltersApplied.length}" ng-if="headerRowData.columnFilterIsEnabled">
      {{headerRowData.columnName}}
      <ng-md-icon icon="arrow_drop_down" size="24"></ng-md-icon>
 </span>
