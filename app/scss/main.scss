@@ -8,6 +8,8 @@ html {
    -moz-box-sizing: inherit;
    box-sizing: inherit;
 }
+.p-r {position: relative;}
+.no-outline {outline: none;}
 
 .mdtTable{
 
@@ -230,7 +232,7 @@ html {
     .p-b-n {padding-bottom: 0;}
 
     .filter-dropdown {
-        position: absolute; left: 0;
+        position: absolute; left: -10px;
         z-index: 1; top: 110%; width: 220px;
         text-align: initial;
     }
@@ -253,7 +255,7 @@ html {
     /* TH Select outline color & caret */
     .filter-select {
         border: 1px solid transparent; padding: 6px 10px;
-        border-radius: 4px; cursor: pointer;
+        border-radius: 4px; cursor: pointer; margin-left: -10px;
 
     }
     .filter-select:hover {
