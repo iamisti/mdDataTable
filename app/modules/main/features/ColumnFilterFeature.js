@@ -25,6 +25,9 @@
             };
 
             $scope.confirmFilterDialog = function(items){
+                event.stopPropagation();
+                $scope.isColumnFilterVisible = false;
+
                 headerRowData.columnFilterApplyFilterCallback(items);
 
                 if($scope.mdtRowPaginator){
