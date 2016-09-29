@@ -5,7 +5,15 @@
 
         var service = this;
 
+        /**
+         * The method adds feature-related variable to the passed object.
+         * The variables gets stored afterwards in the dataStorage for the header cell
+         *
+         * @param $scope
+         * @param cellDataToStore
+         */
         service.appendHeaderCellData = function($scope, cellDataToStore){
+
             if($scope.columnFilter &&
                 $scope.columnFilter.applyFilterCallback && $scope.columnFilter.valuesProviderCallback){
 
