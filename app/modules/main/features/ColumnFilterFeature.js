@@ -16,7 +16,7 @@
             }
         };
 
-        service.initGeneratedHeaderCellContent = function($scope){
+        service.initGeneratedHeaderCellContent = function($scope, headerRowData, parentCtrl){
             $scope.isColumnFilterVisible = false;
 
             $scope.cancelFilterDialog = function(event){
