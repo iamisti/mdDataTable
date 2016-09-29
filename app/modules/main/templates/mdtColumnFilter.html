@@ -1,26 +1,39 @@
-<md-content class="md-padding" layout="column">
-    <md-chips ng-model="selectedItems"
-              md-transform-chip="transformChip($chip)"
-              md-require-match="true">
+<div class="filter-dropdown">
+    <div class="md-whiteframe-z2">
+        <md-content class="md-body-1">
+            <div layout="row" layout-align="end center" class="b-b p-md">
+                <a href="#">Sort A-Z </a>
+            </div>
+            <div class="p-md">
+                <md-chips ng-model="selectedItems"
+                          md-transform-chip="transformChip($chip)"
+                          md-require-match="true">
 
-        <md-autocomplete md-selected-item="selectedItem"
-                         md-search-text="searchText"
-                         md-items="item in valuesProviderCallback(searchText)"
-                         md-item-text="item"
-                         placeholder="{{placeholderText}}">
+                    <md-autocomplete md-selected-item="selectedItem"
+                                     md-search-text="searchText"
+                                     md-items="item in valuesProviderCallback(searchText)"
+                                     md-item-text="item"
+                                     placeholder="{{placeholderText}}">
 
-            <span md-highlight-text="searchText">{{item}}</span>
+                        <span md-highlight-text="searchText">{{item}}</span>
 
-        <md-not-found>
-            No results matching "{{searchText}}" text were found.
-        </md-not-found>
-        </md-autocomplete>
+                    <md-not-found>
+                        No results matching "{{searchText}}" text were found.
+                    </md-not-found>
+                    </md-autocomplete>
 
-        <md-chip-template>
-            <span>
-              <strong>{{$chip.displayName}}</strong>
-            </span>
-        </md-chip-template>
+                    <md-chip-template>
+                        <span>
+                          <strong>{{$chip.displayName}}</strong>
+                        </span>
+                    </md-chip-template>
 
-    </md-chips>
-</md-content>
+                </md-chips>
+            </div>
+            <div class="p-b-sm p-t-sm">
+                <md-button class="md-raised md-primary">Ok</md-button>
+                <md-button class="md-raised">Cancel</md-button>
+            </div>
+        </md-content>
+    </div>
+</div>
