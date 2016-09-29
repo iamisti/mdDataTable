@@ -1,0 +1,26 @@
+<md-content class="md-padding" layout="column">
+    <md-chips ng-model="selectedItems"
+              md-transform-chip="transformChip($chip)"
+              md-require-match="true">
+
+        <md-autocomplete md-selected-item="selectedItem"
+                         md-search-text="searchText"
+                         md-items="item in valuesProviderCallback(searchText)"
+                         md-item-text="item"
+                         placeholder="{{placeholderText}}">
+
+            <span md-highlight-text="searchText">{{item}}</span>
+
+        <md-not-found>
+            No results matching "{{searchText}}" text were found.
+        </md-not-found>
+        </md-autocomplete>
+
+        <md-chip-template>
+            <span>
+              <strong>{{$chip.displayName}}</strong>
+            </span>
+        </md-chip-template>
+
+    </md-chips>
+</md-content>
