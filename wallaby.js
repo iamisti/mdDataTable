@@ -33,6 +33,7 @@ module.exports = function () {
         })
       }
     },
-    testFramework: 'jasmine'
+    testFramework: 'jasmine',
+    debug: true
   }
 };

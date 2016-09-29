@@ -5,7 +5,17 @@
 
         var service = this;
 
+        /**
+         * This is the first entry point when we initialize the feature.
+         *
+         * The method adds feature-related variable to the passed object.
+         * The variables gets stored afterwards in the dataStorage for the header cell
+         *
+         * @param $scope
+         * @param cellDataToStore
+         */
         service.appendHeaderCellData = function($scope, cellDataToStore){
+
             if($scope.columnFilter &&
                 $scope.columnFilter.applyFilterCallback && $scope.columnFilter.valuesProviderCallback){
 
@@ -16,7 +26,11 @@
             }
         };
 
-        service.initGeneratedHeaderCellContent = function($scope, headerRowData, parentCtrl){
+        service.initGeneratedHeaderCellContent = function($scope, headerData, parentCtrl){
+            if(!headerData.columnFilterIsEnabled){
+                return;
+            }
+
             $scope.isColumnFilterVisible = false;
 
             $scope.cancelFilterDialog = function(event){
@@ -28,7 +42,7 @@
                 event.stopPropagation();
                 $scope.isColumnFilterVisible = false;
 
-                headerRowData.columnFilterApplyFilterCallback(items);
+                headerData.columnFilterApplyFilterCallback(items);
 
                 if($scope.mdtRowPaginator){
                     parentCtrl.mdtPaginationHelper.fetchPage(1);
