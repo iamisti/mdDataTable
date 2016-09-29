@@ -38,11 +38,11 @@
                 $scope.isColumnFilterVisible = false;
             };
 
-            $scope.confirmFilterDialog = function(items, event){
-                event.stopPropagation();
+            $scope.confirmFilterDialog = function(params){
+                params.event.stopPropagation();
                 $scope.isColumnFilterVisible = false;
 
-                headerData.columnFilterApplyFilterCallback(items);
+                headerData.columnFilterApplyFilterCallback(params.items);
 
                 if($scope.mdtRowPaginator){
                     parentCtrl.mdtPaginationHelper.fetchPage(1);
