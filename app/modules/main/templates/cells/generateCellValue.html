@@ -1,0 +1,8 @@
+<span ng-if="!headerRowData.columnFilterIsEnabled">
+    {{headerRowData.columnName}}
+</span>
+
+<span class="filter-select" ng-if="headerRowData.columnFilterIsEnabled">
+     {{headerRowData.columnName}}
+     <ng-md-icon icon="keyboard_arrow_down" size="24"></ng-md-icon>
+</span>
