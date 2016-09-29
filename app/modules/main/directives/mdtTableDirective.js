@@ -105,8 +105,6 @@
      * </pre>
      */
     function mdtTableDirective(TableDataStorageFactory,
-                               mdtPaginationHelperFactory,
-                               mdtAjaxPaginationHelperFactory,
                                EditRowFeature,
                                SelectableRowsFeature,
                                PaginationFeature,
@@ -141,26 +139,16 @@
 
                 _initTableStorage();
 
+
                 _processData();
 
                 // initialization of the storage service
                 function _initTableStorage(){
                     vm.dataStorage = TableDataStorageFactory.getInstance(vm.virtualRepeat);
-
-                    if(!$scope.mdtRowPaginator){
-                        $scope.mdtPaginationHelper = mdtPaginationHelperFactory
-                            .getInstance(vm.dataStorage, $scope.paginatedRows, $scope.mdtRow);
-                    }else{
-                        $scope.mdtPaginationHelper = mdtAjaxPaginationHelperFactory.getInstance({
-                            dataStorage: vm.dataStorage,
-                            paginationSetting: $scope.paginatedRows,
-                            mdtRowOptions: $scope.mdtRow,
-                            mdtRowPaginatorFunction: $scope.mdtRowPaginator,
-                            mdtRowPaginatorErrorMessage: $scope.mdtRowPaginatorErrorMessage,
-                            mdtRowPaginatorNoResultsMessage: $scope.mdtRowPaginatorNoResultsMessage,
-                            mdtTriggerRequest: $scope.mdtTriggerRequest
-                        });
-                    }
+                    vm.paginationFeature = PaginationFeature.getInstance({
+                        $scope: $scope,
+                        mdtTableCtrl: vm
+                    });
                 }
 
                 // set translations or fallback to a default value
@@ -217,11 +205,12 @@
 
                 $scope.dataStorage = ctrl.dataStorage;
 
+                _injectContentIntoTemplate();
+
                 _initEditRowFeature();
                 _initSelectableRowsFeature();
-                _initPaginationFeature();
 
-                _injectContentIntoTemplate();
+                ctrl.paginationFeature.start();
 
                 function _injectContentIntoTemplate(){
                     transclude(function (clone) {
@@ -259,11 +248,7 @@
                     });
                 }
 
-                function _initPaginationFeature(){
-                    PaginationFeature.getInstance({
-                        $scope: $scope
-                    });
-                }
+
             }
         };
     }

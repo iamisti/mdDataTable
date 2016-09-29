@@ -1,7 +1,7 @@
 (function(){
     'use strict';
 
-    function mdtAjaxPaginationHelperFactory(_){
+    function mdtAjaxPaginationHelperFactory(ColumnFilterFeature, _){
 
         function mdtAjaxPaginationHelper(params){
             this.dataStorage = params.dataStorage;
@@ -28,7 +28,7 @@
             this.isLoading = false;
 
             //fetching the 1st page
-            this.fetchPage(this.page);
+            //this.fetchPage(this.page);
 
             //triggering ajax call manually
             if(this.mdtTriggerRequest) {
@@ -91,7 +91,11 @@
 
             var that = this;
 
-            return this.paginatorFunction({page: page, pageSize: this.rowsPerPage})
+            var callbackArguments = {page: page, pageSize: this.rowsPerPage};
+
+            ColumnFilterFeature.appendAppliedFiltersToCallbackArgument(this.dataStorage, callbackArguments);
+
+            return this.paginatorFunction(callbackArguments)
                 .then(function(data){
                     that.dataStorage.storage = [];
                     that.setRawDataToStorage(that, data.results, that.rowOptions['table-row-id-key'], that.rowOptions['column-keys']);
