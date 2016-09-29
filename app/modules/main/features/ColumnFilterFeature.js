@@ -31,6 +31,19 @@
                 event.stopPropagation();
                 $scope.isColumnFilterVisible = false;
             };
+
+            $scope.confirmFilterDialog = function(items){
+                event.stopPropagation();
+                $scope.isColumnFilterVisible = false;
+
+                headerRowData.columnFilterApplyFilterCallback(items);
+
+                if($scope.mdtRowPaginator){
+                    parentCtrl.mdtPaginationHelper.fetchPage(1);
+                }else{
+                    // no support for non-ajax yet
+                }
+            }
         };
 
         service.generatedHeaderCellClickHandler = function($scope, headerRowData){
