@@ -1,20 +1,22 @@
 (function() {
     'use strict';
 
-    function mdtColumnFilterDirective($q){
+    function mdtColumnFilterDirective(){
         return{
             restrict: 'E',
             templateUrl: '/main/templates/mdtColumnFilter.html',
             scope: {
                 confirmCallback: '=',
                 cancelCallback: '&',
-                valuesProviderCallback: '='
+                valuesProviderCallback: '=',
+                headerRowData: '='
             },
             link: function($scope, elem, attr){
 
                 init();
 
                 $scope.transformChip = transformChip;
+                $scope.selectedItems = $scope.headerRowData.columnFiltersApplied;
 
                 function init(){
                     $scope.isLoading = true;
