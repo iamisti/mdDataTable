@@ -13,6 +13,8 @@ html {
 
 .mdtTable{
 
+    overflow: visible;
+
     .md-chips {font-size: 14px;}
     
     table{
@@ -255,7 +257,7 @@ html {
     /* TH Select outline color & caret */
     .filter-select {
         border: 1px solid transparent; padding: 6px 10px;
-        border-radius: 4px; cursor: pointer; margin-left: -10px;
+        border-radius: 2px; cursor: pointer; margin-left: -10px;
 
     }
     .filter-select:hover {
