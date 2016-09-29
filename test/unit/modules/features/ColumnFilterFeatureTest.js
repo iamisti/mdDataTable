@@ -199,4 +199,56 @@ describe('ColumnFilterFeature', function(){
             expect(scope.isColumnFilterVisible).toBeFalsy();
         }));
     });
+
+    describe('WHEN calling `appendAppliedFiltersToCallbackArgument`', function(){
+        var scope;
+
+        beforeEach(inject(function($rootScope){
+            scope = $rootScope.$new();
+        }));
+
+        it('AND feature is used THEN it should apply the filters to the callback arguments', inject(function($rootScope, ColumnFilterFeature){
+            //given
+            var callbackArguments = {};
+            var dataStorage = {
+                header: [
+                    {
+                        columnFilterIsEnabled: true,
+                        columnFiltersApplied: ['item1', 'item2']
+                    },
+                    {
+                        columnFilterIsEnabled: true,
+                        columnFiltersApplied: ['item3', 'item4']
+                    }
+                ]
+            };
+
+            //when
+            ColumnFilterFeature.appendAppliedFiltersToCallbackArgument(dataStorage, callbackArguments);
+
+            //then
+            expect(callbackArguments.filtersApplied).toEqual([
+                [ 'item1', 'item2' ], [ 'item3', 'item4' ]
+            ]);
+        }));
+
+        it('AND feature is not used THEN it should not apply any filters to the callback arguments', inject(function($rootScope, ColumnFilterFeature){
+            //given
+            var callbackArguments = {};
+            var dataStorage = {
+                header: [
+                    {
+                        columnFiltersApplied: ['item1', 'item2']
+                    }
+                ]
+            };
+
+            //when
+            ColumnFilterFeature.appendAppliedFiltersToCallbackArgument(dataStorage, callbackArguments);
+
+            //then
+            expect(callbackArguments.filtersApplied).not.toBeDefined();
+        }));
+
+    });
 });

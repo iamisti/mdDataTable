@@ -73,13 +73,21 @@
 
         service.appendAppliedFiltersToCallbackArgument = function(dataStorage, callbackArguments){
             var columnFilters = [];
+            var isEnabled = false;
+
             _.each(dataStorage.header, function(headerData){
                 var filters = headerData.columnFiltersApplied || [];
+
+                if(headerData.columnFilterIsEnabled){
+                    isEnabled = true;
+                }
 
                 columnFilters.push(filters);
             });
 
-            callbackArguments.filtersApplied = columnFilters;
+            if(isEnabled){
+                callbackArguments.filtersApplied = columnFilters;
+            }
         }
     }
 
