@@ -4,6 +4,7 @@
             ng-if="isColumnFilterVisible"
             placeholder-text =""
             confirm-callback="bla"
+            cancel-callback="cancelFilterDialog(event)"
             values-provider-callback="headerRowData.columnFilterValuesProviderCallback">
     </mdt-column-filter>
 
@@ -19,12 +20,6 @@
                 <ng-md-icon icon="arrow_forward" size="16"></ng-md-icon>
             </span>
         </span>
-<!--
-        <span>
-            {{headerRowData.columnName}}
-        </span>
--->
-
         <span class="filter-select">
              {{headerRowData.columnName}}
              <ng-md-icon icon="keyboard_arrow_down" size="24"></ng-md-icon>

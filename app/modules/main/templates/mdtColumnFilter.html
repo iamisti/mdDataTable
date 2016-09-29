@@ -24,15 +24,15 @@
 
                     <md-chip-template>
                         <span>
-                          <strong>{{$chip.displayName}}</strong>
+                          <strong>{{$chip}}</strong>
                         </span>
                     </md-chip-template>
 
                 </md-chips>
             </div>
             <div class="p-b-sm p-t-sm">
-                <md-button class="md-raised md-primary">Ok</md-button>
-                <md-button class="md-raised">Cancel</md-button>
+                <md-button class="md-raised md-primary" ng-click="confirmCallback()">Ok</md-button>
+                <md-button class="md-raised" ng-click="cancelCallback({event: $event})">Cancel</md-button>
             </div>
         </md-content>
     </div>
