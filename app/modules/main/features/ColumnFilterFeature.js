@@ -24,7 +24,7 @@
                 $scope.isColumnFilterVisible = false;
             };
 
-            $scope.confirmFilterDialog = function(items){
+            $scope.confirmFilterDialog = function(items, event){
                 event.stopPropagation();
                 $scope.isColumnFilterVisible = false;
 
