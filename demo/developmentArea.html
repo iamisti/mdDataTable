@@ -37,41 +37,6 @@
             <span ng-click="clientScope.myMethodToExecute()">click here</span>
         </mdt-custom-cell>
     </mdt-table>
-
-    <br><br>
-
-    <mdt-table
-            paginated-rows="{isEnabled: true, rowsPerPageValues: [5,10,20,50]}"
-            mdt-row="{
-            'data': nutritionList,
-            'table-row-id-key': 'id',
-            'column-keys': [
-                'name',
-                'calories',
-                'fat',
-                'carbs',
-                'protein',
-                'sodium',
-                'calcium',
-                'iron'
-            ]}">
-
-        <mdt-header-row>
-            <mdt-column align-rule="left"
-                        column-filter="{
-                            'applyFilterCallback': nameFilterCallback,
-                            'valuesProviderCallback': personSearchEndpoint
-                        }"
-            >Dessert (100g serving)</mdt-column>
-            <mdt-column align-rule="right">Calories</mdt-column>
-            <mdt-column align-rule="right">Fat (g)</mdt-column>
-            <mdt-column align-rule="right">Carbs (g)</mdt-column>
-            <mdt-column align-rule="right">Protein (g)</mdt-column>
-            <mdt-column align-rule="right">Sodium (mg)</mdt-column>
-            <mdt-column align-rule="right">Calcium (%)</mdt-column>
-            <mdt-column align-rule="right">Iron (%)</mdt-column>
-        </mdt-header-row>
-    </mdt-table>
 </div>
 
 <style>

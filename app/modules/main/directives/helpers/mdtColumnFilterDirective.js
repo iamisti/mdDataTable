@@ -5,9 +5,9 @@
         return{
             restrict: 'E',
             templateUrl: '/main/templates/mdtColumnFilter.html',
-            $scope: {
-                confirmCallback: '&',
-                valuesProviderCallback: '&',
+            scope: {
+                confirmCallback: '=',
+                valuesProviderCallback: '=',
                 placeholderText: '@'
             },
             link: function($scope, elem, attr){
@@ -29,7 +29,6 @@
                 function transformChip(chip) {
                     return chip;
                 }
-
             }
         }
     }

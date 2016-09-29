@@ -118,13 +118,11 @@
             }
         ];
 
-        $scope.nutritionList = nutritionList;
         $scope.paginatorCallback = paginatorCallback;
         $scope.personSearchEndpoint = personSearchEndpoint;
         $scope.nameFilterCallback = nameFilterCallback;
 
         function paginatorCallback(page, pageSize, filtersApplied){
-            console.log(filtersApplied);
             var offset = (page-1) * pageSize;
 
             var nameFilter = filtersApplied.length && filtersApplied[0].length ? filtersApplied[0][0] : '';
@@ -146,9 +144,7 @@
 
         //search endpoints
         function personSearchEndpoint(names){
-            return $q.resolve({
-                results: ['Francesco', 'Istvan', 'Michael', 'Tobi']
-            });
+            return $q.resolve(['Francesco', 'Istvan', 'Michael', 'Tobi']);
         }
 
         function nameFilterCallback(items){

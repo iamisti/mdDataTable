@@ -11,7 +11,7 @@
 
                 cellDataToStore.columnFilterIsEnabled = true;
                 cellDataToStore.columnFilterApplyFilterCallback = $scope.columnFilter.applyFilterCallback;
-                cellDataToStore.columnFilterValuesProviderCallback = $scope.columnFilter.valuesProviderCallback
+                cellDataToStore.columnFilterValuesProviderCallback = $scope.columnFilter.valuesProviderCallback;
                 cellDataToStore.columnFiltersApplied = [];
             }
         };

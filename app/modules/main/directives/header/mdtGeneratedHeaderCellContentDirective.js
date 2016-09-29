@@ -13,17 +13,15 @@
 
                 $scope.columnClickHandler = function(){
                     ColumnFilterFeature.generatedHeaderCellClickHandler($scope, $scope.headerRowData);
+                };
 
-                    //simulating selected value, delete it afterwards
-                    if($scope.headerRowData.columnFilterIsEnabled === true) {
-                        $scope.headerRowData.columnFiltersApplied.push('Ice');
+                $scope.bla = function(items){
+                    $scope.headerRowData.columnFilterApplyFilterCallback(items);
 
-                        if($scope.mdtRowPaginator){
-                            ctrl.mdtPaginationHelper.fetchPage(1);
-                        }else{
-                            // no support for non-ajax yet
-                        }
-
+                    if($scope.mdtRowPaginator){
+                        ctrl.mdtPaginationHelper.fetchPage(1);
+                    }else{
+                        // no support for non-ajax yet
                     }
                 }
             }
