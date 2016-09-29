@@ -42,7 +42,8 @@
                 params.event.stopPropagation();
                 $scope.isColumnFilterVisible = false;
 
-                headerData.columnFilterApplyFilterCallback(params.items);
+                //headerData.columnFilterApplyFilterCallback(params.items);
+                headerData.columnFiltersApplied = params.selectedItems;
 
                 if($scope.mdtRowPaginator){
                     parentCtrl.mdtPaginationHelper.fetchPage(1);

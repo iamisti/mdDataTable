@@ -144,7 +144,7 @@
 
         //search endpoints
         function personSearchEndpoint(names){
-            return $q.resolve(['Francesco', 'Istvan', 'Michael', 'Tobi']);
+            return $q.resolve(_.pluck(nutritionList, 'name'));
         }
 
         function nameFilterCallback(items){
