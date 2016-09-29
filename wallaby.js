@@ -1,7 +1,8 @@
-var wallabyAngularFilesort = require('wallaby-angular-filesort');
-var wallabyPostprocessor = wallabyAngularFilesort.create({
-  whitelist: ['app/modules/**/*.js']
-});
+//var wallabyAngularFilesort = require('wallaby-angular-filesort');
+//var wallabyPostprocessor = wallabyAngularFilesort.create({
+//  whitelist: ['app/modules/**/*.js']
+//});
+
 var angularTemplatePreprocessor = require('wallaby-ng-html2js-preprocessor');
 
 module.exports = function () {

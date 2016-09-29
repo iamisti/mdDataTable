@@ -3,7 +3,6 @@
 
     angular.module('developmentAreaApp', ['ngMaterial', 'mdDataTable']);
     angular.module('developmentAreaApp').controller('DevelopmentAreaController', function($scope, $q){
-        var nameFilters = [];
 
         var nutritionList = [
             {
@@ -120,17 +119,24 @@
 
         $scope.paginatorCallback = paginatorCallback;
         $scope.personSearchEndpoint = personSearchEndpoint;
-        $scope.nameFilterCallback = nameFilterCallback;
 
         function paginatorCallback(page, pageSize, filtersApplied){
             var offset = (page-1) * pageSize;
-
-            var nameFilter = filtersApplied.length && filtersApplied[0].length ? filtersApplied[0][0] : '';
             var result;
 
-            if(nameFilter.length) {
+            if(filtersApplied[0].length) {
                 result = _.filter(nutritionList, function (o) {
-                    return o.name.indexOf(nameFilter) !== -1;
+                    var res = false;
+
+                    _.each(filtersApplied[0], function(nameFilter){
+                        if(res){
+                            return;
+                        }
+
+                        res = o.name.indexOf(nameFilter) !== -1;
+                    });
+
+                    return res;
                 });
             }else{
                 result = nutritionList;
@@ -144,11 +150,14 @@
 
         //search endpoints
         function personSearchEndpoint(names){
-            return $q.resolve(['Francesco', 'Istvan', 'Michael', 'Tobi']);
-        }
 
-        function nameFilterCallback(items){
-            nameFilters = items;
+            var arr = _.filter(nutritionList, function(item){
+                return item.name.toLowerCase().indexOf(names.toLowerCase()) !== -1;
+            });
+
+            arr = _.pluck(arr, 'name');
+
+            return $q.resolve(arr);
         }
 
         $scope.myMethodToExecute = function(){

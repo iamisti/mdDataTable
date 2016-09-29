@@ -16,13 +16,11 @@
          */
         service.appendHeaderCellData = function($scope, cellDataToStore){
 
-            if($scope.columnFilter &&
-                $scope.columnFilter.applyFilterCallback && $scope.columnFilter.valuesProviderCallback){
+            if($scope.columnFilter && $scope.columnFilter.valuesProviderCallback){
 
                 cellDataToStore.columnFilterIsEnabled = true;
-                cellDataToStore.columnFilterApplyFilterCallback = $scope.columnFilter.applyFilterCallback;
-                cellDataToStore.columnFilterValuesProviderCallback = $scope.columnFilter.valuesProviderCallback;
                 cellDataToStore.columnFiltersApplied = [];
+                cellDataToStore.columnFilterValuesProviderCallback = $scope.columnFilter.valuesProviderCallback;
             }
         };
 
@@ -42,7 +40,7 @@
                 params.event.stopPropagation();
                 $scope.isColumnFilterVisible = false;
 
-                headerData.columnFilterApplyFilterCallback(params.items);
+                headerData.columnFiltersApplied = params.selectedItems;
 
                 if($scope.mdtRowPaginator){
                     parentCtrl.mdtPaginationHelper.fetchPage(1);
