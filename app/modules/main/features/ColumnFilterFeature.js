@@ -24,6 +24,14 @@
             }
         };
 
+        /**
+         * Generating the needed functions and variables for the header cell which will
+         * handle the actions of the column filter component.
+         *
+         * @param $scope
+         * @param headerData
+         * @param parentCtrl
+         */
         service.initGeneratedHeaderCellContent = function($scope, headerData, parentCtrl){
             if(!headerData.columnFilterIsEnabled){
                 return;
@@ -50,10 +58,17 @@
             }
         };
 
+        /**
+         * Click handler for the feature when header cell gets clicked
+         * @param $scope
+         * @param headerRowData
+         */
         service.generatedHeaderCellClickHandler = function($scope, headerRowData){
-            if(headerRowData.columnFilterIsEnabled === true) {
-                $scope.isColumnFilterVisible = true;
+            if(!headerRowData.columnFilterIsEnabled) {
+                return;
             }
+
+            $scope.isColumnFilterVisible = true;
         };
 
         service.appendAppliedFiltersToCallbackArgument = function(dataStorage, callbackArguments){
