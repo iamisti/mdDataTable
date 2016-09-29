@@ -10,7 +10,7 @@
                 cancelCallback: '&',
                 valuesProviderCallback: '='
             },
-            link: function($scope, elem, attr){
+            link: function($scope, elem, attrs){
 
                 init();
 
@@ -23,7 +23,7 @@
                     $scope.searchText = null;
                     $scope.availableItems = [];
                     $scope.selectedItems = [];
-                    $scope.placeholderText = attr.placeholderText || 'Filter column...';
+                    $scope.placeholderText = attrs.placeholderText || 'Filter column...';
                 }
 
                 function transformChip(chip) {

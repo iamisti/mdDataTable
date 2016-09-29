@@ -16,13 +16,23 @@
             }
         };
 
-        service.initGeneratedHeaderCellContent = function($scope){
+        service.initGeneratedHeaderCellContent = function($scope, headerRowData, parentCtrl){
             $scope.isColumnFilterVisible = false;
 
             $scope.cancelFilterDialog = function(event){
                 event.stopPropagation();
                 $scope.isColumnFilterVisible = false;
             };
+
+            $scope.confirmFilterDialog = function(items){
+                headerRowData.columnFilterApplyFilterCallback(items);
+
+                if($scope.mdtRowPaginator){
+                    parentCtrl.mdtPaginationHelper.fetchPage(1);
+                }else{
+                    // no support for non-ajax yet
+                }
+            }
         };
 
         service.generatedHeaderCellClickHandler = function($scope, headerRowData){
