@@ -13,7 +13,7 @@ describe('ColumnFilterFeature', function(){
         it('AND feature is used THEN it needs to add feature related variables to the passed objects', inject(function($rootScope, ColumnFilterFeature){
             //given
             scope.columnFilter = {
-                valuesProviderCallback: function(){}
+                valuesProviderCallback: function(){},
             };
 
             var objectToPass = {};
@@ -25,7 +25,8 @@ describe('ColumnFilterFeature', function(){
             expect(objectToPass).toEqual({
                 columnFilterIsEnabled: true,
                 columnFilterValuesProviderCallback: scope.columnFilter.valuesProviderCallback,
-                columnFiltersApplied: []
+                columnFiltersApplied: [],
+                chipTransformerCallback: undefined
             });
         }));
 

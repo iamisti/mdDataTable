@@ -21,6 +21,7 @@
                 cellDataToStore.columnFilterIsEnabled = true;
                 cellDataToStore.columnFiltersApplied = [];
                 cellDataToStore.columnFilterValuesProviderCallback = $scope.columnFilter.valuesProviderCallback;
+                cellDataToStore.chipTransformerCallback = $scope.columnFilter.chipTransformerCallback;
             }
         };
 

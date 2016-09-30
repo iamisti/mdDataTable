@@ -12,7 +12,7 @@
 
                     <md-autocomplete md-selected-item="selectedItem"
                                      md-search-text="searchText"
-                                     md-items="item in valuesProviderCallback(searchText)"
+                                     md-items="item in headerRowData.columnFilterValuesProviderCallback(searchText)"
                                      md-item-text="item"
                                      placeholder="{{placeholderText}}">
 

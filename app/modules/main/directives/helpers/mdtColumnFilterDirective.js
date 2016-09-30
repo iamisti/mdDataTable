@@ -8,7 +8,6 @@
             scope: {
                 confirmCallback: '=',
                 cancelCallback: '&',
-                valuesProviderCallback: '=',
                 headerRowData: '='
             },
             link: function($scope, elem, attr){
@@ -16,7 +15,6 @@
                 init();
 
                 $scope.transformChip = transformChip;
-                $scope.selectedItems = $scope.headerRowData.columnFiltersApplied;
 
                 function init(){
                     $scope.isLoading = true;
@@ -24,11 +22,15 @@
                     $scope.selectedItem = null;
                     $scope.searchText = null;
                     $scope.availableItems = [];
-                    $scope.selectedItems = [];
+                    $scope.selectedItems = $scope.headerRowData.columnFiltersApplied;
                     $scope.placeholderText = attr.placeholderText || 'Filter column...';
                 }
 
                 function transformChip(chip) {
+                    if($scope.headerRowData.chipTransformerCallback){
+                        return $scope.headerRowData.chipTransformerCallback(chip);
+                    }
+
                     return chip;
                 }
             }

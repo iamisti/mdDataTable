@@ -119,6 +119,7 @@
 
         $scope.paginatorCallback = paginatorCallback;
         $scope.personSearchEndpoint = personSearchEndpoint;
+        $scope.personChipTransformer = personChipTransformer;
 
         function paginatorCallback(page, pageSize, filtersApplied){
             var offset = (page-1) * pageSize;
@@ -150,14 +151,15 @@
 
         //search endpoints
         function personSearchEndpoint(names){
-
             var arr = _.filter(nutritionList, function(item){
                 return item.name.toLowerCase().indexOf(names.toLowerCase()) !== -1;
             });
 
-            arr = _.pluck(arr, 'name');
-
             return $q.resolve(arr);
+        }
+
+        function personChipTransformer(person){
+            return person.name;
         }
 
         $scope.myMethodToExecute = function(){
