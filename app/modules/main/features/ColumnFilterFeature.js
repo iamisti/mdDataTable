@@ -71,6 +71,11 @@
             $scope.isColumnFilterVisible = true;
         };
 
+        /**
+         * Returns with an array of currently applied filters on the columns.
+         * @param dataStorage
+         * @param callbackArguments
+         */
         service.appendAppliedFiltersToCallbackArgument = function(dataStorage, callbackArguments){
             var columnFilters = [];
             var isEnabled = false;

@@ -135,6 +135,10 @@
             controller: function mdtTable($scope){
                 var vm = this;
 
+                $scope.rippleEffectCallback = function(){
+                    return $scope.rippleEffect ? $scope.rippleEffect : false;
+                };
+
                 _setDefaultTranslations();
 
                 _initTableStorage();
