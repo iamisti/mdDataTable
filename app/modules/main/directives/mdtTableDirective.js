@@ -143,7 +143,6 @@
 
                 _initTableStorage();
 
-
                 _processData();
 
                 // initialization of the storage service
@@ -239,10 +238,11 @@
                 }
 
                 function _initEditRowFeature(){
-                    EditRowFeature.getInstance({
-                        $scope: $scope,
-                        ctrl: ctrl
-                    })
+                    //TODO: make it possible to only register feature if there is at least
+                    // one column which requires it.
+                    // for that we need to change the place where we register edit-row.
+                    // Remove mdt-row attributes --> do it in mdt-row attribute directive on mdtTable
+                    EditRowFeature.addRequiredFunctions($scope, ctrl);
                 }
 
                 function _initSelectableRowsFeature(){
