@@ -7,7 +7,6 @@
             <!--</div>-->
             <div class="p-md">
                 <md-chips ng-model="selectedItems"
-                          md-transform-chip="transformChip($chip)"
                           md-require-match="true">
 
                     <md-autocomplete md-selected-item="selectedItem"
@@ -16,7 +15,7 @@
                                      md-item-text="item"
                                      placeholder="{{placeholderText}}">
 
-                        <span md-highlight-text="searchText">{{item}}</span>
+                        <span md-highlight-text="searchText">{{transformChip(item)}}</span>
 
                         <md-not-found>
                             No results found.
@@ -25,7 +24,7 @@
 
                     <md-chip-template>
                         <span>
-                          <strong>{{$chip}}</strong>
+                          <strong>{{transformChip($chip)}}</strong>
                         </span>
                     </md-chip-template>
 
