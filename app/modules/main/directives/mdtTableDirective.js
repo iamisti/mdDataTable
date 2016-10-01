@@ -61,6 +61,7 @@
      *
      *      - `{array}` `data` - the input data for rows
      *      - `{integer|string=}` `table-row-id-key` - the uniq identifier for a row
+     *      - `{function(rowData)=}` `table-row-class-name` - callback to specify the class name of a row
      *      - `{array}` `column-keys` - specifying property names for the passed data array. Makes it possible to
      *        configure which property assigned to which column in the table. The list should provided at the same order
      *        as it was specified inside `mdt-header-row` element directive.
@@ -105,8 +106,6 @@
      * </pre>
      */
     function mdtTableDirective(TableDataStorageFactory,
-                               mdtPaginationHelperFactory,
-                               mdtAjaxPaginationHelperFactory,
                                EditRowFeature,
                                SelectableRowsFeature,
                                PaginationFeature,
@@ -137,30 +136,21 @@
             controller: function mdtTable($scope){
                 var vm = this;
 
+                $scope.rippleEffectCallback = function(){
+                    return $scope.rippleEffect ? $scope.rippleEffect : false;
+                };
+
                 _setDefaultTranslations();
 
                 _initTableStorage();
+
+                PaginationFeature.initFeature($scope, vm);
 
                 _processData();
 
                 // initialization of the storage service
                 function _initTableStorage(){
                     vm.dataStorage = TableDataStorageFactory.getInstance(vm.virtualRepeat);
-
-                    if(!$scope.mdtRowPaginator){
-                        $scope.mdtPaginationHelper = mdtPaginationHelperFactory
-                            .getInstance(vm.dataStorage, $scope.paginatedRows, $scope.mdtRow);
-                    }else{
-                        $scope.mdtPaginationHelper = mdtAjaxPaginationHelperFactory.getInstance({
-                            dataStorage: vm.dataStorage,
-                            paginationSetting: $scope.paginatedRows,
-                            mdtRowOptions: $scope.mdtRow,
-                            mdtRowPaginatorFunction: $scope.mdtRowPaginator,
-                            mdtRowPaginatorErrorMessage: $scope.mdtRowPaginatorErrorMessage,
-                            mdtRowPaginatorNoResultsMessage: $scope.mdtRowPaginatorNoResultsMessage,
-                            mdtTriggerRequest: $scope.mdtTriggerRequest
-                        });
-                    }
                 }
 
                 // set translations or fallback to a default value
@@ -217,11 +207,12 @@
 
                 $scope.dataStorage = ctrl.dataStorage;
 
-                _initEditRowFeature();
-                _initSelectableRowsFeature();
-                _initPaginationFeature();
                 _injectContentIntoTemplate();
 
+                _initEditRowFeature();
+                _initSelectableRowsFeature();
+
+                PaginationFeature.startFeature(ctrl);
 
                 function _injectContentIntoTemplate(){
                     transclude(function (clone) {
@@ -246,22 +237,17 @@
                 }
 
                 function _initEditRowFeature(){
-                    EditRowFeature.getInstance({
-                        $scope: $scope,
-                        ctrl: ctrl
-                    })
+                    //TODO: make it possible to only register feature if there is at least
+                    // one column which requires it.
+                    // for that we need to change the place where we register edit-row.
+                    // Remove mdt-row attributes --> do it in mdt-row attribute directive on mdtTable
+                    EditRowFeature.addRequiredFunctions($scope, ctrl);
                 }
 
                 function _initSelectableRowsFeature(){
                     SelectableRowsFeature.getInstance({
                         $scope: $scope,
                         ctrl: ctrl
-                    });
-                }
-
-                function _initPaginationFeature(){
-                    PaginationFeature.getInstance({
-                        $scope: $scope
                     });
                 }
             }

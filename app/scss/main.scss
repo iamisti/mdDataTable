@@ -1,4 +1,20 @@
+
 .mdtTable{
+
+    /*overflow: visible;*/
+
+    .md-chips {font-size: 14px;}
+    .p-r {position: relative;}
+    .no-outline {outline: none;}
+
+    *,
+    *:before,
+    *:after {
+        -webkit-box-sizing: inherit;
+        -moz-box-sizing: inherit;
+        box-sizing: inherit;
+    }
+    
     table{
         width:100%;
         display: table;
@@ -7,6 +23,7 @@
             outline: none;
         }
     }
+
     td, th{ padding: 0; margin: 0; }
     font-size: 15px;
 
@@ -118,6 +135,7 @@
     /* 56do for last row */
     .mdt-footer, tr th{
         height: 56px;
+        line-height: 56px;
 
         .mdt-pagination{
             font-size: 12px;
@@ -202,5 +220,57 @@
 
     .md-virtual-repeat-container{
         min-height: 106px;
+    }
+
+    /* filter drop down */
+    .b-b {border-bottom: 1px solid #dedede;}
+    .p-md {padding: 16px;}
+    .p-l-md {padding-left: 16px;}
+    .p-r-md {padding-right: 16px;}
+    .p-sm {padding: 8px;}
+    .p-t-sm {padding-top: 8px;}
+    .p-b-sm {padding-bottom: 8px;}
+    .p-b-n {padding-bottom: 0;}
+
+    .filter-dropdown {
+        position: absolute; left: -10px;
+        z-index: 1; top: 110%; width: 220px;
+        text-align: initial;
+    }
+
+    .header-dropdown-btn {
+        position: relative;
+            .filter-dropdown {
+                position: absolute; top: 100%; right: 0; left: auto;
+            }
+    }
+
+    .filter__search {
+        position: relative;
+            ng-md-icon[icon="search"] {position: absolute; top: 22px; left: 24px;}
+            .md-icon-button {position: absolute; right: 10px; top: 14px;}
+            .input {padding: 8px 32px 8px 36px; width: 100%;}
+    }
+    .filter__scroll {max-height: 200px; overflow-y: auto;}
+
+    /* TH Select outline color & caret */
+    .filter-select {
+        border: 1px solid transparent; padding: 11px 10px;
+        border-radius: 2px; cursor: pointer; margin-left: -10px;
+
+    }
+    .filter-select:hover {
+        border-color: #dedede;
+            & ng-md-icon {visibility: visible;}
+    }
+    .filter-select.is-active {
+        color: #fff;
+        background-color: #0096D6;
+        border-color: #0096D6;
+    }
+    .filter-select ng-md-icon {visibility: hidden;}
+    .filter-select.is-active ng-md-icon {
+        visibility: visible;
+        fill: rgba(255,255,255,0.87); fill: #fff;
     }
 }

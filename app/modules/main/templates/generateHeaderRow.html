@@ -15,7 +15,7 @@
         ng-class="{'clickable': sortableColumns}"
         mdt-add-align-class="headerRowData.alignRule"
         mdt-sort-handler
-        md-ink-ripple="{{rippleEffect}}">
+        md-ink-ripple="{{ rippleEffectCallback() }}">
 
         <mdt-generated-header-cell-content></mdt-generated-header-cell-content>
     </th>

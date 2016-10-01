@@ -1,0 +1,7 @@
+<span class="hoverSortIcons" ng-if="!isSorted()">
+    <ng-md-icon icon="arrow_forward" size="16"></ng-md-icon>
+</span>
+
+<span class="sortedColumn" ng-if="isSorted()" ng-class="direction == -1 ? 'ascending' : 'descending'">
+    <ng-md-icon icon="arrow_forward" size="16"></ng-md-icon>
+</span>

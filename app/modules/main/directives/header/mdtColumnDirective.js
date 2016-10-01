@@ -39,7 +39,7 @@
      *  </mdt-table>
      * </pre>
      */
-    function mdtColumnDirective($interpolate){
+    function mdtColumnDirective($interpolate, ColumnFilterFeature){
         return {
             restrict: 'E',
             transclude: true,
@@ -47,7 +47,8 @@
             scope: {
                 alignRule: '@',
                 sortBy: '=',
-                columnDefinition: '@'
+                columnDefinition: '@',
+                columnFilter: '=?'
             },
             require: ['^mdtTable'],
             link: function ($scope, element, attrs, ctrl, transclude) {
@@ -56,13 +57,16 @@
                 transclude(function (clone) {
                     // directive creates an isolate scope so use parent scope to resolve variables.
                     var cellValue = $interpolate(clone.html())($scope.$parent);
-
-                    mdtTableCtrl.dataStorage.addHeaderCellData({
+                    var cellDataToStore = {
                         alignRule: $scope.alignRule,
                         sortBy: $scope.sortBy,
                         columnDefinition: $scope.columnDefinition,
                         columnName: cellValue
-                    });
+                    };
+
+                    ColumnFilterFeature.appendHeaderCellData($scope, cellDataToStore);
+
+                    mdtTableCtrl.dataStorage.addHeaderCellData(cellDataToStore);
                 });
             }
         };

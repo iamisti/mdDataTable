@@ -1,31 +1,52 @@
 (function(){
     'use strict';
 
-    function PaginationFeatureFactory(){
+    function PaginationFeature(mdtPaginationHelperFactory, mdtAjaxPaginationHelperFactory){
+        var service = this;
 
-        function PaginationFeature(params){
-            this.$scope = params.$scope;
+        service.initFeature = initFeature;
+        service.startFeature = startFeature;
 
-            this.$scope.isPaginationEnabled = _.bind(this.isPaginationEnabled, this);
+        function initFeature(scope, ctrl){
+            if(!scope.mdtRowPaginator){
+                ctrl.mdtPaginationHelper = scope.mdtPaginationHelper = mdtPaginationHelperFactory
+                    .getInstance(ctrl.dataStorage, scope.paginatedRows, scope.mdtRow);
+            }else{
+                ctrl.mdtPaginationHelper = scope.mdtPaginationHelper = mdtAjaxPaginationHelperFactory.getInstance({
+                    dataStorage: ctrl.dataStorage,
+                    paginationSetting: scope.paginatedRows,
+                    mdtRowOptions: scope.mdtRow,
+                    mdtRowPaginatorFunction: scope.mdtRowPaginator,
+                    mdtRowPaginatorErrorMessage: scope.mdtRowPaginatorErrorMessage,
+                    mdtRowPaginatorNoResultsMessage: scope.mdtRowPaginatorNoResultsMessage,
+                    mdtTriggerRequest: scope.mdtTriggerRequest
+                });
+            }
+
+            scope.isPaginationEnabled = function(){
+                if(scope.paginatedRows === true ||
+                    (scope.paginatedRows && scope.paginatedRows.hasOwnProperty('isEnabled') && scope.paginatedRows.isEnabled === true)){
+                    return true;
+                }
+
+                return false;
+            };
+
+            ctrl.paginationFeature = {
+                startPaginationFeature: function() {
+                    if (scope.mdtRowPaginator) {
+                        scope.mdtPaginationHelper.fetchPage(1);
+                    }
+                }
+            };
         }
 
-        PaginationFeature.prototype.isPaginationEnabled = function(){
-            if(this.$scope.paginatedRows === true ||
-                (this.$scope.paginatedRows && this.$scope.paginatedRows.hasOwnProperty('isEnabled') && this.$scope.paginatedRows.isEnabled === true)){
-                return true;
-            }
-
-            return false;
-        };
-
-        return {
-            getInstance: function(params){
-                return new PaginationFeature(params);
-            }
-        };
+        function startFeature(ctrl){
+            ctrl.paginationFeature.startPaginationFeature();
+        }
     }
 
     angular
         .module('mdDataTable')
-        .service('PaginationFeature', PaginationFeatureFactory);
+        .service('PaginationFeature', PaginationFeature);
 }());
