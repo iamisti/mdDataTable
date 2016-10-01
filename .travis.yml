@@ -17,4 +17,4 @@ script:
   - gulp ci
 
 after_script:
-  - codeclimate < reports/coverage/lcov.info
+  - codeclimate < coverage/lcov.info
