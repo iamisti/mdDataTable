@@ -1,10 +1,10 @@
 (function(){
     'use strict';
 
-    function mdtAjaxPaginationHelperFactory(_){
+    function mdtAjaxPaginationHelperFactory(ColumnFilterFeature, _){
 
         function mdtAjaxPaginationHelper(params){
-            this.tableDataStorageService = params.tableDataStorageService;
+            this.dataStorage = params.dataStorage;
             this.rowOptions = params.mdtRowOptions;
             this.paginatorFunction = params.mdtRowPaginatorFunction;
             this.mdtRowPaginatorErrorMessage = params.mdtRowPaginatorErrorMessage || 'Ajax error during loading contents.';
@@ -28,7 +28,7 @@
             this.isLoading = false;
 
             //fetching the 1st page
-            this.fetchPage(this.page);
+            //this.fetchPage(this.page);
 
             //triggering ajax call manually
             if(this.mdtTriggerRequest) {
@@ -57,7 +57,7 @@
         };
 
         mdtAjaxPaginationHelper.prototype.getRows = function(){
-            return this.tableDataStorageService.storage;
+            return this.dataStorage.storage;
         };
 
         mdtAjaxPaginationHelper.prototype.previousPage = function(){
@@ -91,10 +91,14 @@
 
             var that = this;
 
-            return this.paginatorFunction({page: page, pageSize: this.rowsPerPage})
+            var callbackArguments = {page: page, pageSize: this.rowsPerPage};
+
+            ColumnFilterFeature.appendAppliedFiltersToCallbackArgument(this.dataStorage, callbackArguments);
+
+            return this.paginatorFunction(callbackArguments)
                 .then(function(data){
-                    that.tableDataStorageService.storage = [];
-                    that.setRawDataToStorage(that, data.results, that.rowOptions['table-row-id-key'], that.rowOptions['column-keys']);
+                    that.dataStorage.storage = [];
+                    that.setRawDataToStorage(that, data.results, that.rowOptions['table-row-id-key'], that.rowOptions['column-keys'], that.rowOptions);
                     that.totalResultCount = data.totalResultCount;
                     that.totalPages = Math.ceil(data.totalResultCount / that.rowsPerPage);
 
@@ -108,7 +112,7 @@
                     that.isLoading = false;
 
                 }, function(){
-                    that.tableDataStorageService.storage = [];
+                    that.dataStorage.storage = [];
 
                     that.isLoadError = true;
                     that.isLoading = false;
@@ -116,7 +120,7 @@
                 });
         };
 
-        mdtAjaxPaginationHelper.prototype.setRawDataToStorage = function(that, data, tableRowIdKey, columnKeys){
+        mdtAjaxPaginationHelper.prototype.setRawDataToStorage = function(that, data, tableRowIdKey, columnKeys, rowOptions){
             var rowId;
             var columnValues = [];
             _.each(data, function(row){
@@ -135,7 +139,9 @@
                     });
                 });
 
-                that.tableDataStorageService.addRowData(rowId, columnValues);
+                var className = rowOptions['table-row-class-name'] ? rowOptions['table-row-class-name'](row) : false;
+
+                that.dataStorage.addRowData(rowId, columnValues, className);
             });
         };
 
@@ -147,8 +153,8 @@
         };
 
         return {
-            getInstance: function(tableDataStorageService, isEnabled, paginatorFunction, rowOptions){
-                return new mdtAjaxPaginationHelper(tableDataStorageService, isEnabled, paginatorFunction, rowOptions);
+            getInstance: function(dataStorage, isEnabled, paginatorFunction, rowOptions){
+                return new mdtAjaxPaginationHelper(dataStorage, isEnabled, paginatorFunction, rowOptions);
             }
         };
     }

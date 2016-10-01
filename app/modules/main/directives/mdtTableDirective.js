@@ -61,6 +61,7 @@
      *
      *      - `{array}` `data` - the input data for rows
      *      - `{integer|string=}` `table-row-id-key` - the uniq identifier for a row
+     *      - `{function(rowData)=}` `table-row-class-name` - callback to specify the class name of a row
      *      - `{array}` `column-keys` - specifying property names for the passed data array. Makes it possible to
      *        configure which property assigned to which column in the table. The list should provided at the same order
      *        as it was specified inside `mdt-header-row` element directive.
@@ -104,7 +105,11 @@
      *     </mdt-table>
      * </pre>
      */
-    function mdtTableDirective(TableDataStorageFactory, mdtPaginationHelperFactory, mdtAjaxPaginationHelperFactory, $mdDialog, _){
+    function mdtTableDirective(TableDataStorageFactory,
+                               EditRowFeature,
+                               SelectableRowsFeature,
+                               PaginationFeature,
+                               _){
         return {
             restrict: 'E',
             templateUrl: '/main/templates/mdtTable.html',
@@ -131,36 +136,25 @@
             controller: function mdtTable($scope){
                 var vm = this;
 
-                setDefaultTranslations();
+                $scope.rippleEffectCallback = function(){
+                    return $scope.rippleEffect ? $scope.rippleEffect : false;
+                };
 
-                initTableStorageServiceAndBindMethods();
+                _setDefaultTranslations();
 
-                vm.addHeaderCell = addHeaderCell;
+                _initTableStorage();
 
-                function initTableStorageServiceAndBindMethods(){
-                    vm.tableDataStorageService = TableDataStorageFactory.getInstance(vm.virtualRepeat);
+                PaginationFeature.initFeature($scope, vm);
 
-                    if(!$scope.mdtRowPaginator){
-                        $scope.mdtPaginationHelper = mdtPaginationHelperFactory
-                            .getInstance(vm.tableDataStorageService, $scope.paginatedRows, $scope.mdtRow);
-                    }else{
-                        $scope.mdtPaginationHelper = mdtAjaxPaginationHelperFactory.getInstance({
-                            tableDataStorageService: vm.tableDataStorageService,
-                            paginationSetting: $scope.paginatedRows,
-                            mdtRowOptions: $scope.mdtRow,
-                            mdtRowPaginatorFunction: $scope.mdtRowPaginator,
-                            mdtRowPaginatorErrorMessage: $scope.mdtRowPaginatorErrorMessage,
-                            mdtRowPaginatorNoResultsMessage: $scope.mdtRowPaginatorNoResultsMessage,
-                            mdtTriggerRequest: $scope.mdtTriggerRequest
-                        });
-                    }
+                _processData();
+
+                // initialization of the storage service
+                function _initTableStorage(){
+                    vm.dataStorage = TableDataStorageFactory.getInstance(vm.virtualRepeat);
                 }
 
-                function addHeaderCell(ops){
-                    vm.tableDataStorageService.addHeaderCellData(ops);
-                }
-
-                function setDefaultTranslations(){
+                // set translations or fallback to a default value
+                function _setDefaultTranslations(){
                     $scope.mdtTranslations = $scope.mdtTranslations || {};
 
                     $scope.mdtTranslations.rowsPerPage = $scope.mdtTranslations.rowsPerPage || 'Rows per page:';
@@ -169,45 +163,26 @@
                     $scope.mdtTranslations.largeEditDialog.saveButtonLabel = $scope.mdtTranslations.largeEditDialog.saveButtonLabel || 'Save';
                     $scope.mdtTranslations.largeEditDialog.cancelButtonLabel = $scope.mdtTranslations.largeEditDialog.cancelButtonLabel || 'Cancel';
                 }
-            },
-            link: function($scope, element, attrs, ctrl, transclude){
-                $scope.headerData = ctrl.tableDataStorageService.header;
-                $scope.isPaginationEnabled = isPaginationEnabled;
-                $scope.isAnyRowSelected = _.bind(ctrl.tableDataStorageService.isAnyRowSelected, ctrl.tableDataStorageService);
-                $scope.onCheckboxChange = onCheckboxChange;
-                $scope.saveRow = saveRow;
-                $scope.showEditDialog = showEditDialog;
 
-                injectContentIntoTemplate();
+                // fill storage with values if set
+                function _processData(){
+                    if(_.isEmpty($scope.mdtRow)) {
+                        return;
+                    }
 
-                if(!_.isEmpty($scope.mdtRow)) {
-                    processAttributeProvidedData();
-                }
-
-                function onCheckboxChange(){
-                    // we need to push it to the event loop to make it happen last
-                    // (e.g.: all the elements can be selected before we call the callback)
-                    setTimeout(function(){
-                        $scope.selectedRowCallback({
-                            rows: ctrl.tableDataStorageService.getSelectedRows()
-                        });
-                    },0);
-                }
-
-                function processAttributeProvidedData(){
                     //local search/filter
-                    if (angular.isUndefined(attrs.mdtRowPaginator)) {
+                    if (angular.isUndefined($scope.mdtRowPaginator)) {
                         $scope.$watch('mdtRow', function (mdtRow) {
-                            ctrl.tableDataStorageService.storage = [];
+                            vm.dataStorage.storage = [];
 
-                            addRawDataToStorage(mdtRow['data']);
+                            _addRawDataToStorage(mdtRow['data']);
                         }, true);
                     }else{
                         //if it's used for 'Ajax pagination'
                     }
                 }
 
-                function addRawDataToStorage(data){
+                function _addRawDataToStorage(data){
                     var rowId;
                     var columnValues = [];
                     _.each(data, function(row){
@@ -224,19 +199,22 @@
                             });
                         });
 
-                        ctrl.tableDataStorageService.addRowData(rowId, columnValues);
+                        vm.dataStorage.addRowData(rowId, columnValues);
                     });
                 }
+            },
+            link: function($scope, element, attrs, ctrl, transclude){
 
-                function isPaginationEnabled(){
-                    if($scope.paginatedRows === true || ($scope.paginatedRows && $scope.paginatedRows.hasOwnProperty('isEnabled') && $scope.paginatedRows.isEnabled === true)){
-                        return true;
-                    }
+                $scope.dataStorage = ctrl.dataStorage;
 
-                    return false;
-                }
+                _injectContentIntoTemplate();
 
-                function injectContentIntoTemplate(){
+                _initEditRowFeature();
+                _initSelectableRowsFeature();
+
+                PaginationFeature.startFeature(ctrl);
+
+                function _injectContentIntoTemplate(){
                     transclude(function (clone) {
                         var headings = [];
                         var body = [];
@@ -258,42 +236,18 @@
                     });
                 }
 
-                function saveRow(rowData){
-                    var rawRowData = ctrl.tableDataStorageService.getSavedRowData(rowData);
-                    $scope.saveRowCallback({row: rawRowData});
+                function _initEditRowFeature(){
+                    //TODO: make it possible to only register feature if there is at least
+                    // one column which requires it.
+                    // for that we need to change the place where we register edit-row.
+                    // Remove mdt-row attributes --> do it in mdt-row attribute directive on mdtTable
+                    EditRowFeature.addRequiredFunctions($scope, ctrl);
                 }
 
-                function showEditDialog(ev, cellData, rowData){
-                    var rect = ev.currentTarget.closest('td').getBoundingClientRect();
-                    var position = {
-                        top: rect.top,
-                        left: rect.left
-                    };
-
-                    var ops = {
-                        controller: 'InlineEditModalCtrl',
-                        targetEvent: ev,
-                        clickOutsideToClose: true,
-                        escapeToClose: true,
-                        focusOnOpen: false,
-                        locals: {
-                            position: position,
-                            cellData: JSON.parse(JSON.stringify(cellData)),
-                            mdtTranslations: $scope.mdtTranslations
-                        }
-                    };
-
-                    if(cellData.attributes.editableField === 'smallEditDialog'){
-                        ops.templateUrl = '/main/templates/smallEditDialog.html';
-                    }else{
-                        ops.templateUrl = '/main/templates/largeEditDialog.html';
-                    }
-
-                    var that = this;
-                    $mdDialog.show(ops).then(function(cellValue){
-                        cellData.value = cellValue;
-
-                        that.saveRow(rowData);
+                function _initSelectableRowsFeature(){
+                    SelectableRowsFeature.getInstance({
+                        $scope: $scope,
+                        ctrl: ctrl
                     });
                 }
             }

@@ -2,8 +2,9 @@
     'use strict';
 
     angular.module('developmentAreaApp', ['ngMaterial', 'mdDataTable']);
-    angular.module('developmentAreaApp').controller('DevelopmentAreaController', function($scope){
-        $scope.nutritionList = [
+    angular.module('developmentAreaApp').controller('DevelopmentAreaController', function($scope, $q){
+
+        var nutritionList = [
             {
                 id: 601,
                 name: 'Frozen joghurt',
@@ -115,6 +116,55 @@
                 iron: '6%'
             }
         ];
+
+        $scope.paginatorCallback = paginatorCallback;
+        $scope.personSearchEndpoint = personSearchEndpoint;
+        $scope.personChipTransformer = personChipTransformer;
+
+        $scope.rowClassNameCallback = function(row){
+            return row.name;
+        };
+
+        function paginatorCallback(page, pageSize, filtersApplied){
+            var offset = (page-1) * pageSize;
+            var result;
+
+            if(filtersApplied[0].length) {
+                result = _.filter(nutritionList, function (o) {
+                    var res = false;
+
+                    _.each(filtersApplied[0], function(aNutrition){
+                        if(res){
+                            return;
+                        }
+
+                        res = o.name.indexOf(aNutrition.name) !== -1;
+                    });
+
+                    return res;
+                });
+            }else{
+                result = nutritionList;
+            }
+
+            return $q.resolve({
+                results: result.slice(offset, offset + pageSize),
+                totalResultCount: nutritionList.length
+            });
+        }
+
+        //search endpoints
+        function personSearchEndpoint(names){
+            var arr = _.filter(nutritionList, function(item){
+                return item.name.toLowerCase().indexOf(names.toLowerCase()) !== -1;
+            });
+
+            return $q.resolve(arr);
+        }
+
+        function personChipTransformer(person){
+            return person.name;
+        }
 
         $scope.myMethodToExecute = function(){
             console.log('CLICKED');

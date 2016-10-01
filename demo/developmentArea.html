@@ -1,10 +1,29 @@
 <div ng-app="developmentAreaApp" ng-controller="DevelopmentAreaController" layout-margin>
-    <mdt-table mdt-row="{'data': nutritionList,
-                      'table-row-id-key': 'id',
-                      'column-keys': ['name', 'calories', 'fat', 'carbs', 'protein', 'sodium', 'calcium', 'iron']}">
+    <mdt-table
+            paginated-rows="{isEnabled: true, rowsPerPageValues: [5,10,20,50]}"
+            mdt-row-paginator="paginatorCallback(page, pageSize, filtersApplied)"
+            mdt-row-paginator-error-message="Error happened during loading nutritions."
+            mdt-row="{
+            'table-row-id-key': 'id',
+            'table-row-class-name': rowClassNameCallback,
+            'column-keys': [
+                'name',
+                'calories',
+                'fat',
+                'carbs',
+                'protein',
+                'sodium',
+                'calcium',
+                'iron'
+            ]}">
 
         <mdt-header-row>
-            <mdt-column align-rule="left">Dessert (100g serving)</mdt-column>
+            <mdt-column align-rule="left"
+                        column-filter="{
+                            'valuesProviderCallback': personSearchEndpoint,
+                            'chipTransformerCallback': personChipTransformer
+                        }"
+            >Dessert (100g serving)</mdt-column>
             <mdt-column align-rule="right">Calories</mdt-column>
             <mdt-column align-rule="right">Fat (g)</mdt-column>
             <mdt-column align-rule="right">Carbs (g)</mdt-column>

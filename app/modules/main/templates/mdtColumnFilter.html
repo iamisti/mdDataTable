@@ -1,0 +1,39 @@
+<div class="filter-dropdown">
+    <div class="md-whiteframe-z2">
+        <md-content class="md-body-1">
+            <!-- TODO: Restore sorting in next sprint
+            <div layout="row" layout-align="end center" class="b-b p-md">-->
+                <!--<a href="#">Sort A-Z </a>-->
+            <!--</div>-->
+            <div class="p-md">
+                <md-chips ng-model="selectedItems"
+                          md-require-match="true">
+
+                    <md-autocomplete md-selected-item="selectedItem"
+                                     md-search-text="searchText"
+                                     md-items="item in headerRowData.columnFilterValuesProviderCallback(searchText)"
+                                     md-item-text="item"
+                                     placeholder="{{placeholderText}}">
+
+                        <span md-highlight-text="searchText">{{transformChip(item)}}</span>
+
+                        <md-not-found>
+                            No results found.
+                        </md-not-found>
+                    </md-autocomplete>
+
+                    <md-chip-template>
+                        <span>
+                          <strong>{{transformChip($chip)}}</strong>
+                        </span>
+                    </md-chip-template>
+
+                </md-chips>
+            </div>
+            <div class="p-b-sm p-t-sm">
+                <md-button class="md-raised md-primary" ng-click="confirmCallback({selectedItems: selectedItems, event: $event})">Ok</md-button>
+                <md-button class="md-raised" ng-click="cancelCallback({event: $event})">Cancel</md-button>
+            </div>
+        </md-content>
+    </div>
+</div>

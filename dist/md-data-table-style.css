@@ -1,4 +1,5 @@
 .mdtTable {
+  /*overflow: visible;*/
   font-size: 15px;
   /* 12sp Roboto Medium, 54% black */
   /* optional animation of sort icons: add class 'animate-sort-icon' to mdt-header-row to activate animation */
@@ -10,6 +11,24 @@
   /* border separation color */
   /* INTERACTION */
   /* default icon color */
+  /* filter drop down */
+  /* TH Select outline color & caret */
+}
+.mdtTable .md-chips {
+  font-size: 14px;
+}
+.mdtTable .p-r {
+  position: relative;
+}
+.mdtTable .no-outline {
+  outline: none;
+}
+.mdtTable *,
+.mdtTable *:before,
+.mdtTable *:after {
+  -webkit-box-sizing: inherit;
+  -moz-box-sizing: inherit;
+  box-sizing: inherit;
 }
 .mdtTable table {
   width: 100%;
@@ -100,6 +119,7 @@
 }
 .mdtTable .mdt-footer, .mdtTable tr th {
   height: 56px;
+  line-height: 56px;
 }
 .mdtTable .mdt-footer .mdt-pagination, .mdtTable tr th .mdt-pagination {
   font-size: 12px;
@@ -160,5 +180,93 @@
   fill: rgba(0, 0, 0, 0.26);
 }
 .mdtTable .md-virtual-repeat-container {
-  min-height: 53px;
+  min-height: 106px;
+}
+.mdtTable .b-b {
+  border-bottom: 1px solid #dedede;
+}
+.mdtTable .p-md {
+  padding: 16px;
+}
+.mdtTable .p-l-md {
+  padding-left: 16px;
+}
+.mdtTable .p-r-md {
+  padding-right: 16px;
+}
+.mdtTable .p-sm {
+  padding: 8px;
+}
+.mdtTable .p-t-sm {
+  padding-top: 8px;
+}
+.mdtTable .p-b-sm {
+  padding-bottom: 8px;
+}
+.mdtTable .p-b-n {
+  padding-bottom: 0;
+}
+.mdtTable .filter-dropdown {
+  position: absolute;
+  left: -10px;
+  z-index: 1;
+  top: 110%;
+  width: 220px;
+  text-align: initial;
+}
+.mdtTable .header-dropdown-btn {
+  position: relative;
+}
+.mdtTable .header-dropdown-btn .filter-dropdown {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  left: auto;
+}
+.mdtTable .filter__search {
+  position: relative;
+}
+.mdtTable .filter__search ng-md-icon[icon="search"] {
+  position: absolute;
+  top: 22px;
+  left: 24px;
+}
+.mdtTable .filter__search .md-icon-button {
+  position: absolute;
+  right: 10px;
+  top: 14px;
+}
+.mdtTable .filter__search .input {
+  padding: 8px 32px 8px 36px;
+  width: 100%;
+}
+.mdtTable .filter__scroll {
+  max-height: 200px;
+  overflow-y: auto;
+}
+.mdtTable .filter-select {
+  border: 1px solid transparent;
+  padding: 11px 10px;
+  border-radius: 2px;
+  cursor: pointer;
+  margin-left: -10px;
+}
+.mdtTable .filter-select:hover {
+  border-color: #dedede;
+}
+.mdtTable .filter-select:hover ng-md-icon {
+  visibility: visible;
+}
+.mdtTable .filter-select.is-active {
+  color: #fff;
+  background-color: #0096D6;
+  border-color: #0096D6;
+}
+.mdtTable .filter-select ng-md-icon {
+  visibility: hidden;
+}
+.mdtTable .filter-select.is-active ng-md-icon {
+  visibility: visible;
+  fill: rgba(255, 255, 255, 0.87);
+  fill: #fff;
 }

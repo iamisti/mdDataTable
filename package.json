@@ -1,6 +1,6 @@
 {
   "name": "md-data-table",
-  "version": "1.6.12",
+  "version": "1.7.0",
   "author": "Istvan Fodor <programtervezo@gmail.com>",
   "registry": "github",
   "repository": {
@@ -43,7 +43,8 @@
     "lodash": "~3.10.1",
     "main-bower-files": "~2.11.0",
     "run-sequence": "~1.1.5",
-    "traceur": "~0.0.95"
+    "traceur": "~0.0.95",
+    "wallaby-ng-html2js-preprocessor": "^0.1.0"
   },
   "dependencies": {
     "angular": "~1.5.8",
