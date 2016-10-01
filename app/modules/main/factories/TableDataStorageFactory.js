@@ -29,7 +29,7 @@
                     selected: false,
                     deleted: false,
                     visible: true,
-                    className: className
+                    className: className || false
                 },
                 data: rowArray
             });

@@ -77,6 +77,8 @@ describe('TableDataStorageFactory', function(){
         });
 
         describe('with params', function(){
+            var rowData = [{a: '1', b: '2'}];
+
             beforeEach(function(){
                 //given
                 tableDataStorageService = TableDataStorageFactory.getInstance();
@@ -149,7 +151,8 @@ describe('TableDataStorageFactory', function(){
                 expect(tableDataStorageService.getRowOptions(0)).toEqual({
                     selected: false,
                     deleted: false,
-                    visible: true
+                    visible: true,
+                    className: false
                 });
             });
         });
@@ -161,7 +164,7 @@ describe('TableDataStorageFactory', function(){
             tableDataStorageService = TableDataStorageFactory.getInstance();
             tableDataStorageService.addRowData(rowId, rowData);
             tableDataStorageService.addRowData(234, ['Something', 3, 6, 7]);
-            tableDataStorageService.addRowData(987, ['Else', 1, 34, 99]);
+            tableDataStorageService.addRowData(987, ['Else', 1, 34, 99], 'whatever');
         });
 
         describe('AND parameter is not provided', function(){
@@ -182,19 +185,22 @@ describe('TableDataStorageFactory', function(){
                 expect(tableDataStorageService.getRowOptions(0)).toEqual({
                     selected: true,
                     deleted: false,
-                    visible: true
+                    visible: true,
+                    className: false
                 });
 
                 expect(tableDataStorageService.getRowOptions(1)).toEqual({
                     selected: true,
                     deleted: false,
-                    visible: true
+                    visible: true,
+                    className: false
                 });
 
                 expect(tableDataStorageService.getRowOptions(2)).toEqual({
                     selected: true,
                     deleted: false,
-                    visible: true
+                    visible: true,
+                    className: 'whatever'
                 });
             });
 
@@ -206,21 +212,24 @@ describe('TableDataStorageFactory', function(){
                 expect(tableDataStorageService.getRowOptions(0)).toEqual({
                     selected: false,
                     deleted: false,
-                    visible: true
+                    visible: true,
+                    className: false
                 });
 
                 //when
                 expect(tableDataStorageService.getRowOptions(1)).toEqual({
                     selected: false,
                     deleted: false,
-                    visible: true
+                    visible: true,
+                    className: false
                 });
 
                 //when
                 expect(tableDataStorageService.getRowOptions(2)).toEqual({
                     selected: false,
                     deleted: false,
-                    visible: true
+                    visible: true,
+                    className: 'whatever'
                 });
             });
         });
