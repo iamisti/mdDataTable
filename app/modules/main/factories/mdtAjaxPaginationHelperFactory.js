@@ -98,7 +98,7 @@
             return this.paginatorFunction(callbackArguments)
                 .then(function(data){
                     that.dataStorage.storage = [];
-                    that.setRawDataToStorage(that, data.results, that.rowOptions['table-row-id-key'], that.rowOptions['column-keys']);
+                    that.setRawDataToStorage(that, data.results, that.rowOptions['table-row-id-key'], that.rowOptions['column-keys'], that.rowOptions);
                     that.totalResultCount = data.totalResultCount;
                     that.totalPages = Math.ceil(data.totalResultCount / that.rowsPerPage);
 
@@ -120,7 +120,7 @@
                 });
         };
 
-        mdtAjaxPaginationHelper.prototype.setRawDataToStorage = function(that, data, tableRowIdKey, columnKeys){
+        mdtAjaxPaginationHelper.prototype.setRawDataToStorage = function(that, data, tableRowIdKey, columnKeys, rowOptions){
             var rowId;
             var columnValues = [];
             _.each(data, function(row){
@@ -139,7 +139,9 @@
                     });
                 });
 
-                that.dataStorage.addRowData(rowId, columnValues);
+                var className = rowOptions['table-row-class-name'] ? rowOptions['table-row-class-name'](row) : false;
+
+                that.dataStorage.addRowData(rowId, columnValues, className);
             });
         };
 

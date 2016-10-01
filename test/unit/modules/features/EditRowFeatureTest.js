@@ -56,7 +56,7 @@ describe('EditRowFeature', function(){
                 expect(ctrl.dataStorage.getSavedRowData).toHaveBeenCalledWith(rowDataToSave);
             }));
 
-            it('THEN it should publish the result by calling the callbakc', inject(function(EditRowFeature){
+            it('THEN it should publish the result by calling the callback', inject(function(EditRowFeature){
                 //given
                 EditRowFeature.addRequiredFunctions(scope, ctrl);
 

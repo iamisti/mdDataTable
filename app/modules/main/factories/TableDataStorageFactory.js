@@ -17,7 +17,7 @@
             this.header.push(ops);
         };
 
-        TableDataStorageService.prototype.addRowData = function(explicitRowId, rowArray){
+        TableDataStorageService.prototype.addRowData = function(explicitRowId, rowArray, className){
             if(!(rowArray instanceof Array)){
                 $log.error('`rowArray` parameter should be array');
                 return;
@@ -28,7 +28,8 @@
                 optionList: {
                     selected: false,
                     deleted: false,
-                    visible: true
+                    visible: true,
+                    className: className
                 },
                 data: rowArray
             });

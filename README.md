@@ -124,6 +124,7 @@ http://www.google.com/design/spec/components/data-tables.html
 |:white_check_mark:| mdt-row                            |                                 | Object        | optional, makes possible to provide row data by passing the information through this attribute. Makes it possible to listen on data changes. |
 |:white_check_mark:|                                    | data                            | Array         | required, The input data |
 |:white_check_mark:|                                    | table-row-id-key                | String|Integer| optional (same as `table-row-id`), defines the id of the row. Useful if you specified the callback function (`delete-row-callback`) for deleting a row. |
+|:white_check_mark:|                                    | table-row-class-name            | Function      | optional, callback that defines the classname of a row. |
 |:white_check_mark:|                                    | column-keys                     | Array         | required, property names of the passed data array. Makes it possible to configure which property should go in which column. |
 |:white_check_mark:| mdt-translations                   |                                 | Object        | optional, makes it possible to provide a custom translated texts in the table. |
 |:white_check_mark:|                                    | rowsPerPage                     | String        | When you need to select the amount of rows visible on the page, this label appears next to the dropdown |

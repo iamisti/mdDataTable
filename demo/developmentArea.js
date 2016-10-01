@@ -121,6 +121,10 @@
         $scope.personSearchEndpoint = personSearchEndpoint;
         $scope.personChipTransformer = personChipTransformer;
 
+        $scope.rowClassNameCallback = function(row){
+            return row.name;
+        };
+
         function paginatorCallback(page, pageSize, filtersApplied){
             var offset = (page-1) * pageSize;
             var result;

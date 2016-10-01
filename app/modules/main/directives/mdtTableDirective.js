@@ -61,6 +61,7 @@
      *
      *      - `{array}` `data` - the input data for rows
      *      - `{integer|string=}` `table-row-id-key` - the uniq identifier for a row
+     *      - `{function(rowData)=}` `table-row-class-name` - callback to specify the class name of a row
      *      - `{array}` `column-keys` - specifying property names for the passed data array. Makes it possible to
      *        configure which property assigned to which column in the table. The list should provided at the same order
      *        as it was specified inside `mdt-header-row` element directive.
@@ -143,15 +144,13 @@
 
                 _initTableStorage();
 
+                PaginationFeature.initFeature($scope, vm);
+
                 _processData();
 
                 // initialization of the storage service
                 function _initTableStorage(){
                     vm.dataStorage = TableDataStorageFactory.getInstance(vm.virtualRepeat);
-                    vm.paginationFeature = PaginationFeature.getInstance({
-                        $scope: $scope,
-                        mdtTableCtrl: vm
-                    });
                 }
 
                 // set translations or fallback to a default value
@@ -213,7 +212,7 @@
                 _initEditRowFeature();
                 _initSelectableRowsFeature();
 
-                ctrl.paginationFeature.start();
+                PaginationFeature.startFeature(ctrl);
 
                 function _injectContentIntoTemplate(){
                     transclude(function (clone) {
@@ -251,8 +250,6 @@
                         ctrl: ctrl
                     });
                 }
-
-
             }
         };
     }
