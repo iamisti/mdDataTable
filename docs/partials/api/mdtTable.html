@@ -68,6 +68,7 @@ benefit instead of using <code>mdt-row</code> element directive is that it makes
 <ul>
 <li><code>{array}</code> <code>data</code> - the input data for rows</li>
 <li><code>{integer|string=}</code> <code>table-row-id-key</code> - the uniq identifier for a row</li>
+<li><code>{function(rowData)=}</code> <code>table-row-class-name</code> - callback to specify the class name of a row</li>
 <li><code>{array}</code> <code>column-keys</code> - specifying property names for the passed data array. Makes it possible to
 configure which property assigned to which column in the table. The list should provided at the same order
 as it was specified inside <code>mdt-header-row</code> element directive.</li>
