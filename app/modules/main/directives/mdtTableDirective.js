@@ -127,8 +127,8 @@
                 paginatedRows: '=',
                 mdtRow: '=',
                 mdtRowPaginator: '&?',
-                mdtRowPaginatorErrorMessage:"@",
-                mdtRowPaginatorNoResultsMessage:"@",
+                mdtRowPaginatorErrorMessage:'@',
+                mdtRowPaginatorNoResultsMessage:'@',
                 virtualRepeat: '=',
                 mdtTriggerRequest: '&?',
                 mdtTranslations: '=?'
