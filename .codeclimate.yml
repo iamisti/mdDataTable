@@ -1,10 +1,32 @@
-# Save as .codeclimate.yml (note leading .) in project root directory
-languages:
-  JavaScript: true
-
+---
+engines:
+  csslint:
+    enabled: true
+  duplication:
+    enabled: true
+    config:
+      languages:
+      - ruby
+      - javascript
+      - python
+      - php
+  eslint:
+    enabled: true
+  fixme:
+    enabled: true
+ratings:
+  paths:
+  - "**.css"
+  - "**.inc"
+  - "**.js"
+  - "**.jsx"
+  - "**.module"
+  - "**.php"
+  - "**.py"
+  - "**.rb"
 exclude_paths:
- - "demo/*"
- - "docs/*"
- - "gulp-tasks/*"
- - "dist/*"
- - "gulpfile.js"
+- demo/*
+- docs/*
+- gulp-tasks/*
+- dist/*
+- gulpfile.js
