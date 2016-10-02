@@ -29,4 +29,5 @@ exclude_paths:
  - "docs/*"
  - "gulp-tasks/*"
  - "dist/*"
+ - "test/*"
  - "gulpfile.js"
