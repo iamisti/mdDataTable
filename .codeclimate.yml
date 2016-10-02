@@ -25,8 +25,8 @@ ratings:
   - "**.py"
   - "**.rb"
 exclude_paths:
-- demo/*
-- docs/*
-- gulp-tasks/*
-- dist/*
-- gulpfile.js
+ - "demo/*"
+ - "docs/*"
+ - "gulp-tasks/*"
+ - "dist/*"
+ - "gulpfile.js"
