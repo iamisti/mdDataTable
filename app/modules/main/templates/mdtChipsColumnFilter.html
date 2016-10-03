@@ -6,16 +6,14 @@
                 <!--<a href="#">Sort A-Z </a>-->
             <!--</div>-->
             <div class="p-md">
-                <md-chips id="columnFilterChip"
-                          ng-model="selectedItems"
+                <md-chips ng-model="selectedItems"
                           md-require-match="true">
 
-                    <md-autocomplete id="columnFilterAutocomplete"
-                                     md-selected-item="selectedItem"
+                    <md-autocomplete md-selected-item="selectedItem"
+                                     md-autofocus="true"
                                      md-search-text="searchText"
                                      md-items="item in headerRowData.columnFilterValuesProviderCallback(searchText)"
                                      md-item-text="transformChip(item)"
-                                     md-escape-options="none"
                                      placeholder="{{placeholderText}}">
 
                         <span md-highlight-text="searchText">{{transformChip(item)}}</span>

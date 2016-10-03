@@ -11,19 +11,19 @@
                 headerRowData: '='
             },
             link: function($scope, elem, attr){
-
                 $scope.transformChip = transformChip;
+                $scope.selectedItem = selectedItem;
 
-                $scope.selectedItem = null;
-                $scope.searchText = null;
-                $scope.availableItems = [];
-                $scope.selectedItems = _.map($scope.headerRowData.columnFiltersApplied, _.clone);
                 $scope.placeholderText = $scope.headerRowData.columnFilterPlaceholderText || 'Choose a value';
+
+                $scope.selectedItems = _.map($scope.headerRowData.columnFiltersApplied, _.clone);
+                $scope.oneSelectedItem = $scope.selectedItems.length ? $scope.selectedItems[0] : '';
                 $scope.selectableItems = [];
 
                 $scope.headerRowData.columnFilterValuesProviderCallback().then(function(values){
                     $scope.selectableItems = values;
                 });
+
 
                 function transformChip(chip) {
                     if($scope.headerRowData.chipTransformerCallback){
@@ -31,6 +31,14 @@
                     }
 
                     return chip;
+                }
+
+                function selectedItem(){
+                    if($scope.oneSelectedItem !== "undefined"){
+                        $scope.selectedItems = [$scope.oneSelectedItem];
+                    }else{
+                        $scope.selectedItems = [];
+                    }
                 }
             }
         }

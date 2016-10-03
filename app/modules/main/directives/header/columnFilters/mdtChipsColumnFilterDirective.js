@@ -1,7 +1,7 @@
 (function() {
     'use strict';
 
-    function mdtChipsColumnFilterDirective(_){
+    function mdtChipsColumnFilterDirective(_, $timeout){
         return{
             restrict: 'E',
             templateUrl: '/main/templates/mdtChipsColumnFilter.html',
@@ -27,6 +27,11 @@
                 $scope.$on('$destroy', function(){
                     angular.element(elem).off('keydown keypressed');
                 });
+
+                //focus input immediately
+                $timeout(function(){
+                    elem.find('input').focus();
+                },0);
 
                 function transformChip(chip) {
                     if($scope.headerRowData.chipTransformerCallback){
