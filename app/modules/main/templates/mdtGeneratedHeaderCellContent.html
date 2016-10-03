@@ -1,12 +1,13 @@
 <div class="p-r no-outline">
-
     <mdt-column-filter
+            tabindex="0"
             ng-if="isColumnFilterVisible"
             placeholder-text = ""
             confirm-callback="confirmFilterDialog"
             cancel-callback="cancelFilterDialog(event)"
             header-row-data="headerRowData">
     </mdt-column-filter>
+
 
     <div ng-if="sortableColumns">
         <md-tooltip ng-show="headerRowData.columnDefinition">{{headerRowData.columnDefinition}}</md-tooltip>
@@ -22,5 +23,4 @@
 
         <span ng-include src="'/main/templates/cells/generateCellValue.html'" ng-click="columnClickHandler()" class="no-outline"></span>
     </div>
-
 </div>

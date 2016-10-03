@@ -41,7 +41,10 @@
             $scope.isColumnFilterVisible = false;
 
             $scope.cancelFilterDialog = function(event){
-                event.stopPropagation();
+                if(event){
+                    event.stopPropagation();
+                }
+
                 $scope.isColumnFilterVisible = false;
             };
 
@@ -56,7 +59,7 @@
                 }else{
                     // no support for non-ajax yet
                 }
-            }
+            };
         };
 
         /**

@@ -16,6 +16,17 @@
 
                 $scope.transformChip = transformChip;
 
+                angular.element(elem).on('keydown keypressed', function ( e ) {
+                    if ( e.keyCode === 27 ) { // ESC
+                        $scope.cancelCallback(e);
+                        $scope.$apply();
+                    }
+                });
+
+                $scope.$on('$destroy', function(){
+                    angular.element(elem).off('keydown keypressed');
+                });
+
                 function init(){
                     $scope.isLoading = true;
                     $scope.hasError = false;
