@@ -121,6 +121,10 @@
         $scope.personSearchEndpoint = personSearchEndpoint;
         $scope.personChipTransformer = personChipTransformer;
 
+        $scope.rowClassNameCallback = function(row){
+            return row.name;
+        };
+
         function paginatorCallback(page, pageSize, filtersApplied){
             var offset = (page-1) * pageSize;
             var result;
@@ -129,12 +133,12 @@
                 result = _.filter(nutritionList, function (o) {
                     var res = false;
 
-                    _.each(filtersApplied[0], function(nameFilter){
+                    _.each(filtersApplied[0], function(aNutrition){
                         if(res){
                             return;
                         }
 
-                        res = o.name.indexOf(nameFilter) !== -1;
+                        res = o.name.indexOf(aNutrition.name) !== -1;
                     });
 
                     return res;

@@ -1,6 +1,9 @@
+
+
+
 <tr class="tbodyTrRow"
     ng-repeat="rowData in mdtPaginationHelper.getRows() track by $index"
-    ng-class="{'selectedRow': rowData.optionList.selected}"
+    ng-class="{'selectedRow': rowData.optionList.selected, '{{rowData.optionList.className}}': rowData.optionList.className }"
     ng-show="(isPaginationEnabled() === false || rowData.optionList.visible === true) && rowData.optionList.deleted === false">
 
     <td class="checkboxCell" ng-show="selectableRows"
@@ -11,7 +14,6 @@
         mdt-add-align-class="dataStorage.header[$index].alignRule"
         style="position:relative;"
         ng-include src="'/main/templates/cells/generateCell.html'">
-
         <!-- generate cell content -->
     </td>
 </tr>
