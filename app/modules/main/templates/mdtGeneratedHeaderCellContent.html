@@ -1,12 +1,28 @@
 <div class="p-r no-outline">
+    <mdt-chips-column-filter
+        tabindex="0"
+        ng-if="headerRowData.columnFilterIsActive && headerRowData.columnFilterType === 'chips'"
+        confirm-callback="confirmFilterDialog"
+        cancel-callback="cancelFilterDialog(event)"
+        header-row-data="headerRowData">
+    </mdt-chips-column-filter>
 
-    <mdt-column-filter
-            ng-if="isColumnFilterVisible"
-            placeholder-text = ""
-            confirm-callback="confirmFilterDialog"
-            cancel-callback="cancelFilterDialog(event)"
-            header-row-data="headerRowData">
-    </mdt-column-filter>
+    <mdt-dropdown-column-filter
+        tabindex="0"
+        ng-if="headerRowData.columnFilterIsActive && headerRowData.columnFilterType === 'dropdown'"
+        confirm-callback="confirmFilterDialog"
+        cancel-callback="cancelFilterDialog(event)"
+        header-row-data="headerRowData">
+    </mdt-dropdown-column-filter>
+
+
+    <mdt-checkbox-column-filter
+        tabindex="0"
+        ng-if="headerRowData.columnFilterIsActive && headerRowData.columnFilterType === 'checkbox'"
+        confirm-callback="confirmFilterDialog"
+        cancel-callback="cancelFilterDialog(event)"
+        header-row-data="headerRowData">
+    </mdt-checkbox-column-filter>
 
     <div ng-if="sortableColumns">
         <md-tooltip ng-show="headerRowData.columnDefinition">{{headerRowData.columnDefinition}}</md-tooltip>
@@ -22,5 +38,4 @@
 
         <span ng-include src="'/main/templates/cells/generateCellValue.html'" ng-click="columnClickHandler()" class="no-outline"></span>
     </div>
-
 </div>

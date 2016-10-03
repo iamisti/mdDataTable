@@ -14,7 +14,7 @@
          * @param $scope
          * @param cellDataToStore
          */
-        service.appendHeaderCellData = function($scope, cellDataToStore){
+        service.appendHeaderCellData = function($scope, cellDataToStore, dataStorage, element){
 
             if($scope.columnFilter && $scope.columnFilter.valuesProviderCallback){
 
@@ -22,6 +22,28 @@
                 cellDataToStore.columnFiltersApplied = [];
                 cellDataToStore.columnFilterValuesProviderCallback = $scope.columnFilter.valuesProviderCallback;
                 cellDataToStore.chipTransformerCallback = $scope.columnFilter.chipTransformerCallback;
+                cellDataToStore.columnFilterPlaceholderText = $scope.columnFilter.placeholderText;
+                cellDataToStore.columnFilterType = $scope.columnFilter.filterType || 'chips';
+                cellDataToStore.columnFilterIsActive = false;
+
+                cellDataToStore.setColumnActive = function(bool){
+
+                    //first we disable every column filter if any is active
+                    _.each(dataStorage.header, function(headerData){
+                        if(headerData.columnFilterIsEnabled){
+                            headerData.columnFilterIsActive = false;
+                        }
+                    });
+
+                    //then we activate ours
+                    cellDataToStore.columnFilterIsActive = bool ? true : false;
+
+                    if(bool){
+                        element.closest('.mdtTable').css('overflow', 'visible');
+                    }else{
+                        element.closest('.mdtTable').css('overflow', 'auto');
+                    }
+                }
             }
         };
 
@@ -33,23 +55,23 @@
          * @param headerData
          * @param parentCtrl
          */
-        service.initGeneratedHeaderCellContent = function($scope, headerData, parentCtrl, element){
+        service.initGeneratedHeaderCellContent = function($scope, headerData, parentCtrl){
             if(!headerData.columnFilterIsEnabled){
                 return;
             }
 
-            $scope.isColumnFilterVisible = false;
-
             $scope.cancelFilterDialog = function(event){
-                event.stopPropagation();
-                $scope.isColumnFilterVisible = false;
+                if(event){
+                    event.stopPropagation();
+                }
 
-                element.closest('.mdtTable').css('overflow', 'auto');
+                headerData.setColumnActive(false);
             };
 
             $scope.confirmFilterDialog = function(params){
                 params.event.stopPropagation();
-                $scope.isColumnFilterVisible = false;
+
+                headerData.setColumnActive(false);
 
                 headerData.columnFiltersApplied = params.selectedItems;
 
@@ -58,8 +80,6 @@
                 }else{
                     // no support for non-ajax yet
                 }
-
-                element.closest('.mdtTable').css('overflow', 'auto');
             }
         };
 
@@ -73,10 +93,7 @@
                 return;
             }
 
-            $scope.isColumnFilterVisible = true;
-
-            // we need to apply this to the table in order to show the entire popup window, even the table only has 1 row
-            element.closest('.mdtTable').css('overflow', 'visible');
+            headerRowData.setColumnActive(!headerRowData.columnFilterIsActive);
         };
 
         /**

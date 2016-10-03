@@ -8,7 +8,7 @@
             'table-row-class-name': rowClassNameCallback,
             'column-keys': [
                 'name',
-                'calories',
+                'nf_serving_size_unit',
                 'fat',
                 'carbs',
                 'protein',
@@ -21,11 +21,27 @@
             <mdt-column align-rule="left"
                         column-filter="{
                             'valuesProviderCallback': personSearchEndpoint,
-                            'chipTransformerCallback': personChipTransformer
+                            'chipTransformerCallback': personChipTransformer,
+                            'placeholderText': 'Filter column...',
+                            'filterType': 'chips'
                         }"
             >Dessert (100g serving)</mdt-column>
-            <mdt-column align-rule="right">Calories</mdt-column>
-            <mdt-column align-rule="right">Fat (g)</mdt-column>
+
+            <mdt-column align-rule="left"
+                        column-filter="{
+                            'valuesProviderCallback': caloriesValues,
+                            'chipTransformerCallback': personChipTransformer,
+                            'placeholderText': 'Select a value',
+                            'filterType': 'checkbox'
+                        }"
+            >Service Size Units</mdt-column>
+
+            <mdt-column align-rule="left"
+                        column-filter="{
+                            'valuesProviderCallback': fatValues,
+                            'placeholderText': 'Select a value',
+                            'filterType': 'dropdown'
+                        }">Fat (g)</mdt-column>
             <mdt-column align-rule="right">Carbs (g)</mdt-column>
             <mdt-column align-rule="right">Protein (g)</mdt-column>
             <mdt-column align-rule="right">Sodium (mg)</mdt-column>
