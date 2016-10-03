@@ -33,7 +33,7 @@
          * @param headerData
          * @param parentCtrl
          */
-        service.initGeneratedHeaderCellContent = function($scope, headerData, parentCtrl){
+        service.initGeneratedHeaderCellContent = function($scope, headerData, parentCtrl, element){
             if(!headerData.columnFilterIsEnabled){
                 return;
             }
@@ -43,6 +43,8 @@
             $scope.cancelFilterDialog = function(event){
                 event.stopPropagation();
                 $scope.isColumnFilterVisible = false;
+
+                element.closest('.mdtTable').css('overflow', 'auto');
             };
 
             $scope.confirmFilterDialog = function(params){
@@ -56,6 +58,8 @@
                 }else{
                     // no support for non-ajax yet
                 }
+
+                element.closest('.mdtTable').css('overflow', 'auto');
             }
         };
 
@@ -64,12 +68,15 @@
          * @param $scope
          * @param headerRowData
          */
-        service.generatedHeaderCellClickHandler = function($scope, headerRowData){
+        service.generatedHeaderCellClickHandler = function($scope, headerRowData, element){
             if(!headerRowData.columnFilterIsEnabled) {
                 return;
             }
 
             $scope.isColumnFilterVisible = true;
+
+            // we need to apply this to the table in order to show the entire popup window, even the table only has 1 row
+            element.closest('.mdtTable').css('overflow', 'visible');
         };
 
         /**
