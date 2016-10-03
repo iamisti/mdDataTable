@@ -24,7 +24,6 @@
                     $scope.selectableItems = values;
                 });
 
-
                 function transformChip(chip) {
                     if($scope.headerRowData.chipTransformerCallback){
                         return $scope.headerRowData.chipTransformerCallback(chip);

@@ -5,12 +5,24 @@
             <div layout="row" layout-align="end center" class="b-b p-md">-->
                 <!--<a href="#">Sort A-Z </a>-->
             <!--</div>-->
+
+            <!--
             <div class="p-md">
                 <div flex="100" ng-repeat="item in selectableItems">
                     <md-checkbox ng-checked="exists(item)" ng-click="toggle(item)">
                         {{ item }}
                     </md-checkbox>
                 </div>
+            </div>
+            -->
+
+            <div layout="column" class="p-b-n p-t-sm p-l-md p-r-md filter__scroll">
+                <md-checkbox class="md-primary"
+                             ng-repeat="item in selectableItems"
+                             ng-checked="exists(item)"
+                             ng-click="toggle(item)">
+                    {{ item }}
+                </md-checkbox>
             </div>
 
             <div class="p-b-sm p-t-sm">
