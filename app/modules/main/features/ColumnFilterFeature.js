@@ -15,28 +15,27 @@
          * @param cellDataToStore
          */
         service.appendHeaderCellData = function($scope, cellDataToStore, dataStorage, element){
+            cellDataToStore.columnFilter = {};
 
             if($scope.columnFilter && $scope.columnFilter.valuesProviderCallback){
-
-                cellDataToStore.columnFilterIsEnabled = true;
-                cellDataToStore.columnFiltersApplied = [];
-                cellDataToStore.columnFilterValuesProviderCallback = $scope.columnFilter.valuesProviderCallback;
-                cellDataToStore.chipTransformerCallback = $scope.columnFilter.chipTransformerCallback;
-                cellDataToStore.columnFilterPlaceholderText = $scope.columnFilter.placeholderText;
-                cellDataToStore.columnFilterType = $scope.columnFilter.filterType || 'chips';
-                cellDataToStore.columnFilterIsActive = false;
+                cellDataToStore.columnFilter.isEnabled = true;
+                cellDataToStore.columnFilter.filtersApplied = [];
+                cellDataToStore.columnFilter.valuesProviderCallback = $scope.columnFilter.valuesProviderCallback;
+                cellDataToStore.columnFilter.valuesTransformerCallback = $scope.columnFilter.valuesTransformerCallback;
+                cellDataToStore.columnFilter.placeholderText = $scope.columnFilter.placeholderText;
+                cellDataToStore.columnFilter.type = $scope.columnFilter.filterType || 'chips';
+                cellDataToStore.columnFilter.isActive = false;
 
                 cellDataToStore.setColumnActive = function(bool){
-
                     //first we disable every column filter if any is active
                     _.each(dataStorage.header, function(headerData){
-                        if(headerData.columnFilterIsEnabled){
-                            headerData.columnFilterIsActive = false;
+                        if(headerData.columnFilter.isEnabled){
+                            headerData.columnFilter.isActive = false;
                         }
                     });
 
                     //then we activate ours
-                    cellDataToStore.columnFilterIsActive = bool ? true : false;
+                    cellDataToStore.columnFilter.isActive = bool ? true : false;
 
                     if(bool){
                         element.closest('.mdtTable').css('overflow', 'visible');
@@ -44,6 +43,8 @@
                         element.closest('.mdtTable').css('overflow', 'auto');
                     }
                 }
+            }else{
+                cellDataToStore.columnFilter.isEnabled = false;
             }
         };
 
@@ -56,7 +57,7 @@
          * @param parentCtrl
          */
         service.initGeneratedHeaderCellContent = function($scope, headerData, parentCtrl){
-            if(!headerData.columnFilterIsEnabled){
+            if(!headerData.columnFilter.isEnabled){
                 return;
             }
 
@@ -73,7 +74,7 @@
 
                 headerData.setColumnActive(false);
 
-                headerData.columnFiltersApplied = params.selectedItems;
+                headerData.columnFilter.filtersApplied = params.selectedItems;
 
                 if($scope.mdtRowPaginator){
                     parentCtrl.mdtPaginationHelper.fetchPage(1);
@@ -89,11 +90,11 @@
          * @param headerRowData
          */
         service.generatedHeaderCellClickHandler = function($scope, headerRowData, element){
-            if(!headerRowData.columnFilterIsEnabled) {
+            if(!headerRowData.columnFilter.isEnabled) {
                 return;
             }
 
-            headerRowData.setColumnActive(!headerRowData.columnFilterIsActive);
+            headerRowData.setColumnActive(!headerRowData.columnFilter.isActive);
         };
 
         /**
@@ -106,9 +107,9 @@
             var isEnabled = false;
 
             _.each(dataStorage.header, function(headerData){
-                var filters = headerData.columnFiltersApplied || [];
+                var filters = headerData.columnFilter.filtersApplied || [];
 
-                if(headerData.columnFilterIsEnabled){
+                if(headerData.columnFilter.isEnabled){
                     isEnabled = true;
                 }
 

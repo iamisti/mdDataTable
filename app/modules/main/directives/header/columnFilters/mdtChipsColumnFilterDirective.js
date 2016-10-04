@@ -18,7 +18,7 @@
                 $scope.searchText = null;
                 $scope.availableItems = [];
 
-                $scope.selectedItems = _.map($scope.headerRowData.columnFiltersApplied, _.clone);
+                $scope.selectedItems = _.map($scope.headerRowData.columnFilter.filtersApplied, _.clone);
                 $scope.placeholderText = attr.placeholderText || 'Filter column...';
 
                 angular.element(elem).on('keydown keypressed', 'input', closeDialog);
@@ -34,8 +34,8 @@
                 },0);
 
                 function transformChip(chip) {
-                    if($scope.headerRowData.chipTransformerCallback){
-                        return $scope.headerRowData.chipTransformerCallback(chip);
+                    if($scope.headerRowData.columnFilter.valuesTransformerCallback){
+                        return $scope.headerRowData.columnFilter.valuesTransformerCallback(chip);
                     }
 
                     return chip;

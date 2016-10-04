@@ -21,7 +21,7 @@
             <mdt-column align-rule="left"
                         column-filter="{
                             'valuesProviderCallback': personSearchEndpoint,
-                            'chipTransformerCallback': personChipTransformer,
+                            'valuesTransformerCallback': personChipTransformer,
                             'placeholderText': 'Filter column...',
                             'filterType': 'chips'
                         }"
@@ -30,8 +30,7 @@
             <mdt-column align-rule="left"
                         column-filter="{
                             'valuesProviderCallback': caloriesValues,
-                            'chipTransformerCallback': personChipTransformer,
-                            'placeholderText': 'Select a value',
+                            'valuesTransformerCallback': personChipTransformer,
                             'filterType': 'checkbox'
                         }"
             >Service Size Units</mdt-column>
@@ -42,6 +41,7 @@
                             'placeholderText': 'Select a value',
                             'filterType': 'dropdown'
                         }">Fat (g)</mdt-column>
+
             <mdt-column align-rule="right">Carbs (g)</mdt-column>
             <mdt-column align-rule="right">Protein (g)</mdt-column>
             <mdt-column align-rule="right">Sodium (mg)</mdt-column>

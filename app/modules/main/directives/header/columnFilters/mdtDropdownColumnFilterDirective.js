@@ -14,19 +14,19 @@
                 $scope.transformChip = transformChip;
                 $scope.selectedItem = selectedItem;
 
-                $scope.placeholderText = $scope.headerRowData.columnFilterPlaceholderText || 'Choose a value';
+                $scope.placeholderText = $scope.headerRowData.columnFilter.placeholderText || 'Choose a value';
 
-                $scope.selectedItems = _.map($scope.headerRowData.columnFiltersApplied, _.clone);
+                $scope.selectedItems = _.map($scope.headerRowData.columnFilter.filtersApplied, _.clone);
                 $scope.oneSelectedItem = $scope.selectedItems.length ? $scope.selectedItems[0] : '';
                 $scope.selectableItems = [];
 
-                $scope.headerRowData.columnFilterValuesProviderCallback().then(function(values){
+                $scope.headerRowData.columnFilter.valuesProviderCallback().then(function(values){
                     $scope.selectableItems = values;
                 });
 
                 function transformChip(chip) {
-                    if($scope.headerRowData.chipTransformerCallback){
-                        return $scope.headerRowData.chipTransformerCallback(chip);
+                    if($scope.headerRowData.columnFilter.valuesTransformerCallback){
+                        return $scope.headerRowData.columnFilter.valuesTransformerCallback(chip);
                     }
 
                     return chip;
