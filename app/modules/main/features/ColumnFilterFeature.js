@@ -26,7 +26,7 @@
                 cellDataToStore.columnFilter.type = $scope.columnFilter.filterType || 'chips';
                 cellDataToStore.columnFilter.isActive = false;
 
-                cellDataToStore.setColumnActive = function(bool){
+                cellDataToStore.columnFilter.setColumnActive = function(bool){
                     //first we disable every column filter if any is active
                     _.each(dataStorage.header, function(headerData){
                         if(headerData.columnFilter.isEnabled){
@@ -61,18 +61,20 @@
                 return;
             }
 
-            $scope.cancelFilterDialog = function(event){
+            $scope.columnFilterFeature = {};
+
+            $scope.columnFilterFeature.cancelFilterDialog = function(event){
                 if(event){
                     event.stopPropagation();
                 }
 
-                headerData.setColumnActive(false);
+                headerData.columnFilter.setColumnActive(false);
             };
 
-            $scope.confirmFilterDialog = function(params){
+            $scope.columnFilterFeature.confirmFilterDialog = function(params){
                 params.event.stopPropagation();
 
-                headerData.setColumnActive(false);
+                headerData.columnFilter.setColumnActive(false);
 
                 headerData.columnFilter.filtersApplied = params.selectedItems;
 
@@ -94,7 +96,7 @@
                 return;
             }
 
-            headerRowData.setColumnActive(!headerRowData.columnFilter.isActive);
+            headerRowData.columnFilter.setColumnActive(!headerRowData.columnFilter.isActive);
         };
 
         /**

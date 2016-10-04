@@ -1,23 +1,23 @@
 <div class="p-r no-outline">
     <mdt-chips-column-filter
         ng-if="headerRowData.columnFilter.isActive && headerRowData.columnFilter.type === 'chips'"
-        confirm-callback="confirmFilterDialog"
-        cancel-callback="cancelFilterDialog(event)"
+        confirm-callback="columnFilterFeature.confirmFilterDialog"
+        cancel-callback="columnFilterFeature.cancelFilterDialog(event)"
         header-row-data="headerRowData">
     </mdt-chips-column-filter>
 
     <mdt-dropdown-column-filter
         ng-if="headerRowData.columnFilter.isActive && headerRowData.columnFilter.type === 'dropdown'"
-        confirm-callback="confirmFilterDialog"
-        cancel-callback="cancelFilterDialog(event)"
+        confirm-callback="columnFilterFeature.confirmFilterDialog"
+        cancel-callback="columnFilterFeature.cancelFilterDialog(event)"
         header-row-data="headerRowData">
     </mdt-dropdown-column-filter>
 
 
     <mdt-checkbox-column-filter
         ng-if="headerRowData.columnFilter.isActive && headerRowData.columnFilter.type === 'checkbox'"
-        confirm-callback="confirmFilterDialog"
-        cancel-callback="cancelFilterDialog(event)"
+        confirm-callback="columnFilterFeature.confirmFilterDialog"
+        cancel-callback="columnFilterFeature.cancelFilterDialog(event)"
         header-row-data="headerRowData">
     </mdt-checkbox-column-filter>
 

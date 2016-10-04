@@ -10,7 +10,7 @@ describe('ColumnFilterFeature', function(){
             scope = $rootScope.$new();
         }));
 
-        it('AND feature is used THEN it needs to add feature related variables to the passed objects', inject(function($rootScope, ColumnFilterFeature){
+        it('AND feature is used THEN it needs to add the feature related default variables to the passed objects', inject(function($rootScope, ColumnFilterFeature){
             //given
             scope.columnFilter = {
                 valuesProviderCallback: function(){}
@@ -22,12 +22,39 @@ describe('ColumnFilterFeature', function(){
             ColumnFilterFeature.appendHeaderCellData(scope, objectToPass);
 
             //then
-            expect(objectToPass).toEqual({
-                columnFilterIsEnabled: true,
-                columnFilterValuesProviderCallback: scope.columnFilter.valuesProviderCallback,
-                columnFiltersApplied: [],
-                chipTransformerCallback: undefined
-            });
+            expect(objectToPass.columnFilter).toBeDefined();
+            expect(objectToPass.columnFilter.isEnabled).toBe(true);
+            expect(objectToPass.columnFilter.filtersApplied).toEqual([]);
+            expect(objectToPass.columnFilter.valuesProviderCallback).toEqual(scope.columnFilter.valuesProviderCallback);
+            expect(objectToPass.columnFilter.valuesTransformerCallback).toEqual(undefined);
+            expect(objectToPass.columnFilter.placeholderText).toEqual(undefined);
+            expect(objectToPass.columnFilter.type).toEqual('chips');
+            expect(objectToPass.columnFilter.isActive).toBe(false);
+        }));
+
+        it('AND feature is used THEN it needs to add the feature related variables to the passed objects', inject(function($rootScope, ColumnFilterFeature){
+            //given
+            scope.columnFilter = {
+                valuesProviderCallback: function(){},
+                valuesTransformerCallback: function(){},
+                placeholderText: 'Select a value...',
+                filterType: 'dropdown'
+            };
+
+            var objectToPass = {};
+
+            //when
+            ColumnFilterFeature.appendHeaderCellData(scope, objectToPass);
+
+            //then
+            expect(objectToPass.columnFilter).toBeDefined();
+            expect(objectToPass.columnFilter.isEnabled).toBe(true);
+            expect(objectToPass.columnFilter.filtersApplied).toEqual([]);
+            expect(objectToPass.columnFilter.valuesProviderCallback).toEqual(scope.columnFilter.valuesProviderCallback);
+            expect(objectToPass.columnFilter.valuesTransformerCallback).toEqual(scope.columnFilter.valuesTransformerCallback);
+            expect(objectToPass.columnFilter.placeholderText).toEqual(scope.columnFilter.placeholderText);
+            expect(objectToPass.columnFilter.type).toEqual(scope.columnFilter.filterType);
+            expect(objectToPass.columnFilter.isActive).toBe(false);
         }));
 
         it('AND feature is not used THEN it must not add feature related variables to the passed objects', inject(function($rootScope, ColumnFilterFeature){
@@ -38,7 +65,11 @@ describe('ColumnFilterFeature', function(){
             ColumnFilterFeature.appendHeaderCellData(scope, objectToPass);
 
             //then
-            expect(objectToPass).toEqual({});
+            expect(objectToPass).toEqual({
+                columnFilter: {
+                    isEnabled: false
+                }
+            });
         }));
     });
 
@@ -52,49 +83,66 @@ describe('ColumnFilterFeature', function(){
         it('AND feature is used THEN it should add feature related variables to the scope', inject(function($rootScope, ColumnFilterFeature){
             //given
             var headerData = {
-                columnFilterIsEnabled: true
+                columnFilter: {
+                    isEnabled: true
+                }
             };
 
             //when
             ColumnFilterFeature.initGeneratedHeaderCellContent(scope, headerData);
 
             //then
-            expect(scope.isColumnFilterVisible).toBe(false);
-            expect(scope.cancelFilterDialog).toBeDefined();
-            expect(scope.confirmFilterDialog).toBeDefined();
+            expect(scope.columnFilterFeature.cancelFilterDialog).toBeDefined();
+            expect(scope.columnFilterFeature.confirmFilterDialog).toBeDefined();
         }));
 
         it('WHEN feature is not used THEN it must not add feature related variables to the scope', inject(function($rootScope, ColumnFilterFeature){
             //given
             var headerData = {
-                columnFilterIsEnabled: false
+                columnFilter: {
+                    isEnabled: false
+                }
             };
 
             //when
             ColumnFilterFeature.initGeneratedHeaderCellContent(scope, headerData);
 
             //then
-            expect(scope.isColumnFilterVisible).not.toBeDefined();
-            expect(scope.cancelFilterDialog).not.toBeDefined();
-            expect(scope.confirmFilterDialog).not.toBeDefined();
+            expect(scope.columnFilterFeature).not.toBeDefined();
         }));
 
-        it('WHEN calling `cancelFilterDialog` THEN it should set `isColumnFilterVisible to false', inject(function($rootScope, ColumnFilterFeature){
+        it('WHEN calling `cancelFilterDialog` THEN it should set the visibility for the filter to false', inject(function($rootScope, ColumnFilterFeature){
             //given
-            var headerData = {
-                columnFilterIsEnabled: true
+            scope.columnFilter = {
+                valuesProviderCallback: function(){}
             };
 
-            ColumnFilterFeature.initGeneratedHeaderCellContent(scope, headerData);
-            scope.isColumnFilterVisible = true;
+            var objectToPass = {};
+            var dataStorage = {
+                header: [
+                    { columnFilter: { isEnabled: false }},
+                    { columnFilter: { isEnabled: true }},
+                    objectToPass
+                ]
+            };
+
+            var element = {
+                closest: function(){
+                    return {
+                        css: function(){}
+                    }
+                }
+            };
+
+            ColumnFilterFeature.appendHeaderCellData(scope, objectToPass, dataStorage, element);
+            ColumnFilterFeature.initGeneratedHeaderCellContent(scope, objectToPass);
 
             //when
-            scope.cancelFilterDialog({ stopPropagation: angular.noop });
+            scope.columnFilterFeature.cancelFilterDialog({ stopPropagation: angular.noop });
 
             //then
-            expect(scope.isColumnFilterVisible).toBe(false);
+            expect(objectToPass.columnFilter.isActive).toBe(false);
         }));
-
     });
 
     describe('WHEN calling `confirmFilterDialog`', function(){
@@ -110,7 +158,17 @@ describe('ColumnFilterFeature', function(){
             };
 
             headerData = {
-                columnFilterIsEnabled: true
+                columnFilter: {
+                    isEnabled: true
+                }
+            };
+
+            var dataStorage = {
+                header: [
+                    { columnFilter: { isEnabled: false }},
+                    { columnFilter: { isEnabled: true }},
+                    headerData
+                ]
             };
 
             parentCtrl = {
@@ -119,27 +177,35 @@ describe('ColumnFilterFeature', function(){
                 }
             };
 
-            ColumnFilterFeature.appendHeaderCellData(scope, headerData);
+            var element = {
+                closest: function(){
+                    return {
+                        css: function(){}
+                    }
+                }
+            };
+
+            ColumnFilterFeature.appendHeaderCellData(scope, headerData, dataStorage, element);
             ColumnFilterFeature.initGeneratedHeaderCellContent(scope, headerData, parentCtrl);
         }));
 
-        it('THEN it should set `isColumnFilterVisible to false', inject(function(){
+        it('THEN it should set column visibility must be set to false', inject(function(){
             //given
-            scope.isColumnFilterVisible = true;
+            headerData.columnFilter.isActive = true;
 
             //when
-            scope.confirmFilterDialog({ selectedItems: [], event: mockedEvent });
+            scope.columnFilterFeature.confirmFilterDialog({ selectedItems: [], event: mockedEvent });
 
             //then
-            expect(scope.isColumnFilterVisible).toBe(false);
+            expect(headerData.columnFilter.isActive).toBe(false);
         }));
 
         it('THEN it should add selected values to the header data', function(){
             //given/when
-            scope.confirmFilterDialog({ selectedItems: ['one', 'two'], event: mockedEvent });
+            scope.columnFilterFeature.confirmFilterDialog({ selectedItems: ['one', 'two'], event: mockedEvent });
 
             //then
-            expect(headerData.columnFiltersApplied).toEqual(['one', 'two']);
+            expect(headerData.columnFilter.filtersApplied).toEqual(['one', 'two']);
         });
 
         it('AND ajax feature is used THEN it should fetch the data', function(){
@@ -149,7 +215,7 @@ describe('ColumnFilterFeature', function(){
             spyOn(parentCtrl.mdtPaginationHelper, 'fetchPage');
 
             //when
-            scope.confirmFilterDialog({ selectedItems: ['one', 'two'], event: mockedEvent, parentCtrl: parentCtrl });
+            scope.columnFilterFeature.confirmFilterDialog({ selectedItems: ['one', 'two'], event: mockedEvent, parentCtrl: parentCtrl });
 
             //then
             expect(parentCtrl.mdtPaginationHelper.fetchPage).toHaveBeenCalledWith(1);
@@ -160,7 +226,7 @@ describe('ColumnFilterFeature', function(){
             spyOn(parentCtrl.mdtPaginationHelper, 'fetchPage');
 
             //when
-            scope.confirmFilterDialog({ selectedItems: ['one', 'two'], event: mockedEvent, parentCtrl: parentCtrl });
+            scope.columnFilterFeature.confirmFilterDialog({ selectedItems: ['one', 'two'], event: mockedEvent, parentCtrl: parentCtrl });
 
             //then
             expect(parentCtrl.mdtPaginationHelper.fetchPage).not.toHaveBeenCalled();
@@ -169,35 +235,67 @@ describe('ColumnFilterFeature', function(){
 
     describe('WHEN calling `generatedHeaderCellClickHandler`', function(){
         var scope;
+        var headerData;
+        var parentCtrl;
 
-        beforeEach(inject(function($rootScope){
+        beforeEach(inject(function($rootScope, ColumnFilterFeature){
             scope = $rootScope.$new();
-        }));
-
-        it('AND feature is used THEN it should set the visibility to true', inject(function($rootScope, ColumnFilterFeature){
-            //given
-            var headerData = {
-                columnFilterIsEnabled: true
+            scope.columnFilter = {
+                valuesProviderCallback: function(){}
             };
 
-            scope.isColumnFilterVisible = false;
+            headerData = {
+                columnFilter: {
+                    isEnabled: true
+                }
+            };
+
+            var dataStorage = {
+                header: [
+                    { columnFilter: { isEnabled: false }},
+                    { columnFilter: { isEnabled: true }},
+                    headerData
+                ]
+            };
+
+            parentCtrl = {
+                mdtPaginationHelper: {
+                    fetchPage: function(){}
+                }
+            };
+
+            var element = {
+                closest: function(){
+                    return {
+                        css: function(){}
+                    }
+                }
+            };
+
+            ColumnFilterFeature.appendHeaderCellData(scope, headerData, dataStorage, element);
+        }));
+
+        it('AND feature is used THEN it should set the visibility to true', inject(function(ColumnFilterFeature){
+            //given
+            headerData.columnFilter.isEnabled = true;
+            headerData.columnFilter.isActive = false;
 
             //when
             ColumnFilterFeature.generatedHeaderCellClickHandler(scope, headerData);
 
             //then
-            expect(scope.isColumnFilterVisible).toBe(true);
+            expect(headerData.columnFilter.isActive).toBe(true);
         }));
 
         it('AND feature is not used THEN it must not set the visibility to true', inject(function($rootScope, ColumnFilterFeature){
             //given
-            var headerData = {};
+            headerData.columnFilter.isEnabled = false;
 
             //when
             ColumnFilterFeature.generatedHeaderCellClickHandler(scope, headerData);
 
             //then
-            expect(scope.isColumnFilterVisible).toBeFalsy();
+            expect(headerData.columnFilter.isActive).toBe(false);
         }));
     });
 
@@ -214,12 +312,16 @@ describe('ColumnFilterFeature', function(){
             var dataStorage = {
                 header: [
                     {
-                        columnFilterIsEnabled: true,
-                        columnFiltersApplied: ['item1', 'item2']
+                        columnFilter: {
+                            isEnabled: true,
+                            filtersApplied: ['item1', 'item2']
+                        }
                     },
                     {
-                        columnFilterIsEnabled: true,
-                        columnFiltersApplied: ['item3', 'item4']
+                        columnFilter: {
+                            isEnabled: true,
+                            filtersApplied: ['item3', 'item4']
+                        }
                     }
                 ]
             };
@@ -239,7 +341,9 @@ describe('ColumnFilterFeature', function(){
             var dataStorage = {
                 header: [
                     {
-                        columnFiltersApplied: ['item1', 'item2']
+                        columnFilter: {
+                            filtersApplied: ['item1', 'item2']
+                        }
                     }
                 ]
             };
