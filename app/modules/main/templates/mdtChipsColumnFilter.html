@@ -5,14 +5,15 @@
             <div layout="row" layout-align="end center" class="b-b p-md">-->
                 <!--<a href="#">Sort A-Z </a>-->
             <!--</div>-->
-            <div class="p-md">
+            <div class="p-md filter__scroll">
                 <md-chips ng-model="selectedItems"
                           md-require-match="true">
 
                     <md-autocomplete md-selected-item="selectedItem"
+                                     md-autofocus="true"
                                      md-search-text="searchText"
-                                     md-items="item in headerRowData.columnFilterValuesProviderCallback(searchText)"
-                                     md-item-text="item"
+                                     md-items="item in headerRowData.columnFilter.valuesProviderCallback(searchText)"
+                                     md-item-text="transformChip(item)"
                                      placeholder="{{placeholderText}}">
 
                         <span md-highlight-text="searchText">{{transformChip(item)}}</span>
@@ -30,6 +31,7 @@
 
                 </md-chips>
             </div>
+
             <div class="p-b-sm p-t-sm">
                 <md-button class="md-raised md-primary" ng-click="confirmCallback({selectedItems: selectedItems, event: $event})">Ok</md-button>
                 <md-button class="md-raised" ng-click="cancelCallback({event: $event})">Cancel</md-button>

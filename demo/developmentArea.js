@@ -8,6 +8,7 @@
             {
                 id: 601,
                 name: 'Frozen joghurt',
+                nf_serving_size_unit: 'salad',
                 calories: 159,
                 fat: 6.0,
                 carbs: 24,
@@ -20,6 +21,7 @@
                 id: 602,
                 name: 'Ice cream sandwitch',
                 calories: 237,
+                nf_serving_size_unit: 'bird',
                 fat: 9.0,
                 carbs: 37,
                 protein: 4.3,
@@ -30,6 +32,7 @@
             {
                 id: 603,
                 name: 'Eclair',
+                nf_serving_size_unit: 'ea',
                 calories: 262,
                 fat: 16.0,
                 carbs: 24,
@@ -41,6 +44,7 @@
             {
                 id: 604,
                 name: 'Cupkake',
+                nf_serving_size_unit: 'teaspoons',
                 calories: 305,
                 fat: 3.7,
                 carbs: 67,
@@ -52,6 +56,7 @@
             {
                 id: 605,
                 name: 'Gingerbread',
+                nf_serving_size_unit: 'tablespoons',
                 calories: 356,
                 fat: 16.0,
                 carbs: 49,
@@ -63,6 +68,7 @@
             {
                 id: 606,
                 name: 'Jelly bean',
+                nf_serving_size_unit: 'cup',
                 calories: 375,
                 fat: 0.0,
                 carbs: 94,
@@ -118,7 +124,11 @@
         ];
 
         $scope.paginatorCallback = paginatorCallback;
+
         $scope.personSearchEndpoint = personSearchEndpoint;
+        $scope.caloriesValues = caloriesValues;
+        $scope.fatValues = fatValues;
+
         $scope.personChipTransformer = personChipTransformer;
 
         $scope.rowClassNameCallback = function(row){
@@ -126,6 +136,7 @@
         };
 
         function paginatorCallback(page, pageSize, filtersApplied){
+            console.log(filtersApplied);
             var offset = (page-1) * pageSize;
             var result;
 
@@ -162,8 +173,21 @@
             return $q.resolve(arr);
         }
 
-        function personChipTransformer(person){
-            return person.name;
+        function caloriesValues(){
+            var arr = _.filter(nutritionList, function(item){
+                return item.nf_serving_size_unit && item.nf_serving_size_unit.toLowerCase();
+            });
+
+            return $q.resolve(_.pluck(arr, 'nf_serving_size_unit'));
+        }
+
+        function fatValues(){
+            return $q.resolve(['more than 50%', 'less than 50%']);
+        }
+
+        //value transformers
+        function personChipTransformer(nutrition){
+            return nutrition.name;
         }
 
         $scope.myMethodToExecute = function(){

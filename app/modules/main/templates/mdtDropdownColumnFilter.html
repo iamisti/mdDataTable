@@ -1,0 +1,27 @@
+<div class="filter-dropdown">
+    <div class="md-whiteframe-z2">
+        <md-content class="md-body-1">
+            <!-- TODO: Restore sorting in next sprint
+            <div layout="row" layout-align="end center" class="b-b p-md">-->
+                <!--<a href="#">Sort A-Z </a>-->
+            <!--</div>-->
+            <div class="p-md">
+                <md-input-container class="md-block" flex-gt-sm>
+                    <md-select ng-model="oneSelectedItem" placeholder="{{placeholderText}}" ng-change="selectedItem()">
+                        <md-option value="undefined">
+                            All
+                        </md-option>
+                        <md-option ng-repeat="item in selectableItems" value="{{item}}">
+                            {{transformChip(item)}}
+                        </md-option>
+                    </md-select>
+                </md-input-container>
+            </div>
+
+            <div class="p-b-sm p-t-sm">
+                <md-button class="md-raised md-primary" ng-click="confirmCallback({selectedItems: selectedItems, event: $event})">Ok</md-button>
+                <md-button class="md-raised" ng-click="cancelCallback({event: $event})">Cancel</md-button>
+            </div>
+        </md-content>
+    </div>
+</div>

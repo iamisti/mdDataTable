@@ -64,7 +64,7 @@
                         columnName: cellValue
                     };
 
-                    ColumnFilterFeature.appendHeaderCellData($scope, cellDataToStore);
+                    ColumnFilterFeature.appendHeaderCellData($scope, cellDataToStore, mdtTableCtrl.dataStorage, element);
 
                     mdtTableCtrl.dataStorage.addHeaderCellData(cellDataToStore);
                 });
