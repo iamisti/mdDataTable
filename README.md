@@ -52,6 +52,7 @@ http://www.google.com/design/spec/components/data-tables.html
  - column-definition
  - ! sortable-rows-default
  - sort-by
+ - column-filter
 
 [Row attributes (`mdt-row`)](#data-row-attributes)
  - table-row-id
@@ -216,6 +217,14 @@ Html support is available for `mdt-row`, see more: [Custom cell content (`mdt-cu
 | -----------------| ---------------------------------------------- | ------------- | --------------- |
 |:x:               | sortable-rows-default                          | -             | When sortable-columns is applied to the table, it marks the column as the default sorting column |
 |:white_check_mark:| sort-by                                        | Function      | if provided, used as the iteratee during sort operations to transform the cell value to a value that can be ranked in order. |
+
+| Available        | Params                                         | ChildPArams              | Type         | Details         |
+| ---------------- | ---------------------------------------------- | -------------------------|------------- | --------------- |
+|:white_check_mark:| column-filter                                  |                          | Object       | if provided, user can activate column filter feature on the selected column. |
+|:white_check_mark:| column-filter                                  | valuesProviderCallback   | Function     | required, function which provides the values into the column filter. It must return with a promise which resolves an array of strings/objects.| 
+|:white_check_mark:| column-filter                                  | valuesTransformerCallback| Function     | optional, function which transforms the provided objects into strings to be able to show it visually in the column filter.|
+|:white_check_mark:| column-filter                                  | placeholderText          | Text         | optional, placeholder which will show up as a default text (available only for `chips` and `dropdown` filter types |
+|:white_check_mark:| column-filter                                  | filterType               | Text         | optional, defines the type of the filter you want to use. Available options are: `chips`, `checkbox`, `dropdown`. If you don't specify it, the default will be `chips` |
 
 
 # Data-Row attributes 
