@@ -1,7 +1,7 @@
 (function() {
     'use strict';
 
-    function mdtCheckboxColumnFilterDirective(){
+    function mdtCheckboxColumnFilterDirective(_){
         return{
             restrict: 'E',
             templateUrl: '/main/templates/mdtCheckboxColumnFilter.html',
@@ -10,14 +10,17 @@
                 cancelCallback: '&',
                 headerRowData: '='
             },
-            link: function($scope, elem, attr){
+            link: function($scope){
 
                 $scope.transformChip = transformChip;
                 $scope.availableItems = [];
+                $scope.selectableItems = [];
                 $scope.selectedItems = _.map($scope.headerRowData.columnFilter.filtersApplied, _.clone);
 
                 $scope.headerRowData.columnFilter.valuesProviderCallback().then(function(values){
-                    $scope.selectableItems = values;
+                    if(values){
+                        $scope.selectableItems = values
+                    }
                 });
 
                 $scope.exists = function (item) {
@@ -26,6 +29,7 @@
 
                 $scope.toggle = function (item) {
                     var idx = $scope.selectedItems.indexOf(item);
+
                     if (idx > -1) {
                         $scope.selectedItems.splice(idx, 1);
                     }

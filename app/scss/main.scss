@@ -1,7 +1,8 @@
 
 .mdtTable{
 
-    /*overflow: visible;*/
+    /*helps to prevent vertical scrolling when it's not needed*/
+    overflow-y: hidden;
 
     .md-chips {font-size: 13px;}
     .p-r {position: relative;}
