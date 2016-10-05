@@ -23,11 +23,17 @@
                 });
 
                 $scope.exists = function (item) {
-                    return $scope.selectedItems.indexOf(item) > -1;
+                    var result = _.findIndex($scope.selectedItems, function(arrayItem){
+                        return transformChip(arrayItem) === transformChip(item);
+                    });
+
+                    return result != -1;
                 };
 
                 $scope.toggle = function (item) {
-                    var idx = $scope.selectedItems.indexOf(item);
+                    var idx = _.findIndex($scope.selectedItems, function(arrayItem){
+                        return transformChip(arrayItem) === transformChip(item);
+                    });
 
                     if (idx > -1) {
                         $scope.selectedItems.splice(idx, 1);

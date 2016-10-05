@@ -31,7 +31,6 @@ describe('CheckboxColumnFilterDirective', function(){
             var element = compileDirective(scope, DIRECTIVE_DEFAULT_CASE);
 
             //then
-            expect(element.isolateScope().availableItems).toEqual([]);
             expect(element.isolateScope().selectedItems).toEqual([]);
             expect(element.isolateScope().selectableItems).toEqual([]);
         }));
