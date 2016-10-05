@@ -37,6 +37,8 @@
                         });
 
                     }else{
+                        if( typeof val != 'object' ) val = val.toString();
+
                         element.append(val);
                     }
 

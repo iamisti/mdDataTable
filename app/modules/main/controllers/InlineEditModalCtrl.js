@@ -4,12 +4,12 @@
     function InlineEditModalCtrl($scope, position, cellData, mdtTranslations, $timeout, $mdDialog){
 
         $timeout(function() {
-            var el = $('md-dialog');
+            var el = angular.element('md-dialog');
             el.css('position', 'fixed');
             el.css('top', position['top']);
             el.css('left', position['left']);
 
-            el.find('input[type="text"]').focus();
+            angular.element( el[0].querySelector('input[type="text"]') ).focus();
         });
 
         $scope.cellData = cellData;

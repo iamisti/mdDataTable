@@ -18,7 +18,7 @@
                 $scope.isDevelopmentAreaActive = false;
 
                 $http.get('http://codepen.io/iamisti/pen/'+aPage.codepen+'.html').then(function(content){
-                    angular.element('#myDiv').empty().append($compile(content.data)($scope));
+                    angular.element( document.querySelector('#myDiv') ).empty().append($compile(content.data)($scope));
                 });
             }
         }
