@@ -4,24 +4,23 @@
             mdt-row-paginator="paginatorCallback(page, pageSize, filtersApplied)"
             mdt-row-paginator-error-message="Error happened during loading nutritions."
             mdt-row="{
-            'table-row-id-key': 'id',
-            'table-row-class-name': rowClassNameCallback,
+            'table-row-id-key': 'fields.item_id',
             'column-keys': [
-                'name',
-                'nf_serving_size_unit',
-                'fat',
-                'carbs',
-                'protein',
-                'sodium',
-                'calcium',
-                'iron'
+                'fields.item_name',
+                'fields.nf_serving_size_unit',
+                'fields.nf_total_fat',
+                'fields.nf_total_carbohydrate',
+                'fields.nf_protein',
+                'fields.nf_sodium',
+                'fields.nf_calcium_dv',
+                'fields.nf_iron_dv'
             ]}">
 
         <mdt-header-row>
             <mdt-column align-rule="left"
                         column-filter="{
-                            'valuesProviderCallback': personSearchEndpoint,
-                            'valuesTransformerCallback': personChipTransformer,
+                            'valuesProviderCallback': nutritionNameFilterCallback,
+                            'valuesTransformerCallback': nutritionNameTransformer,
                             'placeholderText': 'Filter column...',
                             'filterType': 'chips'
                         }"
@@ -29,8 +28,8 @@
 
             <mdt-column align-rule="left"
                         column-filter="{
-                            'valuesProviderCallback': caloriesValues,
-                            'valuesTransformerCallback': personChipTransformer,
+                            'valuesProviderCallback': serviceUnitsFilterCallback,
+                            'valuesTransformerCallback': serviceUnitNameTransformer,
                             'filterType': 'checkbox'
                         }"
             >Service Size Units</mdt-column>
@@ -51,7 +50,6 @@
 
         <mdt-custom-cell column-key="protein">
             <span ng-class="{'red': value > 5, 'green': value <= 5}">{{value}}</span>
-            <span ng-click="clientScope.myMethodToExecute()">click here</span>
         </mdt-custom-cell>
     </mdt-table>
 </div>

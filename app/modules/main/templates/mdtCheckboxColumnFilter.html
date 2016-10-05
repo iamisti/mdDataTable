@@ -1,17 +1,16 @@
 <div class="filter-dropdown">
     <div class="md-whiteframe-z2">
         <md-content class="md-body-1">
-            <!-- TODO: Restore sorting in next sprint
-            <div layout="row" layout-align="end center" class="b-b p-md">-->
-                <!--<a href="#">Sort A-Z </a>-->
-            <!--</div>-->
+            <div layout="row" layout-align="end center" class="b-b p-md">
+                <a href="#">Sort A-Z </a>
+            </div>
 
             <div layout="column" class="p-b-n p-t-sm p-l-md p-r-md filter__scroll">
                 <md-checkbox class="md-primary"
                              ng-repeat="item in selectableItems"
                              ng-checked="exists(item)"
                              ng-click="toggle(item)">
-                    {{ item }}
+                    {{ transformChip(item) }}
                 </md-checkbox>
             </div>
 

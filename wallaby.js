@@ -28,8 +28,9 @@ module.exports = function () {
     ],
     //postprocessor: wallabyPostprocessor,
     preprocessors: {
-      'app/**/*.html': function (file) {
+      'app/modules/main/templates/**/*.html': function (file) {
         return angularTemplatePreprocessor.transform(file, {
+          stripPrefix: 'app/modules',
           moduleName: 'mdtTemplates'
         })
       }

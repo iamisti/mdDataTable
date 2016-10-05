@@ -10,18 +10,19 @@
                 cancelCallback: '&',
                 headerRowData: '='
             },
-            link: function($scope, elem, attr){
+            link: function($scope){
                 $scope.transformChip = transformChip;
                 $scope.selectedItem = selectedItem;
 
+                $scope.selectableItems = [];
+                $scope.selectedItems = _.map($scope.headerRowData.columnFilter.filtersApplied, _.clone);
+                $scope.oneSelectedItem = $scope.selectedItems.length ? $scope.selectedItems[0] : undefined;
                 $scope.placeholderText = $scope.headerRowData.columnFilter.placeholderText || 'Choose a value';
 
-                $scope.selectedItems = _.map($scope.headerRowData.columnFilter.filtersApplied, _.clone);
-                $scope.oneSelectedItem = $scope.selectedItems.length ? $scope.selectedItems[0] : '';
-                $scope.selectableItems = [];
-
                 $scope.headerRowData.columnFilter.valuesProviderCallback().then(function(values){
-                    $scope.selectableItems = values;
+                    if(values){
+                        $scope.selectableItems = values;
+                    }
                 });
 
                 function transformChip(chip) {
@@ -33,10 +34,8 @@
                 }
 
                 function selectedItem(){
-                    if($scope.oneSelectedItem !== "undefined"){
+                    if(typeof $scope.oneSelectedItem !== 'undefined'){
                         $scope.selectedItems = [$scope.oneSelectedItem];
-                    }else{
-                        $scope.selectedItems = [];
                     }
                 }
             }

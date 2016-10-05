@@ -9,7 +9,7 @@
                 <md-chips ng-model="selectedItems"
                           md-require-match="true">
 
-                    <md-autocomplete md-selected-item="selectedItem"
+                    <md-autocomplete md-delay="300"
                                      md-autofocus="true"
                                      md-search-text="searchText"
                                      md-items="item in headerRowData.columnFilter.valuesProviderCallback(searchText)"

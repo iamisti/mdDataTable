@@ -1,4 +1,4 @@
-describe('CheckboxColumnFilterDirective', function(){
+describe('DropdownColumnFilterDirective', function(){
 
     var DIRECTIVE_DEFAULT_CASE = 'DIRECTIVE_DEFAULT_CASE';
     var _$compile;
@@ -31,8 +31,8 @@ describe('CheckboxColumnFilterDirective', function(){
             var element = compileDirective(scope, DIRECTIVE_DEFAULT_CASE);
 
             //then
-            expect(element.isolateScope().selectedItems).toEqual([]);
             expect(element.isolateScope().selectableItems).toEqual([]);
+            expect(element.isolateScope().selectedItems).toEqual([]);
         }));
 
         it('AND selectable items must be filled', inject(function($q){
@@ -47,6 +47,20 @@ describe('CheckboxColumnFilterDirective', function(){
 
             //then
             expect(element.isolateScope().selectableItems).toEqual(['one', 'two', 'three']);
+        }));
+
+        it('WHEN selected items are defined THEN it must be set', inject(function($q){
+            //given
+            scope.headerRowData.columnFilter = {
+                filtersApplied: ['two'],
+                valuesProviderCallback: function(){ return $q.resolve(['one', 'two', 'three']); }
+            };
+
+            //when
+            var element = compileDirective(scope, DIRECTIVE_DEFAULT_CASE);
+
+            //then
+            expect(element.isolateScope().oneSelectedItem).toEqual('two');
         }));
     });
 
@@ -93,7 +107,7 @@ describe('CheckboxColumnFilterDirective', function(){
         }));
     });
 
-    describe('WHEN checking if an item is already in the selected items', function(){
+    describe('WHEN selecting an item', function(){
         var scope;
 
         beforeEach(inject(function($q, $rootScope){
@@ -109,69 +123,28 @@ describe('CheckboxColumnFilterDirective', function(){
             };
         }));
 
-        it('AND when passed item is not within the selected items THEN it should return false', inject(function(){
+        it('THEN if value is undefined THEN it should not set', inject(function(){
             //given
             var element = compileDirective(scope, DIRECTIVE_DEFAULT_CASE);
 
             //when
-            var result = element.isolateScope().exists('one');
+            element.isolateScope().selectedItem();
 
             //then
-            expect(result).toEqual(false);
+            expect(element.isolateScope().selectedItems).toEqual([]);
         }));
 
-        it('AND when passed item is within the selected items THEN it should return true', inject(function(){
-            //given
-            var element = compileDirective(scope, DIRECTIVE_DEFAULT_CASE);
-            element.isolateScope().selectedItems.push('two');
-
-            //when
-            var result = element.isolateScope().exists('two');
-
-            //then
-            expect(result).toEqual(true);
-        }));
-    });
-
-    describe('WHEN toggle and item', function(){
-        var scope;
-
-        beforeEach(inject(function($q, $rootScope){
-            scope = $rootScope.$new();
-
-            scope.confirmCallback = function(){};
-            scope.cancelCallback = function(){};
-            scope.headerRowData = {
-                columnFilter: {
-                    filtersApplied: [],
-                    valuesProviderCallback: function(){ return $q.resolve(['one', 'two', 'three']);}
-                }
-            };
-        }));
-
-        it('AND when passed item is not within the selected items THEN it should add to the list', inject(function(){
+        it('THEN if value is not undefined THEN it should set the selected items', inject(function(){
             //given
             var element = compileDirective(scope, DIRECTIVE_DEFAULT_CASE);
 
-            //when
-            element.isolateScope().toggle('one');
-
-            //then
-            expect(element.isolateScope().selectedItems).toEqual(['one']);
-        }));
-
-        it('AND when passed item is within the selected items THEN it should remove from the list', inject(function(){
-            //given
-            var element = compileDirective(scope, DIRECTIVE_DEFAULT_CASE);
-            element.isolateScope().selectedItems.push('one');
-            element.isolateScope().selectedItems.push('two');
-            element.isolateScope().selectedItems.push('three');
+            element.isolateScope().oneSelectedItem = 'two';
 
             //when
-            element.isolateScope().toggle('two');
+            element.isolateScope().selectedItem();
 
             //then
-            expect(element.isolateScope().selectedItems).toEqual(['one', 'three']);
+            expect(element.isolateScope().selectedItems).toEqual(['two']);
         }));
     });
 
@@ -181,11 +154,11 @@ describe('CheckboxColumnFilterDirective', function(){
         switch(status){
             case DIRECTIVE_DEFAULT_CASE:
                 mainElement = _$compile('' +
-                    '<mdt-checkbox-column-filter' +
+                    '<mdt-dropdown-column-filter' +
                     '   confirm-callback="confirmCallback"' +
                     '   cancel-callback="cancelCallback"' +
                     '   header-row-data="headerRowData"' +
-                    '</mdt-checkbox-column-filter>')(scope);
+                    '</mdt-dropdown-column-filter>')(scope);
                 break;
             default:
                 throw Error('Not implemented case');
