@@ -157,12 +157,12 @@ Html support is available for `mdt-row`, see more: [Custom cell content (`mdt-cu
 </mdt-table>
 ```
 
-| Available        | Params                             | Type          | Details       |
-| ---------------- |----------------------------------- | ------------- | ------------- |
-|:white_check_mark:| mdt-row-paginator                  | Function      | optional, makes possible to provide a callback function which returns a promise, providing the data for the table. Has two parameters: `page` and `pageSize` |
-|:white_check_mark:| mdt-row-paginator-error-message    | String        | optional, overrides default error mesasge when promise gets rejected by the paginator function. |
-|:white_check_mark:| mdt-row-paginator-no-results-message    | String        | optional, overrides default 'no results' message when there are no results in the table. |
-|:white_check_mark:| mdt-trigger-request                | function(loadPageCallback) | optional, if `mdt-row-paginator` set, provides a callback function for manually triggering an ajax request. Can be useful when you want to populate the results in the table manually. (e.g.: having a search field in your page which then can trigger a new request in the table to show the results based on that filter.  |
+| Available        | Params                              | Type          | Details       |
+| ---------------- |------------------------------------ | ------------- | ------------- |
+|:white_check_mark:| mdt-row-paginator                   | Function      | optional, makes possible to provide a callback function which returns a promise, providing the data for the table. Has two parameters: `page` and `pageSize` (an optional parameter is `filtersApplied` as a third parameter, when `column-filter` is used |
+|:white_check_mark:| mdt-row-paginator-error-message     | String        | optional, overrides default error mesasge when promise gets rejected by the paginator function. |
+|:white_check_mark:| mdt-row-paginator-no-results-message| String        | optional, overrides default 'no results' message when there are no results in the table. |
+|:white_check_mark:| mdt-trigger-request                 | function(loadPageCallback) | optional, if `mdt-row-paginator` set, provides a callback function for manually triggering an ajax request. Can be useful when you want to populate the results in the table manually. (e.g.: having a search field in your page which then can trigger a new request in the table to show the results based on that filter.  |
 
 ## Example usage for `mdt-row-paginator` attribute:
 ```html
@@ -221,11 +221,11 @@ Html support is available for `mdt-row`, see more: [Custom cell content (`mdt-cu
 | Available        | Params                                         | ChildPArams              | Type         | Details         |
 | ---------------- | ---------------------------------------------- | -------------------------|------------- | --------------- |
 |:white_check_mark:| column-filter                                  |                          | Object       | if provided, user can activate column filter feature on the selected column. |
-|:white_check_mark:| column-filter                                  | valuesProviderCallback   | Function     | required, function which provides the values into the column filter. It must return with a promise which resolves an array of strings/objects.| 
-|:white_check_mark:| column-filter                                  | valuesTransformerCallback| Function     | optional, function which transforms the provided objects into strings to be able to show it visually in the column filter.|
-|:white_check_mark:| column-filter                                  | placeholderText          | Text         | optional, placeholder which will show up as a default text (available only for `chips` and `dropdown` filter types |
-|:white_check_mark:| column-filter                                  | filterType               | Text         | optional, defines the type of the filter you want to use. Available options are: `chips`, `checkbox`, `dropdown`. If you don't specify it, the default will be `chips` |
-
+|:white_check_mark:|                                                | valuesProviderCallback   | Function     | required, function which provides the values into the column filter. It must return with a promise which resolves an array of strings/objects.| 
+|:white_check_mark:|                                                | valuesTransformerCallback| Function     | optional, function which transforms the provided objects into strings to be able to show it visually in the column filter.|
+|:white_check_mark:|                                                | placeholderText          | Text         | optional, placeholder which will show up as a default text (available only for `chips` and `dropdown` filter types |
+|:white_check_mark:|                                                | filterType               | Text         | optional, defines the type of the filter you want to use. Available options are: `chips`, `checkbox`, `dropdown`. If you don't specify it, the default will be `chips` |
+> When filters are applied to the columns, a third parameter will be applied to the `mdt-row-paginator` callback function.
 
 # Data-Row attributes 
 > `mdt-row` attributes
