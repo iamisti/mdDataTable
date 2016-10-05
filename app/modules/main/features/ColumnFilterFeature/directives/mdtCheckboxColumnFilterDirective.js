@@ -13,7 +13,6 @@
             link: function($scope){
 
                 $scope.transformChip = transformChip;
-                $scope.availableItems = [];
                 $scope.selectableItems = [];
                 $scope.selectedItems = _.map($scope.headerRowData.columnFilter.filtersApplied, _.clone);
 
