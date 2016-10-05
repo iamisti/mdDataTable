@@ -51,6 +51,9 @@
                 name: 'Ajax search support',
                 codepen: 'RRrjLk'
             },{
+                name: 'Ajax column filter support (NEW!)',
+                codepen: 'kkvBxd'
+            },{
                 name: 'Ajax html cell support',
                 codepen: 'pbLYwq'
             },{
