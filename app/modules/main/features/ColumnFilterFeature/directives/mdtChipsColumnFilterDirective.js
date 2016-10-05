@@ -10,23 +10,13 @@
                 cancelCallback: '&',
                 headerRowData: '='
             },
-            link: function($scope, elem, attr){
+            link: function($scope, elem){
 
                 $scope.transformChip = transformChip;
 
-                $scope.selectedItem = null;
-                $scope.searchText = null;
                 $scope.availableItems = [];
-
                 $scope.selectedItems = _.map($scope.headerRowData.columnFilter.filtersApplied, _.clone);
-                $scope.placeholderText = attr.placeholderText || 'Filter column...';
-
-                angular.element(elem).on('keydown keypressed', 'input', closeDialog);
-                angular.element(elem).on('keydown keypressed', closeDialog);
-
-                $scope.$on('$destroy', function(){
-                    angular.element(elem).off('keydown keypressed');
-                });
+                $scope.placeholderText = $scope.headerRowData.columnFilter.placeholderText || 'Filter column...';
 
                 //focus input immediately
                 $timeout(function(){
@@ -39,13 +29,6 @@
                     }
 
                     return chip;
-                }
-
-                function closeDialog(e){
-                    if ( e.keyCode === 27 ) { // ESC
-                        $scope.cancelCallback(e);
-                        $scope.$apply();
-                    }
                 }
             }
         }

@@ -1,4 +1,4 @@
-fdescribe('CheckboxColumnFilterDirective', function(){
+describe('CheckboxColumnFilterDirective', function(){
 
     var DIRECTIVE_DEFAULT_CASE = 'DIRECTIVE_DEFAULT_CASE';
     var _$compile;
