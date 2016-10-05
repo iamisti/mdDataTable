@@ -837,109 +837,6 @@
 (function(){
     'use strict';
 
-    function ColumnFilterFeature(){
-
-        var service = this;
-
-        /**
-         * This is the first entry point when we initialize the feature.
-         *
-         * The method adds feature-related variable to the passed object.
-         * The variables gets stored afterwards in the dataStorage for the header cell
-         *
-         * @param $scope
-         * @param cellDataToStore
-         */
-        service.appendHeaderCellData = function($scope, cellDataToStore){
-
-            if($scope.columnFilter && $scope.columnFilter.valuesProviderCallback){
-
-                cellDataToStore.columnFilterIsEnabled = true;
-                cellDataToStore.columnFiltersApplied = [];
-                cellDataToStore.columnFilterValuesProviderCallback = $scope.columnFilter.valuesProviderCallback;
-                cellDataToStore.chipTransformerCallback = $scope.columnFilter.chipTransformerCallback;
-            }
-        };
-
-        /**
-         * Generating the needed functions and variables for the header cell which will
-         * handle the actions of the column filter component.
-         *
-         * @param $scope
-         * @param headerData
-         * @param parentCtrl
-         */
-        service.initGeneratedHeaderCellContent = function($scope, headerData, parentCtrl){
-            if(!headerData.columnFilterIsEnabled){
-                return;
-            }
-
-            $scope.isColumnFilterVisible = false;
-
-            $scope.cancelFilterDialog = function(event){
-                event.stopPropagation();
-                $scope.isColumnFilterVisible = false;
-            };
-
-            $scope.confirmFilterDialog = function(params){
-                params.event.stopPropagation();
-                $scope.isColumnFilterVisible = false;
-
-                headerData.columnFiltersApplied = params.selectedItems;
-
-                if($scope.mdtRowPaginator){
-                    parentCtrl.mdtPaginationHelper.fetchPage(1);
-                }else{
-                    // no support for non-ajax yet
-                }
-            }
-        };
-
-        /**
-         * Click handler for the feature when header cell gets clicked
-         * @param $scope
-         * @param headerRowData
-         */
-        service.generatedHeaderCellClickHandler = function($scope, headerRowData){
-            if(!headerRowData.columnFilterIsEnabled) {
-                return;
-            }
-
-            $scope.isColumnFilterVisible = true;
-        };
-
-        /**
-         * Returns with an array of currently applied filters on the columns.
-         * @param dataStorage
-         * @param callbackArguments
-         */
-        service.appendAppliedFiltersToCallbackArgument = function(dataStorage, callbackArguments){
-            var columnFilters = [];
-            var isEnabled = false;
-
-            _.each(dataStorage.header, function(headerData){
-                var filters = headerData.columnFiltersApplied || [];
-
-                if(headerData.columnFilterIsEnabled){
-                    isEnabled = true;
-                }
-
-                columnFilters.push(filters);
-            });
-
-            if(isEnabled){
-                callbackArguments.filtersApplied = columnFilters;
-            }
-        }
-    }
-
-    angular
-        .module('mdDataTable')
-        .service('ColumnFilterFeature', ColumnFilterFeature);
-}());
-(function(){
-    'use strict';
-
     EditRowFeature.$inject = ['$mdDialog'];
     function EditRowFeature($mdDialog){
 
@@ -1278,6 +1175,148 @@
 (function(){
     'use strict';
 
+    /**
+     * @ngdoc directive
+     * @name mdtColumn
+     * @restrict E
+     * @requires mdtTable
+     *
+     * @description
+     * Representing a header column cell which should be placed inside `mdt-header-row` element directive.
+     *
+     * @param {string=} alignRule align cell content. This settings will have affect on each data cells in the same
+     *  column (e.g. every x.th cell in every row).
+     *
+     *  Assignable values:
+     *    - 'left'
+     *    - 'right'
+     *
+     * @param {function()=} sortBy compareFunction callback for sorting the column data's. As every compare function,
+     *  should get two parameters and return with the comapred result (-1,1,0)
+     *
+     * @param {string=} columnDefinition displays a tooltip on hover.
+     *
+     * @example
+     * <pre>
+     *  <mdt-table>
+     *      <mdt-header-row>
+     *          <mdt-column align-rule="left">Product name</mdt-column>
+     *          <mdt-column
+     *              align-rule="right"
+     *              column-definition="The price of the product in gross.">Price</mdt-column>
+     *      </mdt-header-row>
+     *
+     *      <mdt-row ng-repeat="product in ctrl.products">
+     *          <mdt-cell>{{product.name}}</mdt-cell>
+     *          <mdt-cell>{{product.price}}</mdt-cell>
+     *      </mdt-row>
+     *  </mdt-table>
+     * </pre>
+     */
+    mdtColumnDirective.$inject = ['$interpolate', 'ColumnFilterFeature'];
+    function mdtColumnDirective($interpolate, ColumnFilterFeature){
+        return {
+            restrict: 'E',
+            transclude: true,
+            replace: true,
+            scope: {
+                alignRule: '@',
+                sortBy: '=',
+                columnDefinition: '@',
+                columnFilter: '=?'
+            },
+            require: ['^mdtTable'],
+            link: function ($scope, element, attrs, ctrl, transclude) {
+                var mdtTableCtrl = ctrl[0];
+
+                transclude(function (clone) {
+                    // directive creates an isolate scope so use parent scope to resolve variables.
+                    var cellValue = $interpolate(clone.html())($scope.$parent);
+                    var cellDataToStore = {
+                        alignRule: $scope.alignRule,
+                        sortBy: $scope.sortBy,
+                        columnDefinition: $scope.columnDefinition,
+                        columnName: cellValue
+                    };
+
+                    ColumnFilterFeature.appendHeaderCellData($scope, cellDataToStore, mdtTableCtrl.dataStorage, element);
+
+                    mdtTableCtrl.dataStorage.addHeaderCellData(cellDataToStore);
+                });
+            }
+        };
+    }
+
+    angular
+        .module('mdDataTable')
+        .directive('mdtColumn', mdtColumnDirective);
+}());
+(function(){
+    'use strict';
+
+    mdtGeneratedHeaderCellContentDirective.$inject = ['ColumnFilterFeature'];
+    function mdtGeneratedHeaderCellContentDirective(ColumnFilterFeature){
+        return {
+            restrict: 'E',
+            templateUrl: '/main/templates/mdtGeneratedHeaderCellContent.html',
+            replace: true,
+            scope: false,
+            require: '^mdtTable',
+            link: function($scope, element, attrs, ctrl){
+                ColumnFilterFeature.initGeneratedHeaderCellContent($scope, $scope.headerRowData, ctrl);
+
+                $scope.columnClickHandler = function(){
+                    ColumnFilterFeature.generatedHeaderCellClickHandler($scope, $scope.headerRowData, element);
+                };
+            }
+        };
+    }
+
+    angular
+    .module('mdDataTable')
+        .directive('mdtGeneratedHeaderCellContent', mdtGeneratedHeaderCellContentDirective);
+}());
+
+(function(){
+    'use strict';
+
+    /**
+     * @ngdoc directive
+     * @name mdtHeaderRow
+     * @restrict E
+     * @requires mdtTable
+     *
+     * @description
+     * Representing a header row which should be placed inside `mdt-table` element directive.
+     * The main responsibility of this directive is to execute all the transcluded `mdt-column` element directives.
+     *
+     */
+    function mdtHeaderRowDirective(){
+        return {
+            restrict: 'E',
+            replace: true,
+            transclude: true,
+            require: '^mdtTable',
+            scope: true,
+            link: function($scope, element, attrs, mdtCtrl, transclude){
+                appendColumns();
+
+                function appendColumns(){
+                    transclude(function (clone) {
+                        element.append(clone);
+                    });
+                }
+            }
+        };
+    }
+
+    angular
+        .module('mdDataTable')
+        .directive('mdtHeaderRow', mdtHeaderRowDirective);
+}());
+(function(){
+    'use strict';
+
     mdtAddAlignClass.$inject = ['ColumnAlignmentHelper'];
     function mdtAddAlignClass(ColumnAlignmentHelper){
         return {
@@ -1369,49 +1408,6 @@
         .module('mdDataTable')
         .directive('mdtAnimateSortIconHandler', mdtAnimateSortIconHandlerDirective);
 }());
-(function() {
-    'use strict';
-
-    function mdtColumnFilterDirective(){
-        return{
-            restrict: 'E',
-            templateUrl: '/main/templates/mdtColumnFilter.html',
-            scope: {
-                confirmCallback: '=',
-                cancelCallback: '&',
-                headerRowData: '='
-            },
-            link: function($scope, elem, attr){
-
-                init();
-
-                $scope.transformChip = transformChip;
-
-                function init(){
-                    $scope.isLoading = true;
-                    $scope.hasError = false;
-                    $scope.selectedItem = null;
-                    $scope.searchText = null;
-                    $scope.availableItems = [];
-                    $scope.selectedItems = $scope.headerRowData.columnFiltersApplied;
-                    $scope.placeholderText = attr.placeholderText || 'Filter column...';
-                }
-
-                function transformChip(chip) {
-                    if($scope.headerRowData.chipTransformerCallback){
-                        return $scope.headerRowData.chipTransformerCallback(chip);
-                    }
-
-                    return chip;
-                }
-            }
-        }
-    }
-
-    angular
-        .module('mdDataTable')
-        .directive('mdtColumnFilter', mdtColumnFilterDirective);
-})();
 (function(){
     'use strict';
 
@@ -1504,148 +1500,6 @@
 (function(){
     'use strict';
 
-    /**
-     * @ngdoc directive
-     * @name mdtColumn
-     * @restrict E
-     * @requires mdtTable
-     *
-     * @description
-     * Representing a header column cell which should be placed inside `mdt-header-row` element directive.
-     *
-     * @param {string=} alignRule align cell content. This settings will have affect on each data cells in the same
-     *  column (e.g. every x.th cell in every row).
-     *
-     *  Assignable values:
-     *    - 'left'
-     *    - 'right'
-     *
-     * @param {function()=} sortBy compareFunction callback for sorting the column data's. As every compare function,
-     *  should get two parameters and return with the comapred result (-1,1,0)
-     *
-     * @param {string=} columnDefinition displays a tooltip on hover.
-     *
-     * @example
-     * <pre>
-     *  <mdt-table>
-     *      <mdt-header-row>
-     *          <mdt-column align-rule="left">Product name</mdt-column>
-     *          <mdt-column
-     *              align-rule="right"
-     *              column-definition="The price of the product in gross.">Price</mdt-column>
-     *      </mdt-header-row>
-     *
-     *      <mdt-row ng-repeat="product in ctrl.products">
-     *          <mdt-cell>{{product.name}}</mdt-cell>
-     *          <mdt-cell>{{product.price}}</mdt-cell>
-     *      </mdt-row>
-     *  </mdt-table>
-     * </pre>
-     */
-    mdtColumnDirective.$inject = ['$interpolate', 'ColumnFilterFeature'];
-    function mdtColumnDirective($interpolate, ColumnFilterFeature){
-        return {
-            restrict: 'E',
-            transclude: true,
-            replace: true,
-            scope: {
-                alignRule: '@',
-                sortBy: '=',
-                columnDefinition: '@',
-                columnFilter: '=?'
-            },
-            require: ['^mdtTable'],
-            link: function ($scope, element, attrs, ctrl, transclude) {
-                var mdtTableCtrl = ctrl[0];
-
-                transclude(function (clone) {
-                    // directive creates an isolate scope so use parent scope to resolve variables.
-                    var cellValue = $interpolate(clone.html())($scope.$parent);
-                    var cellDataToStore = {
-                        alignRule: $scope.alignRule,
-                        sortBy: $scope.sortBy,
-                        columnDefinition: $scope.columnDefinition,
-                        columnName: cellValue
-                    };
-
-                    ColumnFilterFeature.appendHeaderCellData($scope, cellDataToStore);
-
-                    mdtTableCtrl.dataStorage.addHeaderCellData(cellDataToStore);
-                });
-            }
-        };
-    }
-
-    angular
-        .module('mdDataTable')
-        .directive('mdtColumn', mdtColumnDirective);
-}());
-(function(){
-    'use strict';
-
-    mdtGeneratedHeaderCellContentDirective.$inject = ['ColumnFilterFeature'];
-    function mdtGeneratedHeaderCellContentDirective(ColumnFilterFeature){
-        return {
-            restrict: 'E',
-            templateUrl: '/main/templates/mdtGeneratedHeaderCellContent.html',
-            replace: true,
-            scope: false,
-            require: '^mdtTable',
-            link: function($scope, element, attrs, ctrl){
-                ColumnFilterFeature.initGeneratedHeaderCellContent($scope, $scope.headerRowData, ctrl);
-
-                $scope.columnClickHandler = function(){
-                    ColumnFilterFeature.generatedHeaderCellClickHandler($scope, $scope.headerRowData);
-                };
-            }
-        };
-    }
-
-    angular
-    .module('mdDataTable')
-        .directive('mdtGeneratedHeaderCellContent', mdtGeneratedHeaderCellContentDirective);
-}());
-
-(function(){
-    'use strict';
-
-    /**
-     * @ngdoc directive
-     * @name mdtHeaderRow
-     * @restrict E
-     * @requires mdtTable
-     *
-     * @description
-     * Representing a header row which should be placed inside `mdt-table` element directive.
-     * The main responsibility of this directive is to execute all the transcluded `mdt-column` element directives.
-     *
-     */
-    function mdtHeaderRowDirective(){
-        return {
-            restrict: 'E',
-            replace: true,
-            transclude: true,
-            require: '^mdtTable',
-            scope: true,
-            link: function($scope, element, attrs, mdtCtrl, transclude){
-                appendColumns();
-
-                function appendColumns(){
-                    transclude(function (clone) {
-                        element.append(clone);
-                    });
-                }
-            }
-        };
-    }
-
-    angular
-        .module('mdDataTable')
-        .directive('mdtHeaderRow', mdtHeaderRowDirective);
-}());
-(function(){
-    'use strict';
-
     function mdtCardFooterDirective(){
         return {
             restrict: 'E',
@@ -1696,3 +1550,283 @@
         .module('mdDataTable')
         .directive('mdtCardHeader', mdtCardHeaderDirective);
 }());
+(function(){
+    'use strict';
+
+    function ColumnFilterFeature(){
+
+        var service = this;
+
+        /**
+         * This is the first entry point when we initialize the feature.
+         *
+         * The method adds feature-related variable to the passed object.
+         * The variables gets stored afterwards in the dataStorage for the header cell
+         *
+         * @param $scope
+         * @param cellDataToStore
+         */
+        service.appendHeaderCellData = function($scope, cellDataToStore, dataStorage, element){
+            cellDataToStore.columnFilter = {};
+
+            if($scope.columnFilter && $scope.columnFilter.valuesProviderCallback){
+                cellDataToStore.columnFilter.isEnabled = true;
+                cellDataToStore.columnFilter.filtersApplied = [];
+                cellDataToStore.columnFilter.valuesProviderCallback = $scope.columnFilter.valuesProviderCallback;
+                cellDataToStore.columnFilter.valuesTransformerCallback = $scope.columnFilter.valuesTransformerCallback;
+                cellDataToStore.columnFilter.placeholderText = $scope.columnFilter.placeholderText;
+                cellDataToStore.columnFilter.type = $scope.columnFilter.filterType || 'chips';
+                cellDataToStore.columnFilter.isActive = false;
+
+                cellDataToStore.columnFilter.setColumnActive = function(bool){
+                    //first we disable every column filter if any is active
+                    _.each(dataStorage.header, function(headerData){
+                        if(headerData.columnFilter.isEnabled){
+                            headerData.columnFilter.isActive = false;
+                        }
+                    });
+
+                    //then we activate ours
+                    cellDataToStore.columnFilter.isActive = bool ? true : false;
+
+                    if(bool){
+                        element.closest('.mdtTable').css('overflow', 'visible');
+                    }else{
+                        element.closest('.mdtTable').css('overflow', 'auto');
+                    }
+                }
+            }else{
+                cellDataToStore.columnFilter.isEnabled = false;
+            }
+        };
+
+        /**
+         * Generating the needed functions and variables for the header cell which will
+         * handle the actions of the column filter component.
+         *
+         * @param $scope
+         * @param headerData
+         * @param parentCtrl
+         */
+        service.initGeneratedHeaderCellContent = function($scope, headerData, parentCtrl){
+            if(!headerData.columnFilter.isEnabled){
+                return;
+            }
+
+            $scope.columnFilterFeature = {};
+
+            $scope.columnFilterFeature.cancelFilterDialog = function(event){
+                if(event){
+                    event.stopPropagation();
+                }
+
+                headerData.columnFilter.setColumnActive(false);
+            };
+
+            $scope.columnFilterFeature.confirmFilterDialog = function(params){
+                params.event.stopPropagation();
+
+                headerData.columnFilter.setColumnActive(false);
+
+                headerData.columnFilter.filtersApplied = params.selectedItems;
+
+                if($scope.mdtRowPaginator){
+                    parentCtrl.mdtPaginationHelper.fetchPage(1);
+                }else{
+                    // no support for non-ajax yet
+                }
+            }
+        };
+
+        /**
+         * Click handler for the feature when header cell gets clicked
+         * @param $scope
+         * @param headerRowData
+         */
+        service.generatedHeaderCellClickHandler = function($scope, headerRowData, element){
+            if(!headerRowData.columnFilter.isEnabled) {
+                return;
+            }
+
+            headerRowData.columnFilter.setColumnActive(!headerRowData.columnFilter.isActive);
+        };
+
+        /**
+         * Returns with an array of currently applied filters on the columns.
+         * @param dataStorage
+         * @param callbackArguments
+         */
+        service.appendAppliedFiltersToCallbackArgument = function(dataStorage, callbackArguments){
+            var columnFilters = [];
+            var isEnabled = false;
+
+            _.each(dataStorage.header, function(headerData){
+                var filters = headerData.columnFilter.filtersApplied || [];
+
+                if(headerData.columnFilter.isEnabled){
+                    isEnabled = true;
+                }
+
+                columnFilters.push(filters);
+            });
+
+            if(isEnabled){
+                callbackArguments.filtersApplied = columnFilters;
+            }
+        }
+    }
+
+    angular
+        .module('mdDataTable')
+        .service('ColumnFilterFeature', ColumnFilterFeature);
+}());
+(function() {
+    'use strict';
+
+    mdtCheckboxColumnFilterDirective.$inject = ['_'];
+    function mdtCheckboxColumnFilterDirective(_){
+        return{
+            restrict: 'E',
+            templateUrl: '/main/templates/mdtCheckboxColumnFilter.html',
+            scope: {
+                confirmCallback: '=',
+                cancelCallback: '&',
+                headerRowData: '='
+            },
+            link: function($scope){
+
+                $scope.transformChip = transformChip;
+                $scope.selectableItems = [];
+                $scope.selectedItems = _.map($scope.headerRowData.columnFilter.filtersApplied, _.clone);
+
+                $scope.headerRowData.columnFilter.valuesProviderCallback().then(function(values){
+                    if(values){
+                        $scope.selectableItems = values
+                    }
+                });
+
+                $scope.exists = function (item) {
+                    var result = _.findIndex($scope.selectedItems, function(arrayItem){
+                        return transformChip(arrayItem) === transformChip(item);
+                    });
+
+                    return result != -1;
+                };
+
+                $scope.toggle = function (item) {
+                    var idx = _.findIndex($scope.selectedItems, function(arrayItem){
+                        return transformChip(arrayItem) === transformChip(item);
+                    });
+
+                    if (idx > -1) {
+                        $scope.selectedItems.splice(idx, 1);
+                    }
+                    else {
+                        $scope.selectedItems.push(item);
+                    }
+                };
+
+                function transformChip(chip) {
+                    if($scope.headerRowData.columnFilter.valuesTransformerCallback){
+                        return $scope.headerRowData.columnFilter.valuesTransformerCallback(chip);
+                    }
+
+                    return chip;
+                }
+            }
+        }
+    }
+
+    angular
+        .module('mdDataTable')
+        .directive('mdtCheckboxColumnFilter', mdtCheckboxColumnFilterDirective);
+})();
+(function() {
+    'use strict';
+
+    mdtChipsColumnFilterDirective.$inject = ['_', '$timeout'];
+    function mdtChipsColumnFilterDirective(_, $timeout){
+        return{
+            restrict: 'E',
+            templateUrl: '/main/templates/mdtChipsColumnFilter.html',
+            scope: {
+                confirmCallback: '=',
+                cancelCallback: '&',
+                headerRowData: '='
+            },
+            link: function($scope, elem){
+
+                $scope.transformChip = transformChip;
+
+                $scope.availableItems = [];
+                $scope.selectedItems = _.map($scope.headerRowData.columnFilter.filtersApplied, _.clone);
+                $scope.placeholderText = $scope.headerRowData.columnFilter.placeholderText || 'Filter column...';
+
+                //focus input immediately
+                $timeout(function(){
+                    elem.find('input').focus();
+                },0);
+
+                function transformChip(chip) {
+                    if($scope.headerRowData.columnFilter.valuesTransformerCallback){
+                        return $scope.headerRowData.columnFilter.valuesTransformerCallback(chip);
+                    }
+
+                    return chip;
+                }
+            }
+        }
+    }
+
+    angular
+        .module('mdDataTable')
+        .directive('mdtChipsColumnFilter', mdtChipsColumnFilterDirective);
+})();
+(function() {
+    'use strict';
+
+    function mdtDropdownColumnFilterDirective(){
+        return{
+            restrict: 'E',
+            templateUrl: '/main/templates/mdtDropdownColumnFilter.html',
+            scope: {
+                confirmCallback: '=',
+                cancelCallback: '&',
+                headerRowData: '='
+            },
+            link: function($scope){
+                $scope.transformChip = transformChip;
+                $scope.selectedItem = selectedItem;
+
+                $scope.selectableItems = [];
+                $scope.selectedItems = _.map($scope.headerRowData.columnFilter.filtersApplied, _.clone);
+                $scope.oneSelectedItem = $scope.selectedItems.length ? $scope.selectedItems[0] : undefined;
+                $scope.placeholderText = $scope.headerRowData.columnFilter.placeholderText || 'Choose a value';
+
+                $scope.headerRowData.columnFilter.valuesProviderCallback().then(function(values){
+                    if(values){
+                        $scope.selectableItems = values;
+                    }
+                });
+
+                function transformChip(chip) {
+                    if($scope.headerRowData.columnFilter.valuesTransformerCallback){
+                        return $scope.headerRowData.columnFilter.valuesTransformerCallback(chip);
+                    }
+
+                    return chip;
+                }
+
+                function selectedItem(){
+                    if(typeof $scope.oneSelectedItem !== 'undefined'){
+                        $scope.selectedItems = [$scope.oneSelectedItem];
+                    }
+                }
+            }
+        }
+    }
+
+    angular
+        .module('mdDataTable')
+        .directive('mdtDropdownColumnFilter', mdtDropdownColumnFilterDirective);
+})();

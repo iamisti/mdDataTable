@@ -1,5 +1,6 @@
 .mdtTable {
-  /*overflow: visible;*/
+  /*helps to prevent vertical scrolling when it's not needed*/
+  overflow-y: hidden;
   font-size: 15px;
   /* 12sp Roboto Medium, 54% black */
   /* optional animation of sort icons: add class 'animate-sort-icon' to mdt-header-row to activate animation */
@@ -15,7 +16,7 @@
   /* TH Select outline color & caret */
 }
 .mdtTable .md-chips {
-  font-size: 14px;
+  font-size: 13px;
 }
 .mdtTable .p-r {
   position: relative;
