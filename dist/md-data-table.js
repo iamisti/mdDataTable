@@ -46,6 +46,42 @@
 (function(){
     'use strict';
 
+    InlineEditModalCtrl.$inject = ['$scope', 'position', 'cellData', 'mdtTranslations', '$timeout', '$mdDialog'];
+    function InlineEditModalCtrl($scope, position, cellData, mdtTranslations, $timeout, $mdDialog){
+
+        $timeout(function() {
+            var el = $('md-dialog');
+            el.css('position', 'fixed');
+            el.css('top', position['top']);
+            el.css('left', position['left']);
+
+            el.find('input[type="text"]').focus();
+        });
+
+        $scope.cellData = cellData;
+        $scope.mdtTranslations = mdtTranslations;
+
+        $scope.saveRow = saveRow;
+        $scope.cancel = cancel;
+
+        function saveRow(){
+            if($scope.editFieldForm.$valid){
+                $mdDialog.hide(cellData.value);
+            }
+        }
+
+        function cancel(){
+            $mdDialog.cancel();
+        }
+    }
+
+    angular
+        .module('mdDataTable')
+        .controller('InlineEditModalCtrl', InlineEditModalCtrl);
+}());
+(function(){
+    'use strict';
+
     mdtAlternateHeadersDirective.$inject = ['_'];
     function mdtAlternateHeadersDirective(_){
         return {
@@ -801,39 +837,45 @@
 (function(){
     'use strict';
 
-    InlineEditModalCtrl.$inject = ['$scope', 'position', 'cellData', 'mdtTranslations', '$timeout', '$mdDialog'];
-    function InlineEditModalCtrl($scope, position, cellData, mdtTranslations, $timeout, $mdDialog){
+    ColumnAlignmentHelper.$inject = ['ColumnOptionProvider'];
+    function ColumnAlignmentHelper(ColumnOptionProvider){
+        var service = this;
+        service.getColumnAlignClass = getColumnAlignClass;
 
-        $timeout(function() {
-            var el = $('md-dialog');
-            el.css('position', 'fixed');
-            el.css('top', position['top']);
-            el.css('left', position['left']);
-
-            el.find('input[type="text"]').focus();
-        });
-
-        $scope.cellData = cellData;
-        $scope.mdtTranslations = mdtTranslations;
-
-        $scope.saveRow = saveRow;
-        $scope.cancel = cancel;
-
-        function saveRow(){
-            if($scope.editFieldForm.$valid){
-                $mdDialog.hide(cellData.value);
+        function getColumnAlignClass(alignRule) {
+            if (alignRule === ColumnOptionProvider.ALIGN_RULE.ALIGN_RIGHT) {
+                return 'rightAlignedColumn';
+            } else {
+                return 'leftAlignedColumn';
             }
-        }
-
-        function cancel(){
-            $mdDialog.cancel();
         }
     }
 
     angular
         .module('mdDataTable')
-        .controller('InlineEditModalCtrl', InlineEditModalCtrl);
+        .service('ColumnAlignmentHelper', ColumnAlignmentHelper);
 }());
+(function(){
+    'use strict';
+
+    /**
+     * @name ColumnOptionProvider
+     * @returns possible assignable column options you can give
+     *
+     * @describe Representing the assignable properties to the columns you can give.
+     */
+    var ColumnOptionProvider = {
+        ALIGN_RULE : {
+            ALIGN_LEFT: 'left',
+            ALIGN_RIGHT: 'right'
+        }
+    };
+
+    angular
+        .module('mdDataTable')
+        .value('ColumnOptionProvider', ColumnOptionProvider);
+})();
+
 (function(){
     'use strict';
 
@@ -977,48 +1019,6 @@
         .module('mdDataTable')
         .service('SelectableRowsFeature', SelectableRowsFeatureFactory);
 }());
-(function(){
-    'use strict';
-
-    ColumnAlignmentHelper.$inject = ['ColumnOptionProvider'];
-    function ColumnAlignmentHelper(ColumnOptionProvider){
-        var service = this;
-        service.getColumnAlignClass = getColumnAlignClass;
-
-        function getColumnAlignClass(alignRule) {
-            if (alignRule === ColumnOptionProvider.ALIGN_RULE.ALIGN_RIGHT) {
-                return 'rightAlignedColumn';
-            } else {
-                return 'leftAlignedColumn';
-            }
-        }
-    }
-
-    angular
-        .module('mdDataTable')
-        .service('ColumnAlignmentHelper', ColumnAlignmentHelper);
-}());
-(function(){
-    'use strict';
-
-    /**
-     * @name ColumnOptionProvider
-     * @returns possible assignable column options you can give
-     *
-     * @describe Representing the assignable properties to the columns you can give.
-     */
-    var ColumnOptionProvider = {
-        ALIGN_RULE : {
-            ALIGN_LEFT: 'left',
-            ALIGN_RIGHT: 'right'
-        }
-    };
-
-    angular
-        .module('mdDataTable')
-        .value('ColumnOptionProvider', ColumnOptionProvider);
-})();
-
 (function(){
     'use strict';
 
