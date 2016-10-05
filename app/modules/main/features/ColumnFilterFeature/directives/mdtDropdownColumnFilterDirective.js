@@ -16,7 +16,7 @@
 
                 $scope.selectableItems = [];
                 $scope.selectedItems = _.map($scope.headerRowData.columnFilter.filtersApplied, _.clone);
-                $scope.oneSelectedItem = $scope.selectedItems.length ? $scope.selectedItems[0] : undefined;
+                $scope.oneSelectedItem = $scope.selectedItems.length ? transformChip($scope.selectedItems[0]) : undefined;
                 $scope.placeholderText = $scope.headerRowData.columnFilter.placeholderText || 'Choose a value';
 
                 $scope.headerRowData.columnFilter.valuesProviderCallback().then(function(values){
@@ -35,7 +35,13 @@
 
                 function selectedItem(){
                     if(typeof $scope.oneSelectedItem !== 'undefined'){
-                        $scope.selectedItems = [$scope.oneSelectedItem];
+                        var result = _.find($scope.selectableItems, function(anItem){
+                            return transformChip(anItem) === $scope.oneSelectedItem
+                        });
+
+                        if(result){
+                            $scope.selectedItems = [result];
+                        }
                     }
                 }
             }

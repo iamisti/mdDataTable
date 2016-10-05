@@ -64,6 +64,9 @@
                 name: 'Ajax search support',
                 codepen: 'RRrjLk'
             },{
+                name: 'Ajax column filter support (NEW!)',
+                codepen: 'kkvBxd'
+            },{
                 name: 'Ajax html cell support',
                 codepen: 'pbLYwq'
             },{
@@ -107,7 +110,8 @@
         'exampleApp13',
         'exampleApp14',
         'exampleApp15',
-        'exampleApp16'
+        'exampleApp16',
+        'exampleApp17'
     ]);
 
     angular.module('demo').service('PageService', PageService);

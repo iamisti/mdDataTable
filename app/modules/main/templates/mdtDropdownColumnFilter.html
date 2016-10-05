@@ -8,10 +8,7 @@
             <div class="p-md">
                 <md-input-container class="md-block" flex-gt-sm>
                     <md-select ng-model="oneSelectedItem" placeholder="{{placeholderText}}" ng-change="selectedItem()">
-                        <md-option value="undefined">
-                            All
-                        </md-option>
-                        <md-option ng-repeat="item in selectableItems" value="{{item}}">
+                        <md-option ng-repeat="item in selectableItems" value="{{transformChip(item)}}">
                             {{transformChip(item)}}
                         </md-option>
                     </md-select>

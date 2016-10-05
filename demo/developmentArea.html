@@ -36,7 +36,8 @@
 
             <mdt-column align-rule="left"
                         column-filter="{
-                            'valuesProviderCallback': fatValues,
+                            'valuesProviderCallback': fatValuesCallback,
+                            'valuesTransformerCallback': fatValuesTransformer,
                             'placeholderText': 'Select a value',
                             'filterType': 'dropdown'
                         }">Fat (g)</mdt-column>
