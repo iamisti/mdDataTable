@@ -22,6 +22,13 @@ Angular material table. Complete implementation of google material design based 
 2. Make sure the `mdDataTable` (notice the camelCase typing) lib is loaded. It's served in three different files: `md-data-table-style.css`, `md-data-table.js`, `md-data-table-templates.js`
 3. Add `mdDataTable` as a dependency of your app.
 
+## Load it from CDN (with example of version 1.8.0)
+https://cdnjs.cloudflare.com/ajax/libs/md-data-table/1.8.0/md-data-table-templates.min.js
+
+https://cdnjs.cloudflare.com/ajax/libs/md-data-table/1.8.0/md-data-table.min.js
+
+https://cdnjs.cloudflare.com/ajax/libs/md-data-table/1.8.0/md-data-table-style.css
+
 ## UI&UX driven by google data table
 http://www.google.com/design/spec/components/data-tables.html
 
