@@ -13,6 +13,7 @@ If you want to be notified for the first release, please star the project here: 
 [![Codacy Badge](https://api.codacy.com/project/badge/grade/fdcfe195e886430aaefefa54c972d3f7)](https://www.codacy.com/app/programtervezo/mdDataTable)
 
 Angular material table. Complete implementation of google material design based on angular material components.
+This component is optimized for speed, and it's faster then the other similar implementations, since it's generates a native html table, and browsers are optimized to handle table data.
 
 > Live demo http://iamisti.github.io/mdDataTable/
 
