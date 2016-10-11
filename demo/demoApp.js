@@ -81,6 +81,9 @@
             },{
                 name: 'Editable fields - large dialog',
                 codepen: 'zqYLNj'
+            },{
+                name: 'Vertical Scroll',
+                codepen: 'mVOKEw'
             }/*,{
              name: 'Ripple effect',
              codepen: 'xZRzpV'
