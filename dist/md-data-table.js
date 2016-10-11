@@ -238,8 +238,8 @@
                 paginatedRows: '=',
                 mdtRow: '=',
                 mdtRowPaginator: '&?',
-                mdtRowPaginatorErrorMessage:"@",
-                mdtRowPaginatorNoResultsMessage:"@",
+                mdtRowPaginatorErrorMessage:'@',
+                mdtRowPaginatorNoResultsMessage:'@',
                 virtualRepeat: '=',
                 mdtTriggerRequest: '&?',
                 mdtTranslations: '=?'
@@ -331,19 +331,33 @@
                         var body = [];
                         var customCell = [];
 
+                        // Use plain JS to append content
                         _.each(clone, function (child) {
-                            var $child = angular.element(child);
 
-                            if ($child.hasClass('theadTrRow')) {
-                                headings.push($child);
-                            } else if($child.hasClass('customCell')) {
-                                customCell.push($child);
+                            if ( child.classList !== undefined ) {
+                                if ( child.classList.contains('theadTrRow')) {
+                                    headings.push(child);
+                                }
+                                else if( child.classList.contains('customCell') ) {
+                                    customCell.push(child);
+                                }
+                                else {
+                                    body.push(child);
+                                }
                             } else {
-                                body.push($child);
+                                body.push(child);
                             }
                         });
 
-                        element.find('#reader').append(headings).append(body);
+                        var reader = element[0].querySelector('#reader');
+
+                        _.each(headings, function (heading) {
+                            reader.appendChild( heading );
+                        });
+
+                        _.each(body, function (item) {
+                            reader.appendChild( item );
+                        });
                     });
                 }
 
