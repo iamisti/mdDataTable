@@ -70,7 +70,7 @@
                 codepen: 'zqYLNj'
             },{
                 name: 'Vertical Scroll',
-                codepen: 'mVOKEw'
+                codepen: 'mAKWLb'
             }/*,{
                 name: 'Ripple effect',
                 codepen: 'xZRzpV'
