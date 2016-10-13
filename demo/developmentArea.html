@@ -4,7 +4,7 @@
             mdt-row-paginator="paginatorCallback(page, pageSize, filtersApplied)"
             mdt-row-paginator-error-message="Error happened during loading nutritions."
             mdt-row="{
-            'table-row-id-key': 'fields.item_id',
+            'table-row-id-key': 'fields._id',
             'column-keys': [
                 'fields.item_name',
                 'fields.nf_serving_size_unit',
@@ -49,8 +49,8 @@
             <mdt-column align-rule="right">Iron (%)</mdt-column>
         </mdt-header-row>
 
-        <mdt-custom-cell column-key="protein">
-            <span ng-class="{'red': value > 5, 'green': value <= 5}">{{value}}</span>
+        <mdt-custom-cell column-key="fields.nf_protein">
+            <span ng-class="{'red': value > 5, 'green': value <= 5}">{{value}}, -{{rowId}}-</span>
         </mdt-custom-cell>
     </mdt-table>
 </div>

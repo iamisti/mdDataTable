@@ -83,7 +83,7 @@
                 codepen: 'zqYLNj'
             },{
                 name: 'Vertical Scroll',
-                codepen: 'mVOKEw'
+                codepen: 'mAKWLb'
             }/*,{
              name: 'Ripple effect',
              codepen: 'xZRzpV'
@@ -114,7 +114,8 @@
         'exampleApp14',
         'exampleApp15',
         'exampleApp16',
-        'exampleApp17'
+        'exampleApp17',
+        'exampleApp18'
     ]);
 
     angular.module('demo').service('PageService', PageService);

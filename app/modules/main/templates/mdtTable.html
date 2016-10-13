@@ -1,12 +1,13 @@
 <md-content class="mdtTable md-whiteframe-z1" layout="column" ng-cloak>
+    <!-- parsing transcluded content in order to be executed -->
+    <div class="mdtTable-reader" style="display:none;"></div>
+
     <!-- table card -->
     <mdt-card-header ng-hide="alternateHeaders && dataStorage.isAnyRowSelected()"></mdt-card-header>
 
     <!-- alternate headers -->
     <mdt-alternate-headers ng-show="alternateHeaders && dataStorage.isAnyRowSelected()"></mdt-alternate-headers>
     <!-- alternate headers end -->
-
-    <div id="reader" style="display:none;"></div>
 
     <ng-include src="'/main/templates/generateTable.html'"></ng-include>
 

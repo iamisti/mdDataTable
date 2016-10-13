@@ -238,7 +238,7 @@
                             }
                         });
 
-                        var reader = element[0].querySelector('#reader');
+                        var reader = element[0].querySelector('.mdtTable-reader');
 
                         _.each(headings, function (heading) {
                             reader.appendChild( heading );
