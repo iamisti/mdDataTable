@@ -1613,7 +1613,7 @@
                     if(bool){
                         element.closest('.mdtTable').css('overflow', 'visible');
                     }else{
-                        element.closest('.mdtTable').css('overflow', 'inherit');
+                        element.closest('.mdtTable').css('overflow', '');
                     }
                 }
             }else{
