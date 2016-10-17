@@ -37,6 +37,8 @@
                     //then we activate ours
                     cellDataToStore.columnFilter.isActive = bool ? true : false;
 
+                    // we need to change the overflow property here. If the table is too small, the filter window will gets hidden.
+                    // TODO: come up with a better solution.
                     if(bool){
                         element.closest('.mdtTable').css('overflow', 'visible');
                     }else{
