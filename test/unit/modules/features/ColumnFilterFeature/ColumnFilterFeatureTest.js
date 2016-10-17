@@ -173,7 +173,7 @@ describe('ColumnFilterFeature', function(){
 
             parentCtrl = {
                 mdtPaginationHelper: {
-                    fetchPage: function(){}
+                    getFirstPage: function(){}
                 }
             };
 
@@ -212,24 +212,24 @@ describe('ColumnFilterFeature', function(){
             //given
             scope.mdtRowPaginator = true;
 
-            spyOn(parentCtrl.mdtPaginationHelper, 'fetchPage');
+            spyOn(parentCtrl.mdtPaginationHelper, 'getFirstPage');
 
             //when
             scope.columnFilterFeature.confirmFilterDialog({ selectedItems: ['one', 'two'], event: mockedEvent, parentCtrl: parentCtrl });
 
             //then
-            expect(parentCtrl.mdtPaginationHelper.fetchPage).toHaveBeenCalledWith(1);
+            expect(parentCtrl.mdtPaginationHelper.getFirstPage).toHaveBeenCalled();
         });
 
         it('AND ajax feature is not used THEN it should not fetch the data', function(){
             //given
-            spyOn(parentCtrl.mdtPaginationHelper, 'fetchPage');
+            spyOn(parentCtrl.mdtPaginationHelper, 'getFirstPage');
 
             //when
             scope.columnFilterFeature.confirmFilterDialog({ selectedItems: ['one', 'two'], event: mockedEvent, parentCtrl: parentCtrl });
 
             //then
-            expect(parentCtrl.mdtPaginationHelper.fetchPage).not.toHaveBeenCalled();
+            expect(parentCtrl.mdtPaginationHelper.getFirstPage).not.toHaveBeenCalled();
         });
     });
 

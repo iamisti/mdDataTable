@@ -1,7 +1,7 @@
 (function() {
     'use strict';
 
-    function mdtDropdownColumnFilterDirective(){
+    function mdtDropdownColumnFilterDirective(ColumnFilterFeature){
         return{
             restrict: 'E',
             templateUrl: '/main/templates/mdtDropdownColumnFilter.html',
@@ -10,7 +10,9 @@
                 cancelCallback: '&',
                 headerRowData: '='
             },
-            link: function($scope){
+            link: function($scope, element){
+                ColumnFilterFeature.positionColumnFilterBox(element);
+
                 $scope.transformChip = transformChip;
                 $scope.selectedItem = selectedItem;
 

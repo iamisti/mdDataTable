@@ -36,14 +36,6 @@
 
                     //then we activate ours
                     cellDataToStore.columnFilter.isActive = bool ? true : false;
-
-                    // we need to change the overflow property here. If the table is too small, the filter window will gets hidden.
-                    // TODO: come up with a better solution.
-                    if(bool){
-                        element.closest('.mdtTable').css('overflow', 'visible');
-                    }else{
-                        element.closest('.mdtTable').css('overflow', '');
-                    }
                 }
             }else{
                 cellDataToStore.columnFilter.isEnabled = false;
@@ -81,7 +73,7 @@
                 headerData.columnFilter.filtersApplied = params.selectedItems;
 
                 if($scope.mdtRowPaginator){
-                    parentCtrl.mdtPaginationHelper.fetchPage(1);
+                    parentCtrl.mdtPaginationHelper.getFirstPage();
                 }else{
                     // no support for non-ajax yet
                 }
@@ -123,6 +115,29 @@
             if(isEnabled){
                 callbackArguments.filtersApplied = columnFilters;
             }
+        }
+
+        /**
+         * Set the position of the column filter panel. It's required to attach it to the outer container 
+         * of the component because otherwise some parts of the panel can became partially or fully hidden
+         * (e.g.: when table has only one row to show)
+         */
+        service.positionColumnFilterBox = function(element){
+            var elementPosition = element.closest('th').position();
+
+            var targetMetrics = {
+                top: elementPosition.top + 60,
+                left: elementPosition.left
+            }
+            
+            element.css('position', 'absolute');
+            element.detach().appendTo('.mdtTableContainer');
+
+            element.css({
+                top: targetMetrics.top + 'px', 
+                left: targetMetrics.left + 'px', 
+                position:'absolute'
+            });
         }
     }
 

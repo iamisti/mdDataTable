@@ -78,6 +78,12 @@
             }
         };
 
+        mdtAjaxPaginationHelper.prototype.getFirstPage = function(){
+            this.page = 1;
+
+            this.fetchPage(this.page);
+        };
+
         mdtAjaxPaginationHelper.prototype.hasNextPage = function(){
             return this.page < this.totalPages;
         };
@@ -148,9 +154,8 @@
 
         mdtAjaxPaginationHelper.prototype.setRowsPerPage = function(rowsPerPage){
             this.rowsPerPage = rowsPerPage;
-            this.page = 1;
 
-            this.fetchPage(this.page);
+            this.getFirstPage();
         };
 
         return {

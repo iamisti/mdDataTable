@@ -1,7 +1,7 @@
 (function() {
     'use strict';
 
-    function mdtChipsColumnFilterDirective(_, $timeout){
+    function mdtChipsColumnFilterDirective(_, $timeout, ColumnFilterFeature){
         return{
             restrict: 'E',
             templateUrl: '/main/templates/mdtChipsColumnFilter.html',
@@ -11,6 +11,7 @@
                 headerRowData: '='
             },
             link: function($scope, elem){
+                ColumnFilterFeature.positionColumnFilterBox(elem);
 
                 $scope.transformChip = transformChip;
 

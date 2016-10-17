@@ -1,7 +1,4 @@
-<md-content class="mdtTable md-whiteframe-z1" layout="column" ng-cloak>
-    <!-- parsing transcluded content in order to be executed -->
-    <div class="mdtTable-reader" style="display:none;"></div>
-
+<md-content class="mdtTableContainer md-whiteframe-z1" ng-cloak>
     <!-- table card -->
     <mdt-card-header ng-hide="alternateHeaders && dataStorage.isAnyRowSelected()"></mdt-card-header>
 
@@ -9,7 +6,12 @@
     <mdt-alternate-headers ng-show="alternateHeaders && dataStorage.isAnyRowSelected()"></mdt-alternate-headers>
     <!-- alternate headers end -->
 
-    <ng-include src="'/main/templates/generateTable.html'"></ng-include>
+    <md-content class="mdtTable" layout="column">
+        <!-- parsing transcluded content in order to be executed -->
+        <div class="mdtTable-reader" style="display:none;"></div>
+
+        <ng-include src="'/main/templates/generateTable.html'"></ng-include>
+    </md-content>
 
     <!-- table card -->
     <mdt-card-footer></mdt-card-footer>

@@ -1,8 +1,6 @@
-
-.mdtTable{
-
-    /*helps to prevent vertical scrolling when it's not needed*/
-    overflow-y: hidden;
+.mdtTableContainer{
+    position:relative;
+    overflow: visible;
 
     .md-chips {font-size: 13px;}
     .p-r {position: relative;}
@@ -149,6 +147,10 @@
         }
     }
 
+    .mdt-footer{
+        overflow: hidden;
+    }
+
     /* column padding */
     .checkboxCell{
         width: 18px;
@@ -234,23 +236,29 @@
     .p-b-n {padding-bottom: 0;}
 
     .filter-dropdown {
-        position: absolute; left: -10px;
-        z-index: 1; top: 110%; width: 220px;
+        position: absolute; 
+        z-index: 1; 
+        width: 230px;
         text-align: initial;
+        
+        .md-chips{
+            font-size: 12px;
+        }
     }
 
     .header-dropdown-btn {
         position: relative;
-            .filter-dropdown {
-                position: absolute; top: 100%; right: 0; left: auto;
-            }
+        .filter-dropdown {
+            position: absolute; top: 100%; right: 0; left: auto;
+        }
     }
 
     .filter__search {
         position: relative;
-            ng-md-icon[icon="search"] {position: absolute; top: 22px; left: 24px;}
-            .md-icon-button {position: absolute; right: 10px; top: 14px;}
-            .input {padding: 8px 32px 8px 36px; width: 100%;}
+        
+        ng-md-icon[icon="search"] {position: absolute; top: 22px; left: 24px;}
+        .md-icon-button {position: absolute; right: 10px; top: 14px;}
+        .input {padding: 8px 32px 8px 36px; width: 100%;}
     }
     .filter__scroll {max-height: 200px; overflow-y: auto;}
 
@@ -258,7 +266,6 @@
     .filter-select {
         border: 1px solid transparent; padding: 11px 10px;
         border-radius: 2px; cursor: pointer; margin-left: -10px;
-
     }
     .filter-select:hover {
         border-color: #dedede;

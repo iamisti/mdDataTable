@@ -1,7 +1,7 @@
 (function() {
     'use strict';
 
-    function mdtCheckboxColumnFilterDirective(_){
+    function mdtCheckboxColumnFilterDirective(_, ColumnFilterFeature){
         return{
             restrict: 'E',
             templateUrl: '/main/templates/mdtCheckboxColumnFilter.html',
@@ -10,7 +10,8 @@
                 cancelCallback: '&',
                 headerRowData: '='
             },
-            link: function($scope){
+            link: function($scope, element){
+                ColumnFilterFeature.positionColumnFilterBox(element);
 
                 $scope.transformChip = transformChip;
                 $scope.selectableItems = [];

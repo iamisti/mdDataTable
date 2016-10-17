@@ -6,8 +6,10 @@ describe('DropdownColumnFilterDirective', function(){
     beforeEach(module('mdtTemplates'));
     beforeEach(module('mdDataTable'));
 
-    beforeEach(inject(function($compile){
+    beforeEach(inject(function($compile, ColumnFilterFeature){
         _$compile = $compile;
+
+        spyOn(ColumnFilterFeature, 'positionColumnFilterBox');
     }));
 
     describe('WHEN initializing', function(){
