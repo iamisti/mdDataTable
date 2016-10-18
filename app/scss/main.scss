@@ -271,15 +271,6 @@
     .loading-is-active{
         visibility: visible;
     }
-
-    /* angular material fixes */
-    /*
-       issue: https://github.com/angular/material/issues/7257
-       solution: http://stackoverflow.com/questions/33950670/font-awesome-icon-alignment-inside-md-button/33950707#33950707
-    */
-    .md-icon-button{
-        width: auto;
-    }
 }
 
 

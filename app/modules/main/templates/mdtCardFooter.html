@@ -12,7 +12,7 @@
         </md-input-container>
 
         <span layout-margin>
-            {{mdtPaginationHelper.getStartRowIndex()+1}}-{{mdtPaginationHelper.getEndRowIndex()+1}} of {{mdtPaginationHelper.getTotalRowsCount()}}
+            <span ng-if="mdtPaginationHelper.getTotalRowsCount() != 0" style="margin:0;">{{mdtPaginationHelper.getStartRowIndex()+1}}-</span>{{mdtPaginationHelper.getEndRowIndex()+1}} of {{mdtPaginationHelper.getTotalRowsCount()}}
         </span>
 
         <md-button class="md-icon-button md-primary" ng-class="{'md-inactive': !mdtPaginationHelper.hasPreviousPage()}" aria-label="Previous page" ng-click="mdtPaginationHelper.previousPage()">
