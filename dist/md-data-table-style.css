@@ -15,7 +15,10 @@
   /* filter drop down */
   /* TH Select outline color & caret */
   /* angular material fixes */
-  /* http://stackoverflow.com/questions/33950670/font-awesome-icon-alignment-inside-md-button/33950707#33950707 */
+  /*
+     issue: https://github.com/angular/material/issues/7257
+     solution: http://stackoverflow.com/questions/33950670/font-awesome-icon-alignment-inside-md-button/33950707#33950707
+  */
 }
 .mdtTableContainer .md-chips {
   font-size: 13px;
@@ -61,7 +64,7 @@
 .mdtTableContainer th[disabled] {
   cursor: auto;
 }
-.mdtTableContainer th:focus {
+.mdtTableContainer th:focus, .mdtTableContainer th *:focus {
   outline: none;
 }
 .mdtTableContainer th .hoverSortIcons ng-md-icon {
@@ -225,6 +228,19 @@
   width: 230px;
   text-align: initial;
 }
+.filter-dropdown .selectall_clearall {
+  font-size: 12px;
+}
+.filter-dropdown .selectall_clearall span {
+  margin: 0 5px 0 5px;
+}
+.filter-dropdown .selectall_clearall a {
+  text-decoration: none;
+}
+.filter-dropdown .selectall_clearall .selected_items {
+  text-align: right;
+  color: darkgray;
+}
 .filter-dropdown .b-b {
   border-bottom: 1px solid #dedede;
 }
@@ -233,6 +249,12 @@
 }
 .filter-dropdown .p-l-md {
   padding-left: 16px;
+}
+.filter-dropdown .p-r-md {
+  padding-right: 16px;
+}
+.filter-dropdown .p-t-md {
+  padding-top: 16px;
 }
 .filter-dropdown .p-r-md {
   padding-right: 16px;

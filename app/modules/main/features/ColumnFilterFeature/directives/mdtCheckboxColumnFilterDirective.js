@@ -44,6 +44,14 @@
                     }
                 };
 
+                $scope.selectAll = function(){
+                    $scope.selectedItems = $scope.selectableItems.slice(0, $scope.selectableItems.length);
+                };
+
+                $scope.clearAll = function(){
+                    $scope.selectedItems = [];
+                };
+
                 function transformChip(chip) {
                     if($scope.headerRowData.columnFilter.valuesTransformerCallback){
                         return $scope.headerRowData.columnFilter.valuesTransformerCallback(chip);

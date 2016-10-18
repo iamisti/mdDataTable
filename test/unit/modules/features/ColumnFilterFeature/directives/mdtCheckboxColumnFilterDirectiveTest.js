@@ -177,6 +177,63 @@ describe('CheckboxColumnFilterDirective', function(){
         }));
     });
 
+    describe('WHEN selecting all items', function(){
+        var scope;
+
+        beforeEach(inject(function($q, $rootScope){
+            scope = $rootScope.$new();
+
+            scope.confirmCallback = function(){};
+            scope.cancelCallback = function(){};
+            scope.headerRowData = {
+                columnFilter: {
+                    filtersApplied: [],
+                    valuesProviderCallback: function(){ return $q.resolve(['one', 'two', 'three']);}
+                }
+            };
+        }));
+
+        it('AND when passed item is not within the selected items THEN it should add to the list', inject(function(){
+            //given
+            var element = compileDirective(scope, DIRECTIVE_DEFAULT_CASE);
+
+            //when
+            element.isolateScope().selectAll();
+
+            //then
+            expect(element.isolateScope().selectedItems).toEqual(['one', 'two', 'three']);
+        }));
+    });
+
+    describe('WHEN selecting all items', function(){
+        var scope;
+
+        beforeEach(inject(function($q, $rootScope){
+            scope = $rootScope.$new();
+
+            scope.confirmCallback = function(){};
+            scope.cancelCallback = function(){};
+            scope.headerRowData = {
+                columnFilter: {
+                    filtersApplied: [],
+                    valuesProviderCallback: function(){ return $q.resolve(['one', 'two', 'three']);}
+                }
+            };
+        }));
+
+        it('AND when passed item is not within the selected items THEN it should add to the list', inject(function(){
+            //given
+            var element = compileDirective(scope, DIRECTIVE_DEFAULT_CASE);
+            element.isolateScope().selectAll();
+
+            //when
+            element.isolateScope().clearAll();
+
+            //then
+            expect(element.isolateScope().selectedItems).toEqual([]);
+        }));
+    });
+
     function compileDirective(scope, status){
         var mainElement;
 

@@ -48,7 +48,7 @@
         }
 
         /* remove the default blue outline in Chrome for consistent button-like behaviour */
-        &:focus{
+        &:focus, *:focus{
             outline: none;
         }
 
@@ -247,7 +247,11 @@
     }
 
     /* angular material fixes */
-    /* http://stackoverflow.com/questions/33950670/font-awesome-icon-alignment-inside-md-button/33950707#33950707 */
+
+    /*
+       issue: https://github.com/angular/material/issues/7257
+       solution: http://stackoverflow.com/questions/33950670/font-awesome-icon-alignment-inside-md-button/33950707#33950707
+    */
     .md-icon-button{
         width: auto;
     }
@@ -261,9 +265,28 @@
     width: 230px;
     text-align: initial;
 
+    .selectall_clearall{
+        font-size: 12px;
+
+        span{
+            margin: 0 5px 0 5px;
+        }
+
+        a{
+            text-decoration: none;
+        }
+
+        .selected_items{
+            text-align: right;
+            color: darkgray;
+        }
+    }
+
     .b-b {border-bottom: 1px solid #dedede;}
     .p-md {padding: 16px;}
     .p-l-md {padding-left: 16px;}
+    .p-r-md {padding-right: 16px;}
+    .p-t-md {padding-top: 16px;}
     .p-r-md {padding-right: 16px;}
     .p-sm {padding: 8px;}
     .p-t-sm {padding-top: 8px;}

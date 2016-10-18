@@ -6,6 +6,12 @@
             <!--<a href="#">Sort A-Z </a>-->
             <!--</div>-->
 
+            <div layout="row" layout-align="start center" class="selectall_clearall p-l-md p-t-md p-b-sm">
+                <a href="#" ng-click="selectAll()">Select all</a> <span>-</span> <a href="#" ng-click="clearAll()">Clear</a>
+
+                <div class="selected_items p-r-md" flex ng-if="selectedItems.length">{{selectedItems.length}} Selected</div>
+            </div>
+
             <div layout="column" class="p-b-n p-t-sm p-l-md p-r-md filter__scroll">
                 <md-checkbox class="md-primary"
                              ng-repeat="item in selectableItems"
