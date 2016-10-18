@@ -245,6 +245,12 @@
         visibility: visible;
         fill: rgba(255,255,255,0.87); fill: #fff;
     }
+
+    /* angular material fixes */
+    /* http://stackoverflow.com/questions/33950670/font-awesome-icon-alignment-inside-md-button/33950707#33950707 */
+    .md-icon-button{
+        width: auto;
+    }
 }
 
 
@@ -268,19 +274,5 @@
         font-size: 12px;
     }
 
-    .header-dropdown-btn {
-        position: relative;
-        .filter-dropdown {
-            position: absolute; top: 100%; right: 0; left: auto;
-        }
-    }
-
-    .filter__search {
-        position: relative;
-
-        ng-md-icon[icon="search"] {position: absolute; top: 22px; left: 24px;}
-        .md-icon-button {position: absolute; right: 10px; top: 14px;}
-        .input {padding: 8px 32px 8px 36px; width: 100%;}
-    }
     .filter__scroll {max-height: 200px; overflow-y: auto; border-bottom: solid 1px #DDDDDD;}
 }
