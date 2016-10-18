@@ -17,6 +17,12 @@
                 $scope.selectableItems = [];
                 $scope.selectedItems = _.map($scope.headerRowData.columnFilter.filtersApplied, _.clone);
 
+                //destroying scope doesn't remove element, since it belongs to the body directly
+                $scope.$on('$destroy', function(){
+                    element.remove();
+                });
+
+                //populating choosable values
                 $scope.headerRowData.columnFilter.valuesProviderCallback().then(function(values){
                     if(values){
                         $scope.selectableItems = values

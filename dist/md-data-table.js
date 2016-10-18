@@ -322,7 +322,6 @@
                 }
             }],
             link: function($scope, element, attrs, ctrl, transclude){
-
                 $scope.dataStorage = ctrl.dataStorage;
 
                 _injectContentIntoTemplate();
@@ -864,27 +863,6 @@
 (function(){
     'use strict';
 
-    ColumnAlignmentHelper.$inject = ['ColumnOptionProvider'];
-    function ColumnAlignmentHelper(ColumnOptionProvider){
-        var service = this;
-        service.getColumnAlignClass = getColumnAlignClass;
-
-        function getColumnAlignClass(alignRule) {
-            if (alignRule === ColumnOptionProvider.ALIGN_RULE.ALIGN_RIGHT) {
-                return 'rightAlignedColumn';
-            } else {
-                return 'leftAlignedColumn';
-            }
-        }
-    }
-
-    angular
-        .module('mdDataTable')
-        .service('ColumnAlignmentHelper', ColumnAlignmentHelper);
-}());
-(function(){
-    'use strict';
-
     EditRowFeature.$inject = ['$mdDialog'];
     function EditRowFeature($mdDialog){
 
@@ -1024,6 +1002,27 @@
     angular
         .module('mdDataTable')
         .service('SelectableRowsFeature', SelectableRowsFeatureFactory);
+}());
+(function(){
+    'use strict';
+
+    ColumnAlignmentHelper.$inject = ['ColumnOptionProvider'];
+    function ColumnAlignmentHelper(ColumnOptionProvider){
+        var service = this;
+        service.getColumnAlignClass = getColumnAlignClass;
+
+        function getColumnAlignClass(alignRule) {
+            if (alignRule === ColumnOptionProvider.ALIGN_RULE.ALIGN_RIGHT) {
+                return 'rightAlignedColumn';
+            } else {
+                return 'leftAlignedColumn';
+            }
+        }
+    }
+
+    angular
+        .module('mdDataTable')
+        .service('ColumnAlignmentHelper', ColumnAlignmentHelper);
 }());
 (function(){
     'use strict';
@@ -1750,6 +1749,12 @@
                 $scope.selectableItems = [];
                 $scope.selectedItems = _.map($scope.headerRowData.columnFilter.filtersApplied, _.clone);
 
+                //destroying scope doesn't remove element, since it belongs to the body directly
+                $scope.$on('$destroy', function(){
+                    element.remove();
+                });
+
+                //populating choosable values
                 $scope.headerRowData.columnFilter.valuesProviderCallback().then(function(values){
                     if(values){
                         $scope.selectableItems = values
@@ -1817,8 +1822,8 @@
                 cancelCallback: '&',
                 headerRowData: '='
             },
-            link: function($scope, elem){
-                ColumnFilterFeature.positionColumnFilterBox(elem);
+            link: function($scope, element){
+                ColumnFilterFeature.positionColumnFilterBox(element);
 
                 $scope.transformChip = transformChip;
 
@@ -1826,9 +1831,14 @@
                 $scope.selectedItems = _.map($scope.headerRowData.columnFilter.filtersApplied, _.clone);
                 $scope.placeholderText = $scope.headerRowData.columnFilter.placeholderText || 'Filter column...';
 
+                //destroying scope doesn't remove element, since it belongs to the body directly
+                $scope.$on('$destroy', function(){
+                    element.remove();
+                });
+
                 //focus input immediately
                 $timeout(function(){
-                    elem.find('input').focus();
+                    element.find('input').focus();
                 },0);
 
                 function transformChip(chip) {
@@ -1870,6 +1880,12 @@
                 $scope.oneSelectedItem = $scope.selectedItems.length ? transformChip($scope.selectedItems[0]) : undefined;
                 $scope.placeholderText = $scope.headerRowData.columnFilter.placeholderText || 'Choose a value';
 
+                //destroying scope doesn't remove element, since it belongs to the body directly
+                $scope.$on('$destroy', function(){
+                    element.remove();
+                });
+
+                //populating choosable values
                 $scope.headerRowData.columnFilter.valuesProviderCallback().then(function(values){
                     if(values){
                         $scope.selectableItems = values;

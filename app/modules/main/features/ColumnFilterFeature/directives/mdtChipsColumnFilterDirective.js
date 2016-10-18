@@ -10,8 +10,8 @@
                 cancelCallback: '&',
                 headerRowData: '='
             },
-            link: function($scope, elem){
-                ColumnFilterFeature.positionColumnFilterBox(elem);
+            link: function($scope, element){
+                ColumnFilterFeature.positionColumnFilterBox(element);
 
                 $scope.transformChip = transformChip;
 
@@ -19,9 +19,14 @@
                 $scope.selectedItems = _.map($scope.headerRowData.columnFilter.filtersApplied, _.clone);
                 $scope.placeholderText = $scope.headerRowData.columnFilter.placeholderText || 'Filter column...';
 
+                //destroying scope doesn't remove element, since it belongs to the body directly
+                $scope.$on('$destroy', function(){
+                    element.remove();
+                });
+
                 //focus input immediately
                 $timeout(function(){
-                    elem.find('input').focus();
+                    element.find('input').focus();
                 },0);
 
                 function transformChip(chip) {

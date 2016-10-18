@@ -21,6 +21,12 @@
                 $scope.oneSelectedItem = $scope.selectedItems.length ? transformChip($scope.selectedItems[0]) : undefined;
                 $scope.placeholderText = $scope.headerRowData.columnFilter.placeholderText || 'Choose a value';
 
+                //destroying scope doesn't remove element, since it belongs to the body directly
+                $scope.$on('$destroy', function(){
+                    element.remove();
+                });
+
+                //populating choosable values
                 $scope.headerRowData.columnFilter.valuesProviderCallback().then(function(values){
                     if(values){
                         $scope.selectableItems = values;

@@ -211,7 +211,6 @@
                 }
             },
             link: function($scope, element, attrs, ctrl, transclude){
-
                 $scope.dataStorage = ctrl.dataStorage;
 
                 _injectContentIntoTemplate();
