@@ -30,7 +30,6 @@
                         //append value to the scope
                         var localScope = $rootScope.$new();
 
-
                         if(parsedValue.rowId){
                             localScope.rowId = parsedValue.rowId;
                         }

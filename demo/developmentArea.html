@@ -1,9 +1,8 @@
 <div ng-app="developmentAreaApp" ng-controller="DevelopmentAreaController" layout-margin>
     <mdt-table
             paginated-rows="{isEnabled: true, rowsPerPageValues: [5,10,20,50]}"
-            mdt-row-paginator="paginatorCallback(page, pageSize, filtersApplied)"
-            mdt-row-paginator-error-message="Error happened during loading nutritions."
             mdt-row="{
+            'data': nut,
             'table-row-id-key': 'fields._id',
             'column-keys': [
                 'fields.item_name',

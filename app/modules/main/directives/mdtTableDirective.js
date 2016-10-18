@@ -201,6 +201,7 @@
                                 attributes: {
                                     editableField: false
                                 },
+                                rowId: rowId,
                                 columnKey: columnKey,
                                 value: _.get(row, columnKey)
                             });

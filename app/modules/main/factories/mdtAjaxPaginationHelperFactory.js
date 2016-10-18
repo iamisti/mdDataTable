@@ -136,6 +136,7 @@
                 _.each(columnKeys, function(columnKey){
                     //TODO: centralize adding column values into one place.
                     // Duplication occurs at mdtCellDirective's link function.
+                    // Duplication in mdtTableDirective `_addRawDataToStorage` method!
                     columnValues.push({
                         attributes: {
                             editableField: false
