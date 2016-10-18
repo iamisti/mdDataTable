@@ -82,6 +82,12 @@
      *
      * @param {object=} mdtTranslations accepts various key-value pairs for custom translations.
      *
+     * @param {boolean=} mdtLoadingIndicator if set then loading indicator can be customised
+     *
+     *      Properties:
+     *
+     *      - `{string=}` `color` - passing a css compatible format as a color will set the color for the loading indicator
+     *
      * @example
      * <h2>`mdt-row` attribute:</h2>
      *
@@ -131,7 +137,8 @@
                 mdtRowPaginatorNoResultsMessage:'@',
                 virtualRepeat: '=',
                 mdtTriggerRequest: '&?',
-                mdtTranslations: '=?'
+                mdtTranslations: '=?',
+                mdtLoadingIndicator: '=?'
             },
             controller: function mdtTable($scope){
                 var vm = this;

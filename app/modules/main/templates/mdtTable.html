@@ -19,3 +19,9 @@
     <mdt-card-footer></mdt-card-footer>
     <!-- table card end -->
 </md-content>
+
+<style ng-if="::mdtLoadingIndicator">
+    md-progress-linear.loading-indicator .md-bar{
+        background: {{mdtLoadingIndicator['color']}};
+    }
+</style>

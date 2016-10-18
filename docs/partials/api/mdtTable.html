@@ -22,7 +22,8 @@
        [mdt-row-paginator-error-message="{string}"]
        [mdt-row-paginator-no-results-message="{string}"]
        [mdt-trigger-request="{function(loadPageCallback)}"]
-       [mdt-translations="{object}"]&gt;
+       [mdt-translations="{object}"]
+       [mdt-loading-indicator="{boolean}"]&gt;
 &lt;/mdt-table&gt;</pre>
 <h4 id="usage_parameters">Parameters</h4><table class="variables-matrix table table-bordered table-striped"><thead><tr><th>Param</th><th>Type</th><th>Details</th></tr></thead><tbody><tr><td>tableCard <div><em>(optional)</em></div></td><td><a href="" class="label type-hint type-hint-object">object</a></td><td><div class="mdttable-page"><p>when set table will be embedded within a card, with data manipulation tools available
 at the top and bottom.</p>
@@ -84,7 +85,11 @@ ajax request. Can be useful when you want to populate the results in the table m
 search field in your page which then can trigger a new request in the table to show the results based on
 that filter.</p>
 </div></td></tr><tr><td>mdtTranslations <div><em>(optional)</em></div></td><td><a href="" class="label type-hint type-hint-object">object</a></td><td><div class="mdttable-page"><p>accepts various key-value pairs for custom translations.</p>
-</div></td></tr></tbody></table></div>
+</div></td></tr><tr><td>mdtLoadingIndicator <div><em>(optional)</em></div></td><td><a href="" class="label type-hint type-hint-boolean">boolean</a></td><td><div class="mdttable-page"><p>if set then loading indicator can be customised</p>
+<pre><code> Properties:
+
+ - `{string=}` `color` - passing a css compatible format as a color will set the color for the loading indicator
+</code></pre></div></td></tr></tbody></table></div>
 <h2 id="example">Example</h2>
 <div class="example"><div class="mdttable-page"><h4 id="example_-attribute"><code>mdt-row</code> attribute:</h4>
 

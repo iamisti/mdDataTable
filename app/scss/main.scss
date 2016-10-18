@@ -1,7 +1,6 @@
 .mdtTableContainer{
     $whiteColor: #ffffff;
     $primaryColorPalette: #0D47A1;
-    $yellow: #FFD300;
 
     position:relative;
     overflow: visible;
@@ -251,14 +250,13 @@
         fill: rgba(255,255,255,0.87); fill: #fff;
     }
 
-
     md-progress-linear{
         .md-container{
             height: 3px;
         }
 
         .md-bar {
-            background: $yellow;
+            background: #2A87E3;
         }
     }
 
