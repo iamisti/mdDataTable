@@ -10,6 +10,8 @@
         <!-- parsing transcluded content in order to be executed -->
         <div class="mdtTable-reader" style="display:none;"></div>
 
+        <md-progress-linear md-mode="indeterminate" class="loading-indicator" ng-class="{'loading-is-active': mdtPaginationHelper.isLoading}"></md-progress-linear>
+
         <ng-include src="'/main/templates/generateTable.html'"></ng-include>
     </md-content>
 

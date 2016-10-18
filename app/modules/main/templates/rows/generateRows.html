@@ -1,6 +1,3 @@
-
-
-
 <tr class="tbodyTrRow"
     ng-repeat="rowData in mdtPaginationHelper.getRows() track by $index"
     ng-class="{'selectedRow': rowData.optionList.selected, '{{rowData.optionList.className}}': rowData.optionList.className }"
@@ -17,9 +14,6 @@
         <!-- generate cell content -->
     </td>
 </tr>
-
-<tr ng-show="mdtPaginationHelper.isLoading"
-    ng-include src="'/main/templates/rows/loadingIndicator.html'"></tr>
 
 <tr ng-show="mdtPaginationHelper.isLoadError"
     ng-include src="'/main/templates/rows/errorIndicator.html'"></tr>

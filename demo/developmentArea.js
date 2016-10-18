@@ -123,9 +123,13 @@
                 });
             }
 
-            return $q.resolve({
-                results: result.slice(offset, offset + pageSize),
-                totalResultCount: result.length
+            return $q(function(resolve, reject){
+                setTimeout(function(){
+                    resolve({
+                        results: result.slice(offset, offset + pageSize),
+                        totalResultCount: result.length
+                    });
+                },1000);
             });
         }
     });

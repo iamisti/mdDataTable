@@ -20,6 +20,9 @@
      solution: http://stackoverflow.com/questions/33950670/font-awesome-icon-alignment-inside-md-button/33950707#33950707
   */
 }
+.mdtTableContainer .mdtTable {
+  position: relative;
+}
 .mdtTableContainer .md-chips {
   font-size: 13px;
 }
@@ -216,6 +219,21 @@
   visibility: visible;
   fill: rgba(255, 255, 255, 0.87);
   fill: #fff;
+}
+.mdtTableContainer md-progress-linear .md-container {
+  height: 3px;
+}
+.mdtTableContainer md-progress-linear .md-bar {
+  background: #FFD300;
+}
+.mdtTableContainer .loading-indicator {
+  position: absolute;
+  top: 0;
+  left: 0;
+  visibility: hidden;
+}
+.mdtTableContainer .loading-is-active {
+  visibility: visible;
 }
 .mdtTableContainer .md-icon-button {
   width: auto;
