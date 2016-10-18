@@ -44,11 +44,15 @@
                     }
                 };
 
-                $scope.selectAll = function(){
+                $scope.selectAll = function($event){
+                    $event.preventDefault();
+
                     $scope.selectedItems = $scope.selectableItems.slice(0, $scope.selectableItems.length);
                 };
 
-                $scope.clearAll = function(){
+                $scope.clearAll = function($event){
+                    $event.preventDefault();
+
                     $scope.selectedItems = [];
                 };
 

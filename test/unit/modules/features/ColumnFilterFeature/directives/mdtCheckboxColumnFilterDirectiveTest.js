@@ -178,7 +178,7 @@ describe('CheckboxColumnFilterDirective', function(){
     });
 
     describe('WHEN selecting all items', function(){
-        var scope;
+        var scope, event;
 
         beforeEach(inject(function($q, $rootScope){
             scope = $rootScope.$new();
@@ -191,6 +191,10 @@ describe('CheckboxColumnFilterDirective', function(){
                     valuesProviderCallback: function(){ return $q.resolve(['one', 'two', 'three']);}
                 }
             };
+
+            event = {
+                preventDefault: angular.noop
+            };
         }));
 
         it('AND when passed item is not within the selected items THEN it should add to the list', inject(function(){
@@ -198,7 +202,7 @@ describe('CheckboxColumnFilterDirective', function(){
             var element = compileDirective(scope, DIRECTIVE_DEFAULT_CASE);
 
             //when
-            element.isolateScope().selectAll();
+            element.isolateScope().selectAll(event);
 
             //then
             expect(element.isolateScope().selectedItems).toEqual(['one', 'two', 'three']);
@@ -206,7 +210,7 @@ describe('CheckboxColumnFilterDirective', function(){
     });
 
     describe('WHEN selecting all items', function(){
-        var scope;
+        var scope, event;
 
         beforeEach(inject(function($q, $rootScope){
             scope = $rootScope.$new();
@@ -219,15 +223,19 @@ describe('CheckboxColumnFilterDirective', function(){
                     valuesProviderCallback: function(){ return $q.resolve(['one', 'two', 'three']);}
                 }
             };
+
+            event = {
+                preventDefault: angular.noop
+            };
         }));
 
         it('AND when passed item is not within the selected items THEN it should add to the list', inject(function(){
             //given
             var element = compileDirective(scope, DIRECTIVE_DEFAULT_CASE);
-            element.isolateScope().selectAll();
+            element.isolateScope().selectAll(event);
 
             //when
-            element.isolateScope().clearAll();
+            element.isolateScope().clearAll(event);
 
             //then
             expect(element.isolateScope().selectedItems).toEqual([]);
