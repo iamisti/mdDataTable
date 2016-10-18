@@ -115,7 +115,7 @@
             if(isEnabled){
                 callbackArguments.filtersApplied = columnFilters;
             }
-        }
+        };
 
         /**
          * Set the position of the column filter panel. It's required to attach it to the outer container 
@@ -123,15 +123,15 @@
          * (e.g.: when table has only one row to show)
          */
         service.positionColumnFilterBox = function(element){
-            var elementPosition = element.closest('th').position();
+            var elementPosition = element.closest('th').offset();
 
             var targetMetrics = {
                 top: elementPosition.top + 60,
                 left: elementPosition.left
-            }
+            };
             
             element.css('position', 'absolute');
-            element.detach().appendTo('.mdtTableContainer');
+            element.detach().appendTo('body');
 
             element.css({
                 top: targetMetrics.top + 'px', 

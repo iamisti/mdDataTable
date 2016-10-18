@@ -186,69 +186,6 @@
 .mdtTableContainer .md-virtual-repeat-container {
   min-height: 106px;
 }
-.mdtTableContainer .b-b {
-  border-bottom: 1px solid #dedede;
-}
-.mdtTableContainer .p-md {
-  padding: 16px;
-}
-.mdtTableContainer .p-l-md {
-  padding-left: 16px;
-}
-.mdtTableContainer .p-r-md {
-  padding-right: 16px;
-}
-.mdtTableContainer .p-sm {
-  padding: 8px;
-}
-.mdtTableContainer .p-t-sm {
-  padding-top: 8px;
-}
-.mdtTableContainer .p-b-sm {
-  padding-bottom: 8px;
-}
-.mdtTableContainer .p-b-n {
-  padding-bottom: 0;
-}
-.mdtTableContainer .filter-dropdown {
-  position: absolute;
-  z-index: 1;
-  width: 230px;
-  text-align: initial;
-}
-.mdtTableContainer .filter-dropdown .md-chips {
-  font-size: 12px;
-}
-.mdtTableContainer .header-dropdown-btn {
-  position: relative;
-}
-.mdtTableContainer .header-dropdown-btn .filter-dropdown {
-  position: absolute;
-  top: 100%;
-  right: 0;
-  left: auto;
-}
-.mdtTableContainer .filter__search {
-  position: relative;
-}
-.mdtTableContainer .filter__search ng-md-icon[icon="search"] {
-  position: absolute;
-  top: 22px;
-  left: 24px;
-}
-.mdtTableContainer .filter__search .md-icon-button {
-  position: absolute;
-  right: 10px;
-  top: 14px;
-}
-.mdtTableContainer .filter__search .input {
-  padding: 8px 32px 8px 36px;
-  width: 100%;
-}
-.mdtTableContainer .filter__scroll {
-  max-height: 200px;
-  overflow-y: auto;
-}
 .mdtTableContainer .filter-select {
   border: 1px solid transparent;
   padding: 11px 10px;
@@ -274,4 +211,70 @@
   visibility: visible;
   fill: rgba(255, 255, 255, 0.87);
   fill: #fff;
+}
+
+/* filter drop down */
+.filter-dropdown {
+  position: absolute;
+  z-index: 1;
+  width: 230px;
+  text-align: initial;
+}
+.filter-dropdown .b-b {
+  border-bottom: 1px solid #dedede;
+}
+.filter-dropdown .p-md {
+  padding: 16px;
+}
+.filter-dropdown .p-l-md {
+  padding-left: 16px;
+}
+.filter-dropdown .p-r-md {
+  padding-right: 16px;
+}
+.filter-dropdown .p-sm {
+  padding: 8px;
+}
+.filter-dropdown .p-t-sm {
+  padding-top: 8px;
+}
+.filter-dropdown .p-b-sm {
+  padding-bottom: 8px;
+}
+.filter-dropdown .p-b-n {
+  padding-bottom: 0;
+}
+.filter-dropdown .md-chips {
+  font-size: 12px;
+}
+.filter-dropdown .header-dropdown-btn {
+  position: relative;
+}
+.filter-dropdown .header-dropdown-btn .filter-dropdown {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  left: auto;
+}
+.filter-dropdown .filter__search {
+  position: relative;
+}
+.filter-dropdown .filter__search ng-md-icon[icon="search"] {
+  position: absolute;
+  top: 22px;
+  left: 24px;
+}
+.filter-dropdown .filter__search .md-icon-button {
+  position: absolute;
+  right: 10px;
+  top: 14px;
+}
+.filter-dropdown .filter__search .input {
+  padding: 8px 32px 8px 36px;
+  width: 100%;
+}
+.filter-dropdown .filter__scroll {
+  max-height: 200px;
+  overflow-y: auto;
+  border-bottom: solid 1px #DDDDDD;
 }
