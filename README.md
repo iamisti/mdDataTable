@@ -1,5 +1,9 @@
 > Live demo http://iamisti.github.io/mdDataTable/
 
+Angular material table. Complete implementation of google material design based on angular material components.
+This component is optimized for speed, and it's faster then other similar implementations, since it generates a native html table, and browsers are optimized to handle table data.
+
+
 > Angular2 and Angular2 Material version of this plugin is under development. 
 If you want to be notified for the first release, please star the project here: [`md-data-table2`](https://github.com/iamisti/mdDataTable2)
 
@@ -13,9 +17,6 @@ If you want to be notified for the first release, please star the project here: 
 [![Test Coverage](https://codeclimate.com/github/iamisti/mdDataTable/badges/coverage.svg?branch=master)](https://codeclimate.com/github/iamisti/mdDataTable/coverage) 
 [![Dependency Status](https://gemnasium.com/iamisti/mdDataTable.svg)](https://gemnasium.com/iamisti/mdDataTable)
 [![Codacy Badge](https://api.codacy.com/project/badge/grade/fdcfe195e886430aaefefa54c972d3f7)](https://www.codacy.com/app/programtervezo/mdDataTable)
-
-Angular material table. Complete implementation of google material design based on angular material components.
-This component is optimized for speed, and it's faster then other similar implementations, since it generates a native html table, and browsers are optimized to handle table data.
 
 ## Install
 
