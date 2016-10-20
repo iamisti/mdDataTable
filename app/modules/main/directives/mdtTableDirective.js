@@ -132,7 +132,7 @@
                 rippleEffect: '=',
                 paginatedRows: '=',
                 mdtRow: '=',
-                mdtRowPaginator: '&?',
+                mdtRowPaginator: '=?',
                 mdtRowPaginatorErrorMessage:'@',
                 mdtRowPaginatorNoResultsMessage:'@',
                 virtualRepeat: '=',
@@ -157,7 +157,7 @@
 
                 // initialization of the storage service
                 function _initTableStorage(){
-                    vm.dataStorage = TableDataStorageFactory.getInstance(vm.virtualRepeat);
+                    vm.dataStorage = TableDataStorageFactory.getInstance();
                 }
 
                 // set translations or fallback to a default value

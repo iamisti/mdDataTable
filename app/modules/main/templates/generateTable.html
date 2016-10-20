@@ -1,11 +1,11 @@
 <md-virtual-repeat-container class="md-virtual-repeat-container" ng-if="virtualRepeat">
     <table cellpadding="0" cellspacing="0">
-        <thead ng-include src="'/main/templates/generateHeaderRow.html'"></thead>
+        <thead mdt-generated-header-row></thead>
         <tbody ng-include src="'/main/templates/rows/generateRowsVirtualRepeat.html'"></tbody>
     </table>
 </md-virtual-repeat-container>
 
 <table ng-if="!virtualRepeat" cellpadding="0" cellspacing="0">
-    <thead ng-include src="'/main/templates/generateHeaderRow.html'"></thead>
+    <thead mdt-generated-header-row></thead>
     <tbody ng-include src="'/main/templates/rows/generateRows.html'"></tbody>
 </table>

@@ -71,7 +71,10 @@
         // table search endpoint
         // Don't look carefully the implementation details of this method, since it's just emulates an API call which increases the complexity of it.
         // What happens here is just simply playing with the values passed with `filtersApplied` parameter, and trying to filter the array of nutritions.
-        function paginatorCallback(page, pageSize, filtersApplied){
+        function paginatorCallback(page, pageSize, options){
+            console.log(options);
+
+            var filtersApplied = options.appliedFilters;
             var offset = (page-1) * pageSize;
             var result = nutritionList;
 

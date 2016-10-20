@@ -14,7 +14,7 @@
          * @param $scope
          * @param cellDataToStore
          */
-        service.appendHeaderCellData = function($scope, cellDataToStore, dataStorage, element){
+        service.appendHeaderCellData = function($scope, cellDataToStore, dataStorage){
             cellDataToStore.columnFilter = {};
 
             if($scope.columnFilter && $scope.columnFilter.valuesProviderCallback){
@@ -23,6 +23,7 @@
                 cellDataToStore.columnFilter.valuesProviderCallback = $scope.columnFilter.valuesProviderCallback;
                 cellDataToStore.columnFilter.valuesTransformerCallback = $scope.columnFilter.valuesTransformerCallback;
                 cellDataToStore.columnFilter.placeholderText = $scope.columnFilter.placeholderText;
+                cellDataToStore.columnFilter.type = $scope.columnFilter.filterType || 'chips';
                 cellDataToStore.columnFilter.type = $scope.columnFilter.filterType || 'chips';
                 cellDataToStore.columnFilter.isActive = false;
 
@@ -113,7 +114,7 @@
             });
 
             if(isEnabled){
-                callbackArguments.filtersApplied = columnFilters;
+                callbackArguments.options.appliedFilters = columnFilters;
             }
         };
 

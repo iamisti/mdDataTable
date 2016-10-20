@@ -12,9 +12,11 @@
 
     <th class="column"
         ng-repeat="headerRowData in dataStorage.header track by $index"
-        ng-class="{'clickable': sortableColumns}"
         mdt-add-align-class="headerRowData.alignRule"
-        mdt-sort-handler
+
+        ng-class="{'clickable': sortableColumns}"
+        ng-click="clickHandler($index, headerRowData)"
+
         md-ink-ripple="{{ rippleEffectCallback() }}">
 
         <mdt-generated-header-cell-content></mdt-generated-header-cell-content>

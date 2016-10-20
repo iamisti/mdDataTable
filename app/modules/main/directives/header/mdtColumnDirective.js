@@ -39,14 +39,14 @@
      *  </mdt-table>
      * </pre>
      */
-    function mdtColumnDirective($interpolate, ColumnFilterFeature){
+    function mdtColumnDirective($interpolate, ColumnFilterFeature, ColumnSortFeature){
         return {
             restrict: 'E',
             transclude: true,
             replace: true,
             scope: {
                 alignRule: '@',
-                sortBy: '=',
+                columnSortComparator: '=?',
                 columnDefinition: '@',
                 columnFilter: '=?'
             },
@@ -59,12 +59,13 @@
                     var cellValue = $interpolate(clone.html())($scope.$parent);
                     var cellDataToStore = {
                         alignRule: $scope.alignRule,
-                        sortBy: $scope.sortBy,
+                        sortBy: $scope.sortBy, //TODO: delete this and every references
                         columnDefinition: $scope.columnDefinition,
                         columnName: cellValue
                     };
 
-                    ColumnFilterFeature.appendHeaderCellData($scope, cellDataToStore, mdtTableCtrl.dataStorage, element);
+                    ColumnFilterFeature.appendHeaderCellData($scope, cellDataToStore, mdtTableCtrl.dataStorage);
+                    ColumnSortFeature.appendHeaderCellData(cellDataToStore, $scope.columnSortComparator);
 
                     mdtTableCtrl.dataStorage.addHeaderCellData(cellDataToStore);
                 });

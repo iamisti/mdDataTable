@@ -24,11 +24,11 @@
     <div ng-if="sortableColumns">
         <md-tooltip ng-show="headerRowData.columnDefinition">{{headerRowData.columnDefinition}}</md-tooltip>
 
-        <span ng-show="headerRowData.alignRule == 'right'" ng-include src="'/main/templates/cells/generateSortingIcons.html'"></span>
+        <span ng-show="headerRowData.alignRule == 'right' && !headerRowData.columnFilter.isEnabled" ng-include src="'/main/templates/cells/generateSortingIcons.html'"></span>
 
         <span ng-include src="'/main/templates/cells/generateCellValue.html'" ng-click="columnClickHandler()"></span>
 
-        <span ng-show="headerRowData.alignRule == 'left'" ng-include src="'/main/templates/cells/generateSortingIcons.html'"></span>
+        <span ng-show="headerRowData.alignRule == 'left' && !headerRowData.columnFilter.isEnabled" ng-include src="'/main/templates/cells/generateSortingIcons.html'"></span>
     </div>
     <div ng-if="!sortableColumns">
         <md-tooltip ng-show="headerRowData.columnDefinition">{{headerRowData.columnDefinition}}</md-tooltip>
