@@ -1,7 +1,7 @@
 > Live demo http://iamisti.github.io/mdDataTable/
 
 Angular material table. Complete implementation of google material design based on angular material components.
-This component is optimized for speed, and it's faster then other similar implementations, since it generates a native html table, and browsers are optimized to handle table data.
+This component is optimized for speed, and it's faster then other similar implementations, since it generates a native html table, and browsers are optimized for tables.
 
 
 > Angular2 and Angular2 Material version of this plugin is under development. 
