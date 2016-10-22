@@ -12,15 +12,11 @@
                 ctrl.mdtPaginationHelper = scope.mdtPaginationHelper = mdtPaginationHelperFactory
                     .getInstance(ctrl.dataStorage, scope.paginatedRows, scope.mdtRow);
             }else{
-                if(!scope.mdtRowPaginator.dataProviderCallback){
-                    throw '`dataProviderCallback` is required to define in `mdt-row-paginator` attribute.';
-                }
-
                 ctrl.mdtPaginationHelper = scope.mdtPaginationHelper = mdtAjaxPaginationHelperFactory.getInstance({
                     dataStorage: ctrl.dataStorage,
                     paginationSetting: scope.paginatedRows,
                     mdtRowOptions: scope.mdtRow,
-                    mdtRowPaginatorFunction: scope.mdtRowPaginator.dataProviderCallback,
+                    mdtRowPaginatorFunction: scope.mdtRowPaginator,
                     mdtRowPaginatorErrorMessage: scope.mdtRowPaginatorErrorMessage,
                     mdtRowPaginatorNoResultsMessage: scope.mdtRowPaginatorNoResultsMessage,
                     mdtTriggerRequest: scope.mdtTriggerRequest

@@ -2,8 +2,7 @@
     <mdt-table
             paginated-rows="{isEnabled: true, rowsPerPageValues: [5,10,20,50]}"
             mdt-loading-indicator="{color: 'red'}"
-            sortable-columns="true"
-            mdt-row-paginator="{dataProviderCallback: paginatorCallback}"
+            mdt-row-paginator="paginatorCallback(page, pageSize, options)"
             mdt-row-paginator-error-message="Error happened during loading nutritions."
             mdt-row="{
             'table-row-id-key': 'fields._id',
@@ -29,6 +28,7 @@
             >Dessert (100g serving)</mdt-column>
 
             <mdt-column align-rule="left"
+                        column-sort="true"
                         column-filter="{
                             'valuesProviderCallback': serviceUnitsFilterCallback,
                             'valuesTransformerCallback': serviceUnitNameTransformer,
@@ -44,7 +44,10 @@
                             'filterType': 'dropdown'
                         }">Fat (g)</mdt-column>
 
-            <mdt-column align-rule="right">Carbs (g)</mdt-column>
+            <mdt-column
+                    align-rule="right"
+                    column-sort="true"
+            >Carbs (g)</mdt-column>
             <mdt-column align-rule="right">Protein (g)</mdt-column>
             <mdt-column align-rule="right">Sodium (mg)</mdt-column>
             <mdt-column align-rule="right">Calcium (%)</mdt-column>

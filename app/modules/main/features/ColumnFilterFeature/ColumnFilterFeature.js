@@ -1,7 +1,7 @@
 (function(){
     'use strict';
 
-    function ColumnFilterFeature(){
+    function ColumnFilterFeature(ColumnSortFeature){
 
         var service = this;
 
@@ -49,9 +49,9 @@
          *
          * @param $scope
          * @param headerData
-         * @param parentCtrl
+         * @param paginator
          */
-        service.initGeneratedHeaderCellContent = function($scope, headerData, parentCtrl){
+        service.initGeneratedHeaderCellContent = function($scope, headerData, paginator, dataStorage){
             if(!headerData.columnFilter.isEnabled){
                 return;
             }
@@ -73,8 +73,11 @@
 
                 headerData.columnFilter.filtersApplied = params.selectedItems;
 
-                if($scope.mdtRowPaginator){
-                    parentCtrl.mdtPaginationHelper.getFirstPage();
+                //applying changes to sort feature
+                ColumnSortFeature.setHeaderSort(headerData, params.sortingData, dataStorage);
+
+                if(paginator.getFirstPage){
+                    paginator.getFirstPage();
                 }else{
                     // no support for non-ajax yet
                 }
@@ -114,7 +117,7 @@
             });
 
             if(isEnabled){
-                callbackArguments.options.appliedFilters = columnFilters;
+                callbackArguments.options.columnFilter = columnFilters;
             }
         };
 

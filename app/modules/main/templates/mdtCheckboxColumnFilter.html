@@ -1,10 +1,9 @@
 <div class="filter-dropdown">
     <div class="md-whiteframe-z2">
         <md-content class="md-body-1">
-            <!-- TODO: Restore sorting in next sprint
-            <div layout="row" layout-align="end center" class="b-b p-md">-->
-            <!--<a href="#">Sort A-Z </a>-->
-            <!--</div>-->
+            <div layout="row" layout-align="end center" class="b-b p-smd md-caption">
+                <a href="#" ng-click="sortingCallback($event)">Sort A-Z <mdt-sorting-icons size="20" data="sortingData" class="p-l-sm"></mdt-sorting-icons></a>
+            </div>
 
             <div layout="row" layout-align="start center" class="selectall_clearall p-l-md p-t-md p-b-sm">
                 <a href="#" ng-click="selectAll($event)">Select all</a> <span>-</span> <a href="#" ng-click="clearAll($event)">Clear</a>
@@ -22,7 +21,7 @@
             </div>
 
             <div class="p-b-sm p-t-sm" layout="row" layout-align="space-around start">
-                <md-button class="md-raised md-primary" ng-click="confirmCallback({selectedItems: selectedItems, event: $event})">Ok</md-button>
+                <md-button class="md-raised md-primary" ng-click="confirmCallback({selectedItems: selectedItems, sortingData: sortingData, event: $event})">Ok</md-button>
                 <md-button class="md-raised" ng-click="cancelCallback({event: $event})">Cancel</md-button>
             </div>
         </md-content>

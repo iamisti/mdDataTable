@@ -1,6 +1,55 @@
+$whiteColor: #ffffff;
+$primaryColorPalette: #0D47A1;
+
+@mixin hoverSortIcons($size){
+    ng-md-icon{
+        visibility: hidden;
+        width: $size;
+        height: $size;
+        fill: darken($whiteColor, 30%);
+
+        svg{
+            -webkit-transform:rotate(90deg);
+            transform:rotate(90deg);
+        }
+    }
+}
+
+@mixin hoverSortIconOnHover(){
+    ng-md-icon{
+        visibility: visible;
+    }
+}
+
+@mixin sortedTarget($size){
+    /* when hoverSortIcons on a sorted column*/
+    .hoverSortIcons ng-md-icon{
+        display:none;
+    }
+
+    ng-md-icon{
+        /* specified 16px is a fix now cause angular materia generates a 24x24 icon even the passed value is 16  */
+        width: $size;
+        height: $size;
+
+        fill: darken($whiteColor, 87%);
+
+        /* sort icon rotated 90 degrees for ascending sort (default) */
+        svg{
+            -webkit-transform:rotate(90deg);
+            transform:rotate(90deg);
+        }
+
+    }
+
+    /* sort icon rotated -90 degrees for descending sort */
+    &.descending ng-md-icon>svg{
+        -webkit-transform:rotate(-90deg);
+        transform:rotate(-90deg);
+    }
+}
+
 .mdtTableContainer{
-    $whiteColor: #ffffff;
-    $primaryColorPalette: #0D47A1;
 
     position:relative;
     overflow: visible;
@@ -57,49 +106,16 @@
         }
 
         /* when hoverSortIcons on a non-sorted column*/
-        .hoverSortIcons ng-md-icon{
-            visibility: hidden;
-            width: 16px;
-            height: 16px;
-            fill: darken($whiteColor, 30%);
-
-            svg{
-                -webkit-transform:rotate(90deg);
-                transform:rotate(90deg);
-            }
+        .hoverSortIcons{
+            @include hoverSortIcons(16px);
         }
 
-        &:hover .hoverSortIcons ng-md-icon{
-            visibility: visible;
+        &:hover .hoverSortIcons{
+            @include hoverSortIconOnHover();
         }
 
         .sortedColumn{
-            /* when hoverSortIcons on a sorted column*/
-            .hoverSortIcons ng-md-icon{
-                display:none;
-            }
-
-            ng-md-icon{
-                /* specified 16px is a fix now cause angular materia generates a 24x24 icon even the passed value is 16  */
-                width: 16px;
-                height: 16px;
-
-                fill: darken($whiteColor, 87%);
-
-                /* sort icon rotated 90 degrees for ascending sort (default) */
-                svg{
-                    -webkit-transform:rotate(90deg);
-                    transform:rotate(90deg);
-                }
-
-            }
-
-            /* sort icon rotated -90 degrees for descending sort */
-            &.descending ng-md-icon>svg{
-                -webkit-transform:rotate(-90deg);
-                transform:rotate(-90deg);
-            }
-
+            @include sortedTarget(16px);
         }
     }
 
@@ -281,15 +297,15 @@
     width: 230px;
     text-align: initial;
 
+    a{
+        text-decoration: none;
+    }
+
     .selectall_clearall{
         font-size: 12px;
 
         span{
             margin: 0 5px 0 5px;
-        }
-
-        a{
-            text-decoration: none;
         }
 
         .selected_items{
@@ -298,15 +314,27 @@
         }
     }
 
+    .hoverSortIcons{
+        @include hoverSortIcons(20px);
+        @include hoverSortIconOnHover();
+    }
+
+    .sortedColumn{
+        @include sortedTarget(20px);
+    }
+
     .b-b {border-bottom: 1px solid #dedede;}
     .p-md {padding: 16px;}
     .p-l-md {padding-left: 16px;}
     .p-r-md {padding-right: 16px;}
     .p-t-md {padding-top: 16px;}
     .p-r-md {padding-right: 16px;}
+    .p-smd {padding: 12px;}
     .p-sm {padding: 8px;}
+    .p-l-sm {padding-left: 8px;}
     .p-t-sm {padding-top: 8px;}
     .p-b-sm {padding-bottom: 8px;}
+    .p-r-sm {padding-right: 8px;}
     .p-b-n {padding-bottom: 0;}
 
     .md-chips{

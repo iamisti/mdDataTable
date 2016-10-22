@@ -46,6 +46,7 @@
             replace: true,
             scope: {
                 alignRule: '@',
+                columnSort: '=?',
                 columnSortComparator: '=?',
                 columnDefinition: '@',
                 columnFilter: '=?'
@@ -59,13 +60,12 @@
                     var cellValue = $interpolate(clone.html())($scope.$parent);
                     var cellDataToStore = {
                         alignRule: $scope.alignRule,
-                        sortBy: $scope.sortBy, //TODO: delete this and every references
                         columnDefinition: $scope.columnDefinition,
                         columnName: cellValue
                     };
 
                     ColumnFilterFeature.appendHeaderCellData($scope, cellDataToStore, mdtTableCtrl.dataStorage);
-                    ColumnSortFeature.appendHeaderCellData(cellDataToStore, $scope.columnSortComparator);
+                    ColumnSortFeature.appendHeaderCellData(cellDataToStore, $scope.columnSort);
 
                     mdtTableCtrl.dataStorage.addHeaderCellData(cellDataToStore);
                 });

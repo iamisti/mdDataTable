@@ -74,7 +74,7 @@
         function paginatorCallback(page, pageSize, options){
             console.log(options);
 
-            var filtersApplied = options.appliedFilters;
+            var filtersApplied = options.columnFilter;
             var offset = (page-1) * pageSize;
             var result = nutritionList;
 

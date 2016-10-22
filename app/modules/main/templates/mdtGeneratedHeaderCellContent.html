@@ -1,4 +1,4 @@
-<div class="p-r no-outline">
+<div class="p-r no-outline" ng-click="columnClickHandler()">
     <mdt-chips-column-filter
         ng-if="headerRowData.columnFilter.isActive && headerRowData.columnFilter.type === 'chips'"
         confirm-callback="columnFilterFeature.confirmFilterDialog"
@@ -21,18 +21,18 @@
         header-row-data="headerRowData">
     </mdt-checkbox-column-filter>
 
-    <div ng-if="sortableColumns">
+    <div ng-if="headerRowData.columnSort.isEnabled">
         <md-tooltip ng-show="headerRowData.columnDefinition">{{headerRowData.columnDefinition}}</md-tooltip>
 
-        <span ng-show="headerRowData.alignRule == 'right' && !headerRowData.columnFilter.isEnabled" ng-include src="'/main/templates/cells/generateSortingIcons.html'"></span>
+        <mdt-sorting-icons size="16" data="headerRowData" ng-show="headerRowData.alignRule == 'right' && !headerRowData.columnFilter.isEnabled"></mdt-sorting-icons>
 
-        <span ng-include src="'/main/templates/cells/generateCellValue.html'" ng-click="columnClickHandler()"></span>
+        <span ng-include src="'/main/templates/cells/generateCellValue.html'"></span>
 
-        <span ng-show="headerRowData.alignRule == 'left' && !headerRowData.columnFilter.isEnabled" ng-include src="'/main/templates/cells/generateSortingIcons.html'"></span>
+        <mdt-sorting-icons size="16" data="headerRowData" ng-show="headerRowData.alignRule == 'left' && !headerRowData.columnFilter.isEnabled"></mdt-sorting-icons>
     </div>
-    <div ng-if="!sortableColumns">
+    <div ng-if="!headerRowData.columnSort.isEnabled">
         <md-tooltip ng-show="headerRowData.columnDefinition">{{headerRowData.columnDefinition}}</md-tooltip>
 
-        <span ng-include src="'/main/templates/cells/generateCellValue.html'" ng-click="columnClickHandler()" class="no-outline"></span>
+        <span ng-include src="'/main/templates/cells/generateCellValue.html'" class="no-outline"></span>
     </div>
 </div>

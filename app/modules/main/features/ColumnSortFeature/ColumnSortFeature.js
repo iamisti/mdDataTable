@@ -5,77 +5,122 @@
 
         var service = this;
 
-
         /**
          * This is the first entry point when we initialize the feature.
          *
          * The method adds feature-related variable to the passed object.
          *
-         * @param $scope
          * @param cellDataToStore
          */
-        service.appendHeaderCellData = function(cellDataToStore, comparator) {
+        service.appendHeaderCellData = function(cellDataToStore, columnSortOptions) {
             cellDataToStore.columnSort = {};
 
-            cellDataToStore.columnSort.isSorted = false;
-            cellDataToStore.columnSort.direction = 0;
-            cellDataToStore.columnSort.comparator = comparator;
+            if(columnSortOptions){
+                cellDataToStore.columnSort.isEnabled = true;
+                cellDataToStore.columnSort.sort = false;
+                cellDataToStore.columnSort.comparator = columnSortOptions.comparator ? columnSortOptions.comparator : false;
+            }else{
+                cellDataToStore.columnSort.isEnabled = false;
+            }
         };
 
-        service.sortHeader = function(headerRowData, dataStorage, paginator, columnIndex){
+        /**
+         * Sets the sorting direction for the passed header
+         *
+         * @param headerRowData
+         * @param valueToSet
+         * @param dataStorage
+         */
+        service.setHeaderSort = function(headerRowData, valueToSet, dataStorage){
+            if(!valueToSet){
+                return;
+            }
+
+            headerRowData.columnSort.sort = (valueToSet.columnSort && valueToSet.columnSort.sort == 'asc') ? 'asc' : 'desc'; //TODO: enum for sorting values
+
+            //set other columns isSorted flag to false
+            resetColumnDirections(headerRowData, dataStorage);
+        };
+
+        /**
+         * Perform sorting for the passed column.
+         *
+         * @param headerRowData
+         * @param dataStorage
+         * @param paginator
+         * @param columnIndex
+         */
+        service.columnClickHandler = function(headerRowData, dataStorage, paginator, columnIndex){
+            // if feature is not set for the column
+            if(!headerRowData.columnSort.isEnabled){
+                return;
+            }
+
+            // if column filter feature is enabled, it must be disabled by clicking on the column, we handle ordering there
+            if(headerRowData.columnFilter.isEnabled){
+                return;
+            }
+
             //set other columns isSorted flag to false
             resetColumnDirections(headerRowData, dataStorage);
 
             //calculate next sorting direction
             setNextSortingDirection(headerRowData);
 
-            //todo: making it nicer
-            //adding the column index information to the header cell data
-            headerRowData.columnSort.columnIndex = columnIndex;
-
             // if ajax paginator is the current paginator
             if(paginator.getFirstPage){
                 paginator.getFirstPage();
             // or it's just a simple data paginator
             }else{
+                //todo: making it nicer
+                //adding the column index information to the header cell data
+                headerRowData.columnSort.columnIndex = columnIndex;
+
                 //sortSimpleDataByColumn(columnIndex, dataStorage);
                 sortByColumn(headerRowData, dataStorage);
             }
         };
 
+        /**
+         * Add the appropriate values to the paginator callback
+         * @param dataStorage
+         * @param callbackArguments
+         */
         service.appendSortedColumnToCallbackArgument = function(dataStorage, callbackArguments){
-            var sortedColumn;
+            var columnsSortInformation = [];
+            var isEnabled = false;
 
-            _.each(dataStorage.header, function(headerDataRow){
-                if(headerDataRow.columnSort.isSorted){
-                    sortedColumn = headerDataRow;
+            _.each(dataStorage.header, function(headerData){
+                var sortValue = headerData.columnSort.sort ? headerData.columnSort.sort : false;
+
+                columnsSortInformation.push({
+                    sort: sortValue
+                });
+
+                if(headerData.columnSort.isEnabled){
+                    isEnabled = true;
                 }
             });
 
-            if(sortedColumn){
-                callbackArguments.options.orderedColumn = {
-                    'index': sortedColumn.columnSort.columnIndex,
-                    'sort': sortedColumn.columnSort.direction ? 'asc' : 'desc'
-                };
+            if(isEnabled){
+                callbackArguments.options.columnSort = columnsSortInformation;
             }
         };
 
         function resetColumnDirections(headerRowData, dataStorage){
-            var lastDirectionValue = headerRowData.columnSort.direction;
+            var lastDirectionValue = headerRowData.columnSort.sort;
             _.each(dataStorage.header, function(headerData){
-                headerData.columnSort.isSorted = false;
-                headerData.columnSort.direction = 0;
+                headerData.columnSort.sort = false;
             });
 
-            headerRowData.columnSort.isSorted = true;
-            headerRowData.columnSort.direction = lastDirectionValue;
+            headerRowData.columnSort.sort = lastDirectionValue;
         }
 
         function setNextSortingDirection(headerRowData){
-            if(headerRowData.columnSort.direction == 0){
-                headerRowData.columnSort.direction = 1;
+            if(headerRowData.columnSort.sort === false){
+                headerRowData.columnSort.sort = 'asc';
             }else{
-                headerRowData.columnSort.direction *= -1;
+                headerRowData.columnSort.sort = (headerRowData.columnSort.sort === 'asc') ? 'desc' : 'asc';
             }
         }
 
@@ -107,7 +152,7 @@
 
             dataStorage.storage.sort(sortFunction);
 
-            if(headerRowData.columnSort.direction == -1){
+            if(headerRowData.columnSort.sort === 'desc'){
                 dataStorage.storage.reverse();
             }
         }
