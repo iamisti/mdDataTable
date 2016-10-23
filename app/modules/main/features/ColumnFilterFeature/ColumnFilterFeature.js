@@ -1,7 +1,7 @@
 (function(){
     'use strict';
 
-    function ColumnFilterFeature(ColumnSortFeature){
+    function ColumnFilterFeature(ColumnSortFeature, PaginatorTypeProvider){
 
         var service = this;
 
@@ -76,7 +76,7 @@
                 //applying changes to sort feature
                 ColumnSortFeature.setHeaderSort(headerData, params.sortingData, dataStorage);
 
-                if(paginator.getFirstPage){
+                if(paginator.paginatorType === PaginatorTypeProvider.AJAX){
                     paginator.getFirstPage();
                 }else{
                     // no support for non-ajax yet

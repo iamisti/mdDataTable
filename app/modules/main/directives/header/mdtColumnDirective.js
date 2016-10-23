@@ -17,8 +17,15 @@
      *    - 'left'
      *    - 'right'
      *
-     * @param {function()=} sortBy compareFunction callback for sorting the column data's. As every compare function,
-     *  should get two parameters and return with the comapred result (-1,1,0)
+     * @param {boolean=|object=} columnSort sort data and display a sorted state in the header. Clicking on a column
+     *      which is already sorted will reverse the sort order and rotate the sort icon.
+     *
+     *      When object is passed, then compare function can be passed for sorting the column data's. As every compare
+     *      function, it gets two parameters and return with the compared result (-1,1,0)
+     *
+     *  Assignable values:
+     *     - true or false
+     *     - { comparator: function(a,b)}
      *
      * @param {string=} columnDefinition displays a tooltip on hover.
      *
@@ -46,9 +53,8 @@
             replace: true,
             scope: {
                 alignRule: '@',
-                columnSort: '=?',
-                columnSortComparator: '=?',
                 columnDefinition: '@',
+                columnSort: '=?',
                 columnFilter: '=?'
             },
             require: ['^mdtTable'],

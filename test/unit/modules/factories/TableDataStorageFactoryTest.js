@@ -28,8 +28,6 @@ describe('TableDataStorageFactory', function(){
         expect(tableDataStorageService.getRowData).toBeDefined();
         expect(tableDataStorageService.getRowOptions).toBeDefined();
         expect(tableDataStorageService.setAllRowsSelected).toBeDefined();
-        expect(tableDataStorageService.reverseRows).toBeDefined();
-        expect(tableDataStorageService.sortByColumnIndex).toBeDefined();
         expect(tableDataStorageService.isAnyRowSelected).toBeDefined();
         expect(tableDataStorageService.getNumberOfSelectedRows).toBeDefined();
         expect(tableDataStorageService.deleteSelectedRows).toBeDefined();
@@ -232,52 +230,6 @@ describe('TableDataStorageFactory', function(){
                     className: 'whatever'
                 });
             });
-        });
-    });
-
-    describe('WHEN calling `reverseRows`', function(){
-        beforeEach(function(){
-            //given
-            tableDataStorageService = TableDataStorageFactory.getInstance();
-
-            tableDataStorageService.addRowData(rowId, rowData);
-            tableDataStorageService.addRowData(234, ['Something', 3, 6, 7]);
-            tableDataStorageService.addRowData(987, ['Else', 1, 34, 99]);
-        });
-
-        it('THEN it should reverse the rows data', function(){
-            //when
-            tableDataStorageService.reverseRows();
-
-            //then
-            expect(tableDataStorageService.getRowData(0)).toEqual(['Else', 1, 34, 99]);
-            expect(tableDataStorageService.getRowData(1)).toEqual(['Something', 3, 6, 7]);
-            expect(tableDataStorageService.getRowData(2)).toEqual(rowData);
-        });
-    });
-
-    describe('WHEN calling `sortByColumnIndex`', function(){
-        var rowData1 = [{value: 'Song'}, {value: 3}, {value: 6}, {value: 7}];
-        var rowData2 = [{value: 'Xert'}, {value: 3}, {value: 56}, {value: 2}];
-        var rowData3 = [{value: 'Else'}, {value: 1}, {value: 34}, {value: 99}];
-
-        beforeEach(function(){
-            //given
-            tableDataStorageService = TableDataStorageFactory.getInstance();
-
-            tableDataStorageService.addRowData(324, rowData1);
-            tableDataStorageService.addRowData(234, rowData2);
-            tableDataStorageService.addRowData(987, rowData3);
-        });
-
-        it('THEN it should sort the rows', function(){
-            //when
-            tableDataStorageService.sortByColumnIndex(0);
-
-            //then
-            expect(tableDataStorageService.getRowData(0)).toEqual(rowData3);
-            expect(tableDataStorageService.getRowData(1)).toEqual(rowData1);
-            expect(tableDataStorageService.getRowData(2)).toEqual(rowData2);
         });
     });
 

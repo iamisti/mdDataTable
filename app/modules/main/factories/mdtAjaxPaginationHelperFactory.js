@@ -1,9 +1,11 @@
 (function(){
     'use strict';
 
-    function mdtAjaxPaginationHelperFactory(ColumnFilterFeature, ColumnSortFeature, _){
+    function mdtAjaxPaginationHelperFactory(ColumnFilterFeature, ColumnSortFeature, PaginatorTypeProvider, _){
 
         function mdtAjaxPaginationHelper(params){
+            this.paginatorType = PaginatorTypeProvider.AJAX;
+
             this.dataStorage = params.dataStorage;
             this.rowOptions = params.mdtRowOptions;
             this.paginatorFunction = params.mdtRowPaginatorFunction;

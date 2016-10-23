@@ -32,11 +32,6 @@
      *        change and it'll show the number of selected rows and a delete icon on the right.
      *      - 'persistentActions' - (not implemented yet)
      *
-     * @param {boolean=} sortableColumns sort data and display a sorted state in the header. Clicking on a column which
-     *      is already sorted will reverse the sort order and rotate the sort icon.
-     *      (not implemented yet: Use `sortable-rows-default` attribute directive on a column which intended to be the
-     *      default sortable column)
-     *
      * @param {function(rows)=} deleteRowCallback callback function when deleting rows.
      *      At default an array of the deleted row's data will be passed as the argument.
      *      When `table-row-id` set for the deleted row then that value will be passed.
@@ -124,7 +119,6 @@
                 tableCard: '=',
                 selectableRows: '=',
                 alternateHeaders: '=',
-                //sortableColumns: '=',
                 deleteRowCallback: '&',
                 selectedRowCallback: '&',
                 saveRowCallback: '&',

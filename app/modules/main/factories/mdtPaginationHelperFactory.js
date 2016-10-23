@@ -1,9 +1,11 @@
 (function(){
     'use strict';
 
-    function mdtPaginationHelperFactory(_){
+    function mdtPaginationHelperFactory(PaginatorTypeProvider, _){
 
         function mdtPaginationHelper(dataStorage, paginationSetting){
+            this.paginatorType = PaginatorTypeProvider.ARRAY;
+
             this.dataStorage = dataStorage;
 
             if(paginationSetting &&

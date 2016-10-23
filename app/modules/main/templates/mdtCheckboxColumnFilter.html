@@ -1,12 +1,12 @@
 <div class="filter-dropdown">
     <div class="md-whiteframe-z2">
         <md-content class="md-body-1">
-            <div layout="row" layout-align="end center" class="b-b p-smd md-caption">
+            <div layout="row" layout-align="end center" class="b-b p-smd md-caption" ng-if="::headerRowData.columnSort.isEnabled">
                 <a href="#" ng-click="sortingCallback($event)">Sort A-Z <mdt-sorting-icons size="20" data="sortingData" class="p-l-sm"></mdt-sorting-icons></a>
             </div>
 
             <div layout="row" layout-align="start center" class="selectall_clearall p-l-md p-t-md p-b-sm">
-                <a href="#" ng-click="selectAll($event)">Select all</a> <span>-</span> <a href="#" ng-click="clearAll($event)">Clear</a>
+                <a href="#" ng-click="selectAll($event)" ng-class="{'disabled' : selectedItems.length === selectableItems.length}">Select all</a> <span>-</span> <a href="#" ng-class="{'disabled' : selectedItems.length === 0}" ng-click="clearAll($event)">Clear</a>
 
                 <div class="selected_items p-r-md" flex ng-if="selectedItems.length">{{selectedItems.length}} Selected</div>
             </div>

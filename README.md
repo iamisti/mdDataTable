@@ -41,7 +41,6 @@ http://www.google.com/design/spec/components/data-tables.html
  - virtual-repeat
  - delete-row-callback
  - selected-row-callback
- - sortable-columns
  - animate-sort-icon
  - ripple-effect
  - ! title-overflow-handler
@@ -93,7 +92,6 @@ http://www.google.com/design/spec/components/data-tables.html
 
 | Available        | Params                                         | Type          | Details       |
 | ---------------- | ---------------------------------------------- | ------------- | ------------- |
-|:white_check_mark:| sortable-columns                               | Boolean       | optional, if enabled, sort data and display a sorted state in the column header. If the user clicks on a column that is already sorted, reverse the sort order and rotate the sort icon. Use `sortable-rows-default` attribute directive on a column which intended to be the default sortable column |
 |:white_check_mark:| animate-sort-icon                              | Boolean       | optional, if enabled, sort icon will be animated on change |
 |:white_check_mark:| ripple-effect                                  | Boolean       | optional, if enabled, ripple effect will be applied on the column names when clicked |
 ![Table with an ascending sorted column](http://material-design.storage.googleapis.com/publish/material_v_4/material_ext_publish/0B3mOPoJlxiFhMW1haUJDRWJKLUk/components_datatables_interaction_sortedcolumn.png)
@@ -224,10 +222,12 @@ Html support is available for `mdt-row`, see more: [Custom cell content (`mdt-cu
 |:white_check_mark:| column-definition                              | String        | if provided, display a tooltip on hover. If sorting is enabled, display a light sort icon upon hover, which indicates that the column is sortable. |
 ![Column definition on hover](http://material-design.storage.googleapis.com/publish/material_v_4/material_ext_publish/0B3mOPoJlxiFhenh5SWhFdFlyajg/components_datatables_interaction_tooltip.png)
 
-| Available        | Params                                         | Type          | Details         |
-| -----------------| ---------------------------------------------- | ------------- | --------------- |
-|:x:               | sortable-rows-default                          | -             | When sortable-columns is applied to the table, it marks the column as the default sorting column |
-|:white_check_mark:| sort-by                                        | Function      | if provided, used as the iteratee during sort operations to transform the cell value to a value that can be ranked in order. |
+| Available        | Params                                         | ChildPArams    | Type           | Details         |
+| -----------------| ---------------------------------------------- | -------------- | -------------- | --------------- |
+|:x:               | sortable-rows-default                          | -              |                | When column-sort is applied to the table, it marks the column as the default sorting column |
+|:white_check_mark:| column-sort                                    |                | Boolean|Object | if provided, sort data and display a sorted state in the header. Clicking on a column which is already sorted will reverse the sort order and rotate the sort icon. |
+|:white_check_mark:| column-sort                                    | true|false     |                | in case of boolean, true value enables the feature, false disables it (default is disabled) |
+|:white_check_mark:| column-sort                                    | comparator     |                | in case of object, specifying a 'comparator' property which is a function for sorting the column data's. As every compare function, it gets two parameters and return with the compared result (-1,1,0) |
 
 | Available        | Params                                         | ChildPArams              | Type         | Details         |
 | ---------------- | ---------------------------------------------- | -------------------------|------------- | --------------- |

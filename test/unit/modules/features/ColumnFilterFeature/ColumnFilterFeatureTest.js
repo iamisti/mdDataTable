@@ -151,7 +151,7 @@ describe('ColumnFilterFeature', function(){
         var mockedEvent = { stopPropagation: angular.noop };
         var parentCtrl;
 
-        beforeEach(inject(function($rootScope, ColumnFilterFeature){
+        beforeEach(inject(function($rootScope, ColumnFilterFeature, PaginatorTypeProvider){
             scope = $rootScope.$new();
             scope.columnFilter = {
                 valuesProviderCallback: function(){}
@@ -173,6 +173,7 @@ describe('ColumnFilterFeature', function(){
 
             parentCtrl = {
                 mdtPaginationHelper: {
+                    paginatorType: PaginatorTypeProvider.AJAX,
                     getFirstPage: function(){}
                 }
             };
@@ -186,7 +187,7 @@ describe('ColumnFilterFeature', function(){
             };
 
             ColumnFilterFeature.appendHeaderCellData(scope, headerData, dataStorage, element);
-            ColumnFilterFeature.initGeneratedHeaderCellContent(scope, headerData, parentCtrl);
+            ColumnFilterFeature.initGeneratedHeaderCellContent(scope, headerData, parentCtrl.mdtPaginationHelper, dataStorage);
         }));
 
         it('THEN it should set column visibility must be set to false', inject(function(){
@@ -221,8 +222,9 @@ describe('ColumnFilterFeature', function(){
             expect(parentCtrl.mdtPaginationHelper.getFirstPage).toHaveBeenCalled();
         });
 
-        it('AND ajax feature is not used THEN it should not fetch the data', function(){
+        it('AND ajax feature is not used THEN it should not fetch the data', inject(function(PaginatorTypeProvider){
             //given
+            parentCtrl.mdtPaginationHelper.paginatorType = PaginatorTypeProvider.ARRAY;
             spyOn(parentCtrl.mdtPaginationHelper, 'getFirstPage');
 
             //when
@@ -230,7 +232,7 @@ describe('ColumnFilterFeature', function(){
 
             //then
             expect(parentCtrl.mdtPaginationHelper.getFirstPage).not.toHaveBeenCalled();
-        });
+        }));
     });
 
     describe('WHEN calling `generatedHeaderCellClickHandler`', function(){
@@ -308,7 +310,9 @@ describe('ColumnFilterFeature', function(){
 
         it('AND feature is used THEN it should apply the filters to the callback arguments', inject(function($rootScope, ColumnFilterFeature){
             //given
-            var callbackArguments = {};
+            var callbackArguments = {
+                options: {}
+            };
             var dataStorage = {
                 header: [
                     {
@@ -330,14 +334,16 @@ describe('ColumnFilterFeature', function(){
             ColumnFilterFeature.appendAppliedFiltersToCallbackArgument(dataStorage, callbackArguments);
 
             //then
-            expect(callbackArguments.filtersApplied).toEqual([
+            expect(callbackArguments.options.columnFilter).toEqual([
                 [ 'item1', 'item2' ], [ 'item3', 'item4' ]
             ]);
         }));
 
         it('AND feature is not used THEN it should not apply any filters to the callback arguments', inject(function($rootScope, ColumnFilterFeature){
             //given
-            var callbackArguments = {};
+            var callbackArguments = {
+                options: {}
+            };
             var dataStorage = {
                 header: [
                     {
@@ -352,7 +358,7 @@ describe('ColumnFilterFeature', function(){
             ColumnFilterFeature.appendAppliedFiltersToCallbackArgument(dataStorage, callbackArguments);
 
             //then
-            expect(callbackArguments.filtersApplied).not.toBeDefined();
+            expect(callbackArguments.options.columnFilter).not.toBeDefined();
         }));
 
     });

@@ -24,7 +24,8 @@ describe('CheckboxColumnFilterDirective', function(){
                 columnFilter: {
                     filtersApplied: [],
                     valuesProviderCallback: function(){ return $q.resolve();}
-                }
+                },
+                columnSort: {}
             };
         }));
 
@@ -64,7 +65,8 @@ describe('CheckboxColumnFilterDirective', function(){
                 columnFilter: {
                     filtersApplied: [],
                     valuesProviderCallback: function(){ return $q.resolve();}
-                }
+                },
+                columnSort: {}
             };
         }));
 
@@ -107,7 +109,8 @@ describe('CheckboxColumnFilterDirective', function(){
                 columnFilter: {
                     filtersApplied: [],
                     valuesProviderCallback: function(){ return $q.resolve(['one', 'two', 'three']);}
-                }
+                },
+                columnSort: {}
             };
         }));
 
@@ -147,7 +150,8 @@ describe('CheckboxColumnFilterDirective', function(){
                 columnFilter: {
                     filtersApplied: [],
                     valuesProviderCallback: function(){ return $q.resolve(['one', 'two', 'three']);}
-                }
+                },
+                columnSort: {}
             };
         }));
 
@@ -189,7 +193,8 @@ describe('CheckboxColumnFilterDirective', function(){
                 columnFilter: {
                     filtersApplied: [],
                     valuesProviderCallback: function(){ return $q.resolve(['one', 'two', 'three']);}
-                }
+                },
+                columnSort: {}
             };
 
             event = {
@@ -221,7 +226,8 @@ describe('CheckboxColumnFilterDirective', function(){
                 columnFilter: {
                     filtersApplied: [],
                     valuesProviderCallback: function(){ return $q.resolve(['one', 'two', 'three']);}
-                }
+                },
+                columnSort: {}
             };
 
             event = {

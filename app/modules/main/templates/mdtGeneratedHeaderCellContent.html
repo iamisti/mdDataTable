@@ -1,4 +1,4 @@
-<div class="p-r no-outline" ng-click="columnClickHandler()">
+<div class="p-r no-outline column-header-content" ng-class="{'clickable': headerRowData.columnSort.isEnabled}" ng-click="columnClickHandler()">
     <mdt-chips-column-filter
         ng-if="headerRowData.columnFilter.isActive && headerRowData.columnFilter.type === 'chips'"
         confirm-callback="columnFilterFeature.confirmFilterDialog"

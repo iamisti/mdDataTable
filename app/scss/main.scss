@@ -1,5 +1,6 @@
 $whiteColor: #ffffff;
 $primaryColorPalette: #0D47A1;
+$disabled: #9E9E9E;
 
 @mixin hoverSortIcons($size){
     ng-md-icon{
@@ -91,10 +92,6 @@ $primaryColorPalette: #0D47A1;
         /* prevent ink ripple bleeding */
         position: relative;
 
-        &.clickable{
-            cursor: pointer;
-        }
-
         /* no pointer cursor when disabled, could be not-allowed but i think that indication is to strong */
         &[disabled]{
             cursor: auto;
@@ -103,6 +100,14 @@ $primaryColorPalette: #0D47A1;
         /* remove the default blue outline in Chrome for consistent button-like behaviour */
         &:focus, *:focus{
             outline: none;
+        }
+
+        .column-header-content{
+            cursor: default;
+        }
+
+        .column-header-content.clickable{
+            cursor: pointer;
         }
 
         /* when hoverSortIcons on a non-sorted column*/
@@ -311,6 +316,10 @@ $primaryColorPalette: #0D47A1;
         .selected_items{
             text-align: right;
             color: darkgray;
+        }
+
+        .disabled{
+            color: $disabled;
         }
     }
 
