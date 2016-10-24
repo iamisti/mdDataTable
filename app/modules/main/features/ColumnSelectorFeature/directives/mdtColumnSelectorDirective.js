@@ -52,6 +52,10 @@
 
                 $scope.isAllSelected = function(){
                     var result = _.find($scope.headerRowsData, function(item){
+                        if(item.isExcluded){
+                            return false;
+                        }
+
                         return item.isVisible === false;
                     });
 
@@ -60,6 +64,10 @@
 
                 $scope.isNothingSelected = function(){
                     var result = _.find($scope.headerRowsData, function(item){
+                        if(item.isExcluded){
+                            return false;
+                        }
+
                         return item.isVisible === true;
                     });
 
