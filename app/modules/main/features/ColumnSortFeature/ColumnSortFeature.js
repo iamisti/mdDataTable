@@ -1,7 +1,7 @@
 (function(){
     'use strict';
 
-    function ColumnSortFeature() {
+    function ColumnSortFeature(ColumnSortDirectionProvider) {
 
         var service = this;
 
@@ -36,7 +36,7 @@
                 return;
             }
 
-            headerRowData.columnSort.sort = (valueToSet.columnSort && valueToSet.columnSort.sort == 'asc') ? 'asc' : 'desc'; //TODO: enum for sorting values
+            headerRowData.columnSort.sort = (valueToSet.columnSort && valueToSet.columnSort.sort === ColumnSortDirectionProvider.ASC) ? ColumnSortDirectionProvider.ASC : ColumnSortDirectionProvider.DESC;
 
             //set other columns isSorted flag to false
             resetColumnDirections(headerRowData, dataStorage);
@@ -118,9 +118,9 @@
 
         function setNextSortingDirection(headerRowData){
             if(headerRowData.columnSort.sort === false){
-                headerRowData.columnSort.sort = 'asc';
+                headerRowData.columnSort.sort = ColumnSortDirectionProvider.ASC;
             }else{
-                headerRowData.columnSort.sort = (headerRowData.columnSort.sort === 'asc') ? 'desc' : 'asc';
+                headerRowData.columnSort.sort = (headerRowData.columnSort.sort === ColumnSortDirectionProvider.ASC) ? ColumnSortDirectionProvider.DESC : ColumnSortDirectionProvider.ASC;
             }
         }
 
@@ -152,7 +152,7 @@
 
             dataStorage.storage.sort(sortFunction);
 
-            if(headerRowData.columnSort.sort === 'desc'){
+            if(headerRowData.columnSort.sort === ColumnSortDirectionProvider.DESC){
                 dataStorage.storage.reverse();
             }
         }

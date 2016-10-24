@@ -11,7 +11,6 @@
        [selectable-rows="{boolean}"]
        [virtual-repeat="{boolean}"]
        [alternate-headers="{String}"]
-       [sortable-columns="{boolean}"]
        [delete-row-callback="{function(rows)}"]
        [selected-row-callback="{function(rows)}"]
        [animate-sort-icon="{boolean}"]
@@ -46,10 +45,6 @@ when items are selected</p>
 change and it&#39;ll show the number of selected rows and a delete icon on the right.</li>
 <li>&#39;persistentActions&#39; - (not implemented yet)</li>
 </ul>
-</div></td></tr><tr><td>sortableColumns <div><em>(optional)</em></div></td><td><a href="" class="label type-hint type-hint-boolean">boolean</a></td><td><div class="mdttable-page"><p>sort data and display a sorted state in the header. Clicking on a column which
-is already sorted will reverse the sort order and rotate the sort icon.
-(not implemented yet: Use <code>sortable-rows-default</code> attribute directive on a column which intended to be the
-default sortable column)</p>
 </div></td></tr><tr><td>deleteRowCallback <div><em>(optional)</em></div></td><td><a href="" class="label type-hint type-hint-function">function(rows</a></td><td><div class="mdttable-page"><p>callback function when deleting rows.
 At default an array of the deleted row&#39;s data will be passed as the argument.
 When <code>table-row-id</code> set for the deleted row then that value will be passed.</p>

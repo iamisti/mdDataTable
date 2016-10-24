@@ -1,7 +1,7 @@
 (function() {
     'use strict';
 
-    function mdtCheckboxColumnFilterDirective(_, ColumnFilterFeature, ColumnSortFeature){
+    function mdtCheckboxColumnFilterDirective(_, ColumnFilterFeature, ColumnSortFeature, ColumnSortDirectionProvider){
         return{
             restrict: 'E',
             templateUrl: '/main/templates/mdtCheckboxColumnFilter.html',
@@ -73,9 +73,11 @@
                     event.preventDefault();
 
                     if($scope.sortingData.columnSort.sort == false){
-                        $scope.sortingData.columnSort.sort = 'asc';
+                        $scope.sortingData.columnSort.sort = ColumnSortDirectionProvider.ASC;
+                    }else if($scope.sortingData.columnSort.sort === ColumnSortDirectionProvider.ASC){
+                        $scope.sortingData.columnSort.sort = ColumnSortDirectionProvider.DESC;
                     }else{
-                        $scope.sortingData.columnSort.sort = $scope.sortingData.columnSort.sort == 'asc' ? 'desc' : 'asc';
+                        $scope.sortingData.columnSort.sort = false;
                     }
                 };
 
