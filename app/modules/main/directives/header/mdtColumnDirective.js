@@ -46,7 +46,7 @@
      *  </mdt-table>
      * </pre>
      */
-    function mdtColumnDirective($interpolate, ColumnFilterFeature, ColumnSortFeature){
+    function mdtColumnDirective($interpolate, ColumnFilterFeature, ColumnSortFeature, ColumnSelectorFeature){
         return {
             restrict: 'E',
             transclude: true,
@@ -55,7 +55,8 @@
                 alignRule: '@',
                 columnDefinition: '@',
                 columnSort: '=?',
-                columnFilter: '=?'
+                columnFilter: '=?',
+                excludeFromColumnSelector: '=?'
             },
             require: ['^mdtTable'],
             link: function ($scope, element, attrs, ctrl, transclude) {
@@ -72,6 +73,7 @@
 
                     ColumnFilterFeature.appendHeaderCellData($scope, cellDataToStore, mdtTableCtrl.dataStorage);
                     ColumnSortFeature.appendHeaderCellData(cellDataToStore, $scope.columnSort);
+                    ColumnSelectorFeature.appendHeaderCellData(cellDataToStore, mdtTableCtrl.columnSelectorFeature, $scope.excludeFromColumnSelector);
 
                     mdtTableCtrl.dataStorage.addHeaderCellData(cellDataToStore);
                 });

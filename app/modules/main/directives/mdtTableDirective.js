@@ -110,6 +110,7 @@
                                EditCellFeature,
                                SelectableRowsFeature,
                                PaginationFeature,
+                               ColumnSelectorFeature,
                                _){
         return {
             restrict: 'E',
@@ -142,10 +143,10 @@
                 };
 
                 _setDefaultTranslations();
-
                 _initTableStorage();
 
                 PaginationFeature.initFeature($scope, vm);
+                ColumnSelectorFeature.initFeature($scope, vm);
 
                 _processData();
 
@@ -214,6 +215,7 @@
                 _initSelectableRowsFeature();
 
                 PaginationFeature.startFeature(ctrl);
+                ColumnSelectorFeature.initFeatureHeaderValues($scope.dataStorage.header, ctrl.columnSelectorFeature);
 
                 function _injectContentIntoTemplate(){
                     transclude(function (clone) {

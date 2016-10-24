@@ -12,6 +12,13 @@
             link: function($scope){
                 $scope.isTableCardEnabled = false;
 
+                //TODO: move it to the feature file
+                $scope.handleColumnChooserButtonClick = function(){
+                    if($scope.columnSelectorFeature.isEnabled){
+                        $scope.columnSelectorFeature.isActive = !$scope.columnSelectorFeature.isActive
+                    }
+                };
+
                 if($scope.tableCard && $scope.tableCard.visible !== false){
                     $scope.isTableCardEnabled = true;
                 }

@@ -1,6 +1,7 @@
 $whiteColor: #ffffff;
 $primaryColorPalette: #0D47A1;
 $disabled: #9E9E9E;
+$grey: #757575;
 
 @mixin hoverSortIcons($size){
     ng-md-icon{
@@ -295,11 +296,11 @@ $disabled: #9E9E9E;
 }
 
 
-/* filter drop down */
-.filter-dropdown {
+/* filter drop down AND column selector */
+.filter-dropdown, .mdt-column-selector{
     position: absolute;
     z-index: 1;
-    width: 230px;
+    width: 250px;
     text-align: initial;
 
     a{
@@ -352,4 +353,21 @@ $disabled: #9E9E9E;
     }
 
     .filter__scroll {max-height: 200px; overflow-y: auto; border-bottom: solid 1px #DDDDDD;}
+}
+
+.mdt-column-selector{
+    right: 0px; /* <-- this is a fix for positioning an element with the 'right' value using jquery. To make it work right:0px should be set in css before */
+
+    .mdt-column-selector-title{
+        color: darken($whiteColor, 54%);
+    }
+
+    .mdt-checbox-column-items span{
+        width: 180px;
+        display:block;
+        white-space: nowrap;
+        overflow: hidden;
+        -ms-text-overflow: ellipsis;
+        text-overflow: ellipsis;
+    }
 }

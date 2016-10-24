@@ -1,0 +1,30 @@
+<!-- TODO: change classname -->
+<div class="mdt-column-selector">
+    <div class="md-whiteframe-z2">
+        <md-content class="md-body-1">
+            <div class="md-subhead p-t-md p-l-md mdt-column-selector-title" layout="row">
+                Columns
+            </div>
+            <div layout="row" layout-align="start center" class="selectall_clearall p-l-md p-t-md p-b-sm">
+                <a href="#" ng-click="selectAll($event)" ng-class="{'disabled' : isAllSelected()}">Select all</a> <span>-</span> <a href="#" ng-class="{'disabled' : isNothingSelected()}" ng-click="clearAll($event)">Clear</a>
+
+                <div class="selected_items p-r-md" flex ng-if="selectedItems.length">{{selectedItems.length}} Selected</div>
+            </div>
+
+            <div layout="column" class="p-b-n p-t-sm p-l-md p-r-md filter__scroll">
+                <md-checkbox class="md-primary mdt-checbox-column-items"
+                             ng-if="item.isExcluded == false"
+                             ng-repeat="item in headerRowsData"
+                             ng-checked="checked(item)"
+                             ng-click="toggle(item)">
+                    {{item.columnName}}
+                </md-checkbox>
+            </div>
+
+            <div class="p-b-sm p-t-sm p-l-sm" layout="row" layout-align="start center">
+                <md-button class="md-raised md-primary" ng-click="confirmCallback()">Ok</md-button>
+                <md-button class="md-raised" ng-click="cancelCallback()">Cancel</md-button>
+            </div>
+        </md-content>
+    </div>
+</div>

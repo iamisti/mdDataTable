@@ -1,6 +1,8 @@
 <div ng-app="developmentAreaApp" ng-controller="DevelopmentAreaController" layout-margin>
     <mdt-table
             paginated-rows="{isEnabled: true, rowsPerPageValues: [5,10,20,50]}"
+            table-card="{isEnabled: true, title: 'Anyad', columnSelector: true}"
+            alternate-headers="'contextual'"
             mdt-loading-indicator="{color: 'red'}"
             mdt-row-paginator="paginatorCallback(page, pageSize, options)"
             mdt-row-paginator-error-message="Error happened during loading nutritions."
@@ -19,6 +21,7 @@
 
         <mdt-header-row>
             <mdt-column align-rule="left"
+                        exclude-from-column-selector="true"
                         column-filter="{
                             'valuesProviderCallback': nutritionNameFilterCallback,
                             'valuesTransformerCallback': nutritionNameTransformer,

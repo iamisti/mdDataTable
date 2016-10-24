@@ -12,10 +12,10 @@
 
     <th class="column"
         ng-repeat="headerRowData in dataStorage.header track by $index"
+        ng-if="!headerRowData.columnSelectorFeature || headerRowData.columnSelectorFeature.isVisible"
+
         mdt-add-align-class="headerRowData.alignRule"
-
         ng-click="clickHandler($index, headerRowData)"
-
         md-ink-ripple="{{ rippleEffectCallback() }}">
 
         <mdt-generated-header-cell-content index="{{$index}}"></mdt-generated-header-cell-content>
