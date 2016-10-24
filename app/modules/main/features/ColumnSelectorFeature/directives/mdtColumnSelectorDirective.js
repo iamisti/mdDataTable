@@ -1,7 +1,7 @@
 (function() {
     'use strict';
 
-    function mdtColumnSelectorDirective(ColumnSelectorFeature){
+    function mdtColumnSelectorDirective(ColumnSelectorFeature, ColumnFilterFeature, PaginatorTypeProvider){
         return{
             restrict: 'E',
             templateUrl: '/main/templates/mdtColumnSelector.html',
@@ -79,12 +79,31 @@
                     return result ? false : true;
                 };
 
-                $scope.confirmCallback = function(){
+                $scope.confirmCallback = function(params){
+                    var paginator = params.paginator;
+                    var isAnyResetHappened = false;
+
                     _.each($scope.dataStorage.header, function(item, index){
                         item.columnSelectorFeature.isVisible = $scope.headerRowsData[index].isVisible;
+
+                        if(!item.columnSelectorFeature.isVisible){
+                            var result = ColumnFilterFeature.resetFiltersForColumn($scope.dataStorage, index);
+
+                            if(result){
+                                isAnyResetHappened = true;
+                            }
+                        }
                     });
 
                     $scope.columnSelectorFeature.isActive = false;
+
+                    if(isAnyResetHappened){
+                        if(paginator.paginatorType === PaginatorTypeProvider.AJAX){
+                            paginator.getFirstPage();
+                        }else{
+                            // no support for non-ajax yet
+                        }
+                    }
                 };
 
                 $scope.cancelCallback = function(){

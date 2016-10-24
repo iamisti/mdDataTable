@@ -121,6 +121,19 @@
             }
         };
 
+        service.resetFiltersForColumn = function(dataStorage, index){
+            if(dataStorage.header[index].columnFilter
+                && dataStorage.header[index].columnFilter.isEnabled
+                && dataStorage.header[index].columnFilter.filtersApplied.length){
+
+                dataStorage.header[index].columnFilter.filtersApplied = [];
+
+                return true;
+            }
+
+            return false;
+        };
+
         /**
          * Set the position of the column filter panel. It's required to attach it to the outer container 
          * of the component because otherwise some parts of the panel can became partially or fully hidden

@@ -72,7 +72,7 @@
             var rt = ($(window).width() - (elementPosition.left + elementToPosition.outerWidth()));
 
             var targetMetrics = {
-                top: elementPosition.top + 60,
+                top: elementPosition.top + 55,
                 right: rt
             };
 
