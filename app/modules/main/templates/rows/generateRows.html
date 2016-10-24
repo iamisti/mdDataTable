@@ -8,6 +8,7 @@
 
     <td class="column"
         ng-repeat="cellData in rowData.data track by $index"
+        ng-if="!dataStorage.header[$index].columnSelectorFeature || dataStorage.header[$index].columnSelectorFeature.isVisible"
         mdt-add-align-class="dataStorage.header[$index].alignRule"
         style="position:relative;"
         ng-include src="'/main/templates/cells/generateCell.html'">

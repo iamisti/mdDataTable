@@ -12,8 +12,10 @@
 <h2 id="usage">Usage</h2>
 <div class="usage">as element:<pre class="prettyprint linenums">&lt;mdt-column
        [align-rule="{string}"]
-       [sort-by="{function()}"]
-       [column-definition="{string}"]&gt;
+       [column-sort="{boolean=|object}"]
+       [column-filter="{object}"]
+       [column-definition="{string}"]
+       [exclude-from-column-selector="{boolean}"]&gt;
 &lt;/mdt-column&gt;</pre>
 <h4 id="usage_parameters">Parameters</h4><table class="variables-matrix table table-bordered table-striped"><thead><tr><th>Param</th><th>Type</th><th>Details</th></tr></thead><tbody><tr><td>alignRule <div><em>(optional)</em></div></td><td><a href="" class="label type-hint type-hint-string">string</a></td><td><div class="mdtcolumn-page"><p>align cell content. This settings will have affect on each data cells in the same
 column (e.g. every x.th cell in every row).</p>
@@ -22,9 +24,23 @@ column (e.g. every x.th cell in every row).</p>
 <li>&#39;left&#39;</li>
 <li>&#39;right&#39;</li>
 </ul>
-</div></td></tr><tr><td>sortBy <div><em>(optional)</em></div></td><td><a href="" class="label type-hint type-hint-function">function()</a></td><td><div class="mdtcolumn-page"><p>compareFunction callback for sorting the column data&#39;s. As every compare function,
-should get two parameters and return with the comapred result (-1,1,0)</p>
-</div></td></tr><tr><td>columnDefinition <div><em>(optional)</em></div></td><td><a href="" class="label type-hint type-hint-string">string</a></td><td><div class="mdtcolumn-page"><p>displays a tooltip on hover.</p>
+</div></td></tr><tr><td>columnSort <div><em>(optional)</em></div></td><td><a href="" class="label type-hint type-hint-boolean">boolean=</a><a href="" class="label type-hint type-hint-object">object</a></td><td><div class="mdtcolumn-page"><p>sort data and display a sorted state in the header. Clicking on a column
+ which is already sorted will reverse the sort order and rotate the sort icon.</p>
+<p> When object is passed, then compare function can be passed for sorting the column data&#39;s. As every compare
+ function, it gets two parameters and return with the compared result (-1,1,0)</p>
+<p>Assignable values:</p>
+<ul>
+<li>true or false</li>
+<li>{ comparator: function(a,b)}</li>
+</ul>
+</div></td></tr><tr><td>columnFilter <div><em>(optional)</em></div></td><td><a href="" class="label type-hint type-hint-object">object</a></td><td><div class="mdtcolumn-page"><p>if provided, user can activate column filter feature on the selected column</p>
+<p> Assignable properties:</p>
+<pre><code>- {Function=} valuesProviderCallback required, function which provides the values into the column filter. It must return with a promise which resolves an array of strings/objects
+- {Function=} valuesTransformerCallback optional, function which transforms the provided objects into strings to be able to show it visually in the column filter
+- {string=} placeholderText optional, placeholder which will show up as a default text (available only for `chips` and `dropdown` filter types
+- {string=} filterType defines the type of the filter you want to use. Available options are: `chips`, `checkbox`, `dropdown`. If you don&#39;t specify it, the default will be `chips`
+</code></pre></div></td></tr><tr><td>columnDefinition <div><em>(optional)</em></div></td><td><a href="" class="label type-hint type-hint-string">string</a></td><td><div class="mdtcolumn-page"><p>displays a tooltip on hover.</p>
+</div></td></tr><tr><td>excludeFromColumnSelector <div><em>(optional)</em></div></td><td><a href="" class="label type-hint type-hint-boolean">boolean</a></td><td><div class="mdtcolumn-page"><p>disables the column selection for the applied column for the column select feature.</p>
 </div></td></tr></tbody></table></div>
 <h2 id="example">Example</h2>
 <div class="example"><div class="mdtcolumn-page"><pre class="prettyprint linenums">

@@ -1,9 +1,11 @@
 (function(){
     'use strict';
 
-    function mdtAjaxPaginationHelperFactory(ColumnFilterFeature, _){
+    function mdtAjaxPaginationHelperFactory(ColumnFilterFeature, ColumnSortFeature, PaginatorTypeProvider, _){
 
         function mdtAjaxPaginationHelper(params){
+            this.paginatorType = PaginatorTypeProvider.AJAX;
+
             this.dataStorage = params.dataStorage;
             this.rowOptions = params.mdtRowOptions;
             this.paginatorFunction = params.mdtRowPaginatorFunction;
@@ -97,9 +99,10 @@
 
             var that = this;
 
-            var callbackArguments = {page: page, pageSize: this.rowsPerPage};
+            var callbackArguments = {page: page, pageSize: this.rowsPerPage, options: {}};
 
             ColumnFilterFeature.appendAppliedFiltersToCallbackArgument(this.dataStorage, callbackArguments);
+            ColumnSortFeature.appendSortedColumnToCallbackArgument(this.dataStorage, callbackArguments);
 
             return this.paginatorFunction(callbackArguments)
                 .then(function(data){

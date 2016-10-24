@@ -16,6 +16,7 @@
      *
      *      - `{boolean=}` `visible` - enable/disable table card explicitly
      *      - `{string}` `title` - the title of the card
+     *      - `{boolean=}` `columnSelector` - enables the column selection for the table (you can disable certain columns from the list selection, using `exclude-from-column-selector`, see the related docs)
      *      - `{array=}` `actionIcons` - (not implemented yet)
      *
      * @param {boolean=} selectableRows when set each row will have a checkbox
@@ -31,11 +32,6 @@
      *      - 'contextual' - when set table will have kind of dynamic header. E.g.: When selecting rows, the header will
      *        change and it'll show the number of selected rows and a delete icon on the right.
      *      - 'persistentActions' - (not implemented yet)
-     *
-     * @param {boolean=} sortableColumns sort data and display a sorted state in the header. Clicking on a column which
-     *      is already sorted will reverse the sort order and rotate the sort icon.
-     *      (not implemented yet: Use `sortable-rows-default` attribute directive on a column which intended to be the
-     *      default sortable column)
      *
      * @param {function(rows)=} deleteRowCallback callback function when deleting rows.
      *      At default an array of the deleted row's data will be passed as the argument.
@@ -112,9 +108,10 @@
      * </pre>
      */
     function mdtTableDirective(TableDataStorageFactory,
-                               EditRowFeature,
+                               EditCellFeature,
                                SelectableRowsFeature,
                                PaginationFeature,
+                               ColumnSelectorFeature,
                                _){
         return {
             restrict: 'E',
@@ -124,7 +121,6 @@
                 tableCard: '=',
                 selectableRows: '=',
                 alternateHeaders: '=',
-                sortableColumns: '=',
                 deleteRowCallback: '&',
                 selectedRowCallback: '&',
                 saveRowCallback: '&',
@@ -148,16 +144,16 @@
                 };
 
                 _setDefaultTranslations();
-
                 _initTableStorage();
 
                 PaginationFeature.initFeature($scope, vm);
+                ColumnSelectorFeature.initFeature($scope, vm);
 
                 _processData();
 
                 // initialization of the storage service
                 function _initTableStorage(){
-                    vm.dataStorage = TableDataStorageFactory.getInstance(vm.virtualRepeat);
+                    vm.dataStorage = TableDataStorageFactory.getInstance();
                 }
 
                 // set translations or fallback to a default value
@@ -216,10 +212,11 @@
 
                 _injectContentIntoTemplate();
 
-                _initEditRowFeature();
+                _initEditCellFeature();
                 _initSelectableRowsFeature();
 
                 PaginationFeature.startFeature(ctrl);
+                ColumnSelectorFeature.initFeatureHeaderValues($scope.dataStorage.header, ctrl.columnSelectorFeature);
 
                 function _injectContentIntoTemplate(){
                     transclude(function (clone) {
@@ -257,12 +254,12 @@
                     });
                 }
 
-                function _initEditRowFeature(){
+                function _initEditCellFeature(){
                     //TODO: make it possible to only register feature if there is at least
                     // one column which requires it.
                     // for that we need to change the place where we register edit-row.
                     // Remove mdt-row attributes --> do it in mdt-row attribute directive on mdtTable
-                    EditRowFeature.addRequiredFunctions($scope, ctrl);
+                    EditCellFeature.addRequiredFunctions($scope, ctrl);
                 }
 
                 function _initSelectableRowsFeature(){

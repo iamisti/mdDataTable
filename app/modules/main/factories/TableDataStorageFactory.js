@@ -3,14 +3,10 @@
 
     function TableDataStorageFactory($log, _){
 
-        function TableDataStorageService(isVirtualRepeatEnabled){
+        function TableDataStorageService(){
             this.storage = [];
             this.header = [];
             this.customCells = {};
-
-            this.sortByColumnLastIndex = null;
-            this.orderByAscending = true;
-            this.isVirtualRepeatEnabled = isVirtualRepeatEnabled;
         }
 
         TableDataStorageService.prototype.addHeaderCellData = function(ops){
@@ -68,43 +64,6 @@
                     rowData.optionList.selected = isSelected ? true : false;
                 }
             });
-        };
-
-        TableDataStorageService.prototype.reverseRows = function(){
-            this.storage.reverse();
-        };
-
-        TableDataStorageService.prototype.sortByColumn = function(columnIndex, iteratee){
-            if(this.sortByColumnLastIndex === columnIndex){
-                this.reverseRows();
-
-                this.orderByAscending = !this.orderByAscending;
-            }else{
-                this.sortByColumnIndex(columnIndex, iteratee);
-
-                this.sortByColumnLastIndex = columnIndex;
-                this.orderByAscending = true;
-            }
-
-            return this.orderByAscending ? -1 : 1;
-        };
-
-        TableDataStorageService.prototype.sortByColumnIndex = function(index, iteratee){
-
-            var sortFunction;
-            if (typeof iteratee === 'function') {
-                sortFunction = function(rowData) {
-                    return iteratee(rowData.data[index].value, rowData, index);
-                };
-            } else {
-                sortFunction = function (rowData) {
-                    return rowData.data[index].value;
-                };
-            }
-
-            var res = _.sortBy(this.storage, sortFunction);
-
-            this.storage = res;
         };
 
         TableDataStorageService.prototype.isAnyRowSelected = function(){
@@ -172,8 +131,8 @@
         };
 
         return {
-            getInstance: function(isVirtualRepeatEnabled){
-                return new TableDataStorageService(isVirtualRepeatEnabled);
+            getInstance: function(){
+                return new TableDataStorageService();
             }
         };
     }

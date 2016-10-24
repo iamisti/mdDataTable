@@ -1,7 +1,7 @@
 (function() {
     'use strict';
 
-    function mdtCheckboxColumnFilterDirective(_, ColumnFilterFeature){
+    function mdtCheckboxColumnFilterDirective(_, ColumnFilterFeature, ColumnSortFeature, ColumnSortDirectionProvider){
         return{
             restrict: 'E',
             templateUrl: '/main/templates/mdtCheckboxColumnFilter.html',
@@ -16,6 +16,13 @@
                 $scope.transformChip = transformChip;
                 $scope.selectableItems = [];
                 $scope.selectedItems = _.map($scope.headerRowData.columnFilter.filtersApplied, _.clone);
+
+                //TODO: simplify structure
+                $scope.sortingData = {
+                    columnSort: {
+                        sort: $scope.headerRowData.columnSort.sort
+                    }
+                };
 
                 //destroying scope doesn't remove element, since it belongs to the body directly
                 $scope.$on('$destroy', function(){
@@ -60,6 +67,18 @@
                     $event.preventDefault();
 
                     $scope.selectedItems = [];
+                };
+
+                $scope.sortingCallback = function(event){
+                    event.preventDefault();
+
+                    if($scope.sortingData.columnSort.sort == false){
+                        $scope.sortingData.columnSort.sort = ColumnSortDirectionProvider.ASC;
+                    }else if($scope.sortingData.columnSort.sort === ColumnSortDirectionProvider.ASC){
+                        $scope.sortingData.columnSort.sort = ColumnSortDirectionProvider.DESC;
+                    }else{
+                        $scope.sortingData.columnSort.sort = false;
+                    }
                 };
 
                 function transformChip(chip) {

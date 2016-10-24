@@ -1,7 +1,7 @@
 (function(){
     'use strict';
 
-    function ColumnFilterFeature(){
+    function ColumnFilterFeature(ColumnSortFeature, PaginatorTypeProvider){
 
         var service = this;
 
@@ -14,7 +14,7 @@
          * @param $scope
          * @param cellDataToStore
          */
-        service.appendHeaderCellData = function($scope, cellDataToStore, dataStorage, element){
+        service.appendHeaderCellData = function($scope, cellDataToStore, dataStorage){
             cellDataToStore.columnFilter = {};
 
             if($scope.columnFilter && $scope.columnFilter.valuesProviderCallback){
@@ -23,6 +23,7 @@
                 cellDataToStore.columnFilter.valuesProviderCallback = $scope.columnFilter.valuesProviderCallback;
                 cellDataToStore.columnFilter.valuesTransformerCallback = $scope.columnFilter.valuesTransformerCallback;
                 cellDataToStore.columnFilter.placeholderText = $scope.columnFilter.placeholderText;
+                cellDataToStore.columnFilter.type = $scope.columnFilter.filterType || 'chips';
                 cellDataToStore.columnFilter.type = $scope.columnFilter.filterType || 'chips';
                 cellDataToStore.columnFilter.isActive = false;
 
@@ -48,9 +49,9 @@
          *
          * @param $scope
          * @param headerData
-         * @param parentCtrl
+         * @param paginator
          */
-        service.initGeneratedHeaderCellContent = function($scope, headerData, parentCtrl){
+        service.initGeneratedHeaderCellContent = function($scope, headerData, paginator, dataStorage){
             if(!headerData.columnFilter.isEnabled){
                 return;
             }
@@ -72,8 +73,11 @@
 
                 headerData.columnFilter.filtersApplied = params.selectedItems;
 
-                if($scope.mdtRowPaginator){
-                    parentCtrl.mdtPaginationHelper.getFirstPage();
+                //applying changes to sort feature
+                ColumnSortFeature.setHeaderSort(headerData, params.sortingData, dataStorage);
+
+                if(paginator.paginatorType === PaginatorTypeProvider.AJAX){
+                    paginator.getFirstPage();
                 }else{
                     // no support for non-ajax yet
                 }
@@ -113,7 +117,7 @@
             });
 
             if(isEnabled){
-                callbackArguments.filtersApplied = columnFilters;
+                callbackArguments.options.columnFilter = columnFilters;
             }
         };
 

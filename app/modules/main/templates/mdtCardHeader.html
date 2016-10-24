@@ -8,4 +8,14 @@
         <ng-md-icon icon="more_vert" size="24"></ng-md-icon>
     </md-button>
 -->
+
+    <!-- columnSelectorFeature -->
+    <md-button class="md-icon-button md-primary mdt-column-chooser-button"
+               aria-label="Choose columns"
+               ng-if="::columnSelectorFeature.isEnabled"
+               ng-click="handleColumnChooserButtonClick()">
+        <ng-md-icon icon="settings" size="24"></ng-md-icon>
+    </md-button>
+
+    <mdt-column-selector ng-if="columnSelectorFeature.isEnabled && columnSelectorFeature.isActive"></mdt-column-selector>
 </div>
