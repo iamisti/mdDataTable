@@ -119,8 +119,10 @@
         function setNextSortingDirection(headerRowData){
             if(headerRowData.columnSort.sort === false){
                 headerRowData.columnSort.sort = ColumnSortDirectionProvider.ASC;
+            }else if(headerRowData.columnSort.sort === ColumnSortDirectionProvider.ASC){
+                headerRowData.columnSort.sort = ColumnSortDirectionProvider.DESC;
             }else{
-                headerRowData.columnSort.sort = (headerRowData.columnSort.sort === ColumnSortDirectionProvider.ASC) ? ColumnSortDirectionProvider.DESC : ColumnSortDirectionProvider.ASC;
+                headerRowData.columnSort.sort = false;
             }
         }
 
