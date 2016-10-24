@@ -58,9 +58,8 @@ http://www.google.com/design/spec/components/data-tables.html
 [Column attributes (`mdt-column`)](#column-attributes)
  - align-rule
  - column-definition
- - ! sortable-rows-default
- - sort-by
  - column-filter
+ - excludeFromColumnSelector
 
 [Row attributes (`mdt-row`)](#data-row-attributes)
  - table-row-id
@@ -110,6 +109,7 @@ http://www.google.com/design/spec/components/data-tables.html
 |:white_check_mark:|                                            | title                           | String        | The title of the table card |
 |:x:               |                                            | actionIcons                     | Boolean       | Card action icons (header and footer) |
 |:white_check_mark:|                                            | visible                         | Boolean       | The visibility of the table card |
+|:white_check_mark:|                                            | columnSelector                  | Boolean       | enables the column selection for the table (you can disable certain columns from the list selection, using `exclude-from-column-selector`, see the related docs) |
 ![Table card with header and footer](http://material-design.storage.googleapis.com/publish/material_v_4/material_ext_publish/0B3mOPoJlxiFhUTEwa21JUEtza0k/components_datatables_cards_tablecard.png)
 
 | Available        | Params                                     | ChildParams                     | Type          | Details|
@@ -236,6 +236,7 @@ Html support is available for `mdt-row`, see more: [Custom cell content (`mdt-cu
 |:white_check_mark:|                                                | valuesTransformerCallback| Function     | optional, function which transforms the provided objects into strings to be able to show it visually in the column filter.|
 |:white_check_mark:|                                                | placeholderText          | Text         | optional, placeholder which will show up as a default text (available only for `chips` and `dropdown` filter types |
 |:white_check_mark:|                                                | filterType               | Text         | optional, defines the type of the filter you want to use. Available options are: `chips`, `checkbox`, `dropdown`. If you don't specify it, the default will be `chips` |
+|:white_check_mark:| exclude-from-column-selector                   |                          | Boolean      | optional, excludes the column from the column selection feature |
 > When filters are applied to the columns, a third parameter will be applied to the `mdt-row-paginator` callback function.
 
 # Data-Row attributes 

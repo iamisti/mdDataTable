@@ -16,6 +16,7 @@
      *
      *      - `{boolean=}` `visible` - enable/disable table card explicitly
      *      - `{string}` `title` - the title of the card
+     *      - `{boolean=}` `columnSelector` - enables the column selection for the table (you can disable certain columns from the list selection, using `exclude-from-column-selector`, see the related docs)
      *      - `{array=}` `actionIcons` - (not implemented yet)
      *
      * @param {boolean=} selectableRows when set each row will have a checkbox

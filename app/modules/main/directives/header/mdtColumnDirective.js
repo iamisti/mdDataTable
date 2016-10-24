@@ -27,7 +27,17 @@
      *     - true or false
      *     - { comparator: function(a,b)}
      *
+     * @param {object=} columnFilter if provided, user can activate column filter feature on the selected column
+     *
+     *  Assignable properties:
+     *     - {Function=} valuesProviderCallback required, function which provides the values into the column filter. It must return with a promise which resolves an array of strings/objects
+     *     - {Function=} valuesTransformerCallback optional, function which transforms the provided objects into strings to be able to show it visually in the column filter
+     *     - {string=} placeholderText optional, placeholder which will show up as a default text (available only for `chips` and `dropdown` filter types
+     *     - {string=} filterType defines the type of the filter you want to use. Available options are: `chips`, `checkbox`, `dropdown`. If you don't specify it, the default will be `chips`
+     *
      * @param {string=} columnDefinition displays a tooltip on hover.
+     *
+     * @param {boolean=} excludeFromColumnSelector disables the column selection for the applied column for the column select feature.
      *
      * @example
      * <pre>

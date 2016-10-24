@@ -40,6 +40,9 @@
                 name: 'Table card',
                 codepen: 'bEBKgK'
             },{
+                name: 'Selectable Columns',
+                codepen: 'RGvvWL'
+            },{
                 name: 'Selectable rows',
                 codepen: 'bEBKRj'
             },{
@@ -115,7 +118,8 @@
         'exampleApp15',
         'exampleApp16',
         'exampleApp17',
-        'exampleApp18'
+        'exampleApp18',
+        'exampleApp19'
     ]);
 
     angular.module('demo').service('PageService', PageService);
