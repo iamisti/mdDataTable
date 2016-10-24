@@ -17,7 +17,7 @@
        [ripple-effect="{boolean}"]
        [paginated-rows="{boolean}"]
        [mdt-row="{object}"]
-       [mdt-row-paginator="{function(page, pageSize)}"]
+       [mdt-row-paginator="{function(page, pageSize, options)}"]
        [mdt-row-paginator-error-message="{string}"]
        [mdt-row-paginator-no-results-message="{string}"]
        [mdt-trigger-request="{function(loadPageCallback)}"]
@@ -70,9 +70,16 @@ benefit instead of using <code>mdt-row</code> element directive is that it makes
 configure which property assigned to which column in the table. The list should provided at the same order
 as it was specified inside <code>mdt-header-row</code> element directive.</li>
 </ul>
-</div></td></tr><tr><td>mdtRowPaginator <div><em>(optional)</em></div></td><td><a href="" class="label type-hint type-hint-function">function(page, pageSize</a></td><td><div class="mdttable-page"><p>providing the data for the table by a function. Should set a
+</div></td></tr><tr><td>mdtRowPaginator <div><em>(optional)</em></div></td><td><a href="" class="label type-hint type-hint-function">function(page, pageSize, options</a></td><td><div class="mdttable-page"><p>providing the data for the table by a function. Should set a
 function which returns a promise when it&#39;s called. When the function is called, these parameters will be
-passed: <code>page</code> and <code>pageSize</code> which can help implementing an ajax-based paging.</p>
+passed: <code>page</code> and <code>pageSize</code> which can help implementing an ajax-based paging, and <code>options</code> which is providing
+more information.</p>
+<p>Currently these are available from options:</p>
+<ul>
+<li><code>array</code> <code>columnFilter</code> - an array of the filtered column sets (todo: create a demo for it)</li>
+<li><code>array</code> <code>columnSort</code> - an array of the sorted column sets. You can inspect which column did you<pre><code>                   sorted and if its in asc or desc order (todo: create a demo for it)
+</code></pre></li>
+</ul>
 </div></td></tr><tr><td>mdtRowPaginatorErrorMessage <div><em>(optional)</em></div></td><td><a href="" class="label type-hint type-hint-string">string</a></td><td><div class="mdttable-page"><p>overrides default error message when promise gets rejected by the
 paginator function.</p>
 </div></td></tr><tr><td>mdtRowPaginatorNoResultsMessage <div><em>(optional)</em></div></td><td><a href="" class="label type-hint type-hint-string">string</a></td><td><div class="mdttable-page"><p>overrides default &#39;no results&#39; message.</p>

@@ -18,6 +18,11 @@
                     };
                 });
 
+                //destroying scope doesn't remove element, since it belongs to the body directly
+                $scope.$on('$destroy', function(){
+                    element.remove();
+                });
+
                 $scope.checked = function (item) {
                     return item.isVisible;
                 };
