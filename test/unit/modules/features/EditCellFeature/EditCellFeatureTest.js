@@ -1,4 +1,4 @@
-describe('EditRowFeature', function(){
+describe('EditCellFeature', function(){
 
     beforeEach(module('mdtTemplates'));
     beforeEach(module('mdDataTable'));
@@ -10,9 +10,9 @@ describe('EditRowFeature', function(){
             scope = $rootScope.$new();
         }));
 
-        it('AND feature is used THEN required functions should be added to the scope', inject(function($rootScope, EditRowFeature){
+        it('AND feature is used THEN required functions should be added to the scope', inject(function($rootScope, EditCellFeature){
             //given/when
-            EditRowFeature.addRequiredFunctions(scope);
+            EditCellFeature.addRequiredFunctions(scope);
 
             //then
             expect(scope.saveRow).toBeDefined();
@@ -45,9 +45,9 @@ describe('EditRowFeature', function(){
                 spyOn(scope, 'saveRowCallback');
             });
 
-            it('THEN it should save the result into the data storage', inject(function(EditRowFeature){
+            it('THEN it should save the result into the data storage', inject(function(EditCellFeature){
                 //given
-                EditRowFeature.addRequiredFunctions(scope, ctrl);
+                EditCellFeature.addRequiredFunctions(scope, ctrl);
 
                 //when
                 scope.saveRow(rowDataToSave);
@@ -56,9 +56,9 @@ describe('EditRowFeature', function(){
                 expect(ctrl.dataStorage.getSavedRowData).toHaveBeenCalledWith(rowDataToSave);
             }));
 
-            it('THEN it should publish the result by calling the callback', inject(function(EditRowFeature){
+            it('THEN it should publish the result by calling the callback', inject(function(EditCellFeature){
                 //given
-                EditRowFeature.addRequiredFunctions(scope, ctrl);
+                EditCellFeature.addRequiredFunctions(scope, ctrl);
 
                 //when
                 scope.saveRow(rowDataToSave);

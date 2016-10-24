@@ -107,7 +107,7 @@
      * </pre>
      */
     function mdtTableDirective(TableDataStorageFactory,
-                               EditRowFeature,
+                               EditCellFeature,
                                SelectableRowsFeature,
                                PaginationFeature,
                                _){
@@ -210,7 +210,7 @@
 
                 _injectContentIntoTemplate();
 
-                _initEditRowFeature();
+                _initEditCellFeature();
                 _initSelectableRowsFeature();
 
                 PaginationFeature.startFeature(ctrl);
@@ -251,12 +251,12 @@
                     });
                 }
 
-                function _initEditRowFeature(){
+                function _initEditCellFeature(){
                     //TODO: make it possible to only register feature if there is at least
                     // one column which requires it.
                     // for that we need to change the place where we register edit-row.
                     // Remove mdt-row attributes --> do it in mdt-row attribute directive on mdtTable
-                    EditRowFeature.addRequiredFunctions($scope, ctrl);
+                    EditCellFeature.addRequiredFunctions($scope, ctrl);
                 }
 
                 function _initSelectableRowsFeature(){

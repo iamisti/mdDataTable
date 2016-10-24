@@ -1,7 +1,7 @@
 (function(){
     'use strict';
 
-    function EditRowFeature($mdDialog){
+    function EditCellFeature($mdDialog){
 
         var service = this;
 
@@ -51,5 +51,5 @@
 
     angular
         .module('mdDataTable')
-        .service('EditRowFeature', EditRowFeature);
+        .service('EditCellFeature', EditCellFeature);
 }());
