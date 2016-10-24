@@ -27,6 +27,9 @@
                 name: 'Table card',
                 codepen: 'bEBKgK'
             },{
+                name: 'Selectable Columns',
+                codepen: 'RGvvWL'
+            },{
                 name: 'Selectable rows',
                 codepen: 'bEBKRj'
             },{
