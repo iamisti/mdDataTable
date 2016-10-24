@@ -62,9 +62,15 @@
      *        configure which property assigned to which column in the table. The list should provided at the same order
      *        as it was specified inside `mdt-header-row` element directive.
      *
-     * @param {function(page, pageSize)=} mdtRowPaginator providing the data for the table by a function. Should set a
+     * @param {function(page, pageSize, options)=} mdtRowPaginator providing the data for the table by a function. Should set a
      *      function which returns a promise when it's called. When the function is called, these parameters will be
-     *      passed: `page` and `pageSize` which can help implementing an ajax-based paging.
+     *      passed: `page` and `pageSize` which can help implementing an ajax-based paging, and `options` which is providing
+     *      more information.
+     *
+     *      Currently these are available from options:
+     *      - `array` `columnFilter` - an array of the filtered column sets (todo: create a demo for it)
+     *      - `array` `columnSort` - an array of the sorted column sets. You can inspect which column did you
+     *                               sorted and if its in asc or desc order (todo: create a demo for it)
      *
      * @param {string=} mdtRowPaginatorErrorMessage overrides default error message when promise gets rejected by the
      *      paginator function.

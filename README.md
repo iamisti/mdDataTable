@@ -169,7 +169,7 @@ Html support is available for `mdt-row`, see more: [Custom cell content (`mdt-cu
 
 | Available        | Params                              | Type          | Details       |
 | ---------------- |------------------------------------ | ------------- | ------------- |
-|:white_check_mark:| mdt-row-paginator                   | Function      | optional, makes possible to provide a callback function which returns a promise, providing the data for the table. Has two parameters: `page` and `pageSize` (an optional parameter is `filtersApplied` as a third parameter, when `column-filter` is used |
+|:white_check_mark:| mdt-row-paginator                   | Function      | optional, makes possible to provide a callback function which returns a promise, providing the data for the table. Has two parameters: `page` and `pageSize` (an optional parameter is `options` as a third parameter, which can have `columnFilter` property when `column-filter` is used or `columnSort` when you turn on column sorting feature |
 |:white_check_mark:| mdt-row-paginator-error-message     | String        | optional, overrides default error mesasge when promise gets rejected by the paginator function. |
 |:white_check_mark:| mdt-row-paginator-no-results-message| String        | optional, overrides default 'no results' message when there are no results in the table. |
 |:white_check_mark:| mdt-trigger-request                 | function(loadPageCallback) | optional, if `mdt-row-paginator` set, provides a callback function for manually triggering an ajax request. Can be useful when you want to populate the results in the table manually. (e.g.: having a search field in your page which then can trigger a new request in the table to show the results based on that filter.  |
@@ -178,7 +178,7 @@ Html support is available for `mdt-row`, see more: [Custom cell content (`mdt-cu
 ```html
 <mdt-table
     paginated-rows="{isEnabled: true, rowsPerPageValues: [5,10,20,100]}"
-    mdt-row-paginator="paginatorCallback(page, pageSize)"
+    mdt-row-paginator="paginatorCallback(page, pageSize, options)"
     mdt-row-paginator-error-message="Error happened during loading nutritions."
     mdt-row="{
         'table-row-id-key': 'fields.item_id',
