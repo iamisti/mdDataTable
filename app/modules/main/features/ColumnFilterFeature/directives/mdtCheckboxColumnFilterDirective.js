@@ -23,6 +23,7 @@
                         sort: $scope.headerRowData.columnSort.sort
                     }
                 };
+                $scope.sortingCallback = ColumnSortFeature.sortingCallback;
 
                 //destroying scope doesn't remove element, since it belongs to the body directly
                 $scope.$on('$destroy', function(){
@@ -67,18 +68,6 @@
                     $event.preventDefault();
 
                     $scope.selectedItems = [];
-                };
-
-                $scope.sortingCallback = function(event){
-                    event.preventDefault();
-
-                    if($scope.sortingData.columnSort.sort == false){
-                        $scope.sortingData.columnSort.sort = ColumnSortDirectionProvider.ASC;
-                    }else if($scope.sortingData.columnSort.sort === ColumnSortDirectionProvider.ASC){
-                        $scope.sortingData.columnSort.sort = ColumnSortDirectionProvider.DESC;
-                    }else{
-                        $scope.sortingData.columnSort.sort = false;
-                    }
                 };
 
                 function transformChip(chip) {

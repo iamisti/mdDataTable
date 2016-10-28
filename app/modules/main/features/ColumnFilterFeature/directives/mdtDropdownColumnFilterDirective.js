@@ -1,7 +1,7 @@
 (function() {
     'use strict';
 
-    function mdtDropdownColumnFilterDirective(ColumnFilterFeature){
+    function mdtDropdownColumnFilterDirective(ColumnFilterFeature, ColumnSortFeature){
         return{
             restrict: 'E',
             templateUrl: '/main/templates/mdtDropdownColumnFilter.html',
@@ -20,6 +20,14 @@
                 $scope.selectedItems = _.map($scope.headerRowData.columnFilter.filtersApplied, _.clone);
                 $scope.oneSelectedItem = $scope.selectedItems.length ? transformChip($scope.selectedItems[0]) : undefined;
                 $scope.placeholderText = $scope.headerRowData.columnFilter.placeholderText || 'Choose a value';
+
+                //TODO: simplify structure
+                $scope.sortingData = {
+                    columnSort: {
+                        sort: $scope.headerRowData.columnSort.sort
+                    }
+                };
+                $scope.sortingCallback = ColumnSortFeature.sortingCallback;
 
                 //destroying scope doesn't remove element, since it belongs to the body directly
                 $scope.$on('$destroy', function(){

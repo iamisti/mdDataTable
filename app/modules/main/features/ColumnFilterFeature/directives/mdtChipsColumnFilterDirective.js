@@ -1,7 +1,7 @@
 (function() {
     'use strict';
 
-    function mdtChipsColumnFilterDirective(_, $timeout, ColumnFilterFeature){
+    function mdtChipsColumnFilterDirective(_, $timeout, ColumnFilterFeature, ColumnSortFeature){
         return{
             restrict: 'E',
             templateUrl: '/main/templates/mdtChipsColumnFilter.html',
@@ -18,6 +18,14 @@
                 $scope.availableItems = [];
                 $scope.selectedItems = _.map($scope.headerRowData.columnFilter.filtersApplied, _.clone);
                 $scope.placeholderText = $scope.headerRowData.columnFilter.placeholderText || 'Filter column...';
+
+                //TODO: simplify structure
+                $scope.sortingData = {
+                    columnSort: {
+                        sort: $scope.headerRowData.columnSort.sort
+                    }
+                };
+                $scope.sortingCallback = ColumnSortFeature.sortingCallback;
 
                 //destroying scope doesn't remove element, since it belongs to the body directly
                 $scope.$on('$destroy', function(){

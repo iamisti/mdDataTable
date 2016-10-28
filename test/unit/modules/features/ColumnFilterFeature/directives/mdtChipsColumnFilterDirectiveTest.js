@@ -24,7 +24,8 @@ describe('ChipsColumnFilterDirective', function(){
                 columnFilter: {
                     filtersApplied: [],
                     valuesProviderCallback: function(){ return $q.resolve(); }
-                }
+                },
+                columnSort: {}
             };
         }));
 
@@ -62,7 +63,8 @@ describe('ChipsColumnFilterDirective', function(){
                 columnFilter: {
                     filtersApplied: [],
                     valuesProviderCallback: function(){ return $q.resolve();}
-                }
+                },
+                columnSort: {}
             };
         }));
 

@@ -1,7 +1,7 @@
 (function(){
     'use strict';
 
-    function SelectableRowsFeatureFactory(){
+    function SelectableRowsFeatureFactory($timeout){
 
         function SelectableRowsFeature(params){
             this.$scope = params.$scope;
@@ -14,7 +14,7 @@
             var that = this;
             // we need to push it to the event loop to make it happen last
             // (e.g.: all the elements can be selected before we call the callback)
-            setTimeout(function(){
+            $timeout(function(){
                 that.$scope.selectedRowCallback({
                     rows: that.ctrl.dataStorage.getSelectedRows()
                 });

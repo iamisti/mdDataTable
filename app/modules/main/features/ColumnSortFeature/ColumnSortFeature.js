@@ -107,6 +107,23 @@
             }
         };
 
+        /***
+         * Helper function for handling the sorting states in the column filter panels
+         * @param event
+         * @param sortingData
+         */
+        service.sortingCallback = function(event, sortingData){
+            event.preventDefault();
+
+            if(sortingData.columnSort.sort == false){
+                sortingData.columnSort.sort = ColumnSortDirectionProvider.ASC;
+            }else if(sortingData.columnSort.sort === ColumnSortDirectionProvider.ASC){
+                sortingData.columnSort.sort = ColumnSortDirectionProvider.DESC;
+            }else{
+                sortingData.columnSort.sort = false;
+            }
+        };
+
         function resetColumnDirections(headerRowData, dataStorage){
             var lastDirectionValue = headerRowData.columnSort.sort;
             _.each(dataStorage.header, function(headerData){

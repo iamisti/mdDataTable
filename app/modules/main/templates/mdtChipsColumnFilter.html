@@ -1,10 +1,10 @@
 <div class="filter-dropdown">
     <div class="md-whiteframe-z2">
         <md-content class="md-body-1">
-            <!-- TODO: Restore sorting in next sprint
-            <div layout="row" layout-align="end center" class="b-b p-md">-->
-                <!--<a href="#">Sort A-Z </a>-->
-            <!--</div>-->
+            <div layout="row" layout-align="end center" class="b-b p-smd md-caption" ng-if="::headerRowData.columnSort.isEnabled">
+                <a href="#" ng-click="sortingCallback($event, sortingData)">Sort A-Z <mdt-sorting-icons size="20" data="sortingData" class="p-l-sm"></mdt-sorting-icons></a>
+            </div>
+
             <div class="p-md filter__scroll">
                 <md-chips ng-model="selectedItems"
                           md-require-match="true">
@@ -33,7 +33,7 @@
             </div>
 
             <div class="p-b-sm p-t-sm p-l-sm" layout="row" layout-align="start center">
-                <md-button class="md-raised md-primary" ng-click="confirmCallback({selectedItems: selectedItems, event: $event})">Ok</md-button>
+                <md-button class="md-raised md-primary" ng-click="confirmCallback({selectedItems: selectedItems, sortingData: sortingData, event: $event})">Ok</md-button>
                 <md-button class="md-raised" ng-click="cancelCallback({event: $event})">Cancel</md-button>
             </div>
         </md-content>

@@ -24,7 +24,8 @@ describe('DropdownColumnFilterDirective', function(){
                 columnFilter: {
                     filtersApplied: [],
                     valuesProviderCallback: function(){ return $q.resolve();}
-                }
+                },
+                columnSort: {}
             };
         }));
 
@@ -78,7 +79,8 @@ describe('DropdownColumnFilterDirective', function(){
                 columnFilter: {
                     filtersApplied: [],
                     valuesProviderCallback: function(){ return $q.resolve();}
-                }
+                },
+                columnSort: {}
             };
         }));
 
@@ -121,7 +123,8 @@ describe('DropdownColumnFilterDirective', function(){
                 columnFilter: {
                     filtersApplied: [],
                     valuesProviderCallback: function(){ return $q.resolve(['one', 'two', 'three']);}
-                }
+                },
+                columnSort: {}
             };
         }));
 
