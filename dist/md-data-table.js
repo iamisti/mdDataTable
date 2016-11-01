@@ -1374,7 +1374,7 @@
                         });
 
                     }else{
-                        element.append(val);
+                        element[0].append(val);
                     }
 
                 }, false);
@@ -1655,7 +1655,7 @@
         };
 
         /**
-         * Set the position of the column filter panel. It's required to attach it to the outer container 
+         * Set the position of the column filter panel. It's required to attach it to the outer container
          * of the component because otherwise some parts of the panel can became partially or fully hidden
          * (e.g.: when table has only one row to show)
          */
@@ -1666,13 +1666,13 @@
                 top: elementPosition.top + 60,
                 left: elementPosition.left
             };
-            
+
             element.css('position', 'absolute');
             element.detach().appendTo('body');
 
             element.css({
-                top: targetMetrics.top + 'px', 
-                left: targetMetrics.left + 'px', 
+                top: targetMetrics.top + 'px',
+                left: targetMetrics.left + 'px',
                 position:'absolute'
             });
         }
