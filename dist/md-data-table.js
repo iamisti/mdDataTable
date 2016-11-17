@@ -96,9 +96,9 @@
                 $scope.getNumberOfSelectedRows = _.bind(ctrl.dataStorage.getNumberOfSelectedRows, ctrl.dataStorage);
 
                 function deleteSelectedRows(){
-                    var deletedRows = ctrl.dataStorage.deleteSelectedRows();
-
-                    $scope.deleteRowCallback({rows: deletedRows});
+                    if ($scope.deleteRowCallback({rows: deletedRows}) !== false) {
+                        var deletedRows = ctrl.dataStorage.deleteSelectedRows();
+                    }
                 }
             }
         };
