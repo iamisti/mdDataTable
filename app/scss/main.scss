@@ -3,6 +3,21 @@ $primaryColorPalette: #0D47A1;
 $disabled: #9E9E9E;
 $grey: #757575;
 
+@mixin rtl($prop, $ltr-value, $rtl-value) {
+  #{$prop}: $ltr-value;
+  [dir=rtl] & {
+    #{$prop}: $rtl-value;
+  }
+}
+
+@mixin rtl-prop($ltr-prop, $rtl-prop, $value, $reset-value) {
+  #{$ltr-prop}: $value;
+  [dir=rtl] & {
+    #{$ltr-prop}: $reset-value;
+    #{$rtl-prop}: $value;
+  }
+}
+
 @mixin hoverSortIcons($size){
     ng-md-icon{
         visibility: hidden;
@@ -135,11 +150,11 @@ $grey: #757575;
     /* 64dp card header height */
     .mdt-header{
         height: 64px;
-        padding-left: 24px;
-        padding-right: 14px;
+        @include rtl-prop(padding-left,padding-right,24px,14px);
+        @include rtl-prop(padding-right,padding-left,14px,24px);
 
         md-button{
-            margin-left: 24px;
+            @include rtl-prop(margin-left,margin-right,24px,0);
         }
 
         ng-md-icon{
@@ -188,7 +203,7 @@ $grey: #757575;
 
         /*the next cell should not have just 24px padding */
         & + td, & + th {
-            padding-left: 24px;
+            @include rtl-prop(padding-left,padding-right,24px,auto);
         }
     }
 
@@ -202,15 +217,15 @@ $grey: #757575;
     }
 
     td:first-child, th:first-child{
-        padding: 0 0 0 24px;
+        @include rtl(padding,0 0 0 24px,0 24px 0 0);
     }
 
     td:last-child, th:last-child{
-        padding-right: 24px;
+        @include rtl-prop(padding-right,padding-left,24px,auto);
     }
 
     .column{
-        padding-left: 56px;
+        @include rtl-prop(padding-left,padding-right,56px,auto);
     }
 
     .leftAlignedColumn{
@@ -255,7 +270,8 @@ $grey: #757575;
     /* TH Select outline color & caret */
     .filter-select {
         border: 1px solid transparent; padding: 11px 10px;
-        border-radius: 2px; cursor: pointer; margin-left: -10px;
+        border-radius: 2px; cursor: pointer;
+        @include rtl-prop(margin-left,margin-right,-10px,0);
     }
     .filter-select:hover {
         border-color: #dedede;
@@ -285,7 +301,7 @@ $grey: #757575;
     .loading-indicator{
         position:absolute;
         top:0;
-        left:0;
+        @include rtl-prop(left,right,0,auto);
 
         visibility: hidden;
     }
@@ -315,7 +331,7 @@ $grey: #757575;
         }
 
         .selected_items{
-            text-align: right;
+            @include rtl(text-align,right,left);
             color: darkgray;
         }
 
@@ -356,7 +372,7 @@ $grey: #757575;
 }
 
 .mdt-column-selector{
-    right: 0px; /* <-- this is a fix for positioning an element with the 'right' value using jquery. To make it work right:0px should be set in css before */
+    @include rtl-prop(right,left,0,auto); /* <-- this is a fix for positioning an element with the 'right' value using jquery. To make it work right:0px should be set in css before */
 
     .mdt-column-selector-title{
         color: darken($whiteColor, 54%);
