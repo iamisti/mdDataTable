@@ -16,6 +16,7 @@
      *  Assignable values:
      *    - 'left'
      *    - 'right'
+     *    - 'center'
      *
      * @param {boolean=|object=} columnSort sort data and display a sorted state in the header. Clicking on a column
      *      which is already sorted will reverse the sort order and rotate the sort icon.

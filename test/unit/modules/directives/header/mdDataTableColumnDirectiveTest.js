@@ -8,6 +8,7 @@ xdescribe('mdtColumnDirective', function(){
     var DIRECTIVE_DEFAULT_CASE = 'DIRECTIVE_DEFAULT_CASE';
     var DIRECTIVE_LEFT_ALIGNED = 'DIRECTIVE_LEFT_ALIGNED';
     var DIRECTIVE_RIGHT_ALIGNED = 'DIRECTIVE_RIGHT_ALIGNED';
+    var DIRECTIVE_CENTER_ALIGNED = 'DIRECTIVE_CENTER_ALIGNED';
     var DIRECTIVE_MULTI_COLUMN = 'DIRECTIVE_MULTI_COLUMN';
 
     beforeEach(module('mdtTemplates'));
@@ -33,6 +34,7 @@ xdescribe('mdtColumnDirective', function(){
             expect(elementScope.clickHandler).toBeDefined();
             expect(elementScope.isColumnLeftAligned).toBeDefined();
             expect(elementScope.isColumnRightAligned).toBeDefined();
+            expect(elementScope.isColumnCenterAligned).toBeDefined();
             expect(elementScope.isSortingEnabled).toBeDefined();
             expect(elementScope.columnAlignClass).toBeDefined();
         });
@@ -171,6 +173,10 @@ xdescribe('mdtColumnDirective', function(){
         it('THEN `isColumnRightAligned` should return false', function(){
             expect(elementScope.isColumnRightAligned()).toBe(false);
         });
+
+        it('THEN `isColumnCenterAligned` should return false', function(){
+            expect(elementScope.isColumnCenterAligned()).toBe(false);
+        });
     });
 
     describe('WHEN directive is right aligned', function(){
@@ -184,6 +190,28 @@ xdescribe('mdtColumnDirective', function(){
 
         it('THEN `isColumnRightAligned` should return true', function(){
             expect(elementScope.isColumnRightAligned()).toBe(true);
+        });
+
+        it('THEN `isColumnCenterAligned` should return false', function(){
+            expect(elementScope.isColumnCenterAligned()).toBe(false);
+        });
+    });
+
+    describe('WHEN directive is center aligned', function(){
+        beforeEach(function(){
+            compileDirective(DIRECTIVE_CENTER_ALIGNED);
+        });
+
+        it('THEN `isColumnLeftAligned` should return false', function(){
+            expect(elementScope.isColumnLeftAligned()).toBe(false);
+        });
+
+        it('THEN `isColumnRightAligned` should return false', function(){
+            expect(elementScope.isColumnRightAligned()).toBe(false);
+        });
+
+        it('THEN `isColumnCenterAligned` should return true', function(){
+            expect(elementScope.isColumnCenterAligned()).toBe(true);
         });
     });
 
@@ -205,6 +233,15 @@ xdescribe('mdtColumnDirective', function(){
                     '<mdt-table>' +
                     '   <mdt-header-row>' +
                     '       <mdt-column align-rule="right">A Column</mdt-column>' +
+                    '   </mdt-header-row>' +
+                    '</mdt-table>')($scope);
+                break;
+
+            case DIRECTIVE_CENTER_ALIGNED:
+                mainElement = $compile('' +
+                    '<mdt-table>' +
+                    '   <mdt-header-row>' +
+                    '       <mdt-column align-rule="center">A Column</mdt-column>' +
                     '   </mdt-header-row>' +
                     '</mdt-table>')($scope);
                 break;
