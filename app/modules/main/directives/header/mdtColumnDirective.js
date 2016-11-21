@@ -69,7 +69,7 @@
                 columnSort: '=?',
                 columnFilter: '=?',
                 excludeFromColumnSelector: '=?',
-                columnSelectorExcludeDefault: '=?'
+                hideColumnByDefault: '=?'
             },
             require: ['^mdtTable'],
             link: function ($scope, element, attrs, ctrl, transclude) {
@@ -86,7 +86,7 @@
 
                     ColumnFilterFeature.appendHeaderCellData($scope, cellDataToStore, mdtTableCtrl.dataStorage);
                     ColumnSortFeature.appendHeaderCellData(cellDataToStore, $scope.columnSort);
-                    ColumnSelectorFeature.appendHeaderCellData(cellDataToStore, mdtTableCtrl.columnSelectorFeature, $scope.excludeFromColumnSelector, $scope.columnSelectorExcludeDefault);
+                    ColumnSelectorFeature.appendHeaderCellData(cellDataToStore, mdtTableCtrl.columnSelectorFeature, $scope.excludeFromColumnSelector, $scope.hideColumnByDefault);
 
                     mdtTableCtrl.dataStorage.addHeaderCellData(cellDataToStore);
                 });
