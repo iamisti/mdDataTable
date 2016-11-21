@@ -12,7 +12,7 @@
          *
          * @param cellDataToStore
          */
-        service.appendHeaderCellData = function(cellDataToStore, columnSelectorFeature, isColumnExcludedFromColumnSelector) {
+        service.appendHeaderCellData = function(cellDataToStore, columnSelectorFeature, isColumnExcludedFromColumnSelector, isColumnUnselectedFromColumnSelector) {
             if(!columnSelectorFeature.isEnabled){
                 return;
             }
@@ -23,6 +23,12 @@
                 cellDataToStore.columnSelectorFeature.isExcluded = true;
             }else{
                 cellDataToStore.columnSelectorFeature.isExcluded = false;
+            }
+
+            if(isColumnUnselectedFromColumnSelector){
+                cellDataToStore.columnSelectorFeature.isUnchecked = true;
+            }else{
+                cellDataToStore.columnSelectorFeature.isUnchecked = false;
             }
         };
 
@@ -56,7 +62,7 @@
         service.initFeatureHeaderValues = function(headerRowsData, columnSelectorFeature){
             if(columnSelectorFeature && columnSelectorFeature.isEnabled){
                 _.each(headerRowsData, function(item){
-                    item.columnSelectorFeature.isVisible =true;
+                    item.columnSelectorFeature.isVisible = !item.columnSelectorFeature.isUnchecked;
                 });
             }
         };

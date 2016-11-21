@@ -11,10 +11,12 @@
 
                 $scope.headerRowsData = _.map($scope.dataStorage.header, function(item){
                     //excluded content should also be in, since we use the index of the array to apply the changes. Do not exclude them.
+
                     return {
                         columnName: item.columnName,
                         isVisible: item.columnSelectorFeature.isVisible,
-                        isExcluded: item.columnSelectorFeature.isExcluded
+                        isExcluded: item.columnSelectorFeature.isExcluded,
+                        isUnchecked: item.columnSelectorFeature.isUnchecked
                     };
                 });
 
@@ -24,11 +26,12 @@
                 });
 
                 $scope.checked = function (item) {
-                    return item.isVisible;
+                    return !item.isUnchecked;
                 };
 
                 $scope.toggle = function (item) {
                     item.isVisible = !item.isVisible;
+                    item.isUnchecked = !item.isUnchecked;
                 };
 
                 $scope.selectAll = function($event){
@@ -40,6 +43,7 @@
                         }
 
                         item.isVisible = true;
+                        item.isUnchecked = false;
                     });
                 };
 
@@ -52,6 +56,7 @@
                         }
 
                         item.isVisible = false;
+                        item.isUnchecked = true;
                     });
                 };
 
@@ -61,7 +66,7 @@
                             return false;
                         }
 
-                        return item.isVisible === false;
+                        return item.isVisible === false && item.isUnchecked === true;
                     });
 
                     return result ? false : true;
@@ -73,7 +78,7 @@
                             return false;
                         }
 
-                        return item.isVisible === true;
+                        return item.isVisible === true && item.isUnchecked === false;
                     });
 
                     return result ? false : true;
@@ -85,6 +90,7 @@
 
                     _.each($scope.dataStorage.header, function(item, index){
                         item.columnSelectorFeature.isVisible = $scope.headerRowsData[index].isVisible;
+                        item.columnSelectorFeature.isUnchecked = $scope.headerRowsData[index].isUnchecked;
 
                         if(!item.columnSelectorFeature.isVisible){
                             var result = ColumnFilterFeature.resetFiltersForColumn($scope.dataStorage, index);

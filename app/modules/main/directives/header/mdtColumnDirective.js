@@ -39,6 +39,8 @@
      *
      * @param {boolean=} excludeFromColumnSelector disables the column selection for the applied column for the column select feature.
      *
+     * @param {boolean=} columnSelectorExcludeDefault sets the target column as unselected for the column select feature.
+     *
      * @example
      * <pre>
      *  <mdt-table>
@@ -66,7 +68,8 @@
                 columnDefinition: '@',
                 columnSort: '=?',
                 columnFilter: '=?',
-                excludeFromColumnSelector: '=?'
+                excludeFromColumnSelector: '=?',
+                columnSelectorExcludeDefault: '=?'
             },
             require: ['^mdtTable'],
             link: function ($scope, element, attrs, ctrl, transclude) {
@@ -83,7 +86,7 @@
 
                     ColumnFilterFeature.appendHeaderCellData($scope, cellDataToStore, mdtTableCtrl.dataStorage);
                     ColumnSortFeature.appendHeaderCellData(cellDataToStore, $scope.columnSort);
-                    ColumnSelectorFeature.appendHeaderCellData(cellDataToStore, mdtTableCtrl.columnSelectorFeature, $scope.excludeFromColumnSelector);
+                    ColumnSelectorFeature.appendHeaderCellData(cellDataToStore, mdtTableCtrl.columnSelectorFeature, $scope.excludeFromColumnSelector, $scope.columnSelectorExcludeDefault);
 
                     mdtTableCtrl.dataStorage.addHeaderCellData(cellDataToStore);
                 });
