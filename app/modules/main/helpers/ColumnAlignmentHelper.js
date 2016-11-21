@@ -6,10 +6,14 @@
         service.getColumnAlignClass = getColumnAlignClass;
 
         function getColumnAlignClass(alignRule) {
-            if (alignRule === ColumnOptionProvider.ALIGN_RULE.ALIGN_RIGHT) {
-                return 'rightAlignedColumn';
-            } else {
-                return 'leftAlignedColumn';
+            switch (alignRule) {
+                case ColumnOptionProvider.ALIGN_RULE.ALIGN_RIGHT:
+                    return 'rightAlignedColumn';
+                case ColumnOptionProvider.ALIGN_RULE.ALIGN_CENTER:
+                    return 'centerAlignedColumn';
+                case ColumnOptionProvider.ALIGN_RULE.ALIGN_LEFT:
+                default:
+                    return 'leftAlignedColumn';
             }
         }
     }

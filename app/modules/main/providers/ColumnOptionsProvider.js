@@ -10,7 +10,8 @@
     var ColumnOptionProvider = {
         ALIGN_RULE : {
             ALIGN_LEFT: 'left',
-            ALIGN_RIGHT: 'right'
+            ALIGN_RIGHT: 'right',
+            ALIGN_CENTER: 'center'
         }
     };
 
