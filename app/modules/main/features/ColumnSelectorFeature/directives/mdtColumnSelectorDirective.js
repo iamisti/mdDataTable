@@ -15,8 +15,7 @@
                     return {
                         columnName: item.columnName,
                         isVisible: item.columnSelectorFeature.isVisible,
-                        isExcluded: item.columnSelectorFeature.isExcluded,
-                        isUnchecked: item.columnSelectorFeature.isUnchecked
+                        isExcluded: item.columnSelectorFeature.isExcluded
                     };
                 });
 
@@ -26,12 +25,11 @@
                 });
 
                 $scope.checked = function (item) {
-                    return !item.isUnchecked;
+                    return item.isVisible;
                 };
 
                 $scope.toggle = function (item) {
                     item.isVisible = !item.isVisible;
-                    item.isUnchecked = !item.isUnchecked;
                 };
 
                 $scope.selectAll = function($event){
@@ -43,7 +41,6 @@
                         }
 
                         item.isVisible = true;
-                        item.isUnchecked = false;
                     });
                 };
 
@@ -56,7 +53,6 @@
                         }
 
                         item.isVisible = false;
-                        item.isUnchecked = true;
                     });
                 };
 
@@ -66,7 +62,7 @@
                             return false;
                         }
 
-                        return item.isVisible === false && item.isUnchecked === true;
+                        return item.isVisible === false;
                     });
 
                     return result ? false : true;
@@ -78,7 +74,7 @@
                             return false;
                         }
 
-                        return item.isVisible === true && item.isUnchecked === false;
+                        return item.isVisible === true;
                     });
 
                     return result ? false : true;
@@ -90,7 +86,6 @@
 
                     _.each($scope.dataStorage.header, function(item, index){
                         item.columnSelectorFeature.isVisible = $scope.headerRowsData[index].isVisible;
-                        item.columnSelectorFeature.isUnchecked = $scope.headerRowsData[index].isUnchecked;
 
                         if(!item.columnSelectorFeature.isVisible){
                             var result = ColumnFilterFeature.resetFiltersForColumn($scope.dataStorage, index);
