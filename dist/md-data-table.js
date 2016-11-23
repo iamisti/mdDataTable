@@ -1172,6 +1172,8 @@
      *
      * @param {boolean=} excludeFromColumnSelector disables the column selection for the applied column for the column select feature.
      *
+     * @param {boolean=} hideColumnByDefault sets the target column as unselected for the column select feature.
+     *
      * @example
      * <pre>
      *  <mdt-table>
@@ -1200,7 +1202,8 @@
                 columnDefinition: '@',
                 columnSort: '=?',
                 columnFilter: '=?',
-                excludeFromColumnSelector: '=?'
+                excludeFromColumnSelector: '=?',
+                hideColumnByDefault: '=?'
             },
             require: ['^mdtTable'],
             link: function ($scope, element, attrs, ctrl, transclude) {
@@ -1217,7 +1220,7 @@
 
                     ColumnFilterFeature.appendHeaderCellData($scope, cellDataToStore, mdtTableCtrl.dataStorage);
                     ColumnSortFeature.appendHeaderCellData(cellDataToStore, $scope.columnSort);
-                    ColumnSelectorFeature.appendHeaderCellData(cellDataToStore, mdtTableCtrl.columnSelectorFeature, $scope.excludeFromColumnSelector);
+                    ColumnSelectorFeature.appendHeaderCellData(cellDataToStore, mdtTableCtrl.columnSelectorFeature, $scope.excludeFromColumnSelector, $scope.hideColumnByDefault);
 
                     mdtTableCtrl.dataStorage.addHeaderCellData(cellDataToStore);
                 });
@@ -1374,7 +1377,7 @@
                         });
 
                     }else{
-                        element[0].append(val);
+                        element.append(val);
                     }
 
                 }, false);
@@ -1655,7 +1658,7 @@
         };
 
         /**
-         * Set the position of the column filter panel. It's required to attach it to the outer container
+         * Set the position of the column filter panel. It's required to attach it to the outer container 
          * of the component because otherwise some parts of the panel can became partially or fully hidden
          * (e.g.: when table has only one row to show)
          */
@@ -1666,13 +1669,13 @@
                 top: elementPosition.top + 60,
                 left: elementPosition.left
             };
-
+            
             element.css('position', 'absolute');
             element.detach().appendTo('body');
 
             element.css({
-                top: targetMetrics.top + 'px',
-                left: targetMetrics.left + 'px',
+                top: targetMetrics.top + 'px', 
+                left: targetMetrics.left + 'px', 
                 position:'absolute'
             });
         }
@@ -1696,7 +1699,7 @@
          *
          * @param cellDataToStore
          */
-        service.appendHeaderCellData = function(cellDataToStore, columnSelectorFeature, isColumnExcludedFromColumnSelector) {
+        service.appendHeaderCellData = function(cellDataToStore, columnSelectorFeature, isColumnExcludedFromColumnSelector, hideColumnByDefault) {
             if(!columnSelectorFeature.isEnabled){
                 return;
             }
@@ -1707,6 +1710,12 @@
                 cellDataToStore.columnSelectorFeature.isExcluded = true;
             }else{
                 cellDataToStore.columnSelectorFeature.isExcluded = false;
+            }
+
+            if(hideColumnByDefault){
+                cellDataToStore.columnSelectorFeature.isHidden = true;
+            }else{
+                cellDataToStore.columnSelectorFeature.isHidden = false;
             }
         };
 
@@ -1740,7 +1749,7 @@
         service.initFeatureHeaderValues = function(headerRowsData, columnSelectorFeature){
             if(columnSelectorFeature && columnSelectorFeature.isEnabled){
                 _.each(headerRowsData, function(item){
-                    item.columnSelectorFeature.isVisible =true;
+                    item.columnSelectorFeature.isVisible = !item.columnSelectorFeature.isHidden;
                 });
             }
         };
@@ -2243,6 +2252,7 @@
 
                 $scope.headerRowsData = _.map($scope.dataStorage.header, function(item){
                     //excluded content should also be in, since we use the index of the array to apply the changes. Do not exclude them.
+
                     return {
                         columnName: item.columnName,
                         isVisible: item.columnSelectorFeature.isVisible,

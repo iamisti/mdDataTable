@@ -60,7 +60,8 @@ http://www.google.com/design/spec/components/data-tables.html
  - align-rule
  - column-definition
  - column-filter
- - excludeFromColumnSelector
+ - exclude-from-column-selector
+ - hide-column-by-default
 
 [Row attributes (`mdt-row`)](#data-row-attributes)
  - table-row-id
@@ -238,6 +239,8 @@ Html support is available for `mdt-row`, see more: [Custom cell content (`mdt-cu
 |:white_check_mark:|                                                | placeholderText          | Text         | optional, placeholder which will show up as a default text (available only for `chips` and `dropdown` filter types |
 |:white_check_mark:|                                                | filterType               | Text         | optional, defines the type of the filter you want to use. Available options are: `chips`, `checkbox`, `dropdown`. If you don't specify it, the default will be `chips` |
 |:white_check_mark:| exclude-from-column-selector                   |                          | Boolean      | optional, excludes the column from the column selection feature |
+|:white_check_mark:| hide-column-by-default                         |                          | Boolean      | optional, make column unselected by default in the column selection panel |
+
 > When filters are applied to the columns, a third parameter will be applied to the `mdt-row-paginator` callback function.
 
 # Data-Row attributes 

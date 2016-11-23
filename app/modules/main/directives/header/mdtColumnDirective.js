@@ -39,7 +39,7 @@
      *
      * @param {boolean=} excludeFromColumnSelector disables the column selection for the applied column for the column select feature.
      *
-     * @param {boolean=} columnSelectorExcludeDefault sets the target column as unselected for the column select feature.
+     * @param {boolean=} hideColumnByDefault sets the target column as unselected for the column select feature.
      *
      * @example
      * <pre>
