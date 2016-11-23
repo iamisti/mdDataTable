@@ -11,6 +11,7 @@
 
                 $scope.headerRowsData = _.map($scope.dataStorage.header, function(item){
                     //excluded content should also be in, since we use the index of the array to apply the changes. Do not exclude them.
+
                     return {
                         columnName: item.columnName,
                         isVisible: item.columnSelectorFeature.isVisible,
