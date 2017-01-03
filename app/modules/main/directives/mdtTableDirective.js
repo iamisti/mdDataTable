@@ -167,6 +167,7 @@
                     $scope.mdtTranslations = $scope.mdtTranslations || {};
 
                     $scope.mdtTranslations.rowsPerPage = $scope.mdtTranslations.rowsPerPage || 'Rows per page:';
+                    $scope.mdtTranslations.pageRowsOfTotalRowsSeparator = $scope.mdtTranslations.pageRowsOfTotalRowsSeparator || 'of';
 
                     $scope.mdtTranslations.largeEditDialog = $scope.mdtTranslations.largeEditDialog || {};
                     $scope.mdtTranslations.largeEditDialog.saveButtonLabel = $scope.mdtTranslations.largeEditDialog.saveButtonLabel || 'Save';
