@@ -11,10 +11,11 @@
         function getCheckOption(storageData){
              _.each(storageData, function(data){
                  if(data.optionList.selected === false){
-                    $('th md-checkbox').removeClass('md-checked');
+                     // find a way not to use css directly here
+                    //$('th md-checkbox').removeClass('md-checked');
                     return false;
                  }else{
-                    $('th md-checkbox').addClass('md-checked');
+                    //$('th md-checkbox').addClass('md-checked');
                  }
              });
         }
