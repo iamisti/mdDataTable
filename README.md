@@ -138,6 +138,7 @@ http://www.google.com/design/spec/components/data-tables.html
 |:white_check_mark:|                                    | column-keys                     | Array         | required, property names of the passed data array. Makes it possible to configure which property should go in which column. |
 |:white_check_mark:| mdt-translations                   |                                 | Object        | optional, makes it possible to provide a custom translated texts in the table. |
 |:white_check_mark:|                                    | rowsPerPage                     | String        | When you need to select the amount of rows visible on the page, this label appears next to the dropdown |
+|:white_check_mark:|                                    | pageRowsOfTotalRowsSeparator    | String        | This label appears in between of the current page row range and the total row count. The default value is 'of'. |
 |:white_check_mark:|                                    | largeEditDialog.saveButtonLabel | String        | When edit mode is on, in the modal you can click on a button which has the 'Save' label. |
 |:white_check_mark:|                                    | largeEditDialog.cancelButtonLabel| String       | When edit mode is on, in the modal you can click on a button which has the : 'Cancel' label. |
 |:white_check_mark:| mdt-loading-indicator              |                                 | Object        | optional, if set then loading indicator can be customised. |
