@@ -7,16 +7,24 @@
      */
     function CheckBoxMgmtProvider(){
         var service = this;
+
         service.getCheckOption = getCheckOption;
         function getCheckOption(storageData){
+          var foundFalse = false;
              _.each(storageData, function(data){
-                 if(data.optionList.selected === false){
+               if(foundFalse){
+                 return false;
+               }
+               _.each(data, function(subData){
+                 if(subData.optionList.selected === false){
                      // find a way not to use css directly here
-                    //$('th md-checkbox').removeClass('md-checked');
+                    $('th md-checkbox').removeClass('md-checked');
+                    foundFalse = true;
                     return false;
                  }else{
-                    //$('th md-checkbox').addClass('md-checked');
+                    $('th md-checkbox').addClass('md-checked');
                  }
+               })
              });
         }
     }

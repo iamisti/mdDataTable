@@ -145,6 +145,10 @@
             controller: function mdtTable($scope){
                 var vm = this;
 
+                //set init scope to true for those that
+                //are using locationchanges
+                $scope.initTable = true;
+
                 $scope.rippleEffectCallback = function(){
                     return $scope.rippleEffect ? $scope.rippleEffect : false;
                 };
