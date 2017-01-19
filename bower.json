@@ -2,7 +2,7 @@
   "name": "md-data-table",
   "version": "2.2.0",
   "homepage": "https://github.com/iamisti/mdDataTable",
-  "author":"Istvan Fodor <programtervezo@gmail.com>",
+  "author": "Istvan Fodor <programtervezo@gmail.com>",
   "main": [
     "dist/md-data-table.js",
     "dist/md-data-table-templates.js",
@@ -28,7 +28,7 @@
   ],
   "dependencies": {
     "jquery": "~2.1.4",
-    "lodash": "~3.10.1",
+    "lodash": "~4.17.4",
     "angular": "~1.5.8",
     "angular-sanitize": "~1.5.8",
     "angular-animate": "~1.5.8",
