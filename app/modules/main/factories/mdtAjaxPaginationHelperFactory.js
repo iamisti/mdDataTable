@@ -47,7 +47,7 @@
         mdtAjaxPaginationHelper.prototype.getEndRowIndex = function(){
             var lastItem = this.getStartRowIndex() + this.rowsPerPage - 1;
 
-            if(this.totalResultCount < lastItem){
+            if((this.totalResultCount - 1) < lastItem){
                 return this.totalResultCount - 1;
             }
 
