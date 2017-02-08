@@ -65,25 +65,19 @@
         mdtAjaxPaginationHelper.prototype.previousPage = function(){
             var that = this;
             if(this.hasPreviousPage()){
-                this.fetchPage(this.page-1).then(function(){
-                    that.page--;
-                });
+                this.fetchPage(this.page-1);
             }
         };
 
         mdtAjaxPaginationHelper.prototype.nextPage = function(){
             var that = this;
             if(this.hasNextPage()){
-                this.fetchPage(this.page+1).then(function(){
-                    that.page++;
-                });
+                this.fetchPage(this.page+1);
             }
         };
 
         mdtAjaxPaginationHelper.prototype.getFirstPage = function(){
-            this.page = 1;
-
-            this.fetchPage(this.page);
+            this.fetchPage(1);
         };
 
         mdtAjaxPaginationHelper.prototype.hasNextPage = function(){
@@ -95,6 +89,12 @@
         };
 
         mdtAjaxPaginationHelper.prototype.fetchPage = function(page){
+            if (page) {
+                this.page = page;
+            } else {
+                page = this.page;
+            }
+
             this.isLoading = true;
 
             var that = this;
