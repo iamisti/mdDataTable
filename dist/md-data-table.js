@@ -223,10 +223,11 @@
      *     </mdt-table>
      * </pre>
      */
-    mdtTableDirective.$inject = ['TableDataStorageFactory', 'EditCellFeature', 'SelectableRowsFeature', 'PaginationFeature', 'ColumnSelectorFeature', '_'];
+    mdtTableDirective.$inject = ['TableDataStorageFactory', 'EditCellFeature', 'SelectableRowsFeature', 'ClickableRowsFeature', 'PaginationFeature', 'ColumnSelectorFeature', '_'];
     function mdtTableDirective(TableDataStorageFactory,
                                EditCellFeature,
                                SelectableRowsFeature,
+                               ClickableRowsFeature,
                                PaginationFeature,
                                ColumnSelectorFeature,
                                _){
@@ -239,7 +240,7 @@
                 selectableRows: '=',
                 alternateHeaders: '=',
                 deleteRowCallback: '&',
-                selectedRowCallback: '&',
+                clickedRowCallback: '&',
                 saveRowCallback: '&',
                 animateSortIcon: '=',
                 rippleEffect: '=',
@@ -331,6 +332,7 @@
 
                 _initEditCellFeature();
                 _initSelectableRowsFeature();
+                _initClickableRowsFeature();
 
                 PaginationFeature.startFeature(ctrl);
                 ColumnSelectorFeature.initFeatureHeaderValues($scope.dataStorage.header, ctrl.columnSelectorFeature);
@@ -381,6 +383,12 @@
 
                 function _initSelectableRowsFeature(){
                     SelectableRowsFeature.getInstance({
+                        $scope: $scope,
+                        ctrl: ctrl
+                    });
+                }
+                function _initClickableRowsFeature(){
+                    ClickableRowsFeature.getInstance({
                         $scope: $scope,
                         ctrl: ctrl
                     });
@@ -620,9 +628,7 @@
         };
 
         mdtAjaxPaginationHelper.prototype.getFirstPage = function(){
-            this.page = 1;
-
-            this.fetchPage(this.page);
+            this.fetchPage(1);
         };
 
         mdtAjaxPaginationHelper.prototype.hasNextPage = function(){
@@ -832,6 +838,39 @@
         .module('mdDataTable')
         .service('mdtPaginationHelperFactory', mdtPaginationHelperFactory);
 }());
+(function () {
+    'use strict';
+
+    ClickableRowsFeatureFactory.$inject = ['$timeout'];
+    function ClickableRowsFeatureFactory($timeout) {
+
+        function ClickableRowsFeature(params) {
+            this.$scope = params.$scope;
+            this.ctrl = params.ctrl;
+
+            this.$scope.rowClickCallBackHandler = _.bind(this.rowClickCallBackHandler, this);
+        }
+
+        ClickableRowsFeature.prototype.rowClickCallBackHandler = function (event, row) {
+            var that = this;
+            // we need to push it to the event loop to make it happen last
+            // (e.g.: all the elements can be selected before we call the callback)
+            $timeout(function () {
+                that.$scope.clickedRowCallback({rowId: row.rowId});
+            }, 0);
+        };
+
+        return {
+            getInstance: function (params) {
+                return new ClickableRowsFeature(params);
+            }
+        };
+    }
+
+    angular
+        .module('mdDataTable')
+        .service('ClickableRowsFeature', ClickableRowsFeatureFactory);
+}());
 (function(){
     'use strict';
 
@@ -895,7 +934,7 @@
             this.$scope = params.$scope;
             this.ctrl = params.ctrl;
 
-            this.$scope.onCheckboxChange = _.bind(this.onCheckboxChange, this);
+            this.$scope.onRowClicked = _.bind(this.onCheckboxChange, this);
         }
 
         SelectableRowsFeature.prototype.onCheckboxChange = function(){

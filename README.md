@@ -42,6 +42,7 @@ http://www.google.com/design/spec/components/data-tables.html
  - virtual-repeat
  - delete-row-callback
  - selected-row-callback
+ - clicked-row-callback
  - animate-sort-icon
  - ripple-effect
  - ! title-overflow-handler
@@ -89,6 +90,7 @@ http://www.google.com/design/spec/components/data-tables.html
 |:white_check_mark:| virtual-repeat                                 | Boolean       | optional, when set, virtual scrolling will be applied to the table. You must set a fixed height to the `.md-virtual-repeat-container` class in order to make it work properly. Since virtual scrolling is working with fixed height. |
 |:white_check_mark:| delete-row-callback                            | Function      | optional, callback function when deleting rows. The callback will be called with the array of the deleted row ids. Don't forget to specify `table-row-id` for `mdt-row`. If you do, it will return the deleted rows data. |
 |:white_check_mark:| selected-row-callback                          | Function      | optional, callback function when selecting rows. The callback will be called with the array of the selected row ids. Don't forget to specify `table-row-id` for `mdt-row`. If you do, it will return the selected rows data. |
+|:white_check_mark:| clicked-row-callback                           | Function      | optional, callback function when clicked rows. The callback will be called when the row is clicked. Don't forget to specify `table-row-id` for `mdt-row`. |
 ![alt tag](http://material-design.storage.googleapis.com/publish/material_v_4/material_ext_publish/0B3mOPoJlxiFhcWNyQl9xYmRkQnc/components_datatables_interaction_selectedrow.png)
 
 | Available        | Params                                         | Type          | Details       |
