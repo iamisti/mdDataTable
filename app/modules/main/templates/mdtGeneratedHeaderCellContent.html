@@ -22,7 +22,7 @@
     </mdt-checkbox-column-filter>
 
     <div ng-if="headerRowData.columnSort.isEnabled">
-        <md-tooltip ng-show="headerRowData.columnDefinition">{{headerRowData.columnDefinition}}</md-tooltip>
+        <md-tooltip ng-if="headerRowData.columnDefinition">{{headerRowData.columnDefinition}}</md-tooltip>
 
         <mdt-sorting-icons size="16" data="headerRowData" ng-show="headerRowData.alignRule == 'right' && !headerRowData.columnFilter.isEnabled"></mdt-sorting-icons>
 
@@ -31,7 +31,7 @@
         <mdt-sorting-icons size="16" data="headerRowData" ng-show="headerRowData.alignRule == 'left' && !headerRowData.columnFilter.isEnabled"></mdt-sorting-icons>
     </div>
     <div ng-if="!headerRowData.columnSort.isEnabled">
-        <md-tooltip ng-show="headerRowData.columnDefinition">{{headerRowData.columnDefinition}}</md-tooltip>
+        <md-tooltip ng-if="headerRowData.columnDefinition">{{headerRowData.columnDefinition}}</md-tooltip>
 
         <span ng-include src="'/main/templates/cells/generateCellValue.html'" class="no-outline"></span>
     </div>
