@@ -6,15 +6,26 @@ describe('TableDataStorageFactory', function(){
         rowId = 324,
         $log;
 
-    beforeEach(module('mdtTemplates'));
-    beforeEach(module('mdDataTable'));
+    //beforeEach(module('mdtTemplates'));
+    //beforeEach(module('mdDataTable'));
 
-    beforeEach(inject(function($injector){
-        TableDataStorageFactory = $injector.get('TableDataStorageFactory');
-        $log = $injector.get('$log');
+    //beforeEach(inject(function($injector){
+    //    TableDataStorageFactory = $injector.get('TableDataStorageFactory');
+    //    $log = $injector.get('$log');
 
-        spyOn($log, 'error');
-    }));
+    //    spyOn($log, 'error');
+    //}));
+    beforeEach(function () {
+        module('mdtTemplates');
+        module('mdDataTable')
+        inject(function (_TableDataStorageFactory_) {
+            TableDataStorageFactory = _TableDataStorageFactory_;
+            $log = $injector.get('$log');
+
+            spyOn($log, 'error');
+        })
+    });
+   
 
     it('WHEN created it should has the required function', function(){
         expect(TableDataStorageFactory.getInstance).toBeDefined();

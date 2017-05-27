@@ -5,7 +5,6 @@ var dependencies = bowerFiles({ debug: false });
 module.exports = function() {
     return {
         basePath: '..',
-
         files: dependencies.concat([
              //required for html2js
             'app/modules/**/*.html',

@@ -24,7 +24,7 @@ gulp.task('default', function(next) {
 });
 
 gulp.task('build', function(next) {
-    runSequence('test', 'copy', 'templates', 'compass', 'create index.html', 'ngdocs', next);
+    runSequence('copy', 'templates', 'compass', 'create index.html', 'ngdocs', next);
 });
 
 gulp.task('ci', function(next) {
