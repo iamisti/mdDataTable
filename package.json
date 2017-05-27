@@ -39,23 +39,24 @@
     "karma-jasmine-jquery": "~0.1.1",
     "karma-ng-html2js-preprocessor": "~0.2.0",
     "karma-ng-scenario": "~0.1.0",
-    "karma-phantomjs-launcher": "~0.2.1",
+    "karma-phantomjs-launcher": "^1.0.4",
     "karma-traceur-preprocessor": "~0.4.0",
-    "lodash": "~3.10.1",
+    "lodash": "~4.17.4",
     "main-bower-files": "~2.11.0",
-    "phantomjs": "^2.1.7",
+    "phantomjs-prebuilt": "^2.1.14",
     "run-sequence": "~1.1.5",
     "traceur": "~0.0.95",
     "wallaby-ng-html2js-preprocessor": "^0.1.0"
   },
   "dependencies": {
-    "angular": "~1.5.8",
-    "angular-animate": "~1.5.8",
-    "angular-aria": "~1.5.8",
-    "angular-material": "1.1.1",
-    "angular-material-icons": "~v0.6.0",
-    "angular-sanitize": "~1.5.8",
+    "angular": "~1.6.4",
+    "angular-animate": "~1.6.4",
+    "angular-aria": "~1.6.4",
+    "angular-material": "1.1.4",
+    "angular-material-icons": "~0.7.1",
+    "angular-sanitize": "~1.6.4",
+    "angular-mocks": "~1.6.4",
     "jquery": "~2.1.4",
-    "lodash": "~3.10.1"
+    "lodash": "~4.17.4"
   }
 }
