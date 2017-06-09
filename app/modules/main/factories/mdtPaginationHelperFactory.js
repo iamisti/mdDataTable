@@ -3,8 +3,9 @@
 
     function mdtPaginationHelperFactory(PaginatorTypeProvider, _){
 
-        function mdtPaginationHelper(dataStorage, paginationSetting){
+        function mdtPaginationHelper(dataStorage, paginationSetting, rowOptions){
             this.paginatorType = PaginatorTypeProvider.ARRAY;
+            this.rowOptions = rowOptions;
 
             this.dataStorage = dataStorage;
 
@@ -51,6 +52,10 @@
             return this.dataStorage.storage.length;
         };
 
+        mdtPaginationHelper.prototype.trackBy = function(item, $index) {
+            return item[(this.rowOptions && this.rowOptions.trackKey)] || $index;
+        };
+
         mdtPaginationHelper.prototype.getRows = function(){
             this.calculateVisibleRows();
 
@@ -85,8 +90,8 @@
         };
 
         return {
-            getInstance: function(dataStorage, isEnabled){
-                return new mdtPaginationHelper(dataStorage, isEnabled);
+            getInstance: function(dataStorage, isEnabled, rowOptions){
+                return new mdtPaginationHelper(dataStorage, isEnabled, rowOptions);
             }
         };
     }
