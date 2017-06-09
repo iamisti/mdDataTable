@@ -53,7 +53,7 @@
         };
 
         mdtPaginationHelper.prototype.trackBy = function(item, $index) {
-            return item[(this.rowOptions && this.rowOptions.trackKey)] || $index;
+            return item.rowId || $index;
         };
 
         mdtPaginationHelper.prototype.getRows = function(){
