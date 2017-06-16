@@ -223,7 +223,7 @@
                 _initSelectableRowsFeature();
 
                 if ($scope.onInitTableCallback) {
-                    $scope.onInitTableCallback(ctrl);
+                    $scope.onInitTableCallback(ctrl, $scope);
                 }
 
                 PaginationFeature.startFeature(ctrl);
