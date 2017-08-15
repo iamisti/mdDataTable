@@ -5,6 +5,10 @@
                 <a href="#" ng-click="sortingCallback($event, sortingData)">Sort A-Z <mdt-sorting-icons size="20" data="sortingData" class="p-l-sm"></mdt-sorting-icons></a>
             </div>
 
+            <div layout="row" layout-align="start center" class="selectall_clearall p-l-md p-t-md p-b-sm">
+                <a href="#" ng-class="{'disabled' : isNothingSelected()}" ng-click="clearAll($event)">Clear</a>
+            </div>
+
             <div class="p-md">
                 <md-input-container class="md-block" flex-gt-sm>
                     <md-select ng-model="oneSelectedItem" placeholder="{{placeholderText}}" ng-change="selectedItem()">

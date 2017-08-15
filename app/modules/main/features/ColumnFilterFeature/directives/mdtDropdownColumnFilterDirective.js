@@ -41,6 +41,12 @@
                     }
                 });
 
+                $scope.clearAll = function($event){
+                    $event.preventDefault();
+
+                    $scope.selectedItems = [];
+                };
+
                 function transformChip(chip) {
                     if($scope.headerRowData.columnFilter.valuesTransformerCallback){
                         return $scope.headerRowData.columnFilter.valuesTransformerCallback(chip);
