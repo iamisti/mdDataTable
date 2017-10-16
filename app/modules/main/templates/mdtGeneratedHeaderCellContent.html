@@ -21,18 +21,18 @@
         header-row-data="headerRowData">
     </mdt-checkbox-column-filter>
 
-    <div ng-if="headerRowData.columnSort.isEnabled">
+    <div ng-if="headerRowData.columnSort.isEnabled" layout="row">
         <md-tooltip ng-show="headerRowData.columnDefinition">{{headerRowData.columnDefinition}}</md-tooltip>
 
         <mdt-sorting-icons size="16" data="headerRowData" ng-show="headerRowData.alignRule == 'right' && !headerRowData.columnFilter.isEnabled"></mdt-sorting-icons>
 
-        <span ng-include src="'/main/templates/cells/generateCellValue.html'"></span>
+        <div ng-include src="'/main/templates/cells/generateCellValue.html'"></div>
 
         <mdt-sorting-icons size="16" data="headerRowData" ng-show="headerRowData.alignRule == 'left' && !headerRowData.columnFilter.isEnabled"></mdt-sorting-icons>
     </div>
-    <div ng-if="!headerRowData.columnSort.isEnabled">
+    <div ng-if="!headerRowData.columnSort.isEnabled" layout="row">
         <md-tooltip ng-show="headerRowData.columnDefinition">{{headerRowData.columnDefinition}}</md-tooltip>
 
-        <span ng-include src="'/main/templates/cells/generateCellValue.html'" class="no-outline"></span>
+        <div ng-include src="'/main/templates/cells/generateCellValue.html'" class="no-outline"></div>
     </div>
 </div>

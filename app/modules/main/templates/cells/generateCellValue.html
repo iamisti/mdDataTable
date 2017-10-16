@@ -1,10 +1,10 @@
-<span ng-if="!headerRowData.columnFilter.isEnabled">
+<div ng-if="!headerRowData.columnFilter.isEnabled" class="header-text">
     {{headerRowData.columnName}}
-</span>
+</div>
 
-<span ng-if="headerRowData.columnFilter.isEnabled"
+<div ng-if="headerRowData.columnFilter.isEnabled"
       class="filter-select"
-      ng-class="{'is-active': headerRowData.columnFilter.filtersApplied.length}">
-     {{headerRowData.columnName}}
+      ng-class="{'is-active': headerRowData.columnFilter.filtersApplied.length}" layout="row">
+     <div class="header-text">{{headerRowData.columnName}}</div>
      <ng-md-icon icon="arrow_drop_down" size="24"></ng-md-icon>
-</span>
+</div>

@@ -1,6 +1,6 @@
 var _ = require('lodash'),
     environment = require('./helpers/environment.js'),
-    baseConfig  = require('./karma.conf.js');
+    baseConfig = require('./karma.conf.js');
 
 function mergeTopLevel(lhs, rhs) {
     if (_.isArray(lhs)) {
@@ -11,8 +11,9 @@ function mergeTopLevel(lhs, rhs) {
 var unitTestingConfig = _.merge(baseConfig(), {
     files: [
         //extra testing code
+	    'app/bower_components/angular/angular.js',
         'app/bower_components/angular-mocks/angular-mocks.js',
-
+	    'app/bower_components/lodash/dist/lodash.min.js',
         //unit tests
         'test/unit/**/*.js'
     ],
@@ -21,14 +22,14 @@ var unitTestingConfig = _.merge(baseConfig(), {
         'app/modules/**/*.js': ['coverage']
     },
 
-    reporters:  environment.getUnitReportersForCurrentRun(),
+    reporters: environment.getUnitReportersForCurrentRun(),
     coverageReporter: {
         reporters: environment.getCoverageReportersForCurrentRun(),
-        dir:    'coverage',
+        dir: 'coverage',
         subdir: '.'
     }
 }, mergeTopLevel);
 
-module.exports = function(config) {
+module.exports = function (config) {
     config.set(unitTestingConfig);
 };
