@@ -732,7 +732,7 @@
             return this.page > 1;
         };
 
-        mdtAjaxPaginationHelper.prototype.fetchPage = function(page){
+        mdtAjaxPaginationHelper.prototype.fetchPage = function(page, allowChangePage){
             this.isLoading = true;
 
             var that = this;
@@ -757,8 +757,10 @@
 
                     that.isLoadError = false;
                     that.isLoading = false;
-                    that.page = page;
 
+                    if (allowChangePage) {
+                        that.page = page;
+                    }
                 }, function(){
                     that.dataStorage.storage = [];
 
