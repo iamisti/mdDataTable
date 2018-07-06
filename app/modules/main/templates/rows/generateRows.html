@@ -1,5 +1,5 @@
 <tr class="tbodyTrRow"
-    ng-repeat="rowData in mdtPaginationHelper.getRows() track by $index"
+    ng-repeat="rowData in mdtPaginationHelper.getRows() track by mdtPaginationHelper.trackBy(rowData, $index)"
     ng-class="{'selectedRow': rowData.optionList.selected, '{{rowData.optionList.className}}': rowData.optionList.className }"
     ng-show="(isPaginationEnabled() === false || rowData.optionList.visible === true) && rowData.optionList.deleted === false">
 

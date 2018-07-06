@@ -58,6 +58,10 @@
             return this.totalResultCount;
         };
 
+        mdtAjaxPaginationHelper.prototype.trackBy = function(item, $index) {
+            return item.rowId || $index;
+        };   
+
         mdtAjaxPaginationHelper.prototype.getRows = function(){
             return this.dataStorage.storage;
         };

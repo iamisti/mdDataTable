@@ -127,6 +127,7 @@
                 tableCard: '=',
                 selectableRows: '=',
                 alternateHeaders: '=',
+                onInitTableCallback: '=',
                 deleteRowCallback: '&',
                 selectedRowCallback: '&',
                 saveRowCallback: '&',
@@ -220,6 +221,10 @@
 
                 _initEditCellFeature();
                 _initSelectableRowsFeature();
+
+                if ($scope.onInitTableCallback) {
+                    $scope.onInitTableCallback(ctrl, $scope);
+                }
 
                 PaginationFeature.startFeature(ctrl);
                 ColumnSelectorFeature.initFeatureHeaderValues($scope.dataStorage.header, ctrl.columnSelectorFeature);
