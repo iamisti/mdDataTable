@@ -757,6 +757,7 @@
 
                     that.isLoadError = false;
                     that.isLoading = false;
+                    that.page = page;
 
                 }, function(){
                     that.dataStorage.storage = [];
