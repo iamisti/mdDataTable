@@ -1,7 +1,8 @@
 <tr class="tbodyTrRow"
     ng-repeat="rowData in mdtPaginationHelper.getRows() track by $index"
     ng-class="{'selectedRow': rowData.optionList.selected, '{{rowData.optionList.className}}': rowData.optionList.className }"
-    ng-show="(isPaginationEnabled() === false || rowData.optionList.visible === true) && rowData.optionList.deleted === false">
+    ng-show="(isPaginationEnabled() === false || rowData.optionList.visible === true) && rowData.optionList.deleted === false"
+    ng-click="rowClickCallBackHandler($event, rowData)">
 
     <td class="checkboxCell" ng-show="selectableRows"
         ng-include="'/main/templates/cells/generateCheckboxCell.html'"></td>

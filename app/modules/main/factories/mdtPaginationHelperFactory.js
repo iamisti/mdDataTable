@@ -40,7 +40,7 @@
         mdtPaginationHelper.prototype.getEndRowIndex = function(){
             var lastItem = this.getStartRowIndex() + this.rowsPerPage-1;
 
-            if(this.dataStorage.storage.length < lastItem){
+            if((this.dataStorage.storage.length - 1) < lastItem){
                 return this.dataStorage.storage.length - 1;
             }
 

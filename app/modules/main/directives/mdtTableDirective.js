@@ -116,6 +116,7 @@
     function mdtTableDirective(TableDataStorageFactory,
                                EditCellFeature,
                                SelectableRowsFeature,
+                               ClickableRowsFeature,
                                PaginationFeature,
                                ColumnSelectorFeature,
                                _){
@@ -128,7 +129,7 @@
                 selectableRows: '=',
                 alternateHeaders: '=',
                 deleteRowCallback: '&',
-                selectedRowCallback: '&',
+                clickedRowCallback: '&',
                 saveRowCallback: '&',
                 animateSortIcon: '=',
                 rippleEffect: '=',
@@ -220,6 +221,7 @@
 
                 _initEditCellFeature();
                 _initSelectableRowsFeature();
+                _initClickableRowsFeature();
 
                 PaginationFeature.startFeature(ctrl);
                 ColumnSelectorFeature.initFeatureHeaderValues($scope.dataStorage.header, ctrl.columnSelectorFeature);
@@ -270,6 +272,12 @@
 
                 function _initSelectableRowsFeature(){
                     SelectableRowsFeature.getInstance({
+                        $scope: $scope,
+                        ctrl: ctrl
+                    });
+                }
+                function _initClickableRowsFeature(){
+                    ClickableRowsFeature.getInstance({
                         $scope: $scope,
                         ctrl: ctrl
                     });
